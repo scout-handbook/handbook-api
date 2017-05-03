@@ -55,6 +55,9 @@ function showUserAccount($skautis)
 	$idPerson = $skautis->UserManagement->UserDetail()->ID_Person;
 	$response['user_name'] = $skautis->OrganizationUnit->PersonDetail(array('ID' => $idPerson))->DisplayName;
 	$response['role'] = getRole($idPerson);
+	$response['user_avatar'] = base64_encode($skautis->OrganizationUnit->PersonPhoto(array(
+		'ID' => $idPerson,
+		'Size' => 'small'))->PhotoSmallContent);
 	return $response;
 }
 
