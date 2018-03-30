@@ -1,6 +1,6 @@
 build:
     dependencies:
-    override:
+        override:
         before:
             - composer install
     nodes:
