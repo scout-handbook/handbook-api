@@ -1247,6 +1247,17 @@ paths:
           required: false
           description: Which page (paged by `per-page` entries) should be returned
         - in: query
+          name: role
+          schema:
+            type: string
+            enum:
+                - user
+                - editor
+                - administrator
+                - superuser
+          required: false
+          description: If present, only users with such role will be returned
+        - in: query
           name: group
           schema:
             type: string
