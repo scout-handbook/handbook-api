@@ -17,7 +17,7 @@ $userEndpoint->addSubEndpoint('role', $userRoleEndpoint);
 $userEndpoint->addSubEndpoint('group', $userGroupEndpoint);
 
 
-function constructSelectSQL(Skautis\Skautis $skautis, bool $groupSelect) : string
+function constructSelectSQL(Skautis\Skautis $skautis, bool $roleSelect, bool $groupSelect) : string
 {
 	$role = HandbookAPI\getRole($skautis->UserManagement->LoginDetail()->ID_Person);
 
@@ -31,6 +31,7 @@ function constructSelectSQL(Skautis\Skautis $skautis, bool $groupSelect) : strin
 		$innerSQL .= ', \'administrator\', \'superuser\'';
 	}
 
+	$roleSQL = $roleSelect ? ' AND users.role = :role ': '';
 	$groupSQL = $groupSelect ? 'AND users_in_groups.group_id = :group_id ' : '';
 
 	$selectSQL = <<<SQL
@@ -42,7 +43,7 @@ SQL
 	. $innerSQL . <<<SQL
 )
 SQL
-	. $groupSQL . <<<SQL
+	. $roleSQL . $groupSQL . <<<SQL
 ORDER BY users.name
 LIMIT :start, :per_page;
 SQL;
@@ -51,7 +52,7 @@ SQL;
 
 $listUsers = function(Skautis\Skautis $skautis, array $data) : array
 {
-	$selectSQL = constructSelectSQL($skautis, isset($data['group']));
+	$selectSQL = constructSelectSQL($skautis, isset($data['role']), isset($data['group']));
 	$countSQL = <<<SQL
 SELECT FOUND_ROWS();
 SQL;
@@ -103,6 +104,16 @@ SQL;
 
 	$db->prepare($selectSQL);
 	$db->bindParam(':name', $searchName, PDO::PARAM_STR);
+	if(isset($data['role']))
+	{
+		if(!in_array($data['role'], ['user','editor', 'administrator', 'superuser']))
+		{
+			throw new HandbookAPI\NotFoundException('role');
+		}
+		$role = (new HandbookAPI\Role($data['role']))->__toString();
+		$db->bindParam(':role', $role, PDO::PARAM_STR);
+
+	}
 	if(isset($data['group']))
 	{
 		$db->bindParam(':group_id', $group_id, PDO::PARAM_STR);
