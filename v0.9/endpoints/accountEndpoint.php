@@ -18,10 +18,9 @@ $listAccount = function(Skautis\Skautis $skautis, array $data) : array
 	$getAccount = function(Skautis\Skautis $skautis) use ($data) : array
 	{
 		$SQL = <<<SQL
-SELECT users_in_groups.group_id
+SELECT group_id
 FROM users_in_groups
-LEFT JOIN users ON users_in_groups.user_id = users.id
-WHERE users.id = :id;
+WHERE id = :id;
 SQL;
 
 		$response = [];

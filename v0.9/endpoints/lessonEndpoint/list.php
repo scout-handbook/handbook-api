@@ -13,7 +13,7 @@ use Ramsey\Uuid\Uuid;
 function populateContainer(HandbookAPI\Database $db, HandbookAPI\LessonContainer $container, bool $overrideGroup = false) : void
 {
 	$competenceSQL = <<<SQL
-SELECT competences.id, competences.number
+SELECT DISTINCT competences.id, competences.number
 FROM competences
 JOIN competences_for_lessons ON competences.id = competences_for_lessons.competence_id
 WHERE competences_for_lessons.lesson_id = :lesson_id
@@ -69,13 +69,13 @@ SELECT id, name
 FROM fields;
 SQL;
 	$anonymousSQL = <<<SQL
-SELECT lessons.id, lessons.name, UNIX_TIMESTAMP(lessons.version)
+SELECT DISTINCT lessons.id, lessons.name, UNIX_TIMESTAMP(lessons.version)
 FROM lessons
 LEFT JOIN lessons_in_fields ON lessons.id = lessons_in_fields.lesson_id
 WHERE lessons_in_fields.field_id IS NULL;
 SQL;
 	$lessonSQL = <<<SQL
-SELECT lessons.id, lessons.name, UNIX_TIMESTAMP(lessons.version)
+SELECT DISTINCT lessons.id, lessons.name, UNIX_TIMESTAMP(lessons.version)
 FROM lessons
 JOIN lessons_in_fields ON lessons.id = lessons_in_fields.lesson_id
 WHERE lessons_in_fields.field_id = :field_id;
