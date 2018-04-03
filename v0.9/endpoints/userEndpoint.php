@@ -35,7 +35,7 @@ function constructSelectSQL(Skautis\Skautis $skautis, bool $roleSelect, bool $gr
 	$groupSQL = $groupSelect ? 'AND users_in_groups.group_id = :group_id ' : '';
 
 	$selectSQL = <<<SQL
-SELECT SQL_CALC_FOUND_ROWS users.id, users.name, users.role
+SELECT DISTINCT SQL_CALC_FOUND_ROWS users.id, users.name, users.role
 FROM users
 LEFT JOIN users_in_groups ON users.id = users_in_groups.user_id
 WHERE users.name LIKE CONCAT('%', :name, '%') AND users.role IN ('guest', 'user'
