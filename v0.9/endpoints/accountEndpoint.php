@@ -20,7 +20,7 @@ $listAccount = function(Skautis\Skautis $skautis, array $data) : array
 		$SQL = <<<SQL
 SELECT group_id
 FROM users_in_groups
-WHERE id = :id;
+WHERE user_id = :id;
 SQL;
 
 		$response = [];
