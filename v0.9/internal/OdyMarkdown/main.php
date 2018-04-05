@@ -1,3 +1,10 @@
+<?php declare(strict_types = 1);
+const _API_EXEC = 1;
+
+require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
+
+?>
+
 .oddHeaderRight
 {
 	color: #7F7F7F;
@@ -54,7 +61,7 @@
 
 .dottedpage
 {
-	background-image: url('https://odymaterialy.skauting.cz/API/v0.9/internal/OdyMarkdown/dottedlines.png');
+	background-image: url('<?php echo($CONFIG->apiuri); ?>/internal/OdyMarkdown/dottedlines.png');
 	background-repeat: no-repeat;
 	background-size: cover;
 	height: 1000px;

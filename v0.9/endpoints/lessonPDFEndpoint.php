@@ -91,7 +91,7 @@ SQL;
 	$mpdf->WriteHTML('', 2);
 	$mpdf->SetHTMLHeaderByName('OddHeader', 'O');
 
-	$mpdf->WriteHTML(file_get_contents($CONFIG->basepath . '/v0.9/internal/OdyMarkdown/main.css'), 1);
+	$mpdf->WriteHTML(file_get_contents($CONFIG->apiuri . '/internal/OdyMarkdown/main.php'), 1);
 	$mpdf->WriteHTML($html, 2);
 
 	header('content-type:application/pdf; charset=utf-8');
