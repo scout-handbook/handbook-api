@@ -112,7 +112,6 @@ SQL;
 		}
 		$role = (new HandbookAPI\Role($data['role']))->__toString();
 		$db->bindParam(':role', $role, PDO::PARAM_STR);
-
 	}
 	if(isset($data['group']))
 	{
