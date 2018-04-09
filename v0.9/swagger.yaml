@@ -867,6 +867,12 @@ paths:
       responses:
         '302':
           description: Redirect back to the desired page
+          headers:
+            set-cookie:
+              description: Setting the auth cookies
+              schema:
+                type: string
+                example: skautis_timeout=1234567890; skautis_token=1eb2adec-b262-491c-8f1b-0fc722dd7b2c; Path=/; Secure; HttpOnly
   /refresh:
     get:
       summary: Refresh the current session
@@ -964,6 +970,12 @@ paths:
                       - 401
                 required:
                   - status
+          headers:
+            www-authenticate:
+              description: Authentication method
+              schema:
+                type: string
+                example: SkautIS
         '404':
           $ref: '#/components/responses/404'
         '500':

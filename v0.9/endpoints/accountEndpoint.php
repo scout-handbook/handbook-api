@@ -59,7 +59,7 @@ SQL;
 	}
 	catch(HandbookAPI\AuthenticationException $e)
 	{
-		header('WWW-Authenticate: SkautIS');
+		header('www-authenticate: SkautIS');
 		return ['status' => 401];
 	}
 };
