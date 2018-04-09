@@ -29,6 +29,8 @@ tags:
     description: User groups
   - name: event
     description: SkautIS events
+  - name: mutex
+    description: Locking of resources for exclusive edits
 paths:
   /lesson:
     get:
@@ -1681,6 +1683,117 @@ paths:
           $ref: '#/components/responses/404'
         '415':
           $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+  /mutex/{id}:
+    post:
+      summary: Acquire a mutex
+      description: User role must be **editor** or higher! The mutex is acquired until SkautIS timeout or for 30 minutes. If mutex is held by current user, its timeout is extended.
+      tags:
+        - mutex
+      security:
+        - apiKey: []
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: The id of the resource
+        - in: cookie
+          name: skautis_timeout
+          schema:
+            type: integer
+            example: 1234567890
+          required: false
+          description: SkautIS login session timeout
+      responses:
+        '200':
+          description: Lock succesfully acquired.
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    enum:
+                      - 200
+                  response:
+                    type: object
+                    properties:
+                      timeout:
+                        type: integer
+                        example: 1234567890
+                    required:
+                      - timeout
+                required:
+                  - status
+                  - response
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '409':
+          description: Locked by someone else
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    enum:
+                      - 409
+                  response:
+                    type: object
+                    properties:
+                      holder:
+                        type: string
+                        example: Alice
+                    required:
+                      - holder
+                required:
+                  - status
+                  - response
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+    delete:
+      summary: Release a mutex
+      description: User role must be **editor** or higher!
+      tags:
+        - mutex
+      security:
+        - apiKey: []
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: The id of the resource
+      responses:
+        '200':
+          description: Lock succesfully released.
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    enum:
+                      - 200
+                required:
+                  - status
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
         '500':
           $ref: '#/components/responses/500'
 components:
