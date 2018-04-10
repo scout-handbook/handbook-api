@@ -157,7 +157,6 @@ CREATE TABLE IF NOT EXISTS `lessons_in_fields` (
   KEY `field_id` (`field_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
 
-
 --
 -- Table structure for table `lesson_history`
 --
@@ -167,6 +166,17 @@ CREATE TABLE IF NOT EXISTS `lesson_history` (
   `name` varchar(255) COLLATE utf8mb4_czech_ci NOT NULL,
   `version` timestamp(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `body` text COLLATE utf8mb4_czech_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
+
+--
+-- Table structure for table `mutexes`
+--
+
+CREATE TABLE IF NOT EXISTS `mutexes` (
+  `id` binary(16) NOT NULL,
+  `timeout` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `holder` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
 
 --
@@ -200,6 +210,7 @@ CREATE TABLE IF NOT EXISTS `users_in_groups` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
 
 --
+
 -- Indexes for table `lessons`
 --
 ALTER TABLE `lessons` ADD FULLTEXT KEY `body` (`body`);
