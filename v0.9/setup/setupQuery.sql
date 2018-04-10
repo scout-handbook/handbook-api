@@ -12,6 +12,11 @@ CREATE TABLE IF NOT EXISTS `competences` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
 
 --
+-- Truncate table before insert `competences`
+--
+
+TRUNCATE TABLE `competences`;
+--
 -- Dumping data for table `competences`
 --
 
@@ -71,6 +76,12 @@ CREATE TABLE IF NOT EXISTS `competences_for_lessons` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
 
 --
+-- Truncate table before insert `competences_for_lessons`
+--
+
+TRUNCATE TABLE `competences_for_lessons`;
+
+--
 -- Table structure for table `fields`
 --
 
@@ -81,6 +92,11 @@ CREATE TABLE IF NOT EXISTS `fields` (
   KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
 
+--
+-- Truncate table before insert `fields`
+--
+
+TRUNCATE TABLE `fields`;
 --
 -- Dumping data for table `fields`
 --
@@ -107,6 +123,11 @@ CREATE TABLE IF NOT EXISTS `groups` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
 
 --
+-- Truncate table before insert `groups`
+--
+
+TRUNCATE TABLE `groups`;
+--
 -- Dumping data for table `groups`
 --
 
@@ -125,6 +146,12 @@ CREATE TABLE IF NOT EXISTS `groups_for_lessons` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
 
 --
+-- Truncate table before insert `groups_for_lessons`
+--
+
+TRUNCATE TABLE `groups_for_lessons`;
+
+--
 -- Table structure for table `images`
 --
 
@@ -132,6 +159,12 @@ CREATE TABLE IF NOT EXISTS `images` (
   `id` binary(16) NOT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
+
+--
+-- Truncate table before insert `images`
+--
+
+TRUNCATE TABLE `images`;
 
 --
 -- Table structure for table `lessons`
@@ -147,6 +180,12 @@ CREATE TABLE IF NOT EXISTS `lessons` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
 
 --
+-- Truncate table before insert `lessons`
+--
+
+TRUNCATE TABLE `lessons`;
+
+--
 -- Table structure for table `lessons_in_fields`
 --
 
@@ -156,6 +195,12 @@ CREATE TABLE IF NOT EXISTS `lessons_in_fields` (
   UNIQUE KEY `lesson_id` (`lesson_id`) USING BTREE,
   KEY `field_id` (`field_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
+
+--
+-- Truncate table before insert `lessons_in_fields`
+--
+
+TRUNCATE TABLE `lessons_in_fields`;
 
 --
 -- Table structure for table `lesson_history`
@@ -169,6 +214,12 @@ CREATE TABLE IF NOT EXISTS `lesson_history` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
 
 --
+-- Truncate table before insert `lesson_history`
+--
+
+TRUNCATE TABLE `lesson_history`;
+
+--
 -- Table structure for table `mutexes`
 --
 
@@ -178,6 +229,12 @@ CREATE TABLE IF NOT EXISTS `mutexes` (
   `holder` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
+
+--
+-- Truncate table before insert `mutexes`
+--
+
+TRUNCATE TABLE `mutexes`;
 
 --
 -- Table structure for table `users`
@@ -191,6 +248,11 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `ID` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
 
+--
+-- Truncate table before insert `users`
+--
+
+TRUNCATE TABLE `users`;
 --
 -- Dumping data for table `users`
 --
@@ -210,7 +272,12 @@ CREATE TABLE IF NOT EXISTS `users_in_groups` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
 
 --
+-- Truncate table before insert `users_in_groups`
+--
 
+TRUNCATE TABLE `users_in_groups`;
+
+--
 -- Indexes for table `lessons`
 --
 ALTER TABLE `lessons` ADD FULLTEXT KEY `body` (`body`);
