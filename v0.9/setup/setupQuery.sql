@@ -95,11 +95,6 @@ CREATE TABLE IF NOT EXISTS `competences_for_lessons` (
 --
 
 TRUNCATE TABLE `competences_for_lessons`;
---
--- Dumping data for table `competences_for_lessons`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -175,11 +170,6 @@ CREATE TABLE IF NOT EXISTS `groups_for_lessons` (
 --
 
 TRUNCATE TABLE `groups_for_lessons`;
---
--- Dumping data for table `groups_for_lessons`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -196,11 +186,6 @@ CREATE TABLE IF NOT EXISTS `images` (
 --
 
 TRUNCATE TABLE `images`;
---
--- Dumping data for table `images`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -221,11 +206,6 @@ CREATE TABLE IF NOT EXISTS `lessons` (
 --
 
 TRUNCATE TABLE `lessons`;
---
--- Dumping data for table `lessons`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -244,11 +224,6 @@ CREATE TABLE IF NOT EXISTS `lessons_in_fields` (
 --
 
 TRUNCATE TABLE `lessons_in_fields`;
---
--- Dumping data for table `lessons_in_fields`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -267,11 +242,6 @@ CREATE TABLE IF NOT EXISTS `lesson_history` (
 --
 
 TRUNCATE TABLE `lesson_history`;
---
--- Dumping data for table `lesson_history`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -334,11 +304,6 @@ CREATE TABLE IF NOT EXISTS `users_in_groups` (
 --
 
 TRUNCATE TABLE `users_in_groups`;
---
--- Dumping data for table `users_in_groups`
---
-
-
 --
 -- Indexes for dumped tables
 --
