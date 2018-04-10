@@ -1,3 +1,16 @@
+SET FOREIGN_KEY_CHECKS=0;
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+
+-- --------------------------------------------------------
+
 --
 -- Table structure for table `competences`
 --
@@ -64,6 +77,8 @@ INSERT INTO `competences` (`id`, `number`, `name`, `description`) VALUES
 (0xf7e4bd88b9a54568b861734c1fde9888, 39, 'Využívá skautské informační zdroje.', 'Zná skautské weby a časopisy. Umí najít potřebné skautské předpisy a formuláře, informace o organizaci, oddílech, akcích, základnách apod. Umí pracovat se skautISem.'),
 (0xfb3c3b19045e4287af81729a44d3a476, 15, 'Umí pracovat s oficiální stezkou.', 'Rozumí jednotlivým principům stezky, umí ji začlenit do programů oddílu. Používá-li jeho oddíl vlastní stezku, umí pojmenovat její výhody a nedostatky.');
 
+-- --------------------------------------------------------
+
 --
 -- Table structure for table `competences_for_lessons`
 --
@@ -80,6 +95,12 @@ CREATE TABLE IF NOT EXISTS `competences_for_lessons` (
 --
 
 TRUNCATE TABLE `competences_for_lessons`;
+--
+-- Dumping data for table `competences_for_lessons`
+--
+
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `fields`
@@ -111,6 +132,8 @@ INSERT INTO `fields` (`id`, `name`) VALUES
 (0x834e889c03664959a6f674707a33c1ce, 'Skauting'),
 (0xdd8ac1b9b22241788715e826167cdfce, 'Pedagogika, psychologie a komunikace');
 
+-- --------------------------------------------------------
+
 --
 -- Table structure for table `groups`
 --
@@ -134,6 +157,8 @@ TRUNCATE TABLE `groups`;
 INSERT INTO `groups` (`id`, `name`) VALUES
 (0x00000000000000000000000000000000, 'Veřejné');
 
+-- --------------------------------------------------------
+
 --
 -- Table structure for table `groups_for_lessons`
 --
@@ -150,6 +175,12 @@ CREATE TABLE IF NOT EXISTS `groups_for_lessons` (
 --
 
 TRUNCATE TABLE `groups_for_lessons`;
+--
+-- Dumping data for table `groups_for_lessons`
+--
+
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `images`
@@ -165,6 +196,12 @@ CREATE TABLE IF NOT EXISTS `images` (
 --
 
 TRUNCATE TABLE `images`;
+--
+-- Dumping data for table `images`
+--
+
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `lessons`
@@ -184,6 +221,12 @@ CREATE TABLE IF NOT EXISTS `lessons` (
 --
 
 TRUNCATE TABLE `lessons`;
+--
+-- Dumping data for table `lessons`
+--
+
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `lessons_in_fields`
@@ -201,6 +244,12 @@ CREATE TABLE IF NOT EXISTS `lessons_in_fields` (
 --
 
 TRUNCATE TABLE `lessons_in_fields`;
+--
+-- Dumping data for table `lessons_in_fields`
+--
+
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `lesson_history`
@@ -218,6 +267,12 @@ CREATE TABLE IF NOT EXISTS `lesson_history` (
 --
 
 TRUNCATE TABLE `lesson_history`;
+--
+-- Dumping data for table `lesson_history`
+--
+
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `mutexes`
@@ -235,6 +290,7 @@ CREATE TABLE IF NOT EXISTS `mutexes` (
 --
 
 TRUNCATE TABLE `mutexes`;
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `users`
@@ -260,6 +316,8 @@ TRUNCATE TABLE `users`;
 INSERT INTO `users` (`id`, `name`, `role`) VALUES
 (125099, 'Dědič Marek (Mlha)', 'superuser');
 
+-- --------------------------------------------------------
+
 --
 -- Table structure for table `users_in_groups`
 --
@@ -276,6 +334,14 @@ CREATE TABLE IF NOT EXISTS `users_in_groups` (
 --
 
 TRUNCATE TABLE `users_in_groups`;
+--
+-- Dumping data for table `users_in_groups`
+--
+
+
+--
+-- Indexes for dumped tables
+--
 
 --
 -- Indexes for table `lessons`
@@ -318,3 +384,8 @@ ALTER TABLE `lessons_in_fields`
 ALTER TABLE `users_in_groups`
   ADD CONSTRAINT `users_in_groups_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `users_in_groups_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+SET FOREIGN_KEY_CHECKS=1;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
