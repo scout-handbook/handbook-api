@@ -28,7 +28,7 @@ chmod($CONFIG->imagepath . '/web/00000000-0000-0000-0000-000000000000.jpg', 0444
 chmod($CONFIG->imagepath . '/thumbnail/00000000-0000-0000-0000-000000000000.jpg', 0444);
 
 $file_content = file($CONFIG->basepath . '/v0.9/setup/setup.php');
-$file_content[7] = "die(); // Comment out this line by putting // at its beginning. Do not delete this line.\n";
+$file_content[6] = "die(); // Comment out this line by putting // at its beginning. Do not delete this line.\n";
 $file = fopen($CONFIG->basepath . '/v0.9/setup/setup.php', "w");
 fwrite($file, implode($file_content));
 fclose($file);
