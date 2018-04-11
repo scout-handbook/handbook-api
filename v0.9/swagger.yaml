@@ -1688,7 +1688,7 @@ paths:
   /mutex/{id}:
     post:
       summary: Acquire a mutex
-      description: User role must be **editor** or higher! The mutex is acquired until SkautIS timeout or for 30 minutes. If mutex is held by current user, its timeout is extended.
+      description: User role must be **editor** or higher! The mutex is acquired until SkautIS timeout or for 30 minutes. This operation may fail with response code 409 if somebody else has a valid (not timed-out) mutex for the same resource.
       tags:
         - mutex
       security:
@@ -1736,7 +1736,36 @@ paths:
         '403':
           $ref: '#/components/responses/403'
         '409':
-          description: Locked by someone else
+          $ref: '#/components/responses/409'
+        '415':
+          $ref: '#/components/responses/415'
+        '500':
+          $ref: '#/components/responses/500'
+    put:
+      summary: Extend a mutex
+      description: User role must be **editor** or higher! Extend a mutex until SkautIS timeout or for 30 minutes. This operation may fail with response code 409 if the mutex has timed-out **and** somebody else has acquired it since.
+      tags:
+        - mutex
+      security:
+        - apiKey: []
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: The id of the resource
+        - in: cookie
+          name: skautis_timeout
+          schema:
+            type: integer
+            example: 1234567890
+          required: false
+          description: SkautIS login session timeout
+      responses:
+        '200':
+          description: Lock succesfully extended.
           content:
             'application/json':
               schema:
@@ -1745,25 +1774,31 @@ paths:
                   status:
                     type: integer
                     enum:
-                      - 409
+                      - 200
                   response:
                     type: object
                     properties:
-                      holder:
-                        type: string
-                        example: Alice
+                      timeout:
+                        type: integer
+                        example: 1234567890
                     required:
-                      - holder
+                      - timeout
                 required:
                   - status
                   - response
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '409':
+          $ref: '#/components/responses/409'
         '415':
           $ref: '#/components/responses/415'
         '500':
           $ref: '#/components/responses/500'
     delete:
       summary: Release a mutex
-      description: User role must be **editor** or higher!
+      description: User role must be **editor** or higher! This operation may fail with response code 409 if the mutex has timed-out **and** somebody else has acquired it since.
       tags:
         - mutex
       security:
@@ -1794,6 +1829,8 @@ paths:
           $ref: '#/components/responses/403'
         '404':
           $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
         '500':
           $ref: '#/components/responses/500'
 components:
@@ -1891,6 +1928,28 @@ components:
               - status
               - type
               - message
+    409:
+      description: Locked by someone else
+      content:
+        'application/json':
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                enum:
+                  - 409
+              response:
+                type: object
+                properties:
+                  holder:
+                    type: string
+                    example: Alice
+                required:
+                  - holder
+            required:
+              - status
+              - response
     415:
       description: An argument with wrong type has been passed
       content:
