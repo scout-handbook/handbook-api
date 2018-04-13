@@ -1725,14 +1725,34 @@ paths:
         '403':
           $ref: '#/components/responses/403'
         '409':
-          $ref: '#/components/responses/409'
+          description: Locked by someone else
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    enum:
+                      - 409
+                  response:
+                    type: object
+                    properties:
+                      holder:
+                        type: string
+                        example: Alice
+                    required:
+                      - holder
+                required:
+                  - status
+                  - response
         '415':
           $ref: '#/components/responses/415'
         '500':
           $ref: '#/components/responses/500'
     put:
       summary: Extend a mutex
-      description: User role must be **editor** or higher! Extend a mutex until SkautIS timeout or for 30 minutes. This operation may fail with response code **409** if the mutex has timed-out **and** somebody else has acquired it since.
+      description: User role must be **editor** or higher! Extend a mutex until SkautIS timeout or for 30 minutes. This operation may fail with response code **404** if the mutex has timed-out **and** somebody else has acquired it since.
       tags:
         - mutex
       security:
@@ -1768,8 +1788,8 @@ paths:
                   - status
         '403':
           $ref: '#/components/responses/403'
-        '409':
-          $ref: '#/components/responses/409'
+        '404':
+          $ref: '#/components/responses/404'
         '415':
           $ref: '#/components/responses/415'
         '500':
@@ -1904,28 +1924,6 @@ components:
               - status
               - type
               - message
-    409:
-      description: Locked by someone else
-      content:
-        'application/json':
-          schema:
-            type: object
-            properties:
-              status:
-                type: integer
-                enum:
-                  - 409
-              response:
-                type: object
-                properties:
-                  holder:
-                    type: string
-                    example: Alice
-                required:
-                  - holder
-            required:
-              - status
-              - response
     415:
       description: An argument with wrong type has been passed
       content:
