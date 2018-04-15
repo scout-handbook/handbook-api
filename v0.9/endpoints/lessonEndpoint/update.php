@@ -7,6 +7,9 @@ require_once($CONFIG->basepath . '/v0.9/internal/Database.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Helper.php');
 
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/NotFoundException.php');
+require_once($CONFIG->basepath . '/v0.9/internal/exceptions/NotLockedException.php');
+
+require_once($CONFIG->basepath . '/v0.9/endpoints/mutexEndpoint.php');
 
 $updateLesson = function(Skautis\Skautis $skautis, array $data) : array
 {
@@ -27,6 +30,16 @@ SET name = :name, version = CURRENT_TIMESTAMP(3), body = :body
 WHERE id = :id
 LIMIT 1;
 SQL;
+
+	global $mutexEndpoint;
+	try
+	{
+		$mutexEndpoint->call('DELETE', new HandbookAPI\Role('editor'), ['id' => $data['id']]);
+	}
+	catch(HandbookAPI\NotFoundException $e)
+	{
+		throw new HandbookAPI\NotLockedException();
+	}
 
 	$id = HandbookAPI\Helper::parseUuid($data['id'], 'lesson')->getBytes();
 	if(isset($data['name']))
