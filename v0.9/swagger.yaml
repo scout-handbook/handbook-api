@@ -232,7 +232,7 @@ paths:
           $ref: '#/components/responses/500'
     delete:
       summary: Remove a lesson
-      description: User role must be **administrator** or higher!
+      description: User role must be **administrator** or higher! The lesson must be locked with a mutex prior to this operation, which releases such a mutex.
       tags:
         - lesson
       security:
@@ -252,6 +252,8 @@ paths:
           $ref: '#/components/responses/403'
         '404':
           $ref: '#/components/responses/404'
+        '412':
+          $ref: '#/components/responses/412'
         '500':
           $ref: '#/components/responses/500'
   /lesson/{id}/competence:
