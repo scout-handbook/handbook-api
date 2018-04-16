@@ -51,12 +51,9 @@ SQL;
 	$db->bindColumn(1, $origTimeout);
 	$db->bindColumn('holder', $origHolder);
 	$db->bindColumn('name', $origHolderName);
-	if($db->fetch())
+	if($db->fetch() && $origHolder != $userId && $origTimeout > time())
 	{
-		if($origHolder != $userId && $origTimeout > time())
-		{
-			return ['status' => 409, 'response' => ['holder' => $origHolderName]];
-		}
+		return ['status' => 409, 'response' => ['holder' => $origHolderName]];
 	}
 
 	$db->prepare($deleteSQL);
