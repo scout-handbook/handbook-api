@@ -31,6 +31,16 @@ DELETE FROM lessons
 WHERE id = :id;
 SQL;
 
+	global $mutexEndpoint;
+	try
+	{
+		$mutexEndpoint->call('DELETE', new HandbookAPI\Role('editor'), ['id' => $data['id']]);
+	}
+	catch(HandbookAPI\NotFoundException $e)
+	{
+		throw new HandbookAPI\NotLockedException();
+	}
+
 	$id = HandbookAPI\Helper::parseUuid($data['id'], 'lesson')->getBytes();
 
 	$db = new HandbookAPI\Database();
