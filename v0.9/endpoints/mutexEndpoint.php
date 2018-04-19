@@ -8,6 +8,9 @@ require_once($CONFIG->basepath . '/v0.9/internal/Endpoint.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Helper.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
+require_once($CONFIG->basepath . '/v0.9/internal/exceptions/InvalidArgumentTypeException.php');
+require_once($CONFIG->basepath . '/v0.9/internal/exceptions/LockedException.php');
+
 $mutexEndpoint = new HandbookAPI\Endpoint();
 
 $addMutex = function(Skautis\Skautis $skautis, array $data) : array
@@ -53,7 +56,7 @@ SQL;
 	$db->bindColumn('name', $origHolderName);
 	if($db->fetch() && $origHolder != $userId && $origTimeout > time())
 	{
-		return ['status' => 409, 'response' => ['holder' => $origHolderName]];
+		throw new HandbookAPI\LockedException($origHolderName);
 	}
 
 	$db->prepare($deleteSQL);
