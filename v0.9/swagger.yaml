@@ -1739,17 +1739,21 @@ paths:
                     type: integer
                     enum:
                       - 409
-                  response:
-                    type: object
-                    properties:
-                      holder:
-                        type: string
-                        example: Alice
-                    required:
-                      - holder
+                  type:
+                    type: string
+                    enum:
+                      - LockedException
+                  message:
+                    type: string
+                    example: An error message.
+                  holder:
+                    type: string
+                    example: Alice
                 required:
                   - status
-                  - response
+                  - type
+                  - message
+                  - holder
         '415':
           $ref: '#/components/responses/415'
         '500':
