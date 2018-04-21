@@ -72,7 +72,7 @@ SQL;
 };
 $imageEndpoint->setListMethod(new HandbookAPI\Role('editor'), $listImages);
 
-$getImage = function(Skautis\Skautis $skautis, array $data) use ($CONFIG) : void
+$getImage = function(Skautis\Skautis $skautis, array $data) use ($CONFIG) : array
 {
 	$id = HandbookAPI\Helper::parseUuid($data['id'], 'image')->toString();
 	$quality = "web";
@@ -98,12 +98,13 @@ $getImage = function(Skautis\Skautis $skautis, array $data) use ($CONFIG) : void
 		if($ifMod->format('U') > $modified)
 		{
 			http_response_code(304);
-			return;
+			return ['status' => 304];
 		}
 	}
 
 	header('last-modified: ' . date('r', $modified));
 	readfile($file);
+	return ['status' => 200];
 };
 $imageEndpoint->setGetMethod(new HandbookAPI\Role('guest'), $getImage);
 
