@@ -11,7 +11,7 @@ $refreshEndpoint = new HandbookAPI\Endpoint();
 $refreshLogin = function(Skautis\Skautis $skautis) use ($CONFIG) : array
 {
 	$dateLogout = $skautis->UserManagement->LoginUpdateRefresh(['ID' => $_COOKIE['skautis_token']])->DateLogout;
-	$timeout = DateTime::createFromFormat('Y-m-d\TH:i:s.u', $dateLogout)->format('U');
+	$timeout = DateTime::createFromFormat('Y-m-d\TH:i:s.u', $dateLogout, new DateTimeZone('Europe/Prague'))->format('U');
 	setcookie('skautis_timeout', $timeout, intval($timeout), "/", $CONFIG->cookieuri, true, false);
 	$_COOKIE['skautis_timeout'] = $timeout;
 	return ['status' => 200];
