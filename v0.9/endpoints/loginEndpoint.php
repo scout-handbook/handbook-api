@@ -45,7 +45,7 @@ $loginUser = function(Skautis\Skautis $skautis, array $data) use ($CONFIG, $acco
 			$redirect = $CONFIG->baseuri . $redirect;
 		}
 		$token = $data['skautIS_Token'];
-		$timeout = DateTime::createFromFormat('j. n. Y H:i:s', $data['skautIS_DateLogout'])->format('U');
+		$timeout = DateTime::createFromFormat('j. n. Y H:i:s', $data['skautIS_DateLogout'], new DateTimeZone('Europe/Prague'))->format('U');
 
 		setcookie('skautis_token', $token, intval($timeout), "/", $CONFIG->cookieuri, true, true);
 		setcookie('skautis_timeout', $timeout, intval($timeout), "/", $CONFIG->cookieuri, true, false);
