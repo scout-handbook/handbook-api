@@ -1837,6 +1837,25 @@ paths:
           $ref: '#/components/responses/404'
         '500':
           $ref: '#/components/responses/500'
+  /mutex-beacon/{id}:
+    post:
+      summary: Release a mutex
+      description: User role must be **editor** or higher! This endpoind is intended to be used as a target for [Beacon API](https://developer.mozilla.org/en-US/docs/Web/API/Beacon_API). This operation will fail silently if anything goes wrong.
+      tags:
+        - mutex
+      security:
+        - apiKey: []
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: The id of the resource
+      responses:
+        '200':
+          description: Unknown result.
 components:
   responses:
     200:
