@@ -49,4 +49,4 @@ SQL;
 	}
 	die();
 };
-$mutexEndpoint->setAddMethod(new HandbookAPI\Role('editor'), $releaseBeaconMutex);
+$mutexBeaconEndpoint->setAddMethod(new HandbookAPI\Role('editor'), $releaseBeaconMutex);
