@@ -10,7 +10,7 @@ require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
 $mutexBeaconEndpoint = new HandbookAPI\Endpoint();
 
-$releaseBeaconMutex = function(Skautis\Skautis $skautis, array $data) : array
+$releaseBeaconMutex = function(Skautis\Skautis $skautis, array $data) : void
 {
 	$selectSQL = <<<SQL
 SELECT 1
