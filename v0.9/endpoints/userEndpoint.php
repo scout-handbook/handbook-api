@@ -31,7 +31,7 @@ function constructSelectSQL(Skautis\Skautis $skautis, bool $roleSelect, bool $gr
 		$innerSQL .= ', \'administrator\', \'superuser\'';
 	}
 
-	$roleSQL = $roleSelect ? ' AND users.role = :role ': '';
+	$roleSQL = $roleSelect ? ' AND users.role = :role ' : '';
 	$groupSQL = $groupSelect ? 'AND users_in_groups.group_id = :group_id ' : '';
 
 	$selectSQL = <<<SQL
@@ -106,7 +106,7 @@ SQL;
 	$db->bindParam(':name', $searchName, PDO::PARAM_STR);
 	if(isset($data['role']))
 	{
-		if(!in_array($data['role'], ['user','editor', 'administrator', 'superuser']))
+		if(!in_array($data['role'], ['user', 'editor', 'administrator', 'superuser']))
 		{
 			throw new HandbookAPI\NotFoundException('role');
 		}

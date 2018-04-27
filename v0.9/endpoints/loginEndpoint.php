@@ -30,7 +30,8 @@ $loginUser = function(Skautis\Skautis $skautis, array $data) use ($CONFIG, $acco
 		$redirect = $skautis->getLoginUrl(mb_substr($_SERVER['HTTP_REFERER'], mb_strlen($CONFIG->baseuri)));
 	}
 	elseif(isset($_SERVER['HTTP_REFERER']) and $startsWith($_SERVER['HTTP_REFERER'], $ISprefix))
-	{ // Back from login
+	{
+		// Back from login
 		$redirect = $_GET['ReturnUrl'] ?? $CONFIG->baseuri;
 		if($startsWith($redirect, 'http://'))
 		{
