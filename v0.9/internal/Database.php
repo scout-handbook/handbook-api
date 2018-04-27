@@ -52,8 +52,8 @@ class Database
 	{
 		if(!$this->statement->execute())
 		{
-			if($this->statement->errorCode() == 23000) // Foreign key constraint fail
-			{
+			if($this->statement->errorCode() == 23000)
+			{ // Foreign key constraint fail
 				throw new NotFoundException($resourceName);
 			}
 			throw new ExecutionException($this->SQL, $this->statement);
