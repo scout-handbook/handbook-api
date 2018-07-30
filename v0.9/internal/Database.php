@@ -28,7 +28,7 @@ class Database
 		}
 		catch(\PDOException $e)
 		{
-			throw new ConnectionException(self::$db);
+			throw new ConnectionException(self::$db, $e);
 		}
 		self::$instanceCount = self::$instanceCount + 1;
 	}
