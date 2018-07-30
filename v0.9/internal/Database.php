@@ -13,7 +13,7 @@ require_once($CONFIG->basepath . '/v0.9/internal/exceptions/QueryException.php')
 class Database
 {
 	private static $db;
-	private static $instanceCount;
+	private static $instanceCount = 0;
 	private $SQL;
 	private $statement;
 
@@ -21,14 +21,17 @@ class Database
 	{
 		$_API_SECRETS_EXEC = 1;
 		$SECRETS = require($_SERVER['DOCUMENT_ROOT'] . '/api-secrets.php');
-		try
+		if(self::$instanceCount < 1)
 		{
-			self::$db = new \PDO($SECRETS->db_dsn . ';charset=utf8mb4', $SECRETS->db_user, $SECRETS->db_password);
-			self::$db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_SILENT);
-		}
-		catch(\PDOException $e)
-		{
-			throw new ConnectionException(self::$db, $e);
+			try
+			{
+				self::$db = new \PDO($SECRETS->db_dsn . ';charset=utf8mb4', $SECRETS->db_user, $SECRETS->db_password);
+				self::$db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_SILENT);
+			}
+			catch(\PDOException $e)
+			{
+				throw new ConnectionException(self::$db, $e);
+			}
 		}
 		self::$instanceCount = self::$instanceCount + 1;
 	}
