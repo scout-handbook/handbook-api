@@ -11,8 +11,8 @@ class ConnectionException extends Exception
 	const TYPE = 'ConnectionException';
 	const STATUS = 500;
 
-	public function __construct($db)
+	public function __construct($db, $PDOexception)
 	{
-		parent::__construct('Database connection request failed. Error message: "' . $db->errorInfo()[2] . '".');
+		parent::__construct('Database connection request failed. Error message: "' . $db->errorInfo()[2] . '", "' . $PDOexception->getMessage() . '".');
 	}
 }
