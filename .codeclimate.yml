@@ -39,44 +39,12 @@ engines:
     enabled: true
   phpcodesniffer:
     enabled: true
-    checks:
-      Generic WhiteSpace DisallowTabIndent TabsUsed:
-        enabled: false
-      Generic Files LineLength TooLong:
-        enabled: false
-      Squiz ControlStructures ControlSignature SpaceAfterCloseParenthesis:
-        enabled: false
-      Squiz ControlStructures ControlSignature SpaceAfterCloseBrace:
-        enabled: false
-      Squiz ControlStructures ControlSignature SpaceAfterKeyword:
-        enabled: false
-      Squiz Functions MultiLineFunctionDeclaration BraceOnNewLine:
-        enabled: false
-      Squiz Functions MultiLineFunctionDeclaration SpaceAfterFunction:
-        enabled: false
-      PSR1 Files SideEffects FoundWithSymbols:
-        enabled: false
-      PSR2 ControlStructures SwitchDeclaration BreakIndent:
-        enabled: false
+    config:
+      rulesets: "phpcs.xml"
   phpmd:
     enabled: true
     config:
-      rulesets: "cleancode,controversial,design,naming,unusedcode,.phpmd.xml"
-    checks:
-      CleanCode/ElseExpression:
-        enabled: false
-      CleanCode/BooleanArgumentFlag:
-        enabled: false
-      CleanCode/StaticAccess:
-        enabled: false
-      Controversial/Superglobals:
-        enabled: false
-      Design/ExitExpression:
-        enabled: false
-      Naming/ShortVariable:
-        enabled: false
-      Design/TooManyPublicMethods:
-        enabled: false
+      rulesets: "phpmd.xml"
   phan:
     enabled: true
     config:
