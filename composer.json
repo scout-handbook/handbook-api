@@ -35,6 +35,9 @@
 		"lint": [
 			"@phpcs",
 			"@phpmd"
+		],
+		"ci": [
+			"@lint"
 		]
 	}
 }
