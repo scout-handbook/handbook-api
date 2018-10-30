@@ -45,52 +45,9 @@ engines:
     enabled: true
     config:
       rulesets: "phpmd.xml"
-  phan:
-    enabled: true
-    config:
-      backward-compatibility-checks: true
-      dead-code-detection: true
-    checks:
-      PhanUndeclaredClass:
-        enabled: false
-      PhanUndeclaredClassMethod:
-        enabled: false
-      PhanUndeclaredFunction:
-        enabled: false
-      PhanUndeclaredExtendedClass:
-        enabled: false
-      PhanUndeclaredClassCatch:
-        enabled: false
-      PhanUndeclaredVariable:
-        enabled: false
-      PhanUndeclaredConstant:
-        enabled: false
-      PhanUndeclaredClassConstant:
-        enabled: false
-      PhanUndeclaredTypeParameter:
-        enabled: false
-      PhanUndeclaredTypeReturnType:
-        enabled: false
   stylelint:
     enabled: true
-  sonar-php:
-    enabled: true
-    checks:
-      php:S115:
-        enabled: false
-      php:S1134:
-        enabled: false
-      php:S1142:
-        enabled: false
-      php:S1172:
-        enabled: false
-      php:S1192:
-        enabled: false
-      php:S2041:
-        enabled: false
 ratings:
   paths:
   - "**.css"
   - "**.php"
-exclude_paths:
-  - "vendor/"
