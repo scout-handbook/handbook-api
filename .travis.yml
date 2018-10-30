@@ -16,7 +16,7 @@ deploy:
   provider: pages
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
-  local-dir: "node_modules/swagger-ui-dist"
+  local-dir: node_modules/swagger-ui-dist
   on:
     branch: master
 notifications:
