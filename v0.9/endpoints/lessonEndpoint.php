@@ -32,45 +32,39 @@ $lessonEndpoint->addSubEndpoint('pdf', $lessonPDFEndpoint);
 
 function checkLessonGroup(\Ramsey\Uuid\UuidInterface $lessonId, bool $overrideGroup = false) : bool
 {
-	global $accountEndpoint;
+    global $accountEndpoint;
 
-	$groupSQL = <<<SQL
+    $groupSQL = <<<SQL
 SELECT group_id FROM groups_for_lessons
 WHERE lesson_id = :lesson_id;
 SQL;
 
-	$loginState = $accountEndpoint->call('GET', new HandbookAPI\Role('guest'), ['no-avatar' => 'true']);
+    $loginState = $accountEndpoint->call('GET', new HandbookAPI\Role('guest'), ['no-avatar' => 'true']);
 
-	if($loginState['status'] == '200')
-	{
-		if($overrideGroup and in_array($loginState['response']['role'], ['editor', 'administrator', 'superuser']))
-		{
-			return true;
-		}
-		$groups = $loginState['response']['groups'];
-		$groups[] = '00000000-0000-0000-0000-000000000000';
-	}
-	else
-	{
-		$groups = ['00000000-0000-0000-0000-000000000000'];
-	}
-	array_walk($groups, '\Ramsey\Uuid\Uuid::fromString');
+    if ($loginState['status'] == '200') {
+        if ($overrideGroup and in_array($loginState['response']['role'], ['editor', 'administrator', 'superuser'])) {
+            return true;
+        }
+        $groups = $loginState['response']['groups'];
+        $groups[] = '00000000-0000-0000-0000-000000000000';
+    } else {
+        $groups = ['00000000-0000-0000-0000-000000000000'];
+    }
+    array_walk($groups, '\Ramsey\Uuid\Uuid::fromString');
 
-	$db = new HandbookAPI\Database();
-	$db->prepare($groupSQL);
-	$lessonId = $lessonId->getBytes();
-	$db->bindParam(':lesson_id', $lessonId, PDO::PARAM_STR);
-	$db->execute();
-	$groupId = '';
-	$db->bindColumn('group_id', $groupId);
-	while($db->fetch())
-	{
-		if(in_array(Uuid::fromBytes(strval($groupId)), $groups))
-		{
-			return true;
-		}
-	}
-	return false;
+    $db = new HandbookAPI\Database();
+    $db->prepare($groupSQL);
+    $lessonId = $lessonId->getBytes();
+    $db->bindParam(':lesson_id', $lessonId, PDO::PARAM_STR);
+    $db->execute();
+    $groupId = '';
+    $db->bindColumn('group_id', $groupId);
+    while ($db->fetch()) {
+        if (in_array(Uuid::fromBytes(strval($groupId)), $groups)) {
+            return true;
+        }
+    }
+    return false;
 }
 
 $lessonEndpoint->setListMethod(new HandbookAPI\Role('guest'), $listLessons);

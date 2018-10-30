@@ -8,11 +8,11 @@ require_once($CONFIG->basepath . '/v0.9/internal/exceptions/Exception.php');
 
 class NotImplementedException extends Exception
 {
-	const TYPE = 'NotImplementedException';
-	const STATUS = 501;
+    const TYPE = 'NotImplementedException';
+    const STATUS = 501;
 
-	public function __construct()
-	{
-		parent::__construct('The requested feature has not been implemented.');
-	}
+    public function __construct()
+    {
+        parent::__construct('The requested feature has not been implemented.');
+    }
 }

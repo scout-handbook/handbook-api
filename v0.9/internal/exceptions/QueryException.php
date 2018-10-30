@@ -8,11 +8,11 @@ require_once($CONFIG->basepath . '/v0.9/internal/exceptions/Exception.php');
 
 class QueryException extends Exception
 {
-	const TYPE = 'QueryException';
-	const STATUS = 500;
+    const TYPE = 'QueryException';
+    const STATUS = 500;
 
-	public function __construct(string $query, $db)
-	{
-		parent::__construct('Invalid query: "' . $query . '". Error message: "' . $db->errorInfo()[2] . '".');
-	}
+    public function __construct(string $query, $db)
+    {
+        parent::__construct('Invalid query: "' . $query . '". Error message: "' . $db->errorInfo()[2] . '".');
+    }
 }

@@ -8,11 +8,11 @@ require_once($CONFIG->basepath . '/v0.9/internal/exceptions/Exception.php');
 
 class NotLockedException extends Exception
 {
-	const TYPE = 'NotLockedException';
-	const STATUS = 412;
+    const TYPE = 'NotLockedException';
+    const STATUS = 412;
 
-	public function __construct()
-	{
-		parent::__construct('This resource must be locked by a mutex for this operation.');
-	}
+    public function __construct()
+    {
+        parent::__construct('This resource must be locked by a mutex for this operation.');
+    }
 }

@@ -8,78 +8,76 @@ require_once($CONFIG->basepath . '/v0.9/internal/Database.php');
 
 class Role implements \JsonSerializable
 {
-	private const GUEST = 0;
-	private const USER = 1;
-	private const EDITOR = 2;
-	private const ADMINISTRATOR = 3;
-	private const SUPERUSER = 4;
+    private const GUEST = 0;
+    private const USER = 1;
+    private const EDITOR = 2;
+    private const ADMINISTRATOR = 3;
+    private const SUPERUSER = 4;
 
-	public $role;
+    public $role;
 
-	public function __construct(string $str)
-	{
-		switch($str)
-		{
-			case 'superuser':
-				$this->role = self::SUPERUSER;
-				break;
-			case 'administrator':
-				$this->role = self::ADMINISTRATOR;
-				break;
-			case 'editor':
-				$this->role = self::EDITOR;
-				break;
-			case 'user':
-				$this->role = self::USER;
-				break;
-			default:
-				$this->role = self::GUEST;
-				break;
-		}
-	}
+    public function __construct(string $str)
+    {
+        switch ($str) {
+            case 'superuser':
+                $this->role = self::SUPERUSER;
+                break;
+            case 'administrator':
+                $this->role = self::ADMINISTRATOR;
+                break;
+            case 'editor':
+                $this->role = self::EDITOR;
+                break;
+            case 'user':
+                $this->role = self::USER;
+                break;
+            default:
+                $this->role = self::GUEST;
+                break;
+        }
+    }
 
-	public function __toString() : string
-	{
-		switch($this->role)
-		{
-			case self::SUPERUSER:
-				return 'superuser';
-			case self::ADMINISTRATOR:
-				return 'administrator';
-			case self::EDITOR:
-				return 'editor';
-			case self::USER:
-				return 'user';
-			default:
-				return 'guest';
-		}
-	}
+    public function __toString() : string
+    {
+        switch ($this->role) {
+            case self::SUPERUSER:
+                return 'superuser';
+            case self::ADMINISTRATOR:
+                return 'administrator';
+            case self::EDITOR:
+                return 'editor';
+            case self::USER:
+                return 'user';
+            default:
+                return 'guest';
+        }
+    }
 
-	public function jsonSerialize() : string
-	{
-		return $this->__toString();
-	}
+    public function jsonSerialize() : string
+    {
+        return $this->__toString();
+    }
 }
 
 function Role_cmp(Role $first, Role $second) : int
 {
-	return $first->role <=> $second->role;
+    return $first->role <=> $second->role;
 }
 
 function getRole(int $idPerson) : Role
 {
-	$SQL = <<<SQL
+    $SQL = <<<SQL
 SELECT role
 FROM users
 WHERE id = :id;
 SQL;
 
-	$db = new Database();
-	$db->prepare($SQL);
-	$db->bindParam(':id', $idPerson, \PDO::PARAM_INT);
-	$db->execute();
-	$role = '';
-	$db->bindColumn('role', $role);
-	$db->fetchRequire('user');
-	return new Role(strval($role));
+    $db = new Database();
+    $db->prepare($SQL);
+    $db->bindParam(':id', $idPerson, \PDO::PARAM_INT);
+    $db->execute();
+    $role = '';
+    $db->bindColumn('role', $role);
+    $db->fetchRequire('user');
+    return new Role(strval($role));
 }

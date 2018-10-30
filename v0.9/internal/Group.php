@@ -10,19 +10,19 @@ require_once($CONFIG->basepath . '/v0.9/internal/Helper.php');
 
 class Group implements \JsonSerializable
 {
-	public $id;
-	public $name;
-	public $count;
+    public $id;
+    public $name;
+    public $count;
 
-	public function __construct(string $id, string $name, int $count)
-	{
-		$this->id = $id;
-		$this->name = Helper::xssSanitize($name);
-		$this->count = $count;
-	}
+    public function __construct(string $id, string $name, int $count)
+    {
+        $this->id = $id;
+        $this->name = Helper::xssSanitize($name);
+        $this->count = $count;
+    }
 
-	public function jsonSerialize() : array
-	{
-		return ['id' => \Ramsey\Uuid\Uuid::fromBytes($this->id), 'name' => $this->name, 'count' => $this->count];
-	}
+    public function jsonSerialize() : array
+    {
+        return ['id' => \Ramsey\Uuid\Uuid::fromBytes($this->id), 'name' => $this->name, 'count' => $this->count];
+    }
 }
