@@ -8,11 +8,11 @@ require_once($CONFIG->basepath . '/v0.9/internal/exceptions/Exception.php');
 
 class AuthenticationException extends Exception
 {
-	const TYPE = 'AuthenticationException';
-	const STATUS = 403;
+    const TYPE = 'AuthenticationException';
+    const STATUS = 403;
 
-	public function __construct()
-	{
-		parent::__construct('Authentication failed.');
-	}
+    public function __construct()
+    {
+        parent::__construct('Authentication failed.');
+    }
 }

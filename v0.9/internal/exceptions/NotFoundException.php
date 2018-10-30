@@ -8,11 +8,11 @@ require_once($CONFIG->basepath . '/v0.9/internal/exceptions/Exception.php');
 
 class NotFoundException extends Exception
 {
-	const TYPE = 'NotFoundException';
-	const STATUS = 404;
+    const TYPE = 'NotFoundException';
+    const STATUS = 404;
 
-	public function __construct(string $resourceName)
-	{
-		parent::__construct('No such ' . $resourceName . ' has been found.');
-	}
+    public function __construct(string $resourceName)
+    {
+        parent::__construct('No such ' . $resourceName . ' has been found.');
+    }
 }

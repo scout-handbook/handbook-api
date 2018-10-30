@@ -8,11 +8,14 @@ require_once($CONFIG->basepath . '/v0.9/internal/exceptions/Exception.php');
 
 class ConnectionException extends Exception
 {
-	const TYPE = 'ConnectionException';
-	const STATUS = 500;
+    const TYPE = 'ConnectionException';
+    const STATUS = 500;
 
-	public function __construct($db, $PDOexception)
-	{
-		parent::__construct('Database connection request failed. Error message: "' . $db->errorInfo()[2] . '", "' . $PDOexception->getMessage() . '".');
-	}
+    public function __construct($db, $PDOexception)
+    {
+        parent::__construct(
+            'Database connection request failed.
+            Error message: "' . $db->errorInfo()[2] . '", "' . $PDOexception->getMessage() . '".'
+        );
+    }
 }

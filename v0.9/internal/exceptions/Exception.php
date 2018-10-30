@@ -5,11 +5,11 @@ namespace HandbookAPI;
 
 class Exception extends \Exception
 {
-	const TYPE = 'Exception';
-	const STATUS = 500;
+    const TYPE = 'Exception';
+    const STATUS = 500;
 
-	public function handle() : array
-	{
-		return ['status' => static::STATUS, 'type' => static::TYPE, 'message' => $this->getMessage()];
-	}
+    public function handle() : array
+    {
+        return ['status' => static::STATUS, 'type' => static::TYPE, 'message' => $this->getMessage()];
+    }
 }

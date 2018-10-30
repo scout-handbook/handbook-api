@@ -2,6 +2,7 @@
 <ruleset>
 	<file>./</file>
 	<exclude-pattern>vendor/*/*</exclude-pattern>
+	<exclude-pattern>*/internal/OdyMarkdown/styles.php</exclude-pattern>
 
 	<config name="installed_paths" value="vendor/wimg/php-compatibility"/>
 	<config name="testVersion" value="7.1-"/>
