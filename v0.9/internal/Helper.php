@@ -26,6 +26,7 @@ class Helper // Helper functions
     public static function urlEscape(string $str) : string
     {
         $lookupTable = [
+            // phpcs:disable Generic.Files.LineLength.TooLong
             ['base' => 'A', 'letters' => '[\x{0041}\x{24B6}\x{FF21}\x{00C0}\x{00C1}\x{00C2}\x{1EA6}\x{1EA4}\x{1EAA}\x{1EA8}\x{00C3}\x{0100}\x{0102}\x{1EB0}\x{1EAE}\x{1EB4}\x{1EB2}\x{0226}\x{01E0}\x{00C4}\x{01DE}\x{1EA2}\x{00C5}\x{01FA}\x{01CD}\x{0200}\x{0202}\x{1EA0}\x{1EAC}\x{1EB6}\x{1E00}\x{0104}\x{023A}\x{2C6F}]'],
             ['base' => 'AA', 'letters' => '[\x{A732}]'],
             ['base' => 'AE', 'letters' => '[\x{00C6}\x{01FC}\x{01E2}]'],
@@ -111,6 +112,7 @@ class Helper // Helper functions
             ['base' => 'x', 'letters' => '[\x{0078}\x{24E7}\x{FF58}\x{1E8B}\x{1E8D}]'],
             ['base' => 'y', 'letters' => '[\x{0079}\x{24E8}\x{FF59}\x{1EF3}\x{00FD}\x{0177}\x{1EF9}\x{0233}\x{1E8F}\x{00FF}\x{1EF7}\x{1E99}\x{1EF5}\x{01B4}\x{024F}\x{1EFF}]'],
             ['base' => 'z', 'letters' => '[\x{007A}\x{24E9}\x{FF5A}\x{017A}\x{1E91}\x{017C}\x{017E}\x{1E93}\x{1E95}\x{01B6}\x{0225}\x{0240}\x{2C6C}\x{A763}]']
+            // phpcs:enable Generic.Files.LineLength.TooLong
         ];
 
         $str = mb_strtolower(trim($str));
