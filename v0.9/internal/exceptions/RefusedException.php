@@ -8,11 +8,11 @@ require_once($CONFIG->basepath . '/v0.9/internal/exceptions/Exception.php');
 
 class RefusedException extends Exception
 {
-	const TYPE = 'RefusedException';
-	const STATUS = 403;
+    const TYPE = 'RefusedException';
+    const STATUS = 403;
 
-	public function __construct()
-	{
-		parent::__construct('Operation has been refused by the server.');
-	}
+    public function __construct()
+    {
+        parent::__construct('Operation has been refused by the server.');
+    }
 }

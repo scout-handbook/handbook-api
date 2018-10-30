@@ -12,45 +12,40 @@ use Ramsey\Uuid\Uuid;
 
 $lessonCompetenceEndpoint = new HandbookAPI\Endpoint();
 
-$updateLessonCompetence = function(Skautis\Skautis $skautis, array $data) : array
-{
-	$deleteSQL = <<<SQL
+$updateLessonCompetence = function (Skautis\Skautis $skautis, array $data) : array {
+    $deleteSQL = <<<SQL
 DELETE FROM competences_for_lessons
 WHERE lesson_id = :lesson_id;
 SQL;
-	$insertSQL = <<<SQL
+    $insertSQL = <<<SQL
 INSERT INTO competences_for_lessons (lesson_id, competence_id)
 VALUES (:lesson_id, :competence_id);
 SQL;
 
-	$id = HandbookAPI\Helper::parseUuid($data['parent-id'], 'lesson')->getBytes();
-	$competences = [];
-	if(isset($data['competence']))
-	{
-		foreach($data['competence'] as $competence)
-		{
-			$competences[] = HandbookAPI\Helper::parseUuid($competence, 'competence')->getBytes();
-		}
-	}
+    $id = HandbookAPI\Helper::parseUuid($data['parent-id'], 'lesson')->getBytes();
+    $competences = [];
+    if (isset($data['competence'])) {
+        foreach ($data['competence'] as $competence) {
+            $competences[] = HandbookAPI\Helper::parseUuid($competence, 'competence')->getBytes();
+        }
+    }
 
-	$db = new HandbookAPI\Database();
-	$db->beginTransaction();
+    $db = new HandbookAPI\Database();
+    $db->beginTransaction();
 
-	$db->prepare($deleteSQL);
-	$db->bindParam(':lesson_id', $id, PDO::PARAM_STR);
-	$db->execute();
+    $db->prepare($deleteSQL);
+    $db->bindParam(':lesson_id', $id, PDO::PARAM_STR);
+    $db->execute();
 
-	if(isset($competences))
-	{
-		$db->prepare($insertSQL);
-		foreach($competences as $competence)
-		{
-			$db->bindParam(':lesson_id', $id, PDO::PARAM_STR);
-			$db->bindParam(':competence_id', $competence, PDO::PARAM_STR);
-			$db->execute("lesson or competence");
-		}
-	}
-	$db->endTransaction();
-	return ['status' => 200];
+    if (isset($competences)) {
+        $db->prepare($insertSQL);
+        foreach ($competences as $competence) {
+            $db->bindParam(':lesson_id', $id, PDO::PARAM_STR);
+            $db->bindParam(':competence_id', $competence, PDO::PARAM_STR);
+            $db->execute("lesson or competence");
+        }
+    }
+    $db->endTransaction();
+    return ['status' => 200];
 };
 $lessonCompetenceEndpoint->setUpdateMethod(new HandbookAPI\Role('editor'), $updateLessonCompetence);

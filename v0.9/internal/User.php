@@ -11,26 +11,25 @@ require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
 class User implements \JsonSerializable
 {
-	public $id;
-	public $name;
-	public $role;
-	public $groups;
+    public $id;
+    public $name;
+    public $role;
+    public $groups;
 
-	public function __construct(int $id, string $name, string $role)
-	{
-		$this->id = $id;
-		$this->name = Helper::xssSanitize($name);
-		$this->role = new Role($role);
-		$this->groups = [];
-	}
+    public function __construct(int $id, string $name, string $role)
+    {
+        $this->id = $id;
+        $this->name = Helper::xssSanitize($name);
+        $this->role = new Role($role);
+        $this->groups = [];
+    }
 
-	public function jsonSerialize() : array
-	{
-		$ugroup = [];
-		foreach($this->groups as $group)
-		{
-			$ugroup[] = \Ramsey\Uuid\Uuid::fromBytes($group);
-		}
-		return ['id' => $this->id, 'name' => $this->name, 'role' => $this->role, 'groups' => $ugroup];
-	}
+    public function jsonSerialize() : array
+    {
+        $ugroup = [];
+        foreach ($this->groups as $group) {
+            $ugroup[] = \Ramsey\Uuid\Uuid::fromBytes($group);
+        }
+        return ['id' => $this->id, 'name' => $this->name, 'role' => $this->role, 'groups' => $ugroup];
+    }
 }
