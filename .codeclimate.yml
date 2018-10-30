@@ -40,7 +40,7 @@ engines:
   phpcodesniffer:
     enabled: true
     config:
-      rulesets: "phpcs.xml"
+      standard: "phpcs.xml"
   phpmd:
     enabled: true
     config:
