@@ -4,7 +4,7 @@ php:
   - "7.2"
 cache:
   - npm
-  directories:
+  - directories:
     - $HOME/.composer/cache/files
 before_script:
   - composer install
