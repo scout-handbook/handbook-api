@@ -8,11 +8,11 @@ require_once($CONFIG->basepath . '/v0.9/internal/exceptions/Exception.php');
 
 class ExecutionException extends Exception
 {
-	const TYPE = 'ExecutionException';
-	const STATUS = 500;
+    const TYPE = 'ExecutionException';
+    const STATUS = 500;
 
-	public function __construct(string $query, $statement)
-	{
-		parent::__construct('Query "' . $query . '" has failed. Error message: "' . $statement->errorInfo()[2] . '".');
-	}
+    public function __construct(string $query, $statement)
+    {
+        parent::__construct('Query "' . $query . '" has failed. Error message: "' . $statement->errorInfo()[2] . '".');
+    }
 }

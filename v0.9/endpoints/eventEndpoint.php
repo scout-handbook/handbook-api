@@ -11,14 +11,12 @@ require_once($CONFIG->basepath . '/v0.9/endpoints/eventParticipantEndpoint.php')
 $eventEndpoint = new HandbookAPI\Endpoint();
 $eventEndpoint->addSubEndpoint('participant', $eventParticipantEndpoint);
 
-$listUsers = function(Skautis\Skautis $skautis) : array
-{
-	$ISevents = $skautis->Events->EventEducationAllMyActions();
-	$events = [];
-	foreach($ISevents as $event)
-	{
-		$events[] = ['id' => $event->ID, 'name' => $event->DisplayName];
-	}
-	return ['status' => 200, 'response' => $events];
+$listUsers = function (Skautis\Skautis $skautis) : array {
+    $ISevents = $skautis->Events->EventEducationAllMyActions();
+    $events = [];
+    foreach ($ISevents as $event) {
+        $events[] = ['id' => $event->ID, 'name' => $event->DisplayName];
+    }
+    return ['status' => 200, 'response' => $events];
 };
 $eventEndpoint->setListMethod(new HandbookAPI\Role('editor'), $listUsers);

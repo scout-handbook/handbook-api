@@ -10,17 +10,17 @@ require_once($CONFIG->basepath . '/v0.9/internal/LessonContainer.php');
 
 class Field extends LessonContainer implements \JsonSerializable
 {
-	public $id;
-	public $name;
+    public $id;
+    public $name;
 
-	public function __construct(string $id, string $name)
-	{
-		$this->id = $id;
-		$this->name = Helper::xssSanitize($name);
-	}
+    public function __construct(string $id, string $name)
+    {
+        $this->id = $id;
+        $this->name = Helper::xssSanitize($name);
+    }
 
-	public function jsonSerialize() : array
-	{
-		return ['id' => \Ramsey\Uuid\Uuid::fromBytes($this->id), 'name' => $this->name, 'lessons' => $this->lessons];
-	}
+    public function jsonSerialize() : array
+    {
+        return ['id' => \Ramsey\Uuid\Uuid::fromBytes($this->id), 'name' => $this->name, 'lessons' => $this->lessons];
+    }
 }
