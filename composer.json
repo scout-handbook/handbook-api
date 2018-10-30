@@ -4,6 +4,6 @@
 		"skautis/skautis": "^2.1",
 		"ramsey/uuid": "^3.6",
 		"mpdf/mpdf": "^7.0",
-		"bacon/bacon-qr-code": "^1.0"
+		"bacon/bacon-qr-code": "^2.0"
 	}
 }
