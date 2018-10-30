@@ -10,6 +10,7 @@ require_once($CONFIG->basepath . '/v0.9/internal/exceptions/ExecutionException.p
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/NotFoundException.php');
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/QueryException.php');
 
+/** @SuppressWarnings(PHPMD.TooManyPublicMethods) */
 class Database
 {
     private static $db;
@@ -32,6 +33,7 @@ class Database
         self::$instanceCount = self::$instanceCount + 1;
     }
 
+    /** @SuppressWarnings(PHPMD.CamelCaseParameterName) */
     public function prepare(string $SQL) : void
     {
         $this->SQL = $SQL;

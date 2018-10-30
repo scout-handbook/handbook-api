@@ -23,6 +23,7 @@ class Helper // Helper functions
         return htmlspecialchars($input, ENT_QUOTES | ENT_HTML5, 'UTF-8');
     }
 
+    /** @SuppressWarnings(PHPMD.ExcessiveMethodLength) */
     public static function urlEscape(string $str) : string
     {
         $lookupTable = [
