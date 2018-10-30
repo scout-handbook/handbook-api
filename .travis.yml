@@ -1,10 +1,11 @@
-language: node_js
-node_js:
-  - "node"
-branches:
-  only:
-    - master
-script: ./deploy.sh
+language: php
+php:
+  - "7.1"
+  - "7.2"
+  - nightly
+script:
+  - composer ci
+  - ./deploy.sh
 deploy:
   provider: pages
   skip_cleanup: true
