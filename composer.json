@@ -31,6 +31,10 @@
 	},
 	"scripts": {
 		"phpcs": "vendor/squizlabs/php_codesniffer/bin/phpcs",
-		"phpmd": "vendor/phpmd/phpmd/src/bin/phpmd v0.9 text phpmd.xml"
+		"phpmd": "vendor/phpmd/phpmd/src/bin/phpmd v0.9 text phpmd.xml",
+		"lint": [
+			"@phpcs",
+			"@phpmd"
+		]
 	}
 }
