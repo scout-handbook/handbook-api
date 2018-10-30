@@ -1,4 +1,4 @@
-[![Code Climate](https://codeclimate.com/github/GenaBitu/HandbookAPI.png)](https://codeclimate.com/github/GenaBitu/HandbookAPI) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/GenaBitu/HandbookAPI/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/GenaBitu/HandbookAPI/?branch=master)
+[![Code Climate](https://codeclimate.com/github/GenaBitu/HandbookAPI.png)](https://codeclimate.com/github/GenaBitu/HandbookAPI)
 # Handbook API
 An API for creating a handbook with educational materials.
 
