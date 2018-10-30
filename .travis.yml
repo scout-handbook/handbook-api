@@ -11,6 +11,7 @@ before_script:
 script:
   - composer ci
 before_deploy:
+  - npm install
   - ./deploy.sh
 deploy:
   provider: pages
