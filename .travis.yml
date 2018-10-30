@@ -3,6 +3,7 @@ php:
   - "7.1"
   - "7.2"
 cache:
+  - npm
   directories:
     - $HOME/.composer/cache/files
 before_script:
