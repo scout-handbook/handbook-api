@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <ruleset>
 	<file>./</file>
+	<exclude-pattern>node_modules/*/*</exclude-pattern>
 	<exclude-pattern>vendor/*/*</exclude-pattern>
 	<exclude-pattern>*/internal/OdyMarkdown/styles.php</exclude-pattern>
 
