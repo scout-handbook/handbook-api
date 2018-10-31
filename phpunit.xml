@@ -5,7 +5,7 @@
 		backupStaticAttributes="false"
 		beStrictAboutChangesToGlobalState="true"
 		beStrictAboutCoversAnnotation="true"
-		bootstrap="vendor/autoload.php"
+		bootstrap="tests/bootstrap.php"
 		cacheResult="false"
 		cacheTokens="false"
 		colors="true"
@@ -26,9 +26,7 @@
 		timeoutForLargeTests="60"
 		verbose="false">
 	<php>
-		<server name="DOCUMENT_ROOT" value="."/>
-		<!--const name="_API_EXEC" value="1"/>
-		<const name="HandbookAPI\_API_EXEC" value="1"/-->
+		<server name="DOCUMENT_ROOT" value="tests/v0.9"/>
 	</php>
 	<filter>
 		<whitelist processUncoveredFilesFromWhitelist="true">
@@ -41,6 +39,8 @@
 	<testsuites>
 		<testsuite name="v0.9">
 			<directory suffix=".php">tests/v0.9</directory>
+			<exclude>tests/v0.9/api-config.php</exclude>
+			<exclude>tests/v0.9/api-secrets.php</exclude>
 		</testsuite>
 	</testsuites>
 	<logging>
