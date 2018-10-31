@@ -110,3 +110,5 @@ tags
 
 api-config.php
 api-secrets.php
+
+clover.xml
