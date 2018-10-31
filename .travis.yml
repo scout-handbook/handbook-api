@@ -8,8 +8,13 @@ cache:
     - $HOME/.composer/cache/files
 before_script:
   - composer install
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 script:
   - composer ci
+after_script:
+  - if [ $(phpenv version-name) = "7.2" ]; then ./cc-test-reporter after-build --coverage-input-type clover --exit-code $TRAVIS_TEST_RESULT; fi
 before_deploy:
   - npm install
   - ./deploy.sh
