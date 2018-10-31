@@ -8,6 +8,7 @@
 	<config name="installed_paths" value="vendor/wimg/php-compatibility"/>
 	<config name="testVersion" value="7.1-"/>
 
+	<arg name="extensions" value="php,php.sample"/>
 	<arg name="colors"/>
 	<arg value="s"/>
 
