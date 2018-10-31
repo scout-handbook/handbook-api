@@ -111,4 +111,7 @@ tags
 api-config.php
 api-secrets.php
 
+!tests/*/api-config.php
+!tests/*/api-secrets.php
+
 clover.xml

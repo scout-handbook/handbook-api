@@ -4,8 +4,6 @@ namespace v0_9Tests;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\DbUnit\TestCaseTrait;
 
-define('HandbookAPI\_API_EXEC', 1);
-define('_API_EXEC', 1);
 require_once('v0.9/internal/Database.php');
 
 class DatabaseTest extends TestCase
