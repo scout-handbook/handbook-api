@@ -111,4 +111,4 @@ tags
 api-config.php
 api-secrets.php
 
-coverage.xml
+clover.xml
