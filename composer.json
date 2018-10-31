@@ -33,13 +33,17 @@
 	"scripts": {
 		"phpcs": "vendor/bin/phpcs",
 		"phpmd": "vendor/bin/phpmd v0.9 text phpmd.xml",
-		"phpunit": "vendor/bin/phpunit --bootstrap vendor/autoload.php tests",
+		"phpunit": "vendor/bin/phpunit",
 		"lint": [
 			"@phpcs",
 			"@phpmd"
 		],
+		"unit": [
+			"@phpunit"
+		],
 		"ci": [
-			"@lint"
+			"@lint",
+			"@unit"
 		]
 	}
 }
