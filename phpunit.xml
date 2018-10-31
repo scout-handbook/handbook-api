@@ -35,7 +35,7 @@
 	</filter>
 	<testsuites>
 		<testsuite name="v0.9">
-			<directory suffix=".php">v0.9</directory>
+			<directory suffix=".php">tests/v0.9</directory>
 		</testsuite>
 	</testsuites>
 	<logging>
