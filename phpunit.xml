@@ -3,6 +3,8 @@
 		xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/|version|/phpunit.xsd"
 		backupGlobals="true"
 		backupStaticAttributes="false"
+		beStrictAboutChangesToGlobalState="true"
+		beStrictAboutCoversAnnotation="true"
 		bootstrap="vendor/autoload.php"
 		cacheResult="false"
 		cacheTokens="false"
@@ -31,6 +33,11 @@
 			</exclude>
 		</whitelist>
 	</filter>
+	<testsuites>
+		<testsuite name="v0.9">
+			<directory suffix="v0.9">./</directory>
+		</testsuite>
+	</testsuites>
 	<logging>
 		<log type="coverage-clover" target="clover.xml"/>
 	</logging>
