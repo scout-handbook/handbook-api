@@ -25,5 +25,6 @@ deploy:
   local-dir: node_modules/swagger-ui-dist
   on:
     branch: master
+    php: "7.2"
 notifications:
   email: false
