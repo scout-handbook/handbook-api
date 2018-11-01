@@ -33,17 +33,6 @@ class DatabaseTest extends TestCase
         return $this->getConnection()->createDataSet();
     }
 
-    /*
-    public function setUp() : void
-    {
-        parent::setUp();
-        vfsStreamWrapper::register();
-        $root = new vfsStreamDirectory('root');
-        vfsStreamWrapper::setRoot($root);
-        vfsStreamWrapper::newFile('api-config.php')->at($root)->setContent(file_get_contents('api-config.php.sample'));
-    }
-     */
-
     public static function tearDownAfterClass() : void
     {
         parent::tearDownAfterClass();
@@ -52,6 +41,9 @@ class DatabaseTest extends TestCase
         }
     }
 
+    /**
+     * @covers HandbookAPI\Database::__construct()
+     */
     public function testCtor() : void
     {
         $this->assertInstanceOf('\HandbookAPI\Database', new \HandbookAPI\Database());
