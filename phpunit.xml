@@ -4,7 +4,6 @@
 		backupGlobals="true"
 		backupStaticAttributes="false"
 		beStrictAboutChangesToGlobalState="true"
-		beStrictAboutCoversAnnotation="true"
 		bootstrap="tests/bootstrap.php"
 		cacheResult="false"
 		cacheTokens="false"
@@ -29,7 +28,7 @@
 		<server name="DOCUMENT_ROOT" value="tests/v0.9"/>
 	</php>
 	<filter>
-		<whitelist processUncoveredFilesFromWhitelist="true">
+		<whitelist>
 			<directory suffix=".php">./</directory>
 			<exclude>
 				<directory suffix=".php">vendor/</directory>
@@ -44,6 +43,6 @@
 		</testsuite>
 	</testsuites>
 	<logging>
-		<!--log type="coverage-clover" target="clover.xml"/-->
+		<log type="coverage-clover" target="clover.xml"/>
 	</logging>
 </phpunit>
