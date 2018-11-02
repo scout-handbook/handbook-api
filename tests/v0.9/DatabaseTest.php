@@ -4,6 +4,7 @@ namespace v0_9;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\DbUnit\TestCaseTrait;
 
+global $CONFIG;
 require_once('v0.9/internal/Database.php');
 
 class DatabaseTest extends TestCase
@@ -98,7 +99,7 @@ SQL
      * @covers HandbookAPI\Database::bindParam()
      * @depends testPrepare
      */
-    public function testBindParam($db) : \HandbookAPI\Database
+    public function testBindParam(\HandbookAPI\Database $db) : \HandbookAPI\Database
     {
         $value = 'Test';
         $this->assertNull($db->bindParam('name', $value, \PDO::PARAM_STR));
@@ -109,7 +110,7 @@ SQL
      * @covers HandbookAPI\Database::execute()
      * @depends testBindParam
      */
-    public function testExecute($db) : \HandbookAPI\Database
+    public function testExecute(\HandbookAPI\Database $db) : \HandbookAPI\Database
     {
         $this->assertNull($db->execute());
         return $db;
@@ -119,7 +120,7 @@ SQL
      * @covers HandbookAPI\Database::rowCount()
      * @depends testExecute
      */
-    public function testRowCountZero($db) : void
+    public function testRowCountZero(\HandbookAPI\Database $db) : void
     {
         $this->assertEquals(0, $db->rowCount());
     }
@@ -128,7 +129,7 @@ SQL
      * @covers HandbookAPI\Database::bindColumn()
      * @depends testExecute
      */
-    public function testBindColumn($db) : void
+    public function testBindColumn(\HandbookAPI\Database $db) : void
     {
         $value;
         $this->assertNull($db->bindColumn('name', $value));
@@ -138,7 +139,7 @@ SQL
      * @covers HandbookAPI\Database::fetch()
      * @depends testExecute
      */
-    public function testFetchEmpty($db) : void
+    public function testFetchEmpty(\HandbookAPI\Database $db) : void
     {
         $this->assertFalse($db->fetch());
     }
@@ -148,7 +149,7 @@ SQL
      * @depends testCtor
      * @expectedException HandbookAPI\ExecutionException
      */
-    public function testExecuteException($db) : void
+    public function testExecuteException(\HandbookAPI\Database $db) : void
     {
         $db->prepare(<<<SQL
 XELECT * FROM lessons
@@ -157,7 +158,7 @@ SQL
         $db->execute();
     }
 
-    private function prepareEmpty($db) : void
+    private function prepareEmpty(\HandbookAPI\Database $db) : void
     {
         $db->prepare(<<<SQL
 SELECT * FROM lessons
@@ -171,7 +172,7 @@ SQL
      * @depends testCtor
      * @expectedException HandbookAPI\NotFoundException
      */
-    public function testFetchRequireException($db) : void
+    public function testFetchRequireException(\HandbookAPI\Database $db) : void
     {
         $this->prepareEmpty($db);
         $db->fetchRequire('Lesson');
@@ -181,13 +182,13 @@ SQL
      * @covers HandbookAPI\Database::fetchAll()
      * @depends testCtor
      */
-    public function testFetchAllEmpty($db) : void
+    public function testFetchAllEmpty(\HandbookAPI\Database $db) : void
     {
         $this->prepareEmpty($db);
         $this->assertEmpty($db->fetchAll());
     }
 
-    private function prepareNonEmpty($db) : void
+    private function prepareNonEmpty(\HandbookAPI\Database $db) : void
     {
         $db->prepare(<<<SQL
 SELECT * FROM users
@@ -200,7 +201,7 @@ SQL
      * @covers HandbookAPI\Database::rowCount()
      * @depends testCtor
      */
-    public function testRowCountNonZero($db) : \HandbookAPI\Database
+    public function testRowCountNonZero(\HandbookAPI\Database $db) : \HandbookAPI\Database
     {
         $this->prepareNonEmpty($db);
         $this->assertEquals(1, $db->rowCount());
@@ -211,7 +212,7 @@ SQL
      * @covers HandbookAPI\Database::fetch()
      * @depends testRowCountNonZero
      */
-    public function testFetchNonEmpty($db) : void
+    public function testFetchNonEmpty(\HandbookAPI\Database $db) : void
     {
         $this->assertTrue($db->fetch());
     }
@@ -220,7 +221,7 @@ SQL
      * @covers HandbookAPI\Database::fetchRequire()
      * @depends testCtor
      */
-    public function testFetchRequireOk($db) : void
+    public function testFetchRequireOk(\HandbookAPI\Database $db) : void
     {
         $this->prepareNonEmpty($db);
         $this->assertNull($db->fetchRequire('User'));
@@ -230,7 +231,7 @@ SQL
      * @covers HandbookAPI\Database::fetchAll()
      * @depends testCtor
      */
-    public function testFetchAllNonEmpty($db) : void
+    public function testFetchAllNonEmpty(\HandbookAPI\Database $db) : void
     {
         $this->prepareNonEmpty($db);
         $this->assertEquals([['id' => 125099, 'name' => 'Dědič Marek (Mlha)', 'role' => 'superuser']], $db->fetchAll());
@@ -240,18 +241,16 @@ SQL
      * @covers HandbookAPI\Database::endTransaction()
      * @depends testCtor
      */
-    /*
-    public function testEndNonexistentTransaction($db) : void
+    public function testEndNonexistentTransaction(\HandbookAPI\Database $db) : void
     {
         $this->assertNull($db->endTransaction());
     }
-    */
 
     /**
      * @covers HandbookAPI\Database::beginTransaction()
      * @depends testCtor
      */
-    public function testBeginTransaction($db) : \HandbookAPI\Database
+    public function testBeginTransaction(\HandbookAPI\Database $db) : \HandbookAPI\Database
     {
         $this->assertNull($db->beginTransaction());
         return $db;
@@ -261,7 +260,7 @@ SQL
      * @covers HandbookAPI\Database::endTransaction()
      * @depends testBeginTransaction
      */
-    public function testEndTransaction($db) : void
+    public function testEndTransaction(\HandbookAPI\Database $db) : void
     {
         $this->assertNull($db->endTransaction());
     }
