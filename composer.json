@@ -33,7 +33,7 @@
 	},
 	"scripts": {
 		"phpcs": "vendor/bin/phpcs",
-		"phpmd": "vendor/bin/phpmd v0.9 text phpmd.xml",
+		"phpmd": "vendor/bin/phpmd --ignore-violations-on-exit v0.9 text phpmd.xml",
 		"phpunit": "vendor/bin/phpunit",
 		"lint": [
 			"@phpcs",
