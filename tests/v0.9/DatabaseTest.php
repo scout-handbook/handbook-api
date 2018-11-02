@@ -42,6 +42,20 @@ class DatabaseTest extends TestCase
     }
 
     /**
+     * @covers HandbookAPI\Database::__destruct()
+     */
+    public function testDtor() : void
+    {
+        $db = new \HandbookAPI\Database();
+        $db->prepare(<<<SQL
+SELECT * from lessons
+SQL
+        );
+        unset($db);
+        $this->expectOutputString('');
+    }
+
+    /**
      * @covers HandbookAPI\Database::__construct()
      */
     public function testCtor() : \HandbookAPI\Database
@@ -127,6 +141,20 @@ SQL
     public function testFetchEmpty($db) : void
     {
         $this->assertFalse($db->fetch());
+    }
+
+    /**
+     * @covers HandbookAPI\Database::execute()
+     * @depends testCtor
+     * @expectedException HandbookAPI\ExecutionException
+     */
+    public function testExecuteException($db) : void
+    {
+        $db->prepare(<<<SQL
+XELECT * FROM lessons
+SQL
+        );
+        $db->execute();
     }
 
     private function prepareEmpty($db) : void
@@ -236,15 +264,5 @@ SQL
     public function testEndTransaction($db) : void
     {
         $this->assertNull($db->endTransaction());
-    }
-
-    /**
-     * @covers HandbookAPI\Database::__destruct()
-     */
-    public function testDtor() : void
-    {
-        $db = new \HandbookAPI\Database();
-        unset($db);
-        $this->expectOutputString('');
     }
 }
