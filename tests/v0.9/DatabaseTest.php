@@ -44,8 +44,19 @@ class DatabaseTest extends TestCase
     /**
      * @covers HandbookAPI\Database::__construct()
      */
-    public function testCtor() : void
+    public function testCtor() : \HandbookAPI\Database
     {
-        $this->assertInstanceOf('\HandbookAPI\Database', new \HandbookAPI\Database());
+        $db = new \HandbookAPI\Database();
+        $this->assertInstanceOf('\HandbookAPI\Database', $db);
+        return $db;
+    }
+
+    /**
+     * @covers HandbookAPI\Database::prepare()
+     * @depends testCtor
+     */
+    public function testPrepare(\HandbookAPI\Database $db) : void
+    {
+        $this->assertNull($db->prepare('SELECT * FROM lessons'));
     }
 }
