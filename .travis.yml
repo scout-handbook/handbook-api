@@ -14,7 +14,7 @@ before_script:
 script:
   - composer ci
 after_script:
-  - if [ $(phpenv version-name) = "7.2" ]; then ./cc-test-reporter after-build --coverage-input-type clover --exit-code $TRAVIS_TEST_RESULT; fi
+  - if [ $(phpenv version-name) = "7.2" ]; then ./cc-test-reporter after-build --coverage-input-type clover; fi
 before_deploy:
   - npm install
   - ./deploy.sh
