@@ -1,5 +1,5 @@
 <?php declare(strict_types=1);
-namespace v0_9Tests;
+namespace v0_9;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit\DbUnit\TestCaseTrait;
@@ -55,8 +55,196 @@ class DatabaseTest extends TestCase
      * @covers HandbookAPI\Database::prepare()
      * @depends testCtor
      */
-    public function testPrepare(\HandbookAPI\Database $db) : void
+    public function testPrepare(\HandbookAPI\Database $db) : \HandbookAPI\Database
     {
-        $this->assertNull($db->prepare('SELECT * FROM lessons'));
+        $this->assertNull($db->prepare(<<<SQL
+SELECT * FROM lessons
+WHERE name = :name
+SQL
+        ));
+        return $db;
+    }
+
+    /**
+     * @covers HandbookAPI\Database::prepare()
+     * @expectedException HandbookAPI\QueryException
+     * @depends testCtor
+     */
+    /*
+    public function testPrepareException(\HandbookAPI\Database $db) : void
+    {
+        $db->prepare(<<<SQL
+XELECT * FROM lessons
+SQL
+        );
+    }
+    */
+
+    /**
+     * @covers HandbookAPI\Database::bindParam()
+     * @depends testPrepare
+     */
+    public function testBindParam($db) : \HandbookAPI\Database
+    {
+        $value = 'Test';
+        $this->assertNull($db->bindParam('name', $value, \PDO::PARAM_STR));
+        return $db;
+    }
+
+    /**
+     * @covers HandbookAPI\Database::execute()
+     * @depends testBindParam
+     */
+    public function testExecute($db) : \HandbookAPI\Database
+    {
+        $this->assertNull($db->execute());
+        return $db;
+    }
+
+    /**
+     * @covers HandbookAPI\Database::rowCount()
+     * @depends testExecute
+     */
+    public function testRowCountZero($db) : void
+    {
+        $this->assertEquals(0, $db->rowCount());
+    }
+
+    /**
+     * @covers HandbookAPI\Database::bindColumn()
+     * @depends testExecute
+     */
+    public function testBindColumn($db) : void
+    {
+        $value;
+        $this->assertNull($db->bindColumn('name', $value));
+    }
+
+    /**
+     * @covers HandbookAPI\Database::fetch()
+     * @depends testExecute
+     */
+    public function testFetchEmpty($db) : void
+    {
+        $this->assertFalse($db->fetch());
+    }
+
+    private function prepareEmpty($db) : void
+    {
+        $db->prepare(<<<SQL
+SELECT * FROM lessons
+SQL
+        );
+        $db->execute();
+    }
+
+    /**
+     * @covers HandbookAPI\Database::fetchRequire()
+     * @depends testCtor
+     * @expectedException HandbookAPI\NotFoundException
+     */
+    public function testFetchRequireException($db) : void
+    {
+        $this->prepareEmpty($db);
+        $db->fetchRequire('Lesson');
+    }
+
+    /**
+     * @covers HandbookAPI\Database::fetchAll()
+     * @depends testCtor
+     */
+    public function testFetchAllEmpty($db) : void
+    {
+        $this->prepareEmpty($db);
+        $this->assertEmpty($db->fetchAll());
+    }
+
+    private function prepareNonEmpty($db) : void
+    {
+        $db->prepare(<<<SQL
+SELECT * FROM users
+SQL
+        );
+        $db->execute();
+    }
+
+    /**
+     * @covers HandbookAPI\Database::rowCount()
+     * @depends testCtor
+     */
+    public function testRowCountNonZero($db) : \HandbookAPI\Database
+    {
+        $this->prepareNonEmpty($db);
+        $this->assertEquals(1, $db->rowCount());
+        return $db;
+    }
+
+    /**
+     * @covers HandbookAPI\Database::fetch()
+     * @depends testRowCountNonZero
+     */
+    public function testFetchNonEmpty($db) : void
+    {
+        $this->assertTrue($db->fetch());
+    }
+
+    /**
+     * @covers HandbookAPI\Database::fetchRequire()
+     * @depends testCtor
+     */
+    public function testFetchRequireOk($db) : void
+    {
+        $this->prepareNonEmpty($db);
+        $this->assertNull($db->fetchRequire('User'));
+    }
+
+    /**
+     * @covers HandbookAPI\Database::fetchAll()
+     * @depends testCtor
+     */
+    public function testFetchAllNonEmpty($db) : void
+    {
+        $this->prepareNonEmpty($db);
+        $this->assertEquals([['id' => 125099, 'name' => 'Dědič Marek (Mlha)', 'role' => 'superuser']], $db->fetchAll());
+    }
+
+    /**
+     * @covers HandbookAPI\Database::endTransaction()
+     * @depends testCtor
+     */
+    /*
+    public function testEndNonexistentTransaction($db) : void
+    {
+        $this->assertNull($db->endTransaction());
+    }
+    */
+
+    /**
+     * @covers HandbookAPI\Database::beginTransaction()
+     * @depends testCtor
+     */
+    public function testBeginTransaction($db) : \HandbookAPI\Database
+    {
+        $this->assertNull($db->beginTransaction());
+        return $db;
+    }
+
+    /**
+     * @covers HandbookAPI\Database::endTransaction()
+     * @depends testBeginTransaction
+     */
+    public function testEndTransaction($db) : void
+    {
+        $this->assertNull($db->endTransaction());
+    }
+
+    /**
+     * @covers HandbookAPI\Database::__destruct()
+     */
+    public function testDtor() : void
+    {
+        $db = new \HandbookAPI\Database();
+        unset($db);
+        $this->expectOutputString('');
     }
 }
