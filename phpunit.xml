@@ -12,7 +12,7 @@
 		convertNoticesToExceptions="true"
 		convertWarningsToExceptions="true"
 		forceCoversAnnotation="true"
-		printerClass="PHPUnit\TextUI\ResultPrinter"
+		printerClass="PHPUnit\Util\TestDox\CliTestDoxPrinter"
 		processIsolation="false"
 		stopOnError="false"
 		stopOnFailure="false"
