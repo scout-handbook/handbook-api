@@ -142,7 +142,7 @@ class RoleTest extends DatabaseTestCase
     }
 
     /**
-     * @covers HandbookAPI\Role::__toString()
+     * @covers HandbookAPI\Role::jsonSerialize()
      * @depends testCtorSuperuser
      */
     public function testJsonSerializeSuperuser($role) : void
@@ -151,7 +151,7 @@ class RoleTest extends DatabaseTestCase
     }
 
     /**
-     * @covers HandbookAPI\Role::__toString()
+     * @covers HandbookAPI\Role::jsonSerialize()
      * @depends testCtorAdministrator
      */
     public function testJsonSerializeAdministrator($role) : void
@@ -160,7 +160,7 @@ class RoleTest extends DatabaseTestCase
     }
 
     /**
-     * @covers HandbookAPI\Role::__toString()
+     * @covers HandbookAPI\Role::jsonSerialize()
      * @depends testCtorEditor
      */
     public function testJsonSerializeEditor($role) : void
@@ -169,7 +169,7 @@ class RoleTest extends DatabaseTestCase
     }
 
     /**
-     * @covers HandbookAPI\Role::__toString()
+     * @covers HandbookAPI\Role::jsonSerialize()
      * @depends testCtorUser
      */
     public function testJsonSerializeUser($role) : void
@@ -178,7 +178,7 @@ class RoleTest extends DatabaseTestCase
     }
 
     /**
-     * @covers HandbookAPI\Role::__toString()
+     * @covers HandbookAPI\Role::jsonSerialize()
      * @depends testCtorGuest
      */
     public function testJsonSerializeGuest($role) : void
@@ -187,7 +187,7 @@ class RoleTest extends DatabaseTestCase
     }
 
     /**
-     * @covers HandbookAPI\Role::__toString()
+     * @covers HandbookAPI\Role::jsonSerialize()
      * @depends testCtorNothing
      */
     public function testJsonSerializeNothing($role) : void
@@ -196,7 +196,7 @@ class RoleTest extends DatabaseTestCase
     }
 
     /**
-     * @covers HandbookAPI\Role::__toString()
+     * @covers HandbookAPI\Role::jsonSerialize()
      * @depends testCtorText
      */
     public function testJsonSerializeText($role) : void
