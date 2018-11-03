@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 namespace v0_9;
 
-use PHPUnit\Framework\TestCase;
+require_once('tests/v0.9/DatabaseTestCase.php');
 
 global $CONFIG;
 require_once('v0.9/internal/Role.php');
 
-class RoleTest extends TestCase
+class RoleTest extends DatabaseTestCase
 {
     /**
      * @covers HandbookAPI\Role::__construct()
