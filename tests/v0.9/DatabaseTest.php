@@ -192,6 +192,7 @@ SQL
     {
         $db->prepare(<<<SQL
 SELECT * FROM users
+ORDER BY id DESC
 SQL
         );
         $db->execute();
@@ -204,7 +205,7 @@ SQL
     public function testRowCountNonZero(\HandbookAPI\Database $db) : \HandbookAPI\Database
     {
         $this->prepareNonEmpty($db);
-        $this->assertEquals(1, $db->rowCount());
+        $this->assertEquals(4, $db->rowCount());
         return $db;
     }
 
@@ -234,7 +235,15 @@ SQL
     public function testFetchAllNonEmpty(\HandbookAPI\Database $db) : void
     {
         $this->prepareNonEmpty($db);
-        $this->assertEquals([['id' => 125099, 'name' => 'Dědič Marek (Mlha)', 'role' => 'superuser']], $db->fetchAll());
+        $this->assertEquals(
+            [
+                ['id' => 125099, 'name' => 'Superuser user', 'role' => 'superuser'],
+                ['id' => 125098, 'name' => 'Administrator user', 'role' => 'administrator'],
+                ['id' => 125097, 'name' => 'Editor user', 'role' => 'editor'],
+                ['id' => 125096, 'name' => 'User user', 'role' => 'user']
+            ],
+            $db->fetchAll()
+        );
     }
 
     /**
