@@ -39,7 +39,7 @@ class CompetenceTest extends TestCase
      * @covers HandbookAPI\Competence::__construct()
      * @expectedException InvalidArgumentException
      */
-    public function testCtorInvalid() // TODO: Specialize exception type
+    public function testCtorInvalid() : void // TODO: Specialize exception type
     {
         new \HandbookAPI\Competence(pack('H*', '2a0205609ddf4694b8ac8f846a195865f'), 42, 'cname', 'cdescription');
     }
