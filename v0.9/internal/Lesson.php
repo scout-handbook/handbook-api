@@ -12,7 +12,7 @@ class Lesson implements \JsonSerializable
     public $id;
     public $name;
     public $version;
-    public $competences = array();
+    public $competences = [];
     public $lowestCompetence;
 
     public function __construct(string $id, string $name, float $version)
@@ -49,7 +49,7 @@ function Lesson_cmp(Lesson $first, Lesson $second) : int
     if (empty($second->competences)) {
         return 1;
     }
-    if ($first->lowestCompetence == $second->lowestCompetence) {
+    if ($first->lowestCompetence === $second->lowestCompetence) {
         return 0;
     }
     return ($first->lowestCompetence < $second->lowestCompetence) ? -1 : 1;
