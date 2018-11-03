@@ -448,4 +448,44 @@ class RoleTest extends DatabaseTestCase
     {
         $this->assertEquals(0, \HandbookAPI\Role_cmp($a, new \HandbookAPI\Role('guest')));
     }
+
+    /**
+     * @covers HandbookAPI\getRole
+     */
+    public function testGetRoleSuperuser() : void
+    {
+        $role = \HandbookAPI\getRole(125099);
+        $this->assertInstanceOf('\HandbookAPI\Role', $role);
+        $this->assertEquals('superuser', $role->__toString());
+    }
+
+    /**
+     * @covers HandbookAPI\getRole
+     */
+    public function testGetRoleAdministrator() : void
+    {
+        $role = \HandbookAPI\getRole(125098);
+        $this->assertInstanceOf('\HandbookAPI\Role', $role);
+        $this->assertEquals('administrator', $role->__toString());
+    }
+
+    /**
+     * @covers HandbookAPI\getRole
+     */
+    public function testGetRoleEditor() : void
+    {
+        $role = \HandbookAPI\getRole(125097);
+        $this->assertInstanceOf('\HandbookAPI\Role', $role);
+        $this->assertEquals('editor', $role->__toString());
+    }
+
+    /**
+     * @covers HandbookAPI\getRole
+     */
+    public function testGetRoleUser() : void
+    {
+        $role = \HandbookAPI\getRole(125096);
+        $this->assertInstanceOf('\HandbookAPI\Role', $role);
+        $this->assertEquals('user', $role->__toString());
+    }
 }
