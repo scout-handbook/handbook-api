@@ -31,7 +31,9 @@
 		<whitelist>
 			<directory suffix=".php">./</directory>
 			<exclude>
-				<directory suffix=".php">vendor/</directory>
+				<directory>node_modules/</directory>
+				<directory>tests/</directory>
+				<directory>vendor/</directory>
 			</exclude>
 		</whitelist>
 	</filter>
