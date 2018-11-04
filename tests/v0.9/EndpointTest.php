@@ -77,4 +77,105 @@ class EndpointTest extends TestCase
         }));
         return $endpoint;
     }
+
+    /**
+     * @covers HandbookAPI\Endpoint::callFunctionHelper
+     * @depends testSetDeleteMethod
+     */
+    public function testCallFunctionHelperPutId(\HandbookAPI\Endpoint $endpoint) : void
+    {
+        $method = new \ReflectionMethod('\HandbookAPI\Endpoint', 'callFunctionHelper');
+        $method->setAccessible(true);
+        $fn = $method->invokeArgs($endpoint, ['PUT', ['id' => '78a8aacf-402f-4643-a5f8-2bce404e6353']]);
+        $this->assertTrue(is_callable($fn));
+        $this->assertSame('update', $fn());
+    }
+
+    /**
+     * @covers HandbookAPI\Endpoint::callFunctionHelper
+     * @depends testSetDeleteMethod
+     * @expectedException HandbookAPI\NotImplementedException
+     */
+    public function testCallFunctionHelperPostId(\HandbookAPI\Endpoint $endpoint) : void
+    {
+        $method = new \ReflectionMethod('\HandbookAPI\Endpoint', 'callFunctionHelper');
+        $method->setAccessible(true);
+        $fn = $method->invokeArgs($endpoint, ['POST', ['id' => '78a8aacf-402f-4643-a5f8-2bce404e6353']]);
+    }
+
+    /**
+     * @covers HandbookAPI\Endpoint::callFunctionHelper
+     * @depends testSetDeleteMethod
+     */
+    public function testCallFunctionHelperDeleteId(\HandbookAPI\Endpoint $endpoint) : void
+    {
+        $method = new \ReflectionMethod('\HandbookAPI\Endpoint', 'callFunctionHelper');
+        $method->setAccessible(true);
+        $fn = $method->invokeArgs($endpoint, ['DELETE', ['id' => '78a8aacf-402f-4643-a5f8-2bce404e6353']]);
+        $this->assertTrue(is_callable($fn));
+        $this->assertSame('delete', $fn());
+    }
+
+    /**
+     * @covers HandbookAPI\Endpoint::callFunctionHelper
+     * @depends testSetDeleteMethod
+     */
+    public function testCallFunctionHelperGetId(\HandbookAPI\Endpoint $endpoint) : void
+    {
+        $method = new \ReflectionMethod('\HandbookAPI\Endpoint', 'callFunctionHelper');
+        $method->setAccessible(true);
+        $fn = $method->invokeArgs($endpoint, ['GET', ['id' => '78a8aacf-402f-4643-a5f8-2bce404e6353']]);
+        $this->assertTrue(is_callable($fn));
+        $this->assertSame('get', $fn());
+    }
+
+    /**
+     * @covers HandbookAPI\Endpoint::callFunctionHelper
+     * @depends testSetDeleteMethod
+     * @expectedException HandbookAPI\MissingArgumentException
+     */
+    public function testCallFunctionHelperPutNoId(\HandbookAPI\Endpoint $endpoint) : void
+    {
+        $method = new \ReflectionMethod('\HandbookAPI\Endpoint', 'callFunctionHelper');
+        $method->setAccessible(true);
+        $fn = $method->invokeArgs($endpoint, ['PUT', []]);
+    }
+
+    /**
+     * @covers HandbookAPI\Endpoint::callFunctionHelper
+     * @depends testSetDeleteMethod
+     */
+    public function testCallFunctionHelperPostNoId(\HandbookAPI\Endpoint $endpoint) : void
+    {
+        $method = new \ReflectionMethod('\HandbookAPI\Endpoint', 'callFunctionHelper');
+        $method->setAccessible(true);
+        $fn = $method->invokeArgs($endpoint, ['POST', []]);
+        $this->assertTrue(is_callable($fn));
+        $this->assertSame('add', $fn());
+    }
+
+    /**
+     * @covers HandbookAPI\Endpoint::callFunctionHelper
+     * @depends testSetDeleteMethod
+     * @expectedException HandbookAPI\MissingArgumentException
+     */
+    public function testCallFunctionHelperDeleteNoId(\HandbookAPI\Endpoint $endpoint) : void
+    {
+        $method = new \ReflectionMethod('\HandbookAPI\Endpoint', 'callFunctionHelper');
+        $method->setAccessible(true);
+        $fn = $method->invokeArgs($endpoint, ['DELETE', []]);
+    }
+
+    /**
+     * @covers HandbookAPI\Endpoint::callFunctionHelper
+     * @depends testSetDeleteMethod
+     */
+    public function testCallFunctionHelperGetNoId(\HandbookAPI\Endpoint $endpoint) : void
+    {
+        $method = new \ReflectionMethod('\HandbookAPI\Endpoint', 'callFunctionHelper');
+        $method->setAccessible(true);
+        $fn = $method->invokeArgs($endpoint, ['GET', []]);
+        $this->assertTrue(is_callable($fn));
+        $this->assertSame('list', $fn());
+    }
 }
