@@ -1,15 +1,14 @@
 <?php declare(strict_types=1);
-namespace v0_9;
+namespace TestUtils;
 
-use PHPUnit\Framework\TestCase;
-use PHPUnit\DbUnit\TestCaseTrait;
-
-class DatabaseTestCase extends TestCase
+abstract class DatabaseTestCase extends \PHPUnit\Framework\TestCase
 {
-    use TestCaseTrait;
+    use \PHPUnit\DbUnit\TestCaseTrait;
 
     static private $PDO = null;
     private $connection = null;
+
+    abstract public function getDump() : string;
 
     public function getConnection() : \PHPUnit\DbUnit\Database\Connection
     {
@@ -18,7 +17,7 @@ class DatabaseTestCase extends TestCase
                 self::$PDO = new \PDO('mysql:host=localhost;charset=utf8mb4', 'root', '');
                 self::$PDO->exec('CREATE DATABASE phpunit');
                 self::$PDO->exec('USE phpunit');
-                $setupQuery = file_get_contents('tests/v0.9/db.sql');
+                $setupQuery = file_get_contents($this->getDump());
                 self::$PDO->exec($setupQuery);
             }
             return $this->createDefaultDBConnection(self::$PDO, 'phpunit');

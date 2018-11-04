@@ -1,14 +1,12 @@
 <?php declare(strict_types=1);
 namespace v0_9;
 
-use PHPUnit\Framework\TestCase;
-
-require_once('tests/v0.9/PhpInputStream.php');
+require_once('tests/PhpInputStream.php');
 
 global $CONFIG;
 require_once('v0.9/internal/Endpoint.php');
 
-class EndpointTest extends TestCase
+class EndpointTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers HandbookAPI\Endpoint::__construct()
@@ -191,9 +189,9 @@ class EndpointTest extends TestCase
         $method->setAccessible(true);
         $_GET['key'] = 'gval';
         $_POST['key'] = 'pval';
-        PhpInputStream::register(['key' => 'ival']);
+        \TestUtils\PhpInputStream::register(['key' => 'ival']);
         $data = $method->invokeArgs($endpoint, ['PUT']);
-        PhpInputStream::unregister();
+        \TestUtils\PhpInputStream::unregister();
         $this->assertSame(['key' => 'ival'], $data);
     }
 
@@ -207,9 +205,9 @@ class EndpointTest extends TestCase
         $method->setAccessible(true);
         $_GET['key'] = 'gval';
         $_POST['key'] = 'pval';
-        PhpInputStream::register(['key' => 'ival']);
+        \TestUtils\PhpInputStream::register(['key' => 'ival']);
         $data = $method->invokeArgs($endpoint, ['POST']);
-        PhpInputStream::unregister();
+        \TestUtils\PhpInputStream::unregister();
         $this->assertSame(['key' => 'pval'], $data);
     }
 
@@ -223,9 +221,9 @@ class EndpointTest extends TestCase
         $method->setAccessible(true);
         $_GET['key'] = 'gval';
         $_POST['key'] = 'pval';
-        PhpInputStream::register(['key' => 'ival']);
+        \TestUtils\PhpInputStream::register(['key' => 'ival']);
         $data = $method->invokeArgs($endpoint, ['GET']);
-        PhpInputStream::unregister();
+        \TestUtils\PhpInputStream::unregister();
         $this->assertSame(['key' => 'gval'], $data);
     }
 
@@ -239,9 +237,9 @@ class EndpointTest extends TestCase
         $method->setAccessible(true);
         $_GET['key'] = 'gval';
         $_POST['key'] = 'pval';
-        PhpInputStream::register(['key' => 'ival']);
+        \TestUtils\PhpInputStream::register(['key' => 'ival']);
         $data = $method->invokeArgs($endpoint, ['DELETE']);
-        PhpInputStream::unregister();
+        \TestUtils\PhpInputStream::unregister();
         $this->assertSame(['key' => 'gval'], $data);
     }
 
@@ -281,9 +279,9 @@ class EndpointTest extends TestCase
     {
         $method = new \ReflectionMethod('\HandbookAPI\Endpoint', 'handleDataHelper');
         $method->setAccessible(true);
-        PhpInputStream::register(['id' => 'ival']);
+        \TestUtils\PhpInputStream::register(['id' => 'ival']);
         $data = $method->invokeArgs($endpoint, ['POST']);
-        PhpInputStream::unregister();
+        \TestUtils\PhpInputStream::unregister();
         $this->assertSame([], $data);
     }
 }

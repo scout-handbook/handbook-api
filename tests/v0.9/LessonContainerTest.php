@@ -1,14 +1,12 @@
 <?php declare(strict_types=1);
 namespace v0_9;
 
-use PHPUnit\Framework\TestCase;
-
 global $CONFIG;
 require_once('v0.9/internal/LessonContainer.php');
 require_once('v0.9/internal/Field.php');
 require_once('v0.9/internal/Lesson.php');
 
-class LessonContainerTest extends TestCase
+class LessonContainerTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers HandbookAPI\LessonContainer::__construct()

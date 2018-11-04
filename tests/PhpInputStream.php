@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
-namespace v0_9;
+namespace TestUtils;
 
 class PhpInputStream
 {
     public static function register(array $data) : void
     {
         stream_wrapper_unregister("php");
-        stream_wrapper_register("php", '\v0_9\PhpInputStream');
+        stream_wrapper_register("php", '\TestUtils\PhpInputStream');
         self::$data = http_build_query($data);
     }
 

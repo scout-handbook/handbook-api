@@ -1,12 +1,10 @@
 <?php declare(strict_types=1);
 namespace v0_9;
 
-use PHPUnit\Framework\TestCase;
-
 global $CONFIG;
 require_once('v0.9/internal/User.php');
 
-class UserTest extends TestCase
+class UserTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers HandbookAPI\User::__construct()

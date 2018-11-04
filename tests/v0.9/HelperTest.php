@@ -1,12 +1,10 @@
 <?php declare(strict_types=1);
 namespace v0_9;
 
-use PHPUnit\Framework\TestCase;
-
 global $CONFIG;
 require_once('v0.9/internal/Helper.php');
 
-class HelperTest extends TestCase
+class HelperTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers HandbookAPI\Helper::parseUuid()
