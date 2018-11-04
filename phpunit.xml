@@ -3,7 +3,6 @@
 		xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/|version|/phpunit.xsd"
 		backupGlobals="true"
 		backupStaticAttributes="false"
-		beStrictAboutChangesToGlobalState="true"
 		bootstrap="tests/bootstrap.php"
 		cacheResult="false"
 		cacheTokens="false"
@@ -43,6 +42,7 @@
 			<exclude>tests/v0.9/api-config.php</exclude>
 			<exclude>tests/v0.9/api-secrets.php</exclude>
 			<exclude>tests/v0.9/DatabaseTestCase.php</exclude>
+			<exclude>tests/v0.9/PhpInputStream.php</exclude>
 		</testsuite>
 	</testsuites>
 	<logging>

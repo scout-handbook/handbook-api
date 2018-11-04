@@ -3,6 +3,8 @@ namespace v0_9;
 
 use PHPUnit\Framework\TestCase;
 
+require_once('tests/v0.9/PhpInputStream.php');
+
 global $CONFIG;
 require_once('v0.9/internal/Endpoint.php');
 
@@ -177,5 +179,111 @@ class EndpointTest extends TestCase
         $fn = $method->invokeArgs($endpoint, ['GET', []]);
         $this->assertTrue(is_callable($fn));
         $this->assertSame('list', $fn());
+    }
+
+    /**
+     * @covers HandbookAPI\Endpoint::handleDataHelper
+     * @depends testCtor
+     */
+    public function testHandleDataHelperPut(\HandbookAPI\Endpoint $endpoint) : void
+    {
+        $method = new \ReflectionMethod('\HandbookAPI\Endpoint', 'handleDataHelper');
+        $method->setAccessible(true);
+        $_GET['key'] = 'gval';
+        $_POST['key'] = 'pval';
+        PhpInputStream::register(['key' => 'ival']);
+        $data = $method->invokeArgs($endpoint, ['PUT']);
+        PhpInputStream::unregister();
+        $this->assertSame(['key' => 'ival'], $data);
+    }
+
+    /**
+     * @covers HandbookAPI\Endpoint::handleDataHelper
+     * @depends testCtor
+     */
+    public function testHandleDataHelperPost(\HandbookAPI\Endpoint $endpoint) : void
+    {
+        $method = new \ReflectionMethod('\HandbookAPI\Endpoint', 'handleDataHelper');
+        $method->setAccessible(true);
+        $_GET['key'] = 'gval';
+        $_POST['key'] = 'pval';
+        PhpInputStream::register(['key' => 'ival']);
+        $data = $method->invokeArgs($endpoint, ['POST']);
+        PhpInputStream::unregister();
+        $this->assertSame(['key' => 'pval'], $data);
+    }
+
+    /**
+     * @covers HandbookAPI\Endpoint::handleDataHelper
+     * @depends testCtor
+     */
+    public function testHandleDataHelperGet(\HandbookAPI\Endpoint $endpoint) : void
+    {
+        $method = new \ReflectionMethod('\HandbookAPI\Endpoint', 'handleDataHelper');
+        $method->setAccessible(true);
+        $_GET['key'] = 'gval';
+        $_POST['key'] = 'pval';
+        PhpInputStream::register(['key' => 'ival']);
+        $data = $method->invokeArgs($endpoint, ['GET']);
+        PhpInputStream::unregister();
+        $this->assertSame(['key' => 'gval'], $data);
+    }
+
+    /**
+     * @covers HandbookAPI\Endpoint::handleDataHelper
+     * @depends testCtor
+     */
+    public function testHandleDataHelperDelete(\HandbookAPI\Endpoint $endpoint) : void
+    {
+        $method = new \ReflectionMethod('\HandbookAPI\Endpoint', 'handleDataHelper');
+        $method->setAccessible(true);
+        $_GET['key'] = 'gval';
+        $_POST['key'] = 'pval';
+        PhpInputStream::register(['key' => 'ival']);
+        $data = $method->invokeArgs($endpoint, ['DELETE']);
+        PhpInputStream::unregister();
+        $this->assertSame(['key' => 'gval'], $data);
+    }
+
+    /**
+     * @covers HandbookAPI\Endpoint::handleDataHelper
+     * @depends testCtor
+     */
+    public function testHandleDataHelperGetIdOverride(\HandbookAPI\Endpoint $endpoint) : void
+    {
+        $method = new \ReflectionMethod('\HandbookAPI\Endpoint', 'handleDataHelper');
+        $method->setAccessible(true);
+        $_GET['id'] = 'gval';
+        $_POST['id'] = 'pval';
+        $data = $method->invokeArgs($endpoint, ['POST']);
+        $this->assertSame(['id' => 'gval'], $data);
+    }
+
+    /**
+     * @covers HandbookAPI\Endpoint::handleDataHelper
+     * @depends testCtor
+     */
+    public function testHandleDataHelperGetIdNoOverride(\HandbookAPI\Endpoint $endpoint) : void
+    {
+        $method = new \ReflectionMethod('\HandbookAPI\Endpoint', 'handleDataHelper');
+        $method->setAccessible(true);
+        $_GET['id'] = '';
+        $_POST['id'] = 'pval';
+        $data = $method->invokeArgs($endpoint, ['POST']);
+        $this->assertSame(['id' => 'pval'], $data);
+    }
+
+    /**
+     * @covers HandbookAPI\Endpoint::handleDataHelper
+     * @depends testCtor
+     */
+    public function testHandleDataHelperNoIdOverride(\HandbookAPI\Endpoint $endpoint) : void
+    {
+        $method = new \ReflectionMethod('\HandbookAPI\Endpoint', 'handleDataHelper');
+        $method->setAccessible(true);
+        PhpInputStream::register(['id' => 'ival']);
+        $data = $method->invokeArgs($endpoint, ['POST']);
+        PhpInputStream::unregister();
+        $this->assertSame([], $data);
     }
 }
