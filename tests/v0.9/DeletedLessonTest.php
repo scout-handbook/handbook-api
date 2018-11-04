@@ -24,7 +24,7 @@ class DeletedLessonTest extends TestCase
      */
     public function testJsonSerialize(\HandbookAPI\DeletedLesson $deletedLesson) : void
     {
-        $this->assertEquals(
+        $this->assertJsonStringEqualsJsonString(
             '{"id":"1739a63a-a254-4a95-9508-103b7c80bcdb","name":"dlname"}',
             json_encode($deletedLesson)
         );

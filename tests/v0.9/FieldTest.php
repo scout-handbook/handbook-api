@@ -25,7 +25,7 @@ class FieldTest extends TestCase
      */
     public function testJsonSerializeNoLessons(\HandbookAPI\Field $field) : void
     {
-        $this->assertEquals(
+        $this->assertJsonStringEqualsJsonString(
             '{"id":"1739a63a-a254-4a95-9508-103b7c80bcdb","name":"fname","lessons":[]}',
             json_encode($field)
         );
@@ -39,7 +39,7 @@ class FieldTest extends TestCase
         $field = new \HandbookAPI\Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'fname');
         $lesson = new \HandbookAPI\Lesson(pack('H*', '1739a63aa2544a959508103b7c80bcd0'), 'lname', 123);
         $field->lessons[] = $lesson;
-        $this->assertEquals(
+        $this->assertJsonStringEqualsJsonString(
             '{"id":"1739a63a-a254-4a95-9508-103b7c80bcdb","name":"fname","lessons":[' . json_encode($lesson) . ']}',
             json_encode($field)
         );

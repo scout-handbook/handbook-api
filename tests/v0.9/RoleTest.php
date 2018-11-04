@@ -147,7 +147,7 @@ class RoleTest extends DatabaseTestCase
      */
     public function testJsonSerializeSuperuser($role) : void
     {
-        $this->assertEquals('"superuser"', json_encode($role));
+        $this->assertJsonStringEqualsJsonString('"superuser"', json_encode($role));
     }
 
     /**
@@ -156,7 +156,7 @@ class RoleTest extends DatabaseTestCase
      */
     public function testJsonSerializeAdministrator($role) : void
     {
-        $this->assertEquals('"administrator"', json_encode($role));
+        $this->assertJsonStringEqualsJsonString('"administrator"', json_encode($role));
     }
 
     /**
@@ -165,7 +165,7 @@ class RoleTest extends DatabaseTestCase
      */
     public function testJsonSerializeEditor($role) : void
     {
-        $this->assertEquals('"editor"', json_encode($role));
+        $this->assertJsonStringEqualsJsonString('"editor"', json_encode($role));
     }
 
     /**
@@ -174,7 +174,7 @@ class RoleTest extends DatabaseTestCase
      */
     public function testJsonSerializeUser($role) : void
     {
-        $this->assertEquals('"user"', json_encode($role));
+        $this->assertJsonStringEqualsJsonString('"user"', json_encode($role));
     }
 
     /**
@@ -183,7 +183,7 @@ class RoleTest extends DatabaseTestCase
      */
     public function testJsonSerializeGuest($role) : void
     {
-        $this->assertEquals('"guest"', json_encode($role));
+        $this->assertJsonStringEqualsJsonString('"guest"', json_encode($role));
     }
 
     /**
@@ -192,7 +192,7 @@ class RoleTest extends DatabaseTestCase
      */
     public function testJsonSerializeNothing($role) : void
     {
-        $this->assertEquals('"guest"', json_encode($role));
+        $this->assertJsonStringEqualsJsonString('"guest"', json_encode($role));
     }
 
     /**
@@ -201,7 +201,7 @@ class RoleTest extends DatabaseTestCase
      */
     public function testJsonSerializeText($role) : void
     {
-        $this->assertEquals('"guest"', json_encode($role));
+        $this->assertJsonStringEqualsJsonString('"guest"', json_encode($role));
     }
 
     /**
@@ -210,7 +210,7 @@ class RoleTest extends DatabaseTestCase
      */
     public function testRoleCompareSuperuserAndSuperuser(\HandbookAPI\Role $a) : void
     {
-        $this->assertEquals(0, \HandbookAPI\Role_cmp($a, new \HandbookAPI\Role('superuser')));
+        $this->assertSame(0, \HandbookAPI\Role_cmp($a, new \HandbookAPI\Role('superuser')));
     }
 
     /**
@@ -220,7 +220,7 @@ class RoleTest extends DatabaseTestCase
      */
     public function testRoleCompareSuperuserAndAdministrator(\HandbookAPI\Role $a, \HandbookAPI\Role $b) : void
     {
-        $this->assertEquals(1, \HandbookAPI\Role_cmp($a, $b));
+        $this->assertSame(1, \HandbookAPI\Role_cmp($a, $b));
     }
 
     /**
@@ -230,7 +230,7 @@ class RoleTest extends DatabaseTestCase
      */
     public function testRoleCompareSuperuserAndEditor(\HandbookAPI\Role $a, \HandbookAPI\Role $b) : void
     {
-        $this->assertEquals(1, \HandbookAPI\Role_cmp($a, $b));
+        $this->assertSame(1, \HandbookAPI\Role_cmp($a, $b));
     }
 
     /**
@@ -240,7 +240,7 @@ class RoleTest extends DatabaseTestCase
      */
     public function testRoleCompareSuperuserAndUser(\HandbookAPI\Role $a, \HandbookAPI\Role $b) : void
     {
-        $this->assertEquals(1, \HandbookAPI\Role_cmp($a, $b));
+        $this->assertSame(1, \HandbookAPI\Role_cmp($a, $b));
     }
 
     /**
@@ -250,7 +250,7 @@ class RoleTest extends DatabaseTestCase
      */
     public function testRoleCompareSuperuserAndEditorGuest(\HandbookAPI\Role $a, \HandbookAPI\Role $b) : void
     {
-        $this->assertEquals(1, \HandbookAPI\Role_cmp($a, $b));
+        $this->assertSame(1, \HandbookAPI\Role_cmp($a, $b));
     }
 
     /**
@@ -260,7 +260,7 @@ class RoleTest extends DatabaseTestCase
      */
     public function testRoleCompareAdministratorAndSuperuser(\HandbookAPI\Role $a, \HandbookAPI\Role $b) : void
     {
-        $this->assertEquals(-1, \HandbookAPI\Role_cmp($a, $b));
+        $this->assertSame(-1, \HandbookAPI\Role_cmp($a, $b));
     }
 
     /**
@@ -269,7 +269,7 @@ class RoleTest extends DatabaseTestCase
      */
     public function testRoleCompareAdministratorAndAdministrator(\HandbookAPI\Role $a) : void
     {
-        $this->assertEquals(0, \HandbookAPI\Role_cmp($a, new \HandbookAPI\Role('administrator')));
+        $this->assertSame(0, \HandbookAPI\Role_cmp($a, new \HandbookAPI\Role('administrator')));
     }
 
     /**
@@ -279,7 +279,7 @@ class RoleTest extends DatabaseTestCase
      */
     public function testRoleCompareAdministratorAndEditor(\HandbookAPI\Role $a, \HandbookAPI\Role $b) : void
     {
-        $this->assertEquals(1, \HandbookAPI\Role_cmp($a, $b));
+        $this->assertSame(1, \HandbookAPI\Role_cmp($a, $b));
     }
 
     /**
@@ -289,7 +289,7 @@ class RoleTest extends DatabaseTestCase
      */
     public function testRoleCompareAdministratorAndUser(\HandbookAPI\Role $a, \HandbookAPI\Role $b) : void
     {
-        $this->assertEquals(1, \HandbookAPI\Role_cmp($a, $b));
+        $this->assertSame(1, \HandbookAPI\Role_cmp($a, $b));
     }
 
     /**
@@ -299,7 +299,7 @@ class RoleTest extends DatabaseTestCase
      */
     public function testRoleCompareAdministratorAndGuest(\HandbookAPI\Role $a, \HandbookAPI\Role $b) : void
     {
-        $this->assertEquals(1, \HandbookAPI\Role_cmp($a, $b));
+        $this->assertSame(1, \HandbookAPI\Role_cmp($a, $b));
     }
 
     /**
@@ -309,7 +309,7 @@ class RoleTest extends DatabaseTestCase
      */
     public function testRoleCompareEditorAndSuperuser(\HandbookAPI\Role $a, \HandbookAPI\Role $b) : void
     {
-        $this->assertEquals(-1, \HandbookAPI\Role_cmp($a, $b));
+        $this->assertSame(-1, \HandbookAPI\Role_cmp($a, $b));
     }
 
     /**
@@ -319,7 +319,7 @@ class RoleTest extends DatabaseTestCase
      */
     public function testRoleCompareEditorAndAdministrator(\HandbookAPI\Role $a, \HandbookAPI\Role $b) : void
     {
-        $this->assertEquals(-1, \HandbookAPI\Role_cmp($a, $b));
+        $this->assertSame(-1, \HandbookAPI\Role_cmp($a, $b));
     }
 
     /**
@@ -328,7 +328,7 @@ class RoleTest extends DatabaseTestCase
      */
     public function testRoleCompareEditorAndEditor(\HandbookAPI\Role $a) : void
     {
-        $this->assertEquals(0, \HandbookAPI\Role_cmp($a, new \HandbookAPI\Role('editor')));
+        $this->assertSame(0, \HandbookAPI\Role_cmp($a, new \HandbookAPI\Role('editor')));
     }
 
     /**
@@ -338,7 +338,7 @@ class RoleTest extends DatabaseTestCase
      */
     public function testRoleCompareEditorAndUser(\HandbookAPI\Role $a, \HandbookAPI\Role $b) : void
     {
-        $this->assertEquals(1, \HandbookAPI\Role_cmp($a, $b));
+        $this->assertSame(1, \HandbookAPI\Role_cmp($a, $b));
     }
 
     /**
@@ -348,7 +348,7 @@ class RoleTest extends DatabaseTestCase
      */
     public function testRoleCompareEditorAndGuest(\HandbookAPI\Role $a, \HandbookAPI\Role $b) : void
     {
-        $this->assertEquals(1, \HandbookAPI\Role_cmp($a, $b));
+        $this->assertSame(1, \HandbookAPI\Role_cmp($a, $b));
     }
 
     /**
@@ -358,7 +358,7 @@ class RoleTest extends DatabaseTestCase
      */
     public function testRoleCompareUserAndSuperuser(\HandbookAPI\Role $a, \HandbookAPI\Role $b) : void
     {
-        $this->assertEquals(-1, \HandbookAPI\Role_cmp($a, $b));
+        $this->assertSame(-1, \HandbookAPI\Role_cmp($a, $b));
     }
 
     /**
@@ -368,7 +368,7 @@ class RoleTest extends DatabaseTestCase
      */
     public function testRoleCompareUserAndAdministrator(\HandbookAPI\Role $a, \HandbookAPI\Role $b) : void
     {
-        $this->assertEquals(-1, \HandbookAPI\Role_cmp($a, $b));
+        $this->assertSame(-1, \HandbookAPI\Role_cmp($a, $b));
     }
 
     /**
@@ -378,7 +378,7 @@ class RoleTest extends DatabaseTestCase
      */
     public function testRoleCompareUserAndEditor(\HandbookAPI\Role $a, \HandbookAPI\Role $b) : void
     {
-        $this->assertEquals(-1, \HandbookAPI\Role_cmp($a, $b));
+        $this->assertSame(-1, \HandbookAPI\Role_cmp($a, $b));
     }
 
     /**
@@ -387,7 +387,7 @@ class RoleTest extends DatabaseTestCase
      */
     public function testRoleCompareUserAndUser(\HandbookAPI\Role $a) : void
     {
-        $this->assertEquals(0, \HandbookAPI\Role_cmp($a, new \HandbookAPI\Role('user')));
+        $this->assertSame(0, \HandbookAPI\Role_cmp($a, new \HandbookAPI\Role('user')));
     }
 
     /**
@@ -397,7 +397,7 @@ class RoleTest extends DatabaseTestCase
      */
     public function testRoleCompareUserAndGuest(\HandbookAPI\Role $a, \HandbookAPI\Role $b) : void
     {
-        $this->assertEquals(1, \HandbookAPI\Role_cmp($a, $b));
+        $this->assertSame(1, \HandbookAPI\Role_cmp($a, $b));
     }
 
     /**
@@ -407,7 +407,7 @@ class RoleTest extends DatabaseTestCase
      */
     public function testRoleCompareGuestAndSuperuser(\HandbookAPI\Role $a, \HandbookAPI\Role $b) : void
     {
-        $this->assertEquals(-1, \HandbookAPI\Role_cmp($a, $b));
+        $this->assertSame(-1, \HandbookAPI\Role_cmp($a, $b));
     }
 
     /**
@@ -417,7 +417,7 @@ class RoleTest extends DatabaseTestCase
      */
     public function testRoleCompareGuestAndAdministrator(\HandbookAPI\Role $a, \HandbookAPI\Role $b) : void
     {
-        $this->assertEquals(-1, \HandbookAPI\Role_cmp($a, $b));
+        $this->assertSame(-1, \HandbookAPI\Role_cmp($a, $b));
     }
 
     /**
@@ -427,7 +427,7 @@ class RoleTest extends DatabaseTestCase
      */
     public function testRoleCompareGuestAndEditor(\HandbookAPI\Role $a, \HandbookAPI\Role $b) : void
     {
-        $this->assertEquals(-1, \HandbookAPI\Role_cmp($a, $b));
+        $this->assertSame(-1, \HandbookAPI\Role_cmp($a, $b));
     }
 
     /**
@@ -437,7 +437,7 @@ class RoleTest extends DatabaseTestCase
      */
     public function testRoleCompareGuestAndUser(\HandbookAPI\Role $a, \HandbookAPI\Role $b) : void
     {
-        $this->assertEquals(-1, \HandbookAPI\Role_cmp($a, $b));
+        $this->assertSame(-1, \HandbookAPI\Role_cmp($a, $b));
     }
 
     /**
@@ -446,7 +446,7 @@ class RoleTest extends DatabaseTestCase
      */
     public function testRoleCompareGuestAndGuest(\HandbookAPI\Role $a) : void
     {
-        $this->assertEquals(0, \HandbookAPI\Role_cmp($a, new \HandbookAPI\Role('guest')));
+        $this->assertSame(0, \HandbookAPI\Role_cmp($a, new \HandbookAPI\Role('guest')));
     }
 
     /**
@@ -456,7 +456,7 @@ class RoleTest extends DatabaseTestCase
     {
         $role = \HandbookAPI\getRole(125099);
         $this->assertInstanceOf('\HandbookAPI\Role', $role);
-        $this->assertEquals('superuser', $role->__toString());
+        $this->assertSame('superuser', $role->__toString());
     }
 
     /**
@@ -466,7 +466,7 @@ class RoleTest extends DatabaseTestCase
     {
         $role = \HandbookAPI\getRole(125098);
         $this->assertInstanceOf('\HandbookAPI\Role', $role);
-        $this->assertEquals('administrator', $role->__toString());
+        $this->assertSame('administrator', $role->__toString());
     }
 
     /**
@@ -476,7 +476,7 @@ class RoleTest extends DatabaseTestCase
     {
         $role = \HandbookAPI\getRole(125097);
         $this->assertInstanceOf('\HandbookAPI\Role', $role);
-        $this->assertEquals('editor', $role->__toString());
+        $this->assertSame('editor', $role->__toString());
     }
 
     /**
@@ -486,6 +486,6 @@ class RoleTest extends DatabaseTestCase
     {
         $role = \HandbookAPI\getRole(125096);
         $this->assertInstanceOf('\HandbookAPI\Role', $role);
-        $this->assertEquals('user', $role->__toString());
+        $this->assertSame('user', $role->__toString());
     }
 }

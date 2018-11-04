@@ -29,7 +29,7 @@ class CompetenceTest extends TestCase
      */
     public function testJsonSerialize(\HandbookAPI\Competence $competence) : void
     {
-        $this->assertEquals(
+        $this->assertJsonStringEqualsJsonString(
             '{"id":"1739a63a-a254-4a95-9508-103b7c80bcdb","number":42,"name":"cname","description":"cdescription"}',
             json_encode($competence)
         );
