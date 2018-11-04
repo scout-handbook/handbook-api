@@ -26,7 +26,7 @@ class LessonContainerTest extends TestCase
      */
     public function testCompareLessonContainerAndField(\HandbookAPI\LessonContainer $lessonContainer) : void
     {
-        $this->assertEquals(
+        $this->assertSame(
             -1,
             \HandbookAPI\LessonContainer_cmp(
                 $lessonContainer,
@@ -41,7 +41,7 @@ class LessonContainerTest extends TestCase
      */
     public function testCompareFieldAndLessonContainer(\HandbookAPI\LessonContainer $lessonContainer) : void
     {
-        $this->assertEquals(
+        $this->assertSame(
             1,
             \HandbookAPI\LessonContainer_cmp(
                 new \HandbookAPI\Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'fname'),
@@ -56,7 +56,7 @@ class LessonContainerTest extends TestCase
      */
     public function testCompareLessonContainerAndLessonContainer(\HandbookAPI\LessonContainer $lessonContainer) : void
     {
-        $this->assertEquals(
+        $this->assertSame(
             0,
             \HandbookAPI\LessonContainer_cmp(
                 $lessonContainer,
@@ -72,7 +72,7 @@ class LessonContainerTest extends TestCase
     {
         $a = new \HandbookAPI\Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'aname');
         $b = new \HandbookAPI\Field(pack('H*', '1739a63ab2544a959508103b7c80bcdb'), 'bname');
-        $this->assertEquals(0, \HandbookAPI\LessonContainer_cmp($a, $b));
+        $this->assertSame(0, \HandbookAPI\LessonContainer_cmp($a, $b));
     }
 
     /**
@@ -83,7 +83,7 @@ class LessonContainerTest extends TestCase
         $a = new \HandbookAPI\Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'aname');
         $b = new \HandbookAPI\Field(pack('H*', '1739a63ab2544a959508103b7c80bcdb'), 'bname');
         $b->lessons[] = new \HandbookAPI\Lesson(pack('H*', '1739063ab2544a959508103b7c80bcdb'), 'blname', 123);
-        $this->assertEquals(-1, \HandbookAPI\LessonContainer_cmp($a, $b));
+        $this->assertSame(-1, \HandbookAPI\LessonContainer_cmp($a, $b));
     }
 
     /**
@@ -94,7 +94,7 @@ class LessonContainerTest extends TestCase
         $a = new \HandbookAPI\Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'aname');
         $b = new \HandbookAPI\Field(pack('H*', '1739a63ab2544a959508103b7c80bcdb'), 'bname');
         $a->lessons[] = new \HandbookAPI\Lesson(pack('H*', '1739063ab2544a959508103b7c80bcdb'), 'alname', 123);
-        $this->assertEquals(1, \HandbookAPI\LessonContainer_cmp($a, $b));
+        $this->assertSame(1, \HandbookAPI\LessonContainer_cmp($a, $b));
     }
 
 
@@ -107,6 +107,6 @@ class LessonContainerTest extends TestCase
         $b = new \HandbookAPI\Field(pack('H*', '1739a63ab2544a959508103b7c80bcdb'), 'bname');
         $a->lessons[] = new \HandbookAPI\Lesson(pack('H*', '1739063ab2544a959508103b7c80bcdb'), 'alname', 123);
         $b->lessons[] = new \HandbookAPI\Lesson(pack('H*', '1735063ab2544a959508103b7c80bcdb'), 'blname', 456);
-        $this->assertEquals(0, \HandbookAPI\LessonContainer_cmp($a, $b));
+        $this->assertSame(0, \HandbookAPI\LessonContainer_cmp($a, $b));
     }
 }

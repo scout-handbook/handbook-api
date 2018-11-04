@@ -25,7 +25,7 @@ class LessonTest extends TestCase
      */
     public function testJsonSerializeNoLessons(\HandbookAPI\Lesson $lesson) : void
     {
-        $this->assertEquals(
+        $this->assertJsonStringEqualsJsonString(
             '{"id":"1739a63a-a254-4a95-9508-103b7c80bcdb","name":"lname","version":123457,"competences":[]}',
             json_encode($lesson)
         );
@@ -38,7 +38,7 @@ class LessonTest extends TestCase
     {
         $lesson = new \HandbookAPI\Lesson(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'lname', 123.4567);
         $lesson->competences[] = pack('H*', '1739a63ab2544a959508103b7c80bcdb');
-        $this->assertEquals(
+        $this->assertJsonStringEqualsJsonString(
             '{"id":"1739a63a-a254-4a95-9508-103b7c80bcdb","name":"lname","version":123457,' .
                 '"competences":["1739a63a-b254-4a95-9508-103b7c80bcdb"]}',
             json_encode($lesson)
@@ -51,7 +51,7 @@ class LessonTest extends TestCase
      */
     public function testCtorInvalid() : void // TODO: Specialize exception type
     {
-        new HandbookAPI\Lesson(pack('H*', '1739a63aa2544a959508103b7c80bcdbf'), 'lname', 123.4567);
+        new \HandbookAPI\Lesson(pack('H*', '1739a63aa2544a959508103b7c80bcdbf'), 'lname', 123.4567);
     }
 
     /**
@@ -61,7 +61,7 @@ class LessonTest extends TestCase
     {
         $a = new \HandbookAPI\Lesson(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'lname', 123.4567);
         $b = new \HandbookAPI\Lesson(pack('H*', '1739a63aa2542a959508103b7c80bcdb'), 'lname', 123.4567);
-        $this->assertEquals(0, \HandbookAPI\Lesson_cmp($a, $b));
+        $this->assertSame(0, \HandbookAPI\Lesson_cmp($a, $b));
     }
 
     /**
@@ -72,7 +72,7 @@ class LessonTest extends TestCase
         $a = new \HandbookAPI\Lesson(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'lname', 123.4567);
         $b = new \HandbookAPI\Lesson(pack('H*', '1739a63aa2542a959508103b7c80bcdb'), 'lname', 123.4567);
         $b->competences[] = pack('H*', '1739a63ab2544a959508103b7080bcdb');
-        $this->assertEquals(-1, \HandbookAPI\Lesson_cmp($a, $b));
+        $this->assertSame(-1, \HandbookAPI\Lesson_cmp($a, $b));
     }
 
     /**
@@ -83,7 +83,7 @@ class LessonTest extends TestCase
         $a = new \HandbookAPI\Lesson(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'lname', 123.4567);
         $b = new \HandbookAPI\Lesson(pack('H*', '1739a63aa2542a959508103b7c80bcdb'), 'lname', 123.4567);
         $a->competences[] = pack('H*', '1739a63ab2544a959508103b7080bcdb');
-        $this->assertEquals(1, \HandbookAPI\Lesson_cmp($a, $b));
+        $this->assertSame(1, \HandbookAPI\Lesson_cmp($a, $b));
     }
 
     /**
@@ -97,7 +97,7 @@ class LessonTest extends TestCase
         $b->competences[] = pack('H*', '2739a63ab2544a959508103b7080bcdb');
         $a->lowestCompetence = 1;
         $b->lowestCompetence = 2;
-        $this->assertEquals(-1, \HandbookAPI\Lesson_cmp($a, $b));
+        $this->assertSame(-1, \HandbookAPI\Lesson_cmp($a, $b));
     }
 
     /**
@@ -111,7 +111,7 @@ class LessonTest extends TestCase
         $b->competences[] = pack('H*', '2739a63ab2544a959508103b7080bcdb');
         $a->lowestCompetence = 2;
         $b->lowestCompetence = 1;
-        $this->assertEquals(1, \HandbookAPI\Lesson_cmp($a, $b));
+        $this->assertSame(1, \HandbookAPI\Lesson_cmp($a, $b));
     }
 
     /**
@@ -125,7 +125,7 @@ class LessonTest extends TestCase
         $b->competences[] = pack('H*', '2739a63ab2544a959508103b7080bcdb');
         $a->lowestCompetence = 1;
         $b->lowestCompetence = 1;
-        $this->assertEquals(0, \HandbookAPI\Lesson_cmp($a, $b));
+        $this->assertSame(0, \HandbookAPI\Lesson_cmp($a, $b));
     }
 
     /**
@@ -137,6 +137,6 @@ class LessonTest extends TestCase
         $b = new \HandbookAPI\Lesson(pack('H*', '1739a63aa2542a959508103b7c80bcdb'), 'lname', 123.4567);
         $a->competences[] = pack('H*', '1739a63ab2544a959508103b7080bcdb');
         $b->competences[] = pack('H*', '2739a63ab2544a959508103b7080bcdb');
-        $this->assertEquals(0, \HandbookAPI\Lesson_cmp($a, $b));
+        $this->assertSame(0, \HandbookAPI\Lesson_cmp($a, $b));
     }
 }
