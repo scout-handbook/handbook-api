@@ -41,8 +41,6 @@
 			<directory suffix=".php">tests/v0.9</directory>
 			<exclude>tests/v0.9/api-config.php</exclude>
 			<exclude>tests/v0.9/api-secrets.php</exclude>
-			<exclude>tests/v0.9/DatabaseTestCase.php</exclude>
-			<exclude>tests/v0.9/PhpInputStream.php</exclude>
 		</testsuite>
 	</testsuites>
 	<logging>

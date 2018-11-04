@@ -1,13 +1,18 @@
 <?php declare(strict_types=1);
 namespace v0_9;
 
-require_once('tests/v0.9/DatabaseTestCase.php');
+require_once('tests/DatabaseTestCase.php');
 
 global $CONFIG;
 require_once('v0.9/internal/Role.php');
 
-class RoleTest extends DatabaseTestCase
+class RoleTest extends \TestUtils\DatabaseTestCase
 {
+    public function getDump() : string
+    {
+        return 'tests/v0.9/db.sql';
+    }
+
     /**
      * @covers HandbookAPI\Role::__construct()
      */
