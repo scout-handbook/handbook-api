@@ -91,9 +91,13 @@ class Database
         self::$db->beginTransaction();
     }
 
-    public function endTransaction() : void // TODO: Handle ending non-existent transactions
+    public function endTransaction() : void
     {
-        self::$db->commit();
+        try {
+            self::$db->commit();
+        } catch (\PDOException $e) {
+            throw new ConnectionException($e);
+        }
     }
 
     public function __destruct()

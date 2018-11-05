@@ -220,6 +220,7 @@ SQL
     /**
      * @covers HandbookAPI\Database::endTransaction()
      * @depends testCtor
+     * @expectedException HandbookAPI\ConnectionException
      */
     public function testEndNonexistentTransaction(\HandbookAPI\Database $db) : void
     {
