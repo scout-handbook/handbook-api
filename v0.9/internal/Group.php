@@ -14,15 +14,15 @@ class Group implements \JsonSerializable
     public $name;
     public $count;
 
-    public function __construct(string $id, string $name, int $count) // TODO: Throw for invalid id
+    public function __construct(string $id, string $name, int $count)
     {
-        $this->id = $id;
+        $this->id = \Ramsey\Uuid\Uuid::fromBytes($id);
         $this->name = Helper::xssSanitize($name);
         $this->count = $count;
     }
 
     public function jsonSerialize() : array
     {
-        return ['id' => \Ramsey\Uuid\Uuid::fromBytes($this->id), 'name' => $this->name, 'count' => $this->count];
+        return ['id' => $this->id, 'name' => $this->name, 'count' => $this->count];
     }
 }

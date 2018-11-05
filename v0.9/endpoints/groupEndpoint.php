@@ -43,7 +43,7 @@ SQL;
         $count = '';
         $db2->bindColumn(1, $count);
         $db2->fetchRequire('group');
-        $groups[] = new HandbookAPI\Group(strval($id), strval($name), intval($count));
+        $groups[] = new HandbookAPI\Group($id, strval($name), intval($count));
     }
     return ['status' => 200, 'response' => $groups];
 };
