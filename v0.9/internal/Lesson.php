@@ -17,7 +17,7 @@ class Lesson implements \JsonSerializable
 
     public function __construct(string $id, string $name, float $version)
     {
-        $this->id = $id;
+        $this->id = \Ramsey\Uuid\Uuid::fromBytes($id);
         $this->name = Helper::xssSanitize($name);
         $this->version = round($version * 1000);
     }
@@ -29,7 +29,7 @@ class Lesson implements \JsonSerializable
             $ucomp[] = \Ramsey\Uuid\Uuid::fromBytes($competence);
         }
         return [
-            'id' => \Ramsey\Uuid\Uuid::fromBytes($this->id),
+            'id' => $this->id,
             'name' => $this->name,
             'version' => $this->version,
             'competences' => $ucomp
