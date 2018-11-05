@@ -14,12 +14,12 @@ class DeletedLesson implements \JsonSerializable
 
     public function __construct(string $id, string $name)
     {
-        $this->id = $id;
+        $this->id = \Ramsey\Uuid\Uuid::fromBytes($id);
         $this->name = Helper::xssSanitize($name);
     }
 
     public function jsonSerialize() : array
     {
-        return ['id' => \Ramsey\Uuid\Uuid::fromBytes($this->id), 'name' => $this->name];
+        return ['id' => $this->id, 'name' => $this->name];
     }
 }
