@@ -14,6 +14,7 @@ class Competence implements \JsonSerializable
     public $name;
     public $description;
 
+    // TODO: Throw for invalid id
     public function __construct(string $id, int $number, string $name, string $description)
     {
         $this->id = $id;

@@ -12,11 +12,11 @@ class ConnectionException extends Exception
     const STATUS = 500;
 
     /** @SuppressWarnings(PHPMD.CamelCaseParameterName) */
-    public function __construct($db, $PDOexception)
+    public function __construct($PDOexception)
     {
         parent::__construct(
-            'Database connection request failed.
-            Error message: "' . $db->errorInfo()[2] . '", "' . $PDOexception->getMessage() . '".'
+            'Database connection request failed. ' .
+            'Error message: "' . $PDOexception->getMessage() . '".'
         );
     }
 }

@@ -284,7 +284,10 @@ TRUNCATE TABLE `users`;
 --
 
 INSERT INTO `users` (`id`, `name`, `role`) VALUES
-(125099, 'Dědič Marek (Mlha)', 'superuser');
+(125099, 'Superuser user', 'superuser'),
+(125098, 'Administrator user', 'administrator'),
+(125097, 'Editor user', 'editor'),
+(125096, 'User user', 'user');
 
 -- --------------------------------------------------------
 
