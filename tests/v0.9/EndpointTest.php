@@ -94,13 +94,14 @@ class EndpointTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers HandbookAPI\Endpoint::callFunctionHelper
      * @depends testSetDeleteMethod
-     * @expectedException HandbookAPI\NotImplementedException
      */
     public function testCallFunctionHelperPostId(\HandbookAPI\Endpoint $endpoint) : void
     {
         $method = new \ReflectionMethod('\HandbookAPI\Endpoint', 'callFunctionHelper');
         $method->setAccessible(true);
-        $fn = $method->invokeArgs($endpoint, ['POST', ['id' => '78a8aacf-402f-4643-a5f8-2bce404e6353']]);
+        $fn = $method->invokeArgs($endpoint, ['POST', []]);
+        $this->assertTrue(is_callable($fn));
+        $this->assertSame('add', $fn());
     }
 
     /**

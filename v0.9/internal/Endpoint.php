@@ -123,11 +123,7 @@ class Endpoint
                 }
                 break;
             case 'POST':
-                if (isset($data['id']) or isset($data['parent-id'])) {
-                    throw new NotImplementedException();
-                } else {
-                    return $this->addFunction;
-                }
+                return $this->addFunction;
             case 'DELETE':
                 if (isset($data['id']) or isset($data['parent-id'])) {
                     return $this->deleteFunction;
