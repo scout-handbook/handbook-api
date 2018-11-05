@@ -27,7 +27,7 @@ class Database
                 self::$db = new \PDO($SECRETS->db_dsn . ';charset=utf8mb4', $SECRETS->db_user, $SECRETS->db_password);
                 self::$db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_SILENT);
             } catch (\PDOException $e) {
-                throw new ConnectionException(self::$db, $e);
+                throw new ConnectionException($e);
             }
         }
         self::$instanceCount = self::$instanceCount + 1;
