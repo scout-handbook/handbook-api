@@ -49,8 +49,6 @@ SQL;
             if ($db2->fetch()) {
                 end($container->lessons)->lowestCompetence = intval($competenceNumber);
                 end($container->lessons)->competences[] = $competenceId;
-            } else {
-                end($container->lessons)->lowestCompetence = 0;
             }
             while ($db2->fetch()) {
                 end($container->lessons)->competences[] = $competenceId;
@@ -94,7 +92,7 @@ SQL;
     $db->bindColumn('name', $field_name);
 
     while ($db->fetch()) {
-        $fields[] = new HandbookAPI\Field(strval($field_id), strval($field_name)); // Create a new field
+        $fields[] = new HandbookAPI\Field($field_id, strval($field_name)); // Create a new field
 
         $db2 = new HandbookAPI\Database();
         $db2->prepare($lessonSQL);
