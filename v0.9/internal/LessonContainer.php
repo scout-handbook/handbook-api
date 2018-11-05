@@ -15,7 +15,10 @@ class LessonContainer
 // Container comparison function used in usort. Assumes that both Containers have their lessons sorted low-to-high.
 function LessonContainer_cmp(LessonContainer $first, LessonContainer $second) : int
 {
-    if (get_class($first) === "HandbookAPI\LessonContainer") { // TODO: Both LessonContainers
+    if (get_class($first) === "HandbookAPI\LessonContainer") {
+        if (get_class($second) === "HandbookAPI\LessonContainer") {
+            return 0;
+        }
         return -1;
     }
     if (get_class($second) === "HandbookAPI\LessonContainer") {
