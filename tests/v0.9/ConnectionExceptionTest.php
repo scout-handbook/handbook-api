@@ -4,7 +4,7 @@ namespace v0_9;
 global $CONFIG;
 require_once('v0.9/internal/exceptions/ConnectionException.php');
 
-class ExceptionTest extends \PHPUnit\Framework\TestCase
+class ConnectionExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers HandbookAPI\ConnectionException::__construct()
