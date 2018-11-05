@@ -11,7 +11,7 @@ class ExceptionTest extends \PHPUnit\Framework\TestCase
      */
     public function testCtor() : \HandbookAPI\Exception
     {
-        $e = new \HandbookAPI\Exception();
+        $e = new \HandbookAPI\Exception('Emessage');
         $this->assertInstanceOf('\HandbookAPI\Exception', $e);
         return $e;
     }
@@ -22,7 +22,6 @@ class ExceptionTest extends \PHPUnit\Framework\TestCase
      */
     public function testHandle(\HandbookAPI\Exception $e) : void
     {
-        // TODO: Add some actual error message
-        $this->assertSame(['status' => 500, 'type' => 'Exception', 'message' => 'Something'], $e->handle());
+        $this->assertSame(['status' => 500, 'type' => 'Exception', 'message' => 'Emessage'], $e->handle());
     }
 }
