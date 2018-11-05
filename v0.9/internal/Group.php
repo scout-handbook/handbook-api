@@ -14,7 +14,7 @@ class Group implements \JsonSerializable
     public $name;
     public $count;
 
-    public function __construct(string $id, string $name, int $count)
+    public function __construct(string $id, string $name, int $count) // TODO: Throw for invalid id
     {
         $this->id = $id;
         $this->name = Helper::xssSanitize($name);
