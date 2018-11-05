@@ -24,6 +24,11 @@ class Competence implements \JsonSerializable
 
     public function jsonSerialize() : array
     {
-        return ['id' => $this->id, 'number' => $this->number, 'name' => $this->name, 'description' => $this->description];
+        return [
+            'id' => $this->id,
+            'number' => $this->number,
+            'name' => $this->name,
+            'description' => $this->description
+        ];
     }
 }
