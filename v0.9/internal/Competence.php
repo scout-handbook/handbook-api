@@ -14,10 +14,9 @@ class Competence implements \JsonSerializable
     public $name;
     public $description;
 
-    // TODO: Throw for invalid id
     public function __construct(string $id, int $number, string $name, string $description)
     {
-        $this->id = $id;
+        $this->id = \Ramsey\Uuid\Uuid::fromBytes($id);
         $this->number = $number;
         $this->name = Helper::xssSanitize($name);
         $this->description = Helper::xssSanitize($description);
@@ -25,11 +24,6 @@ class Competence implements \JsonSerializable
 
     public function jsonSerialize() : array
     {
-        return [
-            'id' => \Ramsey\Uuid\Uuid::fromBytes($this->id),
-            'number' => $this->number,
-            'name' => $this->name,
-            'description' => $this->description
-        ];
+        return ['id' => $this->id, 'number' => $this->number, 'name' => $this->name, 'description' => $this->description];
     }
 }

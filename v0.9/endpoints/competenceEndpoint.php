@@ -37,7 +37,7 @@ SQL;
     $db->bindColumn('description', $description);
     $competences = [];
     while ($db->fetch()) {
-        $competences[] = new HandbookAPI\Competence(strval($id), intval($number), strval($name), strval($description));
+        $competences[] = new HandbookAPI\Competence($id, intval($number), strval($name), strval($description));
     }
     return ['status' => 200, 'response' => $competences];
 };
