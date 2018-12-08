@@ -37,7 +37,7 @@ class CompetenceTest extends \PHPUnit\Framework\TestCase
      * @covers HandbookAPI\Competence::__construct()
      * @expectedException InvalidArgumentException
      */
-    public function testCtorInvalid() : void // TODO: Specialize exception type
+    public function testCtorInvalid() : void
     {
         new \HandbookAPI\Competence(pack('H*', '2a0205609ddf4694b8ac8f846a195865f'), 42, 'cname', 'cdescription');
     }
