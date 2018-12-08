@@ -47,7 +47,7 @@ class FieldTest extends \PHPUnit\Framework\TestCase
      * @covers HandbookAPI\Field::__construct()
      * @expectedException InvalidArgumentException
      */
-    public function testCtorInvalid() : void // TODO: Specialize exception type
+    public function testCtorInvalid() : void
     {
         new \HandbookAPI\Field(pack('H*', '1739a63aa2544a959508103b7c80bcdbf'), 'fname', 123);
     }

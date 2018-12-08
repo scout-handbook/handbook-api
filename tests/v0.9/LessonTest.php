@@ -47,7 +47,7 @@ class LessonTest extends \PHPUnit\Framework\TestCase
      * @covers HandbookAPI\Lesson::__construct()
      * @expectedException InvalidArgumentException
      */
-    public function testCtorInvalid() : void // TODO: Specialize exception type
+    public function testCtorInvalid() : void
     {
         new \HandbookAPI\Lesson(pack('H*', '1739a63aa2544a959508103b7c80bcdbf'), 'lname', 123.4567);
     }

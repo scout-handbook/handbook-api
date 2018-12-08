@@ -32,7 +32,7 @@ class DeletedLessonTest extends \PHPUnit\Framework\TestCase
      * @covers HandbookAPI\DeletedLesson::__construct()
      * @expectedException InvalidArgumentException
      */
-    public function testCtorInvalid() // TODO: Specialize exception type
+    public function testCtorInvalid()
     {
         new \HandbookAPI\DeletedLesson(pack('H*', '1739a63aa2544a959508103b7c80bcdbf'), 'dlname');
     }
