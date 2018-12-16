@@ -14,7 +14,7 @@ abstract class DatabaseTestCase extends \PHPUnit\Framework\TestCase
     {
         if ($this->connection == null) {
             if (self::$PDO == null) {
-                self::$PDO = new \PDO('mysql:host=localhost;charset=utf8mb4', 'root', '');
+                self::$PDO = new \PDO('mysql:host=mysql;charset=utf8mb4', 'root', '');
                 self::$PDO->exec('CREATE DATABASE phpunit');
                 self::$PDO->exec('USE phpunit');
                 $setupQuery = file_get_contents($this->getDump());
