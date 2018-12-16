@@ -12,9 +12,9 @@
 		}
 	],
 	"support": {
-		"issues": "https://github.com/GenaBitu/HandbookAPI/issues",
-		"source": "https://github.com/GenaBitu/HandbookAPI",
-		"docs": "https://genabitu.github.io/HandbookAPI/"
+		"issues": "https://gitlab.com/skaut-handbook/handbook-api/issues",
+		"source": "https://gitlab.com/skaut-handbook/handbook-api",
+		"docs": "https://skaut-handbook.gitlab.io/handbook-api/"
 	},
 	"require": {
 		"php": "^7.1",

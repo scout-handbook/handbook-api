@@ -2,13 +2,13 @@ openapi: 3.0.0
 info:
   title: Handbook API
   description:
-    See [Github](https://github.com/GenaBitu/HandbookAPI) or [OdyMateriály](https://odymaterialy.skauting.cz/) for more.
+    See [GitLab](https://gitlab.com/skaut-handbook/handbook-api) or [OdyMateriály](https://odymaterialy.skauting.cz/) for more.
   version: "0.9"
   contact:
-    email: genabitu@github.com
+    email: genabitu@gmail.com
   license:
     name: MIT License
-    url: 'https://github.com/GenaBitu/HandbookAPI/blob/master/LICENSE.md'
+    url: 'https://gitlab.com/skaut-handbook/handbook-api/blob/master/LICENSE.md'
 servers:
   - url: https://odymaterialy.skauting.cz/API/v0.9
 tags:
