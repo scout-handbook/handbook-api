@@ -3,4 +3,4 @@
 An API for creating a handbook with educational materials.
 
 ## Documentation
-[https://genabitu.github.io/HandbookAPI/](https://genabitu.github.io/HandbookAPI/)
+[https://skaut-handbook.gitlab.io/handbook-api/](https://skaut-handbook.gitlab.io/handbook-api/)
