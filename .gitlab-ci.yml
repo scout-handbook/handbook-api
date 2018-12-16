@@ -6,9 +6,8 @@ cache:
     - node_modules/
     - vendor/
 
-test:
+.test:
   stage: test
-  image: php:7.2
   services:
     - name: mariadb:latest
       alias: mysql
@@ -16,8 +15,19 @@ test:
     - bash ci/docker_install.sh > /dev/null
     - php composer.phar install
   script:
-    - echo "SELECT 'OK';" | mysql --user=root --password="" --host=mysql
     - php composer.phar ci
+
+php71:
+  extends: .test
+  image: php:7.1
+
+php72:
+  extends: .test
+  image: php:7.2
+
+php73:
+  extends: .test
+  image: php:7.3
 
 pages:
   stage: deploy
