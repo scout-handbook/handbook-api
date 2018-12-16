@@ -26,8 +26,10 @@ pages:
     - npm install
   script:
     - ./deploy.sh
+  after_script:
+    - ln -s node_modules/swagger-ui-dist public
   artifacts:
     paths:
-      - node_modules/swagger-ui-dist
+      - public
   only:
     - master
