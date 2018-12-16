@@ -12,7 +12,9 @@ apt-get install -yqq git wget libpng-dev libxml2-dev unzip mysql-client
 docker-php-ext-install gd
 docker-php-ext-install pdo_mysql
 docker-php-ext-install soap
-docker-php-ext-install xdebug
+
+pecl install xdebug
+docker-php-ext-enable xdebug
 
 wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
