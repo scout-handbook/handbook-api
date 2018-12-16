@@ -27,7 +27,7 @@ pages:
   script:
     - ./deploy.sh
   after_script:
-    - ln -s node_modules/swagger-ui-dist public
+    - cp -r node_modules/swagger-ui-dist public
   artifacts:
     paths:
       - public
