@@ -2,5 +2,33 @@ parameters:
   level: max
   paths:
     - .
+  fileExtensions:
+    - php
+    - sample
   excludes_analyse:
     - vendor
+  ignoreErrors:
+    - '#Undefined variable: \$CONFIG#'
+    - '#Undefined variable: \$[a-zA-Z]+Endpoint#'
+    - '#Constant _API(_SECRETS)?_EXEC not found.#'
+    - '#Function HandbookAPI\\[a-zA-Z]+ not found while trying to analyse it - autoloading is probably not configured properly.#'
+    - '#Instantiated class HandbookAPI\\[a-zA-Z]+ not found.#'
+    - '#Throwing object of an unknown class HandbookAPI\\[a-zA-Z]*Exception.#'
+    - '#Function [a-zA-Z_\\]+ not found.#'
+    - '#Access to an undefined property Skautis\\Skautis::\$[a-zA-Z]+.#'
+    - '#Call to method [a-zA-Z_]+\(\) on an unknown class HandbookAPI\\[a-zA-Z]+.#'
+    - '#Parameter \$[a-zA-Z_]+ of anonymous function has invalid typehint type HandbookAPI\\Role.#'
+    - '#Access to constant POST on an unknown class HandbookAPI\\MissingArgumentException.#'
+    - '#Call to static method parseUuid\(\) on an unknown class HandbookAPI\\Helper.#'
+    - '#Access to property \$groups on an unknown class HandbookAPI\\User.#'
+    - '#Parameter \$endpoint of anonymous function has invalid typehint type HandbookAPI\\Endpoint.#'
+    - '#Instantiated class OdyMarkdown\\OdyMarkdown not found.#'
+    - '#Instantiated class BaconQrCode\\Renderer\\Image\\Png not found.#'
+    - '#Call to( static)? method [a-zA-Z]+\(\) on an unknown class [a-zA-Z\\]+.#'
+    - '#Parameter \#1 \$renderer of class BaconQrCode\\Writer constructor expects BaconQrCode\\Renderer\\RendererInterface, BaconQrCode\\Renderer\\Image\\Png given.#'
+    - '#Caught class HandbookAPI\\[a-zA-Z]+Exception not found.#'
+    - '#Access to property \$[a-zA-Z]+ on an unknown class HandbookAPI\\[a-zA-Z]+.#'
+    - '#Access to constant ORIENTATION_[A-Z]+ on an unknown class Imagick.#'
+    - '#Undefined variable: \$_API_SECRETS_EXEC#'
+    - '#Instantiated class Imagick not found.#'
+    - '#Access to constant FILE on an unknown class HandbookAPI\\MissingArgumentException.#'
