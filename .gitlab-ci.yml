@@ -1,0 +1,33 @@
+variables:
+  MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+
+cache:
+  paths:
+    - node_modules/
+    - vendor/
+
+test:
+  stage: test
+  image: php:7.2
+  services:
+    - name: mariadb:latest
+      alias: mysql
+  before_script:
+    - bash ci/docker_install.sh > /dev/null
+    - php composer.phar install
+  script:
+    - echo "SELECT 'OK';" | mysql --user=root --password="" --host=mysql
+    - php composer.phar ci
+
+pages:
+  stage: deploy
+  image: node
+  before_script:
+    - npm install
+  script:
+    - ./deploy.sh
+  artifacts:
+    paths:
+      - node_modules/swagger-ui-dist
+  only:
+    - master
