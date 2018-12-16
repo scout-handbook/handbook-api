@@ -29,7 +29,8 @@
 		"wimg/php-compatibility": "^9.0",
 		"phpmd/phpmd": "^2.6",
 		"phpunit/phpunit": "^7.4",
-		"phpunit/dbunit": "^4.0"
+		"phpunit/dbunit": "^4.0",
+		"phpstan/phpstan": "^0.10.6"
 	},
 	"scripts": {
 		"phpcs": "vendor/bin/phpcs",
