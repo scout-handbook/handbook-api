@@ -69,9 +69,10 @@ SQL;
         'use_kwt' => true
     ]);
 
-    $qrRenderer = new \BaconQrCode\Renderer\Image\Png();
-    $qrRenderer->setHeight(90);
-    $qrRenderer->setWidth(90);
+    $qrRenderer = new \BaconQrCode\Renderer\ImageRenderer(
+        new \BaconQrCode\Renderer\RendererStyle\RendererStyle(90),
+        new \BaconQrCode\Renderer\Image\ImagickImageBackEnd()
+    );
     $qrWriter = new \BaconQrCode\Writer($qrRenderer);
 
     $mpdf->DefHTMLHeaderByName(
