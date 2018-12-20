@@ -18,9 +18,7 @@ cache:
     - docker-php-ext-install gd
     - docker-php-ext-install pdo_mysql
     - docker-php-ext-install soap
-
-    - pecl install xdebug
-    - docker-php-ext-enable xdebug
+    - docker-php-ext-install xdebug
 
     - wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig
     - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
