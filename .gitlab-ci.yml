@@ -39,7 +39,7 @@ php72:
   extends: .test
   image: php:7.2
 
-.php73:
+php73:
   extends: .test
   image: php:7.3
 
