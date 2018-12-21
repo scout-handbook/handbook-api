@@ -14,6 +14,29 @@ use Ramsey\Uuid\Uuid;
 
 $fieldEndpoint = new HandbookAPI\Endpoint();
 
+$listFields = function (Skautis\Skautis $skautis, array $data) : array {
+    $SQL = <<<SQL
+SELECT id, name, image
+FROM fields;
+SQL;
+
+    $db = new HandbookAPI\Database();
+    $db->prepare($SQL);
+    $db->execute();
+    $field_id = '';
+    $field_name = '';
+    $field_image = '';
+    $db->bindColumn('id', $field_id);
+    $db->bindColumn('name', $field_name);
+    $db->bindColumn('image', $field_image);
+    $fields = [];
+    while($db->fetch()) {
+        $fields[] = new HandbookAPI\FullField($id, $name, $image);
+    }
+    return ['status' => 200, 'response' => $fields];
+};
+$fieldEndpoint->setListMethod(new HandbookAPI\Role('guest'), $listFields);
+
 $addField = function (Skautis\Skautis $skautis, array $data) : array {
     $SQL = <<<SQL
 INSERT INTO fields (id, name)
