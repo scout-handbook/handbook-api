@@ -1145,6 +1145,47 @@ paths:
         '500':
           $ref: '#/components/responses/500'
   /field:
+    get:
+      summary: Get a list of all fields
+      tags:
+        - field
+      responses:
+        '200':
+          description: A list of all fields, their names and cover images
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    enum:
+                      - 200
+                  response:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                          example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
+                        name:
+                          type: string
+                          example: Field 1
+                        image:
+                          type: string
+                          format: uuid
+                          example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
+                      required:
+                        - id
+                        - name
+                        - image
+                required:
+                  - status
+                  - response
+        '500':
+          $ref: '#/components/responses/500'
     post:
       summary: Add a field
       description: User role must be **administrator** or higher!
