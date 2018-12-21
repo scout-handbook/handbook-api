@@ -32,7 +32,7 @@ SQL;
     $db->bindColumn('image', $field_image);
     $fields = [];
     while($db->fetch()) {
-        $fields[] = new HandbookAPI\FullField($id, $name, $image);
+        $fields[] = new HandbookAPI\FullField($field_id, $field_name, $field_image);
     }
     return ['status' => 200, 'response' => $fields];
 };
