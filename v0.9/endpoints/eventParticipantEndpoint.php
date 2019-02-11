@@ -35,7 +35,8 @@ $listEventParticipants = function (Skautis\Skautis $skautis, array $data) : arra
     }
 
     $ISparticipants = $skautis->Events->ParticipantEducationAll([
-        'ID_EventEducation' => $id]);
+        'ID_EventEducation' => $id,
+        'IsActive' => true]);
     $participants = [];
     foreach ($ISparticipants as $participant) {
         if ($participant->IsAccepted == 'TRUE') {
