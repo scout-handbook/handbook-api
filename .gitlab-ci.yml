@@ -49,10 +49,9 @@ pages:
   image: node
   before_script:
     - npm install
+    - cp -r node_modules/swagger-ui-dist public
   script:
     - ./deploy.sh
-  after_script:
-    - cp -r node_modules/swagger-ui-dist public
   artifacts:
     paths:
       - public
