@@ -60,4 +60,4 @@ pages:
     paths:
       - public
   only:
-    - swagger-local-manifest
+    - master
