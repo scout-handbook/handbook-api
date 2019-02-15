@@ -4,14 +4,14 @@
   "description": "A back-end API for creating a course handbook connected to SkautIS",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GenaBitu/HandbookAPI.git"
+    "url": "git+https://gitlab.com/skaut-handbook/handbook-api.git"
   },
   "author": "GenaBitu",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/GenaBitu/HandbookAPI/issues"
+    "url": "https://gitlab.com/skaut-handbook/handbook-api/issues"
   },
-  "homepage": "https://github.com/GenaBitu/HandbookAPI#readme",
+  "homepage": "https://gitlab.com/skaut-handbook/handbook-api",
   "devDependencies": {
     "swagger-ui-dist": "^3.19.4"
   }

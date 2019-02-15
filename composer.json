@@ -12,9 +12,9 @@
 		}
 	],
 	"support": {
-		"issues": "https://github.com/GenaBitu/HandbookAPI/issues",
-		"source": "https://github.com/GenaBitu/HandbookAPI",
-		"docs": "https://genabitu.github.io/HandbookAPI/"
+		"issues": "https://gitlab.com/skaut-handbook/handbook-api/issues",
+		"source": "https://gitlab.com/skaut-handbook/handbook-api",
+		"docs": "https://skaut-handbook.gitlab.io/handbook-api/"
 	},
 	"require": {
 		"php": "^7.1",
@@ -26,11 +26,11 @@
 	},
 	"require-dev": {
 		"squizlabs/php_codesniffer": "^3.3",
-		"wimg/php-compatibility": "^9.0",
 		"phpmd/phpmd": "^2.6",
 		"phpunit/phpunit": "^7.4",
 		"phpunit/dbunit": "^4.0",
-		"phpstan/phpstan": "^0.10.6"
+		"phpstan/phpstan": "^0.10.6",
+		"phpcompatibility/php-compatibility": "^9.0"
 	},
 	"scripts": {
 		"phpcs": "vendor/bin/phpcs",
