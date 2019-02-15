@@ -6,18 +6,43 @@ cache:
     - node_modules/
     - vendor/
 
-test:
+.test:
   stage: test
-  image: php:7.2
   services:
     - name: mariadb:latest
       alias: mysql
   before_script:
-    - bash ci/docker_install.sh > /dev/null
+    - apt-get update -yqq
+    - apt-get install -yqq git wget libpng-dev libxml2-dev unzip
+
+    - docker-php-ext-install gd
+    - docker-php-ext-install pdo_mysql
+    - docker-php-ext-install soap
+
+    - pecl install xdebug
+    - docker-php-ext-enable xdebug
+
+    - wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig
+    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+    - php -r "if (hash_file('SHA384', 'composer-setup.php') === file_get_contents('installer.sig')) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+    - php composer-setup.php
+    - php -r "unlink('composer-setup.php'); unlink('installer.sig');"
     - php composer.phar install
   script:
-    - echo "SELECT 'OK';" | mysql --user=root --password="" --host=mysql
     - php composer.phar ci
+
+php71:
+  extends: .test
+  image: php:7.1
+
+php72:
+  extends: .test
+  image: php:7.2
+
+php73:
+  extends: .test
+  image: php:7.3
+  allow_failure: true
 
 pages:
   stage: deploy
@@ -25,9 +50,12 @@ pages:
   before_script:
     - npm install
   script:
-    - ./deploy.sh
-  after_script:
     - cp -r node_modules/swagger-ui-dist public
+    - mkdir public/definitions
+    - for dir in $(ls -d */ | grep -E "v.*\\..*" | sed 's/.$//'); do cp $dir/swagger.yaml public/definitions/$dir.yaml; done;
+    - 'URLS=$(echo "    urls: [$(ls -d */ | grep -E "v.*\\..*" | sed ''s/.$//'' | awk -v ORS= ''{print "{url: \"https://skaut-handbook.gitlab.io/handbook-api/definitions/" $1 ".yaml\", name: \"Version " substr($1, 2) "\"}, "}'' | sed ''s/..$//'')],")'
+    - sed -i -e "/<title>Swagger UI<\/title>/c <title>Handbook API</title>" public/index.html
+    - 'sed -i -e "/url: \"https:\/\/petstore\.swagger\.io\/v2\/swagger\.json\",/c \\${URLS}" public/index.html'
   artifacts:
     paths:
       - public
