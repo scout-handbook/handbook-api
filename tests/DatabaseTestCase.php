@@ -5,7 +5,7 @@ abstract class DatabaseTestCase extends \PHPUnit\Framework\TestCase
 {
     use \PHPUnit\DbUnit\TestCaseTrait;
 
-    static private $PDO = null;
+    private static $PDO = null;
     private $connection = null;
 
     abstract public function getDump() : string;

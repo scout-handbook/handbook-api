@@ -7,6 +7,7 @@ require_once($CONFIG->basepath . '/v0.9/internal/Endpoint.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/InvalidArgumentTypeException.php');
+require_once($CONFIG->basepath . '/v0.9/internal/exceptions/SkautISAuthorizationException.php');
 
 $eventParticipantEndpoint = new HandbookAPI\Endpoint();
 
@@ -34,8 +35,17 @@ $listEventParticipants = function (Skautis\Skautis $skautis, array $data) : arra
         }
     }
 
-    $ISparticipants = $skautis->Events->ParticipantEducationAll([
-        'ID_EventEducation' => $id]);
+    try {
+        $ISparticipants = $skautis->Events->ParticipantEducationAll([
+            'ID_EventEducation' => $id,
+            'IsActive' => true]);
+    } catch (\Skautis\Exception $e) {
+        if(mb_ereg_match("^Server was unable to process request\. ---> Nemáte oprávnění k akci EV_ParticipantEducation_ALL_EventEducation nad záznamem ID=[\d]+!", $e->getMessage()))
+        {
+            throw new HandbookAPI\SkautISAuthorizationException();
+        }
+        throw $e;
+    }
     $participants = [];
     foreach ($ISparticipants as $participant) {
         if ($participant->IsAccepted == 'TRUE') {

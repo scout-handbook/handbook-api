@@ -115,3 +115,5 @@ api-secrets.php
 !tests/*/api-secrets.php
 
 clover.xml
+
+public/
