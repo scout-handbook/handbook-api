@@ -83,7 +83,7 @@ $getImage = function (Skautis\Skautis $skautis, array $data) use ($CONFIG) : arr
     }
 
     header('content-type: ' . mime_content_type($file));
-    header('content-length: ' . filesize($file));
+    //header('content-length: ' . filesize($file)); // TODO: Causes errors in Firefox, find out why: Maybe some data is sent before the image?
 
     $modified = filemtime($file);
     if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
