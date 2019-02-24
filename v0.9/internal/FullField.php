@@ -11,17 +11,19 @@ class FullField implements \JsonSerializable
 {
     public $id;
     public $name;
+    public $description;
     public $image;
 
-    public function __construct(string $id, string $name, string $image)
+    public function __construct(string $id, string $name, $description, string $image)
     {
         $this->id = \Ramsey\Uuid\Uuid::fromBytes($id);
         $this->name = Helper::xssSanitize($name);
+        $this->description = Helper::xssSanitize($description);
         $this->image = \Ramsey\Uuid\Uuid::fromBytes($image);
     }
 
     public function jsonSerialize() : array
     {
-        return ['id' => $this->id, 'name' => $this->name, 'image' => $this->image];
+        return ['id' => $this->id, 'name' => $this->name, 'description' => $this->description, 'image' => $this->image];
     }
 }
