@@ -17,7 +17,7 @@ $fieldEndpoint = new HandbookAPI\Endpoint();
 
 $listFields = function (Skautis\Skautis $skautis, array $data) : array {
     $SQL = <<<SQL
-SELECT id, name, image
+SELECT id, name, description, image
 FROM fields;
 SQL;
 
@@ -26,13 +26,15 @@ SQL;
     $db->execute();
     $field_id = '';
     $field_name = '';
+    $field_description = '';
     $field_image = '';
     $db->bindColumn('id', $field_id);
     $db->bindColumn('name', $field_name);
+    $db->bindColumn('description', $field_description);
     $db->bindColumn('image', $field_image);
     $fields = [];
     while($db->fetch()) {
-        $fields[] = new HandbookAPI\FullField($field_id, $field_name, $field_image);
+        $fields[] = new HandbookAPI\FullField($field_id, $field_name, $field_description, $field_image);
     }
     return ['status' => 200, 'response' => $fields];
 };
