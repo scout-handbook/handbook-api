@@ -1206,8 +1206,17 @@ paths:
                 name:
                   type: string
                   example: Field 1
+                description:
+                  type: string
+                  example: Description of field 1
+                image:
+                  type: string
+                  format: uuid
+                  example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
               required:
                 - name
+                - description
+                - image
       responses:
         '201':
           $ref: '#/components/responses/201'
@@ -1243,8 +1252,17 @@ paths:
                 name:
                   type: string
                   example: Field 1
+                description:
+                  type: string
+                  example: Description of field 1
+                image:
+                  type: string
+                  format: uuid
+                  example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
               required:
                 - name
+                - description
+                - image
       responses:
         '200':
           $ref: '#/components/responses/200'
