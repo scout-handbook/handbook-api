@@ -13,7 +13,8 @@ class FullFieldTest extends \PHPUnit\Framework\TestCase
     {
         $field = new \HandbookAPI\FullField(
             pack('H*', '1739a63aa2544a959508103b7c80bcdb'),
-            'fnm',
+            'fname',
+            'fdesc',
             pack('H*', '2739a63aa2544a959508103b7c80bcdb')
         );
         $this->assertInstanceOf('\HandbookAPI\FUllField', $field);
@@ -27,7 +28,7 @@ class FullFieldTest extends \PHPUnit\Framework\TestCase
     public function testJsonSerializeNoLessons(\HandbookAPI\FullField $field) : void
     {
         $this->assertJsonStringEqualsJsonString(
-            '{"id":"1739a63a-a254-4a95-9508-103b7c80bcdb","name":"fnm","image":"2739a63a-a254-4a95-9508-103b7c80bcdb"}',
+            '{"id":"1739a63a-a254-4a95-9508-103b7c80bcdb","name":"fname","description":"fdesc","image":"2739a63a-a254-4a95-9508-103b7c80bcdb"}', // phpcs:ignore Generic.Files.LineLength.TooLong
             json_encode($field)
         );
     }
@@ -41,6 +42,7 @@ class FullFieldTest extends \PHPUnit\Framework\TestCase
         new \HandbookAPI\FullField(
             pack('H*', '1739a63aa2544a959508103b7c80bcdbf'),
             'fname',
+            'fdesc',
             pack('H*', '2739a63aa2544a959508103b7c80bcdb')
         );
     }
@@ -54,6 +56,7 @@ class FullFieldTest extends \PHPUnit\Framework\TestCase
         new \HandbookAPI\FullField(
             pack('H*', '1739a63aa2544a959508103b7c80bcdb'),
             'fname',
+            'fdesc',
             pack('H*', '2739a63aa2544a959508103b7c80bcdbf')
         );
     }
