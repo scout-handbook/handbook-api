@@ -2,26 +2,27 @@
 namespace v0_9;
 
 global $CONFIG;
-require_once('v0.9/internal/Field.php');
 require_once('v0.9/internal/Lesson.php');
+
+use Skaut\HandbookAPI\v0_9\Field;
 
 class FieldTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers HandbookAPI\Field::__construct()
+     * @covers Skaut\HandbookAPI\v0_9\Field::__construct()
      */
-    public function testCtor() : \HandbookAPI\Field
+    public function testCtor() : Field
     {
-        $field = new \HandbookAPI\Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'fname');
-        $this->assertInstanceOf('\HandbookAPI\Field', $field);
+        $field = new Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'fname');
+        $this->assertInstanceOf('\Skaut\HandbookAPI\v0_9\Field', $field);
         return $field;
     }
 
     /**
-     * @covers HandbookAPI\Field::jsonSerialize()
+     * @covers Skaut\HandbookAPI\v0_9\Field::jsonSerialize()
      * @depends testCtor
      */
-    public function testJsonSerializeNoLessons(\HandbookAPI\Field $field) : void
+    public function testJsonSerializeNoLessons(Field $field) : void
     {
         $this->assertJsonStringEqualsJsonString(
             '{"id":"1739a63a-a254-4a95-9508-103b7c80bcdb","name":"fname","lessons":[]}',
@@ -30,11 +31,11 @@ class FieldTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers HandbookAPI\Field::jsonSerialize()
+     * @covers Skaut\HandbookAPI\v0_9\Field::jsonSerialize()
      */
     public function testJsonSerializeLessons() : void
     {
-        $field = new \HandbookAPI\Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'fname');
+        $field = new Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'fname');
         $lesson = new \HandbookAPI\Lesson(pack('H*', '1739a63aa2544a959508103b7c80bcd0'), 'lname', 123);
         $field->lessons[] = $lesson;
         $this->assertJsonStringEqualsJsonString(
@@ -44,11 +45,11 @@ class FieldTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers HandbookAPI\Field::__construct()
+     * @covers Skaut\HandbookAPI\v0_9\Field::__construct()
      * @expectedException InvalidArgumentException
      */
     public function testCtorInvalid() : void
     {
-        new \HandbookAPI\Field(pack('H*', '1739a63aa2544a959508103b7c80bcdbf'), 'fname', 123);
+        new Field(pack('H*', '1739a63aa2544a959508103b7c80bcdbf'), 'fname', 123);
     }
 }

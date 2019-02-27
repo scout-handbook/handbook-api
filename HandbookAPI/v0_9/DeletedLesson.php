@@ -3,7 +3,7 @@ namespace \Skaut\HandbookAPI\v0_9;
 
 @_API_EXEC === 1 or die('Restricted access.');
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
+require($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
 
 use Ramsey\Uuid\Uuid;

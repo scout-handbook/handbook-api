@@ -3,13 +3,13 @@
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Field.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Lesson.php');
 require_once($CONFIG->basepath . '/v0.9/internal/LessonContainer.php');
 
 use Ramsey\Uuid\Uuid;
 
 use Skaut\HandbookAPI\v0_9\Database;
+use Skaut\HandbookAPI\v0_9\Field;
 
 function populateContainer(
     Database $db,
@@ -93,7 +93,7 @@ SQL;
     $db->bindColumn('name', $field_name);
 
     while ($db->fetch()) {
-        $fields[] = new HandbookAPI\Field($field_id, strval($field_name)); // Create a new field
+        $fields[] = new Field($field_id, strval($field_name)); // Create a new field
 
         $db2 = new Database();
         $db2->prepare($lessonSQL);
