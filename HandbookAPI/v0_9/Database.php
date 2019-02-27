@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
-namespace HandbookAPI;
+namespace Skaut\HandbookAPI\v0_9;
 
 @_API_EXEC === 1 or die('Restricted access.');
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
+require($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/ConnectionException.php');
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/ExecutionException.php');

@@ -3,7 +3,6 @@
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Database.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Endpoint.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
@@ -13,6 +12,7 @@ require_once($CONFIG->basepath . '/v0.9/internal/exceptions/MissingArgumentExcep
 
 use Ramsey\Uuid\Uuid;
 
+use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Helper;
 
 $imageEndpoint = new HandbookAPI\Endpoint();
@@ -57,7 +57,7 @@ FROM images
 ORDER BY time DESC;
 SQL;
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->prepare($SQL);
     $db->execute();
     $id = '';
@@ -123,7 +123,7 @@ SQL;
         throw new HandbookAPI\Exception('File upload failed.');
     }
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->beginTransaction();
     $db->prepare($SQL);
     $uuidBin = $uuid->getBytes();
@@ -173,7 +173,7 @@ SQL;
 
     $id = Helper::parseUuid($data['id'], 'image');
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->beginTransaction();
 
     $db->prepare($SQL);

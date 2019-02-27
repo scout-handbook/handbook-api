@@ -3,7 +3,6 @@
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Database.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Endpoint.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
@@ -23,6 +22,8 @@ require_once($CONFIG->basepath . '/v0.9/endpoints/lessonPDFEndpoint.php');
 
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+
+use Skaut\HandbookAPI\v0_9\Database;
 
 $lessonEndpoint = new HandbookAPI\Endpoint();
 $lessonEndpoint->addSubEndpoint('competence', $lessonCompetenceEndpoint);
@@ -53,7 +54,7 @@ SQL;
     }
     array_walk($groups, '\Ramsey\Uuid\Uuid::fromString');
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->prepare($groupSQL);
     $lessonId = $lessonId->getBytes();
     $db->bindParam(':lesson_id', $lessonId, PDO::PARAM_STR);

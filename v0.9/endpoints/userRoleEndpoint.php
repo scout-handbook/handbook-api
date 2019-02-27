@@ -8,6 +8,8 @@ require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/InvalidArgumentTypeException.php');
 
+use Skaut\HandbookAPI\v0_9\Database;
+
 $userRoleEndpoint = new HandbookAPI\Endpoint();
 
 $updateUserRole = function (Skautis\Skautis $skautis, array $data) : array {
@@ -42,7 +44,7 @@ SQL;
     $my_role = HandbookAPI\getRole($skautis->UserManagement->LoginDetail()->ID_Person);
     $checkRole($my_role, $new_role);
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->prepare($selectSQL);
     $db->bindParam(':id', $id, PDO::PARAM_INT);
     $db->execute();

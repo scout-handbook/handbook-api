@@ -12,6 +12,7 @@ require_once($CONFIG->basepath . '/v0.9/internal/exceptions/InvalidArgumentTypeE
 require_once($CONFIG->basepath . '/v0.9/endpoints/userRoleEndpoint.php');
 require_once($CONFIG->basepath . '/v0.9/endpoints/userGroupEndpoint.php');
 
+use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Helper;
 
 $userEndpoint = new HandbookAPI\Endpoint();
@@ -86,7 +87,7 @@ SQL;
         }
     }
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     if (isset($data['group'])) {
         $group_id = Helper::parseUuid($data['group'], 'group')->getBytes();
         $db->prepare($groupCheckSQL);
@@ -122,7 +123,7 @@ SQL;
     foreach ($userResult as $row) {
         $users[] = new HandbookAPI\User(intval($row['id']), $row['name'], $row['role']);
 
-        $db2 = new HandbookAPI\Database();
+        $db2 = new Database();
         $db2->prepare($groupSQL);
         $db2->bindParam(':user_id', $row['id'], PDO::PARAM_STR);
         $db2->execute();
@@ -156,7 +157,7 @@ VALUES (:id, :name)
 ON DUPLICATE KEY UPDATE name = VALUES(name);
 SQL;
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->prepare($SQL);
     $db->bindParam(':id', $id, PDO::PARAM_INT);
     $db->bindParam(':name', $name, PDO::PARAM_STR);

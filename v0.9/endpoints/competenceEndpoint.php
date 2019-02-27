@@ -3,7 +3,6 @@
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Database.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Endpoint.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
@@ -14,6 +13,7 @@ require_once($CONFIG->basepath . '/v0.9/internal/exceptions/NotFoundException.ph
 use Ramsey\Uuid\Uuid;
 
 use Skaut\HandbookAPI\v0_9\Competence;
+use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Helper;
 
 $competenceEndpoint = new HandbookAPI\Endpoint();
@@ -25,7 +25,7 @@ FROM competences
 ORDER BY number;
 SQL;
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->prepare($SQL);
     $db->execute();
     $id = '';
@@ -67,7 +67,7 @@ SQL;
     }
     $uuid = Uuid::uuid4()->getBytes();
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->prepare($SQL);
     $db->bindParam(':id', $uuid, PDO::PARAM_STR);
     $db->bindParam(':number', $number, PDO::PARAM_INT);
@@ -105,7 +105,7 @@ SQL;
         $description = $data['description'];
     }
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
 
     if (!isset($number) or !isset($name) or !isset($description)) {
         $db->prepare($selectSQL);
@@ -160,7 +160,7 @@ SQL;
 
     $id = Helper::parseUuid($data['id'], 'competence')->getBytes();
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->beginTransaction();
 
     $db->prepare($deleteLessonsSQL);

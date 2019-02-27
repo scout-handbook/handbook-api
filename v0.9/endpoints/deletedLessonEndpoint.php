@@ -3,7 +3,6 @@
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Database.php');
 require_once($CONFIG->basepath . '/v0.9/internal/DeletedLesson.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Endpoint.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
@@ -11,6 +10,8 @@ require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 require_once($CONFIG->basepath . '/v0.9/endpoints/deletedLessonHistoryEndpoint.php');
 
 use Ramsey\Uuid\Uuid;
+
+use Skaut\HandbookAPI\v0_9\Database;
 
 $deletedLessonEndpoint = new HandbookAPI\Endpoint();
 $deletedLessonEndpoint->addSubEndpoint('history', $deletedLessonHistoryEndpoint);
@@ -24,7 +25,7 @@ LEFT JOIN lesson_history b ON a.id = b.id AND a.version < b.version # Only most 
 WHERE lessons.id IS NULL AND b.id IS NULL;
 SQL;
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->prepare($SQL);
     $db->execute();
     $lessons = [];

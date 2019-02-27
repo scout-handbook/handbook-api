@@ -3,7 +3,6 @@
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Database.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Endpoint.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
@@ -11,6 +10,7 @@ require_once($CONFIG->basepath . '/v0.9/internal/exceptions/MissingArgumentExcep
 
 use Ramsey\Uuid\Uuid;
 
+use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\FullField;
 use Skaut\HandbookAPI\v0_9\Helper;
 
@@ -22,7 +22,7 @@ SELECT id, name, description, image
 FROM fields;
 SQL;
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->prepare($SQL);
     $db->execute();
     $field_id = '';
@@ -61,7 +61,7 @@ SQL;
     }
     $image = Helper::parseUuid($data['image'], 'image')->getBytes();
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->prepare($SQL);
     $db->bindParam(':id', $uuid, PDO::PARAM_STR);
     $db->bindParam(':name', $name, PDO::PARAM_STR);
@@ -94,7 +94,7 @@ SQL;
     }
     $image = Helper::parseUuid($data['image'], 'image')->getBytes();
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->beginTransaction();
 
     $db->prepare($SQL);
@@ -126,7 +126,7 @@ SQL;
 
     $id = Helper::parseUuid($data['id'], 'field')->getBytes();
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->beginTransaction();
 
     $db->prepare($deleteLessonsSQL);
