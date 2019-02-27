@@ -104,6 +104,8 @@ TRUNCATE TABLE `competences_for_lessons`;
 CREATE TABLE IF NOT EXISTS `fields` (
   `id` binary(16) NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_czech_ci NOT NULL,
+  `description` text COLLATE utf8mb4_czech_ci NOT NULL,
+  `image` binary(16) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
@@ -117,15 +119,15 @@ TRUNCATE TABLE `fields`;
 -- Dumping data for table `fields`
 --
 
-INSERT INTO `fields` (`id`, `name`) VALUES
-(0x12e594cedd3548e9befba440e0403762, 'Hospodaření'),
-(0x1db1540ff8294b449c013cb9ecd56fa1, 'Zdravověda a bezpečnost'),
-(0x26399db899e84e909309ccd2937d3544, 'Právo'),
-(0x29d7c37f9d674e2086d74ae8846fb931, 'Organizace'),
-(0x2e5bf7bba48f497f881c230ccb7fce56, 'Osobnost čekatele'),
-(0x4919e4b8da7140da9d0f2e96261a0e42, 'Příprava programu, metodika skautské výchovy'),
-(0x834e889c03664959a6f674707a33c1ce, 'Skauting'),
-(0xdd8ac1b9b22241788715e826167cdfce, 'Pedagogika, psychologie a komunikace');
+INSERT INTO `fields` (`id`, `name`, `description`, `image`) VALUES
+(0x12e594cedd3548e9befba440e0403762, 'Hospodaření', '', 0x00000000000000000000000000000000),
+(0x1db1540ff8294b449c013cb9ecd56fa1, 'Zdravověda a bezpečnost', '', 0x00000000000000000000000000000000),
+(0x26399db899e84e909309ccd2937d3544, 'Právo', '', 0x00000000000000000000000000000000),
+(0x29d7c37f9d674e2086d74ae8846fb931, 'Organizace', '', 0x00000000000000000000000000000000),
+(0x2e5bf7bba48f497f881c230ccb7fce56, 'Osobnost čekatele', '', 0x00000000000000000000000000000000),
+(0x4919e4b8da7140da9d0f2e96261a0e42, 'Příprava programu, metodika skautské výchovy', '', 0x00000000000000000000000000000000),
+(0x834e889c03664959a6f674707a33c1ce, 'Skauting', '', 0x00000000000000000000000000000000),
+(0xdd8ac1b9b22241788715e826167cdfce, 'Pedagogika, psychologie a komunikace', '', 0x00000000000000000000000000000000);
 
 -- --------------------------------------------------------
 
@@ -279,13 +281,6 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 TRUNCATE TABLE `users`;
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `name`, `role`) VALUES
-(125099, 'Dědič Marek (Mlha)', 'superuser');
-
 -- --------------------------------------------------------
 
 --
@@ -317,38 +312,6 @@ ALTER TABLE `lessons` ADD FULLTEXT KEY `body` (`body`);
 -- Indexes for table `lesson_history`
 --
 ALTER TABLE `lesson_history` ADD FULLTEXT KEY `body` (`body`);
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `competences_for_lessons`
---
-ALTER TABLE `competences_for_lessons`
-  ADD CONSTRAINT `competences_for_lessons_ibfk_1` FOREIGN KEY (`lesson_id`) REFERENCES `lessons` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `competences_for_lessons_ibfk_2` FOREIGN KEY (`competence_id`) REFERENCES `competences` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `groups_for_lessons`
---
-ALTER TABLE `groups_for_lessons`
-  ADD CONSTRAINT `groups_for_lessons_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `groups_for_lessons_ibfk_2` FOREIGN KEY (`lesson_id`) REFERENCES `lessons` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `lessons_in_fields`
---
-ALTER TABLE `lessons_in_fields`
-  ADD CONSTRAINT `lessons_in_fields_ibfk_1` FOREIGN KEY (`field_id`) REFERENCES `fields` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `lessons_in_fields_ibfk_2` FOREIGN KEY (`lesson_id`) REFERENCES `lessons` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `users_in_groups`
---
-ALTER TABLE `users_in_groups`
-  ADD CONSTRAINT `users_in_groups_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `users_in_groups_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 SET FOREIGN_KEY_CHECKS=1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
