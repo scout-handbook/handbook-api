@@ -2,25 +2,26 @@
 namespace v0_9;
 
 global $CONFIG;
-require_once('v0.9/internal/User.php');
+
+use Skaut\HandbookAPI\v0_9\User;
 
 class UserTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers HandbookAPI\User::__construct()
+     * @covers Skaut\HandbookAPI\v0_9\User::__construct()
      */
-    public function testCtor() : \HandbookAPI\User
+    public function testCtor() : User
     {
-        $user = new \HandbookAPI\User(12345, 'uname', 'superuser');
-        $this->assertInstanceOf('\HandbookAPI\User', $user);
+        $user = new User(12345, 'uname', 'superuser');
+        $this->assertInstanceOf('\Skaut\HandbookAPI\v0_9\User', $user);
         return $user;
     }
 
     /**
-     * @covers HandbookAPI\User::jsonSerialize
+     * @covers Skaut\HandbookAPI\v0_9\User::jsonSerialize
      * @depends testCtor
      */
-    public function testJsonSerializeNoGroups(\HandbookAPI\User $user) : void
+    public function testJsonSerializeNoGroups(User $user) : void
     {
         $this->assertJsonStringEqualsJsonString(
             '{"id":12345,"name":"uname","role":"superuser","groups":[]}',
@@ -29,11 +30,11 @@ class UserTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers HandbookAPI\User::jsonSerialize
+     * @covers Skaut\HandbookAPI\v0_9\User::jsonSerialize
      */
     public function testJsonSerializeGroups() : void
     {
-        $user = new \HandbookAPI\User(12345, 'uname', 'superuser');
+        $user = new User(12345, 'uname', 'superuser');
         $user->groups[] = pack('H*', '1739a63aa2544a959508103b7c80bcdb');
         $this->assertJsonStringEqualsJsonString(
             '{"id":12345,"name":"uname","role":"superuser","groups":["1739a63a-a254-4a95-9508-103b7c80bcdb"]}',

@@ -4,7 +4,6 @@
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
-require_once($CONFIG->basepath . '/v0.9/internal/User.php');
 
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/InvalidArgumentTypeException.php');
 
@@ -14,6 +13,7 @@ require_once($CONFIG->basepath . '/v0.9/endpoints/userGroupEndpoint.php');
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\Helper;
+use Skaut\HandbookAPI\v0_9\User;
 
 $userEndpoint = new Endpoint();
 $userEndpoint->addSubEndpoint('role', $userRoleEndpoint);
@@ -121,7 +121,7 @@ SQL;
 
     $users = [];
     foreach ($userResult as $row) {
-        $users[] = new HandbookAPI\User(intval($row['id']), $row['name'], $row['role']);
+        $users[] = new User(intval($row['id']), $row['name'], $row['role']);
 
         $db2 = new Database();
         $db2->prepare($groupSQL);
