@@ -1183,6 +1183,7 @@ paths:
                       required:
                         - id
                         - name
+                        - description
                         - image
                 required:
                   - status
