@@ -3,7 +3,6 @@
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/DeletedLesson.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
 require_once($CONFIG->basepath . '/v0.9/endpoints/deletedLessonHistoryEndpoint.php');
@@ -11,6 +10,7 @@ require_once($CONFIG->basepath . '/v0.9/endpoints/deletedLessonHistoryEndpoint.p
 use Ramsey\Uuid\Uuid;
 
 use Skaut\HandbookAPI\v0_9\Database;
+use Skaut\HandbookAPI\v0_9\DeletedLesson;
 use Skaut\HandbookAPI\v0_9\Endpoint;
 
 $deletedLessonEndpoint = new Endpoint();
@@ -35,7 +35,7 @@ SQL;
     $db->bindColumn('name', $name);
 
     while ($db->fetch()) {
-        $lessons[] = new HandbookAPI\DeletedLesson($id, $name);
+        $lessons[] = new DeletedLesson($id, $name);
     }
 
     return ['status' => 200, 'response' => $lessons];
