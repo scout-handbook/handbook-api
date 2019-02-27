@@ -1,19 +1,23 @@
 <?php declare(strict_types=1);
-namespace HandbookAPI;
+namespace Skaut\HandbookAPI\v0_9;
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
+require($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/NotFoundException.php');
+
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
+use Ramsey\Uuid\Exception\InvalidUuidStringException;
 
 @_API_EXEC === 1 or die('Restricted access.');
 
 class Helper // Helper functions
 {
-    public static function parseUuid(string $id, string $resourceName) : \Ramsey\Uuid\UuidInterface
+    public static function parseUuid(string $id, string $resourceName) : UuidInterface
     {
         try {
-            return \Ramsey\Uuid\Uuid::fromString($id);
-        } catch (\Ramsey\Uuid\Exception\InvalidUuidStringException $e) {
+            return Uuid::fromString($id);
+        } catch (InvalidUuidStringException $e) {
             throw new NotFoundException($resourceName);
         }
     }

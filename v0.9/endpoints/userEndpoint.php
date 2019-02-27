@@ -12,6 +12,8 @@ require_once($CONFIG->basepath . '/v0.9/internal/exceptions/InvalidArgumentTypeE
 require_once($CONFIG->basepath . '/v0.9/endpoints/userRoleEndpoint.php');
 require_once($CONFIG->basepath . '/v0.9/endpoints/userGroupEndpoint.php');
 
+use Skaut\HandbookAPI\v0_9\Helper;
+
 $userEndpoint = new HandbookAPI\Endpoint();
 $userEndpoint->addSubEndpoint('role', $userRoleEndpoint);
 $userEndpoint->addSubEndpoint('group', $userGroupEndpoint);
@@ -86,7 +88,7 @@ SQL;
 
     $db = new HandbookAPI\Database();
     if (isset($data['group'])) {
-        $group_id = HandbookAPI\Helper::parseUuid($data['group'], 'group')->getBytes();
+        $group_id = Helper::parseUuid($data['group'], 'group')->getBytes();
         $db->prepare($groupCheckSQL);
         $db->bindParam(':id', $group_id, PDO::PARAM_STR);
         $db->execute();

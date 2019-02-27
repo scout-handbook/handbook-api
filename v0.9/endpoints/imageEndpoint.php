@@ -5,7 +5,6 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Database.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Endpoint.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Helper.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/Exception.php');
@@ -13,6 +12,8 @@ require_once($CONFIG->basepath . '/v0.9/internal/exceptions/InvalidArgumentTypeE
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/MissingArgumentException.php');
 
 use Ramsey\Uuid\Uuid;
+
+use Skaut\HandbookAPI\v0_9\Helper;
 
 $imageEndpoint = new HandbookAPI\Endpoint();
 
@@ -70,7 +71,7 @@ SQL;
 $imageEndpoint->setListMethod(new HandbookAPI\Role('editor'), $listImages);
 
 $getImage = function (Skautis\Skautis $skautis, array $data) use ($CONFIG) : array {
-    $id = HandbookAPI\Helper::parseUuid($data['id'], 'image')->toString();
+    $id = Helper::parseUuid($data['id'], 'image')->toString();
     $quality = "web";
     if (isset($data['quality']) and in_array($data['quality'], ['original', 'web', 'thumbnail'])) {
         $quality = $data['quality'];
@@ -170,7 +171,7 @@ WHERE id = :id
 LIMIT 1;
 SQL;
 
-    $id = HandbookAPI\Helper::parseUuid($data['id'], 'image');
+    $id = Helper::parseUuid($data['id'], 'image');
 
     $db = new HandbookAPI\Database();
     $db->beginTransaction();

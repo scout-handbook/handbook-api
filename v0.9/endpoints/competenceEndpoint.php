@@ -6,7 +6,6 @@ require_once($CONFIG->basepath . '/vendor/autoload.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Competence.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Database.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Endpoint.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Helper.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/InvalidArgumentTypeException.php');
@@ -14,6 +13,8 @@ require_once($CONFIG->basepath . '/v0.9/internal/exceptions/MissingArgumentExcep
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/NotFoundException.php');
 
 use Ramsey\Uuid\Uuid;
+
+use Skaut\HandbookAPI\v0_9\Helper;
 
 $competenceEndpoint = new HandbookAPI\Endpoint();
 
@@ -90,7 +91,7 @@ WHERE id = :id
 LIMIT 1;
 SQL;
 
-    $id = HandbookAPI\Helper::parseUuid($data['id'], 'competence')->getBytes();
+    $id = Helper::parseUuid($data['id'], 'competence')->getBytes();
     if (isset($data['number'])) {
         $number = ctype_digit($data['number']) ? intval($data['number']) : null;
         if ($number === null) {
@@ -157,7 +158,7 @@ WHERE id = :id
 LIMIT 1;
 SQL;
 
-    $id = HandbookAPI\Helper::parseUuid($data['id'], 'competence')->getBytes();
+    $id = Helper::parseUuid($data['id'], 'competence')->getBytes();
 
     $db = new HandbookAPI\Database();
     $db->beginTransaction();

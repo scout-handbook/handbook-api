@@ -4,12 +4,13 @@
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Database.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Helper.php');
 
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/NotFoundException.php');
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/NotLockedException.php');
 
 require_once($CONFIG->basepath . '/v0.9/endpoints/mutexEndpoint.php');
+
+use Skaut\HandbookAPI\v0_9\Helper;
 
 $updateLesson = function (Skautis\Skautis $skautis, array $data) : array {
     $selectSQL = <<<SQL
@@ -37,7 +38,7 @@ SQL;
         throw new HandbookAPI\NotLockedException();
     }
 
-    $id = HandbookAPI\Helper::parseUuid($data['id'], 'lesson')->getBytes();
+    $id = Helper::parseUuid($data['id'], 'lesson')->getBytes();
     if (isset($data['name'])) {
         $name = $data['name'];
     }

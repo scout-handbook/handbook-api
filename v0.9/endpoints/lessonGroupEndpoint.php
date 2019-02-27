@@ -5,10 +5,11 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Database.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Endpoint.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Helper.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
 use Ramsey\Uuid\Uuid;
+
+use Skaut\HandbookAPI\v0_9\Helper;
 
 $lessonGroupEndpoint = new HandbookAPI\Endpoint();
 
@@ -20,7 +21,7 @@ SQL;
 
     $db = new HandbookAPI\Database();
     $db->prepare($SQL);
-    $id = HandbookAPI\Helper::parseUuid($data['parent-id'], 'lesson')->getBytes();
+    $id = Helper::parseUuid($data['parent-id'], 'lesson')->getBytes();
     $db->bindParam(':lesson_id', $id, PDO::PARAM_STR);
     $db->execute();
     $groups = [];
@@ -43,11 +44,11 @@ INSERT INTO groups_for_lessons (lesson_id, group_id)
 VALUES (:lesson_id, :group_id);
 SQL;
 
-    $id = HandbookAPI\Helper::parseUuid($data['parent-id'], 'lesson')->getBytes();
+    $id = Helper::parseUuid($data['parent-id'], 'lesson')->getBytes();
     $groups = [];
     if (isset($data['group'])) {
         foreach ($data['group'] as $group) {
-            $groups[] = HandbookAPI\Helper::parseUuid($group, 'group')->getBytes();
+            $groups[] = Helper::parseUuid($group, 'group')->getBytes();
         }
     }
 

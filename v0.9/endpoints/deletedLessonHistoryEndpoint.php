@@ -5,13 +5,14 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Database.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Endpoint.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Helper.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/InvalidArgumentTypeException.php');
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/NotFoundException.php');
 
 use Ramsey\Uuid\Uuid;
+
+use Skaut\HandbookAPI\v0_9\Helper;
 
 $deletedLessonHistoryEndpoint = new HandbookAPI\Endpoint();
 
@@ -27,7 +28,7 @@ WHERE id = :id
 ORDER BY version DESC;
 SQL;
 
-    $id = HandbookAPI\Helper::parseUuid($data['parent-id'], 'deleted lesson')->getBytes();
+    $id = Helper::parseUuid($data['parent-id'], 'deleted lesson')->getBytes();
 
     $db = new HandbookAPI\Database();
     $db->prepare($checkSQL);
@@ -69,7 +70,7 @@ WHERE id = :id
 AND version = FROM_UNIXTIME(:version);
 SQL;
 
-    $id = HandbookAPI\Helper::parseUuid($data['parent-id'], 'deleted lesson')->getBytes();
+    $id = Helper::parseUuid($data['parent-id'], 'deleted lesson')->getBytes();
     $version = ctype_digit($data['id']) ? intval($data['id']) / 1000 : null;
     if ($version === null) {
         throw new HandbookAPI\InvalidArgumentTypeException('number', ['Integer']);

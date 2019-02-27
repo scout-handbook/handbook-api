@@ -6,7 +6,6 @@ require_once($CONFIG->basepath . '/vendor/autoload.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Database.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Endpoint.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Group.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Helper.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/MissingArgumentException.php');
@@ -14,6 +13,8 @@ require_once($CONFIG->basepath . '/v0.9/internal/exceptions/NotFoundException.ph
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/RefusedException.php');
 
 use Ramsey\Uuid\Uuid;
+
+use Skaut\HandbookAPI\v0_9\Helper;
 
 $groupEndpoint = new HandbookAPI\Endpoint();
 
@@ -78,7 +79,7 @@ WHERE id = :id
 LIMIT 1;
 SQL;
 
-    $id = HandbookAPI\Helper::parseUuid($data['id'], 'group')->getBytes();
+    $id = Helper::parseUuid($data['id'], 'group')->getBytes();
     if (!isset($data['name'])) {
         throw new HandbookAPI\MissingArgumentException(HandbookAPI\MissingArgumentException::POST, 'name');
     }
@@ -116,7 +117,7 @@ WHERE id = :id
 LIMIT 1;
 SQL;
     
-    $id = HandbookAPI\Helper::parseUuid($data['id'], 'group');
+    $id = Helper::parseUuid($data['id'], 'group');
     if ($id == Uuid::fromString('00000000-0000-0000-0000-000000000000')) {
         throw new HandbookAPI\RefusedException();
     }

@@ -4,10 +4,11 @@
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Endpoint.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Helper.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/InvalidArgumentTypeException.php');
+
+use Skaut\HandbookAPI\v0_9\Helper;
 
 $userGroupEndpoint = new HandbookAPI\Endpoint();
 
@@ -41,10 +42,10 @@ SQL;
     if (isset($data['group'])) {
         if (is_array($data['group'])) {
             foreach ($data['group'] as $group) {
-                $groups[] = HandbookAPI\Helper::parseUuid($group, 'group')->getBytes();
+                $groups[] = Helper::parseUuid($group, 'group')->getBytes();
             }
         } else {
-            $groups[] = HandbookAPI\Helper::parseUuid($data['group'], 'group')->getBytes();
+            $groups[] = Helper::parseUuid($data['group'], 'group')->getBytes();
         }
     }
 

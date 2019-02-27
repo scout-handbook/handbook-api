@@ -5,7 +5,6 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Database.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Endpoint.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Helper.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/MissingArgumentException.php');
@@ -13,6 +12,7 @@ require_once($CONFIG->basepath . '/v0.9/internal/exceptions/MissingArgumentExcep
 use Ramsey\Uuid\Uuid;
 
 use Skaut\HandbookAPI\v0_9\FullField;
+use Skaut\HandbookAPI\v0_9\Helper;
 
 $fieldEndpoint = new HandbookAPI\Endpoint();
 
@@ -59,7 +59,7 @@ SQL;
     if (!isset($data['image'])) {
         throw new HandbookAPI\MissingArgumentException(HandbookAPI\MissingArgumentException::POST, 'image');
     }
-    $image = HandbookAPI\Helper::parseUuid($data['image'], 'image')->getBytes();
+    $image = Helper::parseUuid($data['image'], 'image')->getBytes();
 
     $db = new HandbookAPI\Database();
     $db->prepare($SQL);
@@ -80,7 +80,7 @@ WHERE id = :id
 LIMIT 1;
 SQL;
 
-    $id = HandbookAPI\Helper::parseUuid($data['id'], 'field')->getBytes();
+    $id = Helper::parseUuid($data['id'], 'field')->getBytes();
     if (!isset($data['name'])) {
         throw new HandbookAPI\MissingArgumentException(HandbookAPI\MissingArgumentException::POST, 'name');
     }
@@ -92,7 +92,7 @@ SQL;
     if (!isset($data['image'])) {
         throw new HandbookAPI\MissingArgumentException(HandbookAPI\MissingArgumentException::POST, 'image');
     }
-    $image = HandbookAPI\Helper::parseUuid($data['image'], 'image')->getBytes();
+    $image = Helper::parseUuid($data['image'], 'image')->getBytes();
 
     $db = new HandbookAPI\Database();
     $db->beginTransaction();
@@ -124,7 +124,7 @@ WHERE id = :id
 LIMIT 1;
 SQL;
 
-    $id = HandbookAPI\Helper::parseUuid($data['id'], 'field')->getBytes();
+    $id = Helper::parseUuid($data['id'], 'field')->getBytes();
 
     $db = new HandbookAPI\Database();
     $db->beginTransaction();
