@@ -1,15 +1,17 @@
 <?php declare(strict_types=1);
-namespace HandbookAPI;
+namespace Skaut\HandbookAPI\v0_9;
 
 @_API_EXEC === 1 or die('Restricted access.');
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
+require($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/v0.9/internal/skautisTry.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/Exception.php');
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/MissingArgumentException.php');
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/NotImplementedException.php');
+
+use \Skautis\Skautis;
 
 class Endpoint
 {
@@ -48,11 +50,11 @@ class Endpoint
             throw new NotImplementedException();
         };
 
-        $this->listRole = new Role('guest');
-        $this->getRole = new Role('guest');
-        $this->updateRole = new Role('guest');
-        $this->addRole = new Role('guest');
-        $this->deleteRole = new Role('guest');
+        $this->listRole = new \HandbookAPI\Role('guest');
+        $this->getRole = new \HandbookAPI\Role('guest');
+        $this->updateRole = new \HandbookAPI\Role('guest');
+        $this->addRole = new \HandbookAPI\Role('guest');
+        $this->deleteRole = new \HandbookAPI\Role('guest');
     }
 
     public function addSubEndpoint(string $name, Endpoint $endpoint) : void
@@ -66,45 +68,45 @@ class Endpoint
         return $this->parentEndpoint;
     }
 
-    public function setListMethod(Role $minimalRole, callable $callback) : void
+    public function setListMethod(\HandbookAPI\Role $minimalRole, callable $callback) : void
     {
         $this->listRole = $minimalRole;
         $this->listFunction = $callback;
     }
 
-    public function setGetMethod(Role $minimalRole, callable $callback) : void
+    public function setGetMethod(\HandbookAPI\Role $minimalRole, callable $callback) : void
     {
         $this->getRole = $minimalRole;
         $this->getFunction = $callback;
     }
 
-    public function setUpdateMethod(Role $minimalRole, callable $callback) : void
+    public function setUpdateMethod(\HandbookAPI\Role $minimalRole, callable $callback) : void
     {
         $this->updateRole = $minimalRole;
         $this->updateFunction = $callback;
     }
 
-    public function setAddMethod(Role $minimalRole, callable $callback) : void
+    public function setAddMethod(\HandbookAPI\Role $minimalRole, callable $callback) : void
     {
         $this->addRole = $minimalRole;
         $this->addFunction = $callback;
     }
 
-    public function setDeleteMethod(Role $minimalRole, callable $callback) : void
+    public function setDeleteMethod(\HandbookAPI\Role $minimalRole, callable $callback) : void
     {
         $this->deleteRole = $minimalRole;
         $this->deleteFunction = $callback;
     }
 
-    public function call(string $method, Role $role, array $data) : array
+    public function call(string $method, \HandbookAPI\Role $role, array $data) : array
     {
         $func = $this->callFunctionHelper($method, $data);
         $self = $this;
-        $wrapper = function (\Skautis\Skautis $skautis) use ($data, $func, $self) : array {
+        $wrapper = function (Skautis $skautis) use ($data, $func, $self) : array {
             return $func($skautis, $data, $self);
         };
-        $hardCheck = (Role_cmp($role, new Role('user')) > 0);
-        $ret = roleTry($wrapper, $hardCheck, $role);
+        $hardCheck = (\HandbookAPI\Role_cmp($role, new \HandbookAPI\Role('user')) > 0);
+        $ret = \HandbookAPI\roleTry($wrapper, $hardCheck, $role);
         if (isset($ret)) {
             return $ret;
         }

@@ -4,25 +4,26 @@ namespace v0_9;
 require_once('tests/PhpInputStream.php');
 
 global $CONFIG;
-require_once('v0.9/internal/Endpoint.php');
+
+use Skaut\HandbookAPI\v0_9\Endpoint;
 
 class EndpointTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers HandbookAPI\Endpoint::__construct()
+     * @covers Skaut\HandbookAPI\v0_9\Endpoint::__construct()
      */
-    public function testCtor() : \HandbookAPI\Endpoint
+    public function testCtor() : Endpoint
     {
-        $endpoint = new \HandbookAPI\Endpoint();
-        $this->assertInstanceOf('\HandbookAPI\Endpoint', $endpoint);
+        $endpoint = new Endpoint();
+        $this->assertInstanceOf('\Skaut\HandbookAPI\v0_9\Endpoint', $endpoint);
         return $endpoint;
     }
 
     /**
-     * @covers HandbookAPI\Endpoint::setListMethod()
+     * @covers Skaut\HandbookAPI\v0_9\Endpoint::setListMethod()
      * @depends testCtor
      */
-    public function testSetListMethod(\HandbookAPI\Endpoint $endpoint) : \HandbookAPI\Endpoint
+    public function testSetListMethod(Endpoint $endpoint) : Endpoint
     {
         $this->assertNull($endpoint->setListMethod(new \HandbookAPI\Role('superuser'), function () {
             return 'list';
@@ -31,10 +32,10 @@ class EndpointTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers HandbookAPI\Endpoint::setGetMethod()
+     * @covers Skaut\HandbookAPI\v0_9\Endpoint::setGetMethod()
      * @depends testSetListMethod
      */
-    public function testSetGetMethod(\HandbookAPI\Endpoint $endpoint) : \HandbookAPI\Endpoint
+    public function testSetGetMethod(Endpoint $endpoint) : Endpoint
     {
         $this->assertNull($endpoint->setGetMethod(new \HandbookAPI\Role('administrator'), function () {
             return 'get';
@@ -43,10 +44,10 @@ class EndpointTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers HandbookAPI\Endpoint::setUpdateMethod()
+     * @covers Skaut\HandbookAPI\v0_9\Endpoint::setUpdateMethod()
      * @depends testSetGetMethod
      */
-    public function testSetUpdateMethod(\HandbookAPI\Endpoint $endpoint) : \HandbookAPI\Endpoint
+    public function testSetUpdateMethod(Endpoint $endpoint) : Endpoint
     {
         $this->assertNull($endpoint->setUpdateMethod(new \HandbookAPI\Role('editor'), function () {
             return 'update';
@@ -55,10 +56,10 @@ class EndpointTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers HandbookAPI\Endpoint::setAddMethod()
+     * @covers Skaut\HandbookAPI\v0_9\Endpoint::setAddMethod()
      * @depends testSetUpdateMethod
      */
-    public function testSetAddMethod(\HandbookAPI\Endpoint $endpoint) : \HandbookAPI\Endpoint
+    public function testSetAddMethod(Endpoint $endpoint) : Endpoint
     {
         $this->assertNull($endpoint->setAddMethod(new \HandbookAPI\Role('user'), function () {
             return 'add';
@@ -67,10 +68,10 @@ class EndpointTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers HandbookAPI\Endpoint::setDeleteMethod()
+     * @covers Skaut\HandbookAPI\v0_9\Endpoint::setDeleteMethod()
      * @depends testSetAddMethod
      */
-    public function testSetDeleteMethod(\HandbookAPI\Endpoint $endpoint) : \HandbookAPI\Endpoint
+    public function testSetDeleteMethod(Endpoint $endpoint) : Endpoint
     {
         $this->assertNull($endpoint->setDeleteMethod(new \HandbookAPI\Role('guest'), function () {
             return 'delete';
@@ -79,12 +80,12 @@ class EndpointTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers HandbookAPI\Endpoint::callFunctionHelper
+     * @covers Skaut\HandbookAPI\v0_9\Endpoint::callFunctionHelper
      * @depends testSetDeleteMethod
      */
-    public function testCallFunctionHelperPutId(\HandbookAPI\Endpoint $endpoint) : void
+    public function testCallFunctionHelperPutId(Endpoint $endpoint) : void
     {
-        $method = new \ReflectionMethod('\HandbookAPI\Endpoint', 'callFunctionHelper');
+        $method = new \ReflectionMethod('\Skaut\HandbookAPI\v0_9\Endpoint', 'callFunctionHelper');
         $method->setAccessible(true);
         $fn = $method->invokeArgs($endpoint, ['PUT', ['id' => '78a8aacf-402f-4643-a5f8-2bce404e6353']]);
         $this->assertTrue(is_callable($fn));
@@ -92,12 +93,12 @@ class EndpointTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers HandbookAPI\Endpoint::callFunctionHelper
+     * @covers Skaut\HandbookAPI\v0_9\Endpoint::callFunctionHelper
      * @depends testSetDeleteMethod
      */
-    public function testCallFunctionHelperPostId(\HandbookAPI\Endpoint $endpoint) : void
+    public function testCallFunctionHelperPostId(Endpoint $endpoint) : void
     {
-        $method = new \ReflectionMethod('\HandbookAPI\Endpoint', 'callFunctionHelper');
+        $method = new \ReflectionMethod('\Skaut\HandbookAPI\v0_9\Endpoint', 'callFunctionHelper');
         $method->setAccessible(true);
         $fn = $method->invokeArgs($endpoint, ['POST', []]);
         $this->assertTrue(is_callable($fn));
@@ -105,12 +106,12 @@ class EndpointTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers HandbookAPI\Endpoint::callFunctionHelper
+     * @covers Skaut\HandbookAPI\v0_9\Endpoint::callFunctionHelper
      * @depends testSetDeleteMethod
      */
-    public function testCallFunctionHelperDeleteId(\HandbookAPI\Endpoint $endpoint) : void
+    public function testCallFunctionHelperDeleteId(Endpoint $endpoint) : void
     {
-        $method = new \ReflectionMethod('\HandbookAPI\Endpoint', 'callFunctionHelper');
+        $method = new \ReflectionMethod('\Skaut\HandbookAPI\v0_9\Endpoint', 'callFunctionHelper');
         $method->setAccessible(true);
         $fn = $method->invokeArgs($endpoint, ['DELETE', ['id' => '78a8aacf-402f-4643-a5f8-2bce404e6353']]);
         $this->assertTrue(is_callable($fn));
@@ -118,12 +119,12 @@ class EndpointTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers HandbookAPI\Endpoint::callFunctionHelper
+     * @covers Skaut\HandbookAPI\v0_9\Endpoint::callFunctionHelper
      * @depends testSetDeleteMethod
      */
-    public function testCallFunctionHelperGetId(\HandbookAPI\Endpoint $endpoint) : void
+    public function testCallFunctionHelperGetId(Endpoint $endpoint) : void
     {
-        $method = new \ReflectionMethod('\HandbookAPI\Endpoint', 'callFunctionHelper');
+        $method = new \ReflectionMethod('\Skaut\HandbookAPI\v0_9\Endpoint', 'callFunctionHelper');
         $method->setAccessible(true);
         $fn = $method->invokeArgs($endpoint, ['GET', ['id' => '78a8aacf-402f-4643-a5f8-2bce404e6353']]);
         $this->assertTrue(is_callable($fn));
@@ -131,24 +132,24 @@ class EndpointTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers HandbookAPI\Endpoint::callFunctionHelper
+     * @covers Skaut\HandbookAPI\v0_9\Endpoint::callFunctionHelper
      * @depends testSetDeleteMethod
      * @expectedException HandbookAPI\MissingArgumentException
      */
-    public function testCallFunctionHelperPutNoId(\HandbookAPI\Endpoint $endpoint) : void
+    public function testCallFunctionHelperPutNoId(Endpoint $endpoint) : void
     {
-        $method = new \ReflectionMethod('\HandbookAPI\Endpoint', 'callFunctionHelper');
+        $method = new \ReflectionMethod('\Skaut\HandbookAPI\v0_9\Endpoint', 'callFunctionHelper');
         $method->setAccessible(true);
         $fn = $method->invokeArgs($endpoint, ['PUT', []]);
     }
 
     /**
-     * @covers HandbookAPI\Endpoint::callFunctionHelper
+     * @covers Skaut\HandbookAPI\v0_9\Endpoint::callFunctionHelper
      * @depends testSetDeleteMethod
      */
-    public function testCallFunctionHelperPostNoId(\HandbookAPI\Endpoint $endpoint) : void
+    public function testCallFunctionHelperPostNoId(Endpoint $endpoint) : void
     {
-        $method = new \ReflectionMethod('\HandbookAPI\Endpoint', 'callFunctionHelper');
+        $method = new \ReflectionMethod('\Skaut\HandbookAPI\v0_9\Endpoint', 'callFunctionHelper');
         $method->setAccessible(true);
         $fn = $method->invokeArgs($endpoint, ['POST', []]);
         $this->assertTrue(is_callable($fn));
@@ -156,24 +157,24 @@ class EndpointTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers HandbookAPI\Endpoint::callFunctionHelper
+     * @covers Skaut\HandbookAPI\v0_9\Endpoint::callFunctionHelper
      * @depends testSetDeleteMethod
      * @expectedException HandbookAPI\MissingArgumentException
      */
-    public function testCallFunctionHelperDeleteNoId(\HandbookAPI\Endpoint $endpoint) : void
+    public function testCallFunctionHelperDeleteNoId(Endpoint $endpoint) : void
     {
-        $method = new \ReflectionMethod('\HandbookAPI\Endpoint', 'callFunctionHelper');
+        $method = new \ReflectionMethod('\Skaut\HandbookAPI\v0_9\Endpoint', 'callFunctionHelper');
         $method->setAccessible(true);
         $fn = $method->invokeArgs($endpoint, ['DELETE', []]);
     }
 
     /**
-     * @covers HandbookAPI\Endpoint::callFunctionHelper
+     * @covers Skaut\HandbookAPI\v0_9\Endpoint::callFunctionHelper
      * @depends testSetDeleteMethod
      */
-    public function testCallFunctionHelperGetNoId(\HandbookAPI\Endpoint $endpoint) : void
+    public function testCallFunctionHelperGetNoId(Endpoint $endpoint) : void
     {
-        $method = new \ReflectionMethod('\HandbookAPI\Endpoint', 'callFunctionHelper');
+        $method = new \ReflectionMethod('\Skaut\HandbookAPI\v0_9\Endpoint', 'callFunctionHelper');
         $method->setAccessible(true);
         $fn = $method->invokeArgs($endpoint, ['GET', []]);
         $this->assertTrue(is_callable($fn));
@@ -181,12 +182,12 @@ class EndpointTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers HandbookAPI\Endpoint::handleDataHelper
+     * @covers Skaut\HandbookAPI\v0_9\Endpoint::handleDataHelper
      * @depends testCtor
      */
-    public function testHandleDataHelperPut(\HandbookAPI\Endpoint $endpoint) : void
+    public function testHandleDataHelperPut(Endpoint $endpoint) : void
     {
-        $method = new \ReflectionMethod('\HandbookAPI\Endpoint', 'handleDataHelper');
+        $method = new \ReflectionMethod('\Skaut\HandbookAPI\v0_9\Endpoint', 'handleDataHelper');
         $method->setAccessible(true);
         $_GET['key'] = 'gval';
         $_POST['key'] = 'pval';
@@ -197,12 +198,12 @@ class EndpointTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers HandbookAPI\Endpoint::handleDataHelper
+     * @covers Skaut\HandbookAPI\v0_9\Endpoint::handleDataHelper
      * @depends testCtor
      */
-    public function testHandleDataHelperPost(\HandbookAPI\Endpoint $endpoint) : void
+    public function testHandleDataHelperPost(Endpoint $endpoint) : void
     {
-        $method = new \ReflectionMethod('\HandbookAPI\Endpoint', 'handleDataHelper');
+        $method = new \ReflectionMethod('\Skaut\HandbookAPI\v0_9\Endpoint', 'handleDataHelper');
         $method->setAccessible(true);
         $_GET['key'] = 'gval';
         $_POST['key'] = 'pval';
@@ -213,12 +214,12 @@ class EndpointTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers HandbookAPI\Endpoint::handleDataHelper
+     * @covers Skaut\HandbookAPI\v0_9\Endpoint::handleDataHelper
      * @depends testCtor
      */
-    public function testHandleDataHelperGet(\HandbookAPI\Endpoint $endpoint) : void
+    public function testHandleDataHelperGet(Endpoint $endpoint) : void
     {
-        $method = new \ReflectionMethod('\HandbookAPI\Endpoint', 'handleDataHelper');
+        $method = new \ReflectionMethod('\Skaut\HandbookAPI\v0_9\Endpoint', 'handleDataHelper');
         $method->setAccessible(true);
         $_GET['key'] = 'gval';
         $_POST['key'] = 'pval';
@@ -229,12 +230,12 @@ class EndpointTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers HandbookAPI\Endpoint::handleDataHelper
+     * @covers Skaut\HandbookAPI\v0_9\Endpoint::handleDataHelper
      * @depends testCtor
      */
-    public function testHandleDataHelperDelete(\HandbookAPI\Endpoint $endpoint) : void
+    public function testHandleDataHelperDelete(Endpoint $endpoint) : void
     {
-        $method = new \ReflectionMethod('\HandbookAPI\Endpoint', 'handleDataHelper');
+        $method = new \ReflectionMethod('\Skaut\HandbookAPI\v0_9\Endpoint', 'handleDataHelper');
         $method->setAccessible(true);
         $_GET['key'] = 'gval';
         $_POST['key'] = 'pval';
@@ -245,12 +246,12 @@ class EndpointTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers HandbookAPI\Endpoint::handleDataHelper
+     * @covers Skaut\HandbookAPI\v0_9\Endpoint::handleDataHelper
      * @depends testCtor
      */
-    public function testHandleDataHelperGetIdOverride(\HandbookAPI\Endpoint $endpoint) : void
+    public function testHandleDataHelperGetIdOverride(Endpoint $endpoint) : void
     {
-        $method = new \ReflectionMethod('\HandbookAPI\Endpoint', 'handleDataHelper');
+        $method = new \ReflectionMethod('\Skaut\HandbookAPI\v0_9\Endpoint', 'handleDataHelper');
         $method->setAccessible(true);
         $_GET['id'] = 'gval';
         $_POST['id'] = 'pval';
@@ -259,12 +260,12 @@ class EndpointTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers HandbookAPI\Endpoint::handleDataHelper
+     * @covers Skaut\HandbookAPI\v0_9\Endpoint::handleDataHelper
      * @depends testCtor
      */
-    public function testHandleDataHelperGetIdNoOverride(\HandbookAPI\Endpoint $endpoint) : void
+    public function testHandleDataHelperGetIdNoOverride(Endpoint $endpoint) : void
     {
-        $method = new \ReflectionMethod('\HandbookAPI\Endpoint', 'handleDataHelper');
+        $method = new \ReflectionMethod('\Skaut\HandbookAPI\v0_9\Endpoint', 'handleDataHelper');
         $method->setAccessible(true);
         $_GET['id'] = '';
         $_POST['id'] = 'pval';
@@ -273,12 +274,12 @@ class EndpointTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers HandbookAPI\Endpoint::handleDataHelper
+     * @covers Skaut\HandbookAPI\v0_9\Endpoint::handleDataHelper
      * @depends testCtor
      */
-    public function testHandleDataHelperNoIdOverride(\HandbookAPI\Endpoint $endpoint) : void
+    public function testHandleDataHelperNoIdOverride(Endpoint $endpoint) : void
     {
-        $method = new \ReflectionMethod('\HandbookAPI\Endpoint', 'handleDataHelper');
+        $method = new \ReflectionMethod('\Skaut\HandbookAPI\v0_9\Endpoint', 'handleDataHelper');
         $method->setAccessible(true);
         \TestUtils\PhpInputStream::register(['id' => 'ival']);
         $data = $method->invokeArgs($endpoint, ['POST']);

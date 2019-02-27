@@ -3,7 +3,6 @@
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Endpoint.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/Exception.php');
@@ -13,9 +12,10 @@ require_once($CONFIG->basepath . '/v0.9/internal/exceptions/MissingArgumentExcep
 use Ramsey\Uuid\Uuid;
 
 use Skaut\HandbookAPI\v0_9\Database;
+use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\Helper;
 
-$imageEndpoint = new HandbookAPI\Endpoint();
+$imageEndpoint = new Endpoint();
 
 function applyRotation(Imagick $image) : void
 {

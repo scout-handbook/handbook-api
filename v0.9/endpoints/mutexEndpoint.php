@@ -3,16 +3,16 @@
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Endpoint.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/InvalidArgumentTypeException.php');
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/LockedException.php');
 
 use Skaut\HandbookAPI\v0_9\Database;
+use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\Helper;
 
-$mutexEndpoint = new HandbookAPI\Endpoint();
+$mutexEndpoint = new Endpoint();
 
 $addMutex = function (Skautis\Skautis $skautis, array $data) : array {
     $selectSQL = <<<SQL
