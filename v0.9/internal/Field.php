@@ -8,6 +8,8 @@ require_once($CONFIG->basepath . '/vendor/autoload.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Helper.php');
 require_once($CONFIG->basepath . '/v0.9/internal/LessonContainer.php');
 
+use Ramsey\Uuid\Uuid;
+
 class Field extends LessonContainer implements \JsonSerializable
 {
     public $id;
@@ -15,7 +17,7 @@ class Field extends LessonContainer implements \JsonSerializable
 
     public function __construct(string $id, string $name)
     {
-        $this->id = \Ramsey\Uuid\Uuid::fromBytes($id);
+        $this->id = Uuid::fromBytes($id);
         $this->name = Helper::xssSanitize($name);
     }
 

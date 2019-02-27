@@ -22,6 +22,7 @@ require_once($CONFIG->basepath . '/v0.9/endpoints/lessonHistoryEndpoint.php');
 require_once($CONFIG->basepath . '/v0.9/endpoints/lessonPDFEndpoint.php');
 
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 $lessonEndpoint = new HandbookAPI\Endpoint();
 $lessonEndpoint->addSubEndpoint('competence', $lessonCompetenceEndpoint);
@@ -30,7 +31,7 @@ $lessonEndpoint->addSubEndpoint('group', $lessonGroupEndpoint);
 $lessonEndpoint->addSubEndpoint('history', $lessonHistoryEndpoint);
 $lessonEndpoint->addSubEndpoint('pdf', $lessonPDFEndpoint);
 
-function checkLessonGroup(\Ramsey\Uuid\UuidInterface $lessonId, bool $overrideGroup = false) : bool
+function checkLessonGroup(UuidInterface $lessonId, bool $overrideGroup = false) : bool
 {
     global $accountEndpoint;
 

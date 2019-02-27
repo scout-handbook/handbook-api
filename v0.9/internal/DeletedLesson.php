@@ -7,6 +7,8 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Helper.php');
 
+use Ramsey\Uuid\Uuid;
+
 class DeletedLesson implements \JsonSerializable
 {
     public $id;
@@ -14,7 +16,7 @@ class DeletedLesson implements \JsonSerializable
 
     public function __construct(string $id, string $name)
     {
-        $this->id = \Ramsey\Uuid\Uuid::fromBytes($id);
+        $this->id = Uuid::fromBytes($id);
         $this->name = Helper::xssSanitize($name);
     }
 

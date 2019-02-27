@@ -7,6 +7,8 @@ require_once($CONFIG->basepath . '/vendor/autoload.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Helper.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
+use Ramsey\Uuid\Uuid;
+
 @_API_EXEC === 1 or die('Restricted access.');
 
 class User implements \JsonSerializable
@@ -28,7 +30,7 @@ class User implements \JsonSerializable
     {
         $ugroup = [];
         foreach ($this->groups as $group) {
-            $ugroup[] = \Ramsey\Uuid\Uuid::fromBytes($group);
+            $ugroup[] = Uuid::fromBytes($group);
         }
         return ['id' => $this->id, 'name' => $this->name, 'role' => $this->role, 'groups' => $ugroup];
     }
