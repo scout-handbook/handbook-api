@@ -4,7 +4,8 @@ namespace HandbookAPI;
 @_API_EXEC === 1 or die('Restricted access.');
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Database.php');
+
+use Skaut\HandbookAPI\v0_9\Database;
 
 class Role implements \JsonSerializable
 {

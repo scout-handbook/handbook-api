@@ -3,7 +3,8 @@ namespace v0_9;
 
 global $CONFIG;
 require_once('v0.9/internal/exceptions/QueryException.php');
-require_once('v0.9/internal/Database.php');
+
+use Skaut\HandbookAPI\v0_9\Database;
 
 class QueryExceptionTest extends \PHPUnit\Framework\TestCase
 {
@@ -12,9 +13,9 @@ class QueryExceptionTest extends \PHPUnit\Framework\TestCase
      */
     public function testCtor() : \HandbookAPI\QueryException
     {
-        $prop = new \ReflectionProperty('\HandbookAPI\Database', 'db');
+        $prop = new \ReflectionProperty('\Skaut\HandbookAPI\v0_9\Database', 'db');
         $prop->setAccessible(true);
-        $db = new \HandbookAPI\Database();
+        $db = new Database();
         $e = new \HandbookAPI\QueryException('Equery', $prop->getValue($db));
         $this->assertInstanceOf('\HandbookAPI\QueryException', $e);
         return $e;

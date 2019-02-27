@@ -3,12 +3,12 @@
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Database.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Endpoint.php');
 require_once($CONFIG->basepath . '/v0.9/internal/OdyMarkdown/OdyMarkdown.php');
 
 use Ramsey\Uuid\Uuid;
 
+use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Helper;
 
 $lessonPDFEndpoint = new HandbookAPI\Endpoint();
@@ -24,7 +24,7 @@ FROM lessons
 WHERE id = :id;
 SQL;
 
-        $db = new HandbookAPI\Database();
+        $db = new Database();
         $db->prepare($SQL);
         $idbytes = $id->getBytes();
         $db->bindParam(':id', $idbytes, PDO::PARAM_STR);

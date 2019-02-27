@@ -8,6 +8,7 @@ require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/InvalidArgumentTypeException.php');
 
+use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Helper;
 
 $userGroupEndpoint = new HandbookAPI\Endpoint();
@@ -51,7 +52,7 @@ SQL;
 
     $my_role = HandbookAPI\getRole($skautis->UserManagement->LoginDetail()->ID_Person);
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->beginTransaction();
 
     $db->prepare($selectSQL);

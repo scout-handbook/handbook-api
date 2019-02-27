@@ -3,7 +3,6 @@
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Database.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Endpoint.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Group.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
@@ -14,6 +13,7 @@ require_once($CONFIG->basepath . '/v0.9/internal/exceptions/RefusedException.php
 
 use Ramsey\Uuid\Uuid;
 
+use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Helper;
 
 $groupEndpoint = new HandbookAPI\Endpoint();
@@ -28,7 +28,7 @@ SELECT COUNT(*) FROM users_in_groups
 WHERE group_id = :group_id;
 SQL;
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->prepare($selectSQL);
     $db->execute();
     $id = '';
@@ -37,7 +37,7 @@ SQL;
     $db->bindColumn('name', $name);
     $groups = [];
     while ($db->fetch()) {
-        $db2 = new HandbookAPI\Database();
+        $db2 = new Database();
         $db2->prepare($countSQL);
         $db2->bindParam(':group_id', $id, PDO::PARAM_STR);
         $db2->execute();
@@ -62,7 +62,7 @@ SQL;
     $name = $data['name'];
     $uuid = Uuid::uuid4()->getBytes();
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->prepare($SQL);
     $db->bindParam(':id', $uuid, PDO::PARAM_STR);
     $db->bindParam(':name', $name, PDO::PARAM_STR);
@@ -85,7 +85,7 @@ SQL;
     }
     $name = $data['name'];
     
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->beginTransaction();
 
     $db->prepare($updateSQL);
@@ -123,7 +123,7 @@ SQL;
     }
     $id = $id->getBytes();
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->beginTransaction();
 
     $db->prepare($deleteLessonsSQL);

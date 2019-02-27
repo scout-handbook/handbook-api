@@ -3,7 +3,6 @@
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Database.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Endpoint.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
@@ -12,6 +11,7 @@ require_once($CONFIG->basepath . '/v0.9/internal/exceptions/NotFoundException.ph
 
 use Ramsey\Uuid\Uuid;
 
+use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Helper;
 
 $deletedLessonHistoryEndpoint = new HandbookAPI\Endpoint();
@@ -30,7 +30,7 @@ SQL;
 
     $id = Helper::parseUuid($data['parent-id'], 'deleted lesson')->getBytes();
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->prepare($checkSQL);
     $db->bindParam(':id', $id, PDO::PARAM_STR);
     $db->execute();
@@ -77,7 +77,7 @@ SQL;
     }
     $version = strval($version);
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->prepare($checkSQL);
     $db->bindParam(':id', $id, PDO::PARAM_STR);
     $db->execute();

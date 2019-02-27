@@ -3,15 +3,16 @@
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Database.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Field.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Lesson.php');
 require_once($CONFIG->basepath . '/v0.9/internal/LessonContainer.php');
 
 use Ramsey\Uuid\Uuid;
 
+use Skaut\HandbookAPI\v0_9\Database;
+
 function populateContainer(
-    HandbookAPI\Database $db,
+    Database $db,
     HandbookAPI\LessonContainer $container,
     bool $overrideGroup = false
 ) : void {
@@ -37,7 +38,7 @@ SQL;
             $container->lessons[] = new HandbookAPI\Lesson($lessonId, $lessonName, floatval($lessonVersion));
 
             // Find out the competences this Lesson belongs to
-            $db2 = new HandbookAPI\Database();
+            $db2 = new Database();
             $db2->prepare($competenceSQL);
             $db2->bindParam(':lesson_id', $lessonId, PDO::PARAM_STR);
             $db2->execute();
@@ -79,7 +80,7 @@ SQL;
 
     $fields = [new HandbookAPI\LessonContainer()];
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->prepare($anonymousSQL);
     populateContainer($db, end($fields), $overrideGroup);
 
@@ -94,7 +95,7 @@ SQL;
     while ($db->fetch()) {
         $fields[] = new HandbookAPI\Field($field_id, strval($field_name)); // Create a new field
 
-        $db2 = new HandbookAPI\Database();
+        $db2 = new Database();
         $db2->prepare($lessonSQL);
         $db2->bindParam(':field_id', $field_id, PDO::PARAM_STR);
         populateContainer($db2, end($fields), $overrideGroup);
