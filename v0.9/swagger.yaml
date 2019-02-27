@@ -1145,6 +1145,51 @@ paths:
         '500':
           $ref: '#/components/responses/500'
   /field:
+    get:
+      summary: Get a list of all fields
+      tags:
+        - field
+      responses:
+        '200':
+          description: A list of all fields, their names and cover images
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    enum:
+                      - 200
+                  response:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                          example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
+                        name:
+                          type: string
+                          example: Field 1
+                        description:
+                          type: string
+                          example: Description of field 1
+                        image:
+                          type: string
+                          format: uuid
+                          example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
+                      required:
+                        - id
+                        - name
+                        - description
+                        - image
+                required:
+                  - status
+                  - response
+        '500':
+          $ref: '#/components/responses/500'
     post:
       summary: Add a field
       description: User role must be **administrator** or higher!
@@ -1162,8 +1207,17 @@ paths:
                 name:
                   type: string
                   example: Field 1
+                description:
+                  type: string
+                  example: Description of field 1
+                image:
+                  type: string
+                  format: uuid
+                  example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
               required:
                 - name
+                - description
+                - image
       responses:
         '201':
           $ref: '#/components/responses/201'
@@ -1199,8 +1253,17 @@ paths:
                 name:
                   type: string
                   example: Field 1
+                description:
+                  type: string
+                  example: Description of field 1
+                image:
+                  type: string
+                  format: uuid
+                  example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
               required:
                 - name
+                - description
+                - image
       responses:
         '200':
           $ref: '#/components/responses/200'
