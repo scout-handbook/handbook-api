@@ -33,7 +33,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Skaut\\HandbookAPI\\": "internal/"
+			"Skaut\\": "./"
 		}
 	},
 	"scripts": {
