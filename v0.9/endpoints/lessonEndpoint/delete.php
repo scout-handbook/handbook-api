@@ -4,7 +4,8 @@
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Database.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Helper.php');
+
+use Skaut\HandbookAPI\v0_9\Helper;
 
 $deleteLesson = function (Skautis\Skautis $skautis, array $data) : array {
     $copySQL = <<<SQL
@@ -37,7 +38,7 @@ SQL;
         throw new HandbookAPI\NotLockedException();
     }
 
-    $id = HandbookAPI\Helper::parseUuid($data['id'], 'lesson')->getBytes();
+    $id = Helper::parseUuid($data['id'], 'lesson')->getBytes();
 
     $db = new HandbookAPI\Database();
     $db->beginTransaction();

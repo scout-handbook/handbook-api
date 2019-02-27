@@ -5,7 +5,6 @@ namespace Skaut\HandbookAPI\v0_9;
 
 require($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Helper.php');
 
 use Ramsey\Uuid\Uuid;
 
@@ -19,8 +18,8 @@ class FullField implements \JsonSerializable
     public function __construct(string $id, string $name, $description, string $image)
     {
         $this->id = Uuid::fromBytes($id);
-        $this->name = \HandbookAPI\Helper::xssSanitize($name);
-        $this->description = \HandbookAPI\Helper::xssSanitize($description);
+        $this->name = Helper::xssSanitize($name);
+        $this->description = Helper::xssSanitize($description);
         $this->image = Uuid::fromBytes($image);
     }
 

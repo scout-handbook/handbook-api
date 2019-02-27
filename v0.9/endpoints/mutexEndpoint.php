@@ -5,11 +5,12 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Database.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Endpoint.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Helper.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/InvalidArgumentTypeException.php');
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/LockedException.php');
+
+use Skaut\HandbookAPI\v0_9\Helper;
 
 $mutexEndpoint = new HandbookAPI\Endpoint();
 
@@ -29,7 +30,7 @@ INSERT INTO mutexes (id, timeout, holder)
 VALUES (:id, FROM_UNIXTIME(:timeout), :holder);
 SQL;
 
-    $id = HandbookAPI\Helper::parseUuid($data['id'], 'resource')->getBytes();
+    $id = Helper::parseUuid($data['id'], 'resource')->getBytes();
     $timeout = time() + 1800;
     if (isset($_COOKIE['skautis_timeout'])) {
         $timeout = ctype_digit($_COOKIE['skautis_timeout']) ? intval($_COOKIE['skautis_timeout']) : null;
@@ -83,7 +84,7 @@ WHERE id = :id AND holder = :holder
 LIMIT 1;
 SQL;
 
-    $id = HandbookAPI\Helper::parseUuid($data['id'], 'resource')->getBytes();
+    $id = Helper::parseUuid($data['id'], 'resource')->getBytes();
     $timeout = time() + 1800;
     if (isset($_COOKIE['skautis_timeout'])) {
         $timeout = ctype_digit($_COOKIE['skautis_timeout']) ? intval($_COOKIE['skautis_timeout']) : null;
@@ -124,7 +125,7 @@ DELETE FROM mutexes
 WHERE id = :id AND holder = :holder;
 SQL;
 
-    $id = HandbookAPI\Helper::parseUuid($data['id'], 'resource')->getBytes();
+    $id = Helper::parseUuid($data['id'], 'resource')->getBytes();
     $userId = $skautis->UserManagement->LoginDetail()->ID_Person;
 
     $db = new HandbookAPI\Database();

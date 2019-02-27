@@ -5,15 +5,16 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Database.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Endpoint.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Helper.php');
 require_once($CONFIG->basepath . '/v0.9/internal/OdyMarkdown/OdyMarkdown.php');
 
 use Ramsey\Uuid\Uuid;
 
+use Skaut\HandbookAPI\v0_9\Helper;
+
 $lessonPDFEndpoint = new HandbookAPI\Endpoint();
 
 $getLessonPDF = function (Skautis\Skautis $skautis, array $data, HandbookAPI\Endpoint $endpoint) use ($CONFIG) : void {
-    $id = HandbookAPI\Helper::parseUuid($data['parent-id'], 'lesson');
+    $id = Helper::parseUuid($data['parent-id'], 'lesson');
 
     $name = '';
     if (!isset($data['caption']) || $data['caption'] === 'true') {
@@ -107,7 +108,7 @@ SQL;
 
     header('content-type:application/pdf; charset=utf-8');
     $mpdf->Output(
-        $id->toString() . '_' . \HandbookAPI\Helper::urlEscape($name) . '.pdf',
+        $id->toString() . '_' . Helper::urlEscape($name) . '.pdf',
         \Mpdf\Output\Destination::INLINE
     );
 };

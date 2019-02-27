@@ -4,9 +4,10 @@
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Database.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Helper.php');
 
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/RoleException.php');
+
+use Skaut\HandbookAPI\v0_9\Helper;
 
 $getLesson = function (Skautis\Skautis $skautis, array $data) : array {
     $SQL = <<<SQL
@@ -15,7 +16,7 @@ FROM lessons
 WHERE id = :id;
 SQL;
 
-    $id = HandbookAPI\Helper::parseUuid($data['id'], 'lesson');
+    $id = Helper::parseUuid($data['id'], 'lesson');
 
     if (!checkLessonGroup($id, true)) {
         throw new HandbookAPI\RoleException();
