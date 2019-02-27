@@ -4,6 +4,8 @@ namespace v0_9;
 global $CONFIG;
 require_once('v0.9/internal/Helper.php');
 
+use Ramsey\Uuid\Uuid;
+
 class HelperTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -12,7 +14,7 @@ class HelperTest extends \PHPUnit\Framework\TestCase
     public function testParseUuid() : void
     {
         $uuid = \HandbookAPI\Helper::parseUuid('6f99ef12-4815-4f5e-9ede-40d14007a3d1', '');
-        $this->assertInstanceOf('\Ramsey\Uuid\Uuid', $uuid);
+        $this->assertInstanceOf('Uuid', $uuid);
         $this->assertSame('6f99ef12-4815-4f5e-9ede-40d14007a3d1', $uuid->toString());
     }
 

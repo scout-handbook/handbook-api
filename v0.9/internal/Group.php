@@ -8,6 +8,8 @@ require_once($CONFIG->basepath . '/vendor/autoload.php');
 
 require_once($CONFIG->basepath . '/v0.9/internal/Helper.php');
 
+use Ramsey\Uuid\Uuid;
+
 class Group implements \JsonSerializable
 {
     public $id;
@@ -16,7 +18,7 @@ class Group implements \JsonSerializable
 
     public function __construct(string $id, string $name, int $count)
     {
-        $this->id = \Ramsey\Uuid\Uuid::fromBytes($id);
+        $this->id = Uuid::fromBytes($id);
         $this->name = Helper::xssSanitize($name);
         $this->count = $count;
     }

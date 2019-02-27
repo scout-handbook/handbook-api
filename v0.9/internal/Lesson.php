@@ -7,6 +7,8 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Helper.php');
 
+use Ramsey\Uuid\Uuid;
+
 class Lesson implements \JsonSerializable
 {
     public $id;
@@ -17,7 +19,7 @@ class Lesson implements \JsonSerializable
 
     public function __construct(string $id, string $name, float $version)
     {
-        $this->id = \Ramsey\Uuid\Uuid::fromBytes($id);
+        $this->id = Uuid::fromBytes($id);
         $this->name = Helper::xssSanitize($name);
         $this->version = round($version * 1000);
     }
@@ -26,7 +28,7 @@ class Lesson implements \JsonSerializable
     {
         $ucomp = [];
         foreach ($this->competences as $competence) {
-            $ucomp[] = \Ramsey\Uuid\Uuid::fromBytes($competence);
+            $ucomp[] = Uuid::fromBytes($competence);
         }
         return [
             'id' => $this->id,
