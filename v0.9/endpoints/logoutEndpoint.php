@@ -3,10 +3,11 @@
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Endpoint.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
-$logoutEndpoint = new HandbookAPI\Endpoint();
+use Skaut\HandbookAPI\v0_9\Endpoint;
+
+$logoutEndpoint = new Endpoint();
 
 $logoutUser = function (Skautis\Skautis $skautis, array $data) use ($CONFIG) : void {
     $startsWith = function (string $haystack, string $needle) : bool {

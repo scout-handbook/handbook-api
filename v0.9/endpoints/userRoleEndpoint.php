@@ -3,14 +3,14 @@
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Endpoint.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/InvalidArgumentTypeException.php');
 
 use Skaut\HandbookAPI\v0_9\Database;
+use Skaut\HandbookAPI\v0_9\Endpoint;
 
-$userRoleEndpoint = new HandbookAPI\Endpoint();
+$userRoleEndpoint = new Endpoint();
 
 $updateUserRole = function (Skautis\Skautis $skautis, array $data) : array {
     $checkRole = function (HandbookAPI\Role $my_role, HandbookAPI\Role $role) : void {

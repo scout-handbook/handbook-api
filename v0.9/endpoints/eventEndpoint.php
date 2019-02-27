@@ -3,12 +3,13 @@
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Endpoint.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
 require_once($CONFIG->basepath . '/v0.9/endpoints/eventParticipantEndpoint.php');
 
-$eventEndpoint = new HandbookAPI\Endpoint();
+use Skaut\HandbookAPI\v0_9\Endpoint;
+
+$eventEndpoint = new Endpoint();
 $eventEndpoint->addSubEndpoint('participant', $eventParticipantEndpoint);
 
 $listUsers = function (Skautis\Skautis $skautis) : array {
