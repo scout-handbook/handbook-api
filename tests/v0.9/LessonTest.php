@@ -3,7 +3,8 @@ namespace v0_9;
 
 global $CONFIG;
 require_once('v0.9/internal/Lesson.php');
-require_once('v0.9/internal/Competence.php');
+
+use Skaut\HandbookAPI\v0_9\Competence;
 
 class LessonTest extends \PHPUnit\Framework\TestCase
 {

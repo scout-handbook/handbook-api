@@ -3,7 +3,6 @@
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Competence.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Database.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Endpoint.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
@@ -14,6 +13,7 @@ require_once($CONFIG->basepath . '/v0.9/internal/exceptions/NotFoundException.ph
 
 use Ramsey\Uuid\Uuid;
 
+use Skaut\HandbookAPI\v0_9\Competence;
 use Skaut\HandbookAPI\v0_9\Helper;
 
 $competenceEndpoint = new HandbookAPI\Endpoint();
@@ -38,7 +38,7 @@ SQL;
     $db->bindColumn('description', $description);
     $competences = [];
     while ($db->fetch()) {
-        $competences[] = new HandbookAPI\Competence($id, intval($number), strval($name), strval($description));
+        $competences[] = new Competence($id, intval($number), strval($name), strval($description));
     }
     return ['status' => 200, 'response' => $competences];
 };
