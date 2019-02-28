@@ -5,12 +5,12 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/InvalidArgumentTypeException.php');
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/LockedException.php');
 
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\Helper;
+use Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException;
 
 $mutexEndpoint = new Endpoint();
 
@@ -35,7 +35,7 @@ SQL;
     if (isset($_COOKIE['skautis_timeout'])) {
         $timeout = ctype_digit($_COOKIE['skautis_timeout']) ? intval($_COOKIE['skautis_timeout']) : null;
         if ($timeout === null || abs($timeout - time()) > 3600) {
-            throw new HandbookAPI\InvalidArgumentTypeException('number', ['Unix timestamp']);
+            throw new InvalidArgumentTypeException('number', ['Unix timestamp']);
         }
     }
     $userId = $skautis->UserManagement->LoginDetail()->ID_Person;
@@ -89,7 +89,7 @@ SQL;
     if (isset($_COOKIE['skautis_timeout'])) {
         $timeout = ctype_digit($_COOKIE['skautis_timeout']) ? intval($_COOKIE['skautis_timeout']) : null;
         if ($timeout === null || abs($timeout - time()) > 3600) {
-            throw new HandbookAPI\InvalidArgumentTypeException('number', ['Unix timestamp']);
+            throw new InvalidArgumentTypeException('number', ['Unix timestamp']);
         }
     }
     $userId = $skautis->UserManagement->LoginDetail()->ID_Person;

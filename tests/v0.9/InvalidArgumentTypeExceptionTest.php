@@ -2,25 +2,26 @@
 namespace v0_9;
 
 global $CONFIG;
-require_once('v0.9/internal/exceptions/InvalidArgumentTypeException.php');
+
+use Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException;
 
 class InvalidArgumentTypeExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers HandbookAPI\InvalidArgumentTypeException::__construct()
+     * @covers Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException::__construct()
      */
-    public function testCtor() : \HandbookAPI\InvalidArgumentTypeException
+    public function testCtor() : InvalidArgumentTypeException
     {
-        $e = new \HandbookAPI\InvalidArgumentTypeException('Ename', ['json', 'int']);
-        $this->assertInstanceOf('\HandbookAPI\InvalidArgumentTypeException', $e);
+        $e = new InvalidArgumentTypeException('Ename', ['json', 'int']);
+        $this->assertInstanceOf('\Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException', $e);
         return $e;
     }
 
     /**
-     * @covers HandbookAPI\InvalidArgumentTypeException::handle()
+     * @covers Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException::handle()
      * @depends testCtor
      */
-    public function testHandle(\HandbookAPI\InvalidArgumentTypeException $e) : void
+    public function testHandle(InvalidArgumentTypeException $e) : void
     {
         $this->assertSame(
             [
