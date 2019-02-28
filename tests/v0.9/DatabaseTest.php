@@ -221,7 +221,7 @@ SQL
     /**
      * @covers Skaut\HandbookAPI\v0_9\Database::endTransaction()
      * @depends testCtor
-     * @expectedException HandbookAPI\ConnectionException
+     * @expectedException Skaut\HandbookAPI\v0_9\Exception\ConnectionException
      */
     public function testEndNonexistentTransaction(Database $db) : void
     {

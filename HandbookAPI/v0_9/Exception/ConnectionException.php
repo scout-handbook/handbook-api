@@ -1,11 +1,9 @@
 <?php declare(strict_types=1);
-namespace HandbookAPI;
+namespace Skaut\HandbookAPI\v0_9\Exception;
 
 @_API_EXEC === 1 or die('Restricted access.');
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
-
-class ConnectionException extends \Skaut\HandbookAPI\v0_9\Exception\Exception
+class ConnectionException extends Exception
 {
     const TYPE = 'ConnectionException';
     const STATUS = 500;
