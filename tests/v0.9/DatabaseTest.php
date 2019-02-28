@@ -119,7 +119,7 @@ SQL
     /**
      * @covers Skaut\HandbookAPI\v0_9\Database::execute()
      * @depends testCtor
-     * @expectedException HandbookAPI\ExecutionException
+     * @expectedException Skaut\HandbookAPI\v0_9\Exception\ExecutionException
      */
     public function testExecuteException(Database $db) : void
     {

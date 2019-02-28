@@ -2,25 +2,26 @@
 namespace v0_9;
 
 global $CONFIG;
-require_once('v0.9/internal/exceptions/ExecutionException.php');
+
+use Skaut\HandbookAPI\v0_9\Exception\ExecutionException;
 
 class ExecutionExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers HandbookAPI\ExecutionException::__construct()
+     * @covers Skaut\HandbookAPI\v0_9\Exception\ExecutionException::__construct()
      */
-    public function testCtor() : \HandbookAPI\ExecutionException
+    public function testCtor() : ExecutionException
     {
-        $e = new \HandbookAPI\ExecutionException('EXAMPLE QUERY', new \PDOStatement());
-        $this->assertInstanceOf('\HandbookAPI\ExecutionException', $e);
+        $e = new ExecutionException('EXAMPLE QUERY', new \PDOStatement());
+        $this->assertInstanceOf('\Skaut\HandbookAPI\v0_9\Exception\ExecutionException', $e);
         return $e;
     }
 
     /**
-     * @covers HandbookAPI\ExecutionException::handle()
+     * @covers Skaut\HandbookAPI\v0_9\Exception\ExecutionException::handle()
      * @depends testCtor
      */
-    public function testHandle(\HandbookAPI\ExecutionException $e) : void
+    public function testHandle(ExecutionException $e) : void
     {
         $this->assertSame(
             [
