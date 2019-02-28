@@ -4,7 +4,6 @@ namespace Skaut\HandbookAPI\v0_9;
 @_API_EXEC === 1 or die('Restricted access.');
 
 require($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
-require_once($CONFIG->basepath . '/v0.9/internal/skautisTry.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/Exception.php');
@@ -106,7 +105,7 @@ class Endpoint
             return $func($skautis, $data, $self);
         };
         $hardCheck = (\HandbookAPI\Role_cmp($role, new \HandbookAPI\Role('user')) > 0);
-        $ret = \HandbookAPI\roleTry($wrapper, $hardCheck, $role);
+        $ret = roleTry($wrapper, $hardCheck, $role);
         if (isset($ret)) {
             return $ret;
         }
