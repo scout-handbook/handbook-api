@@ -9,6 +9,7 @@ require_once($CONFIG->basepath . '/v0.9/endpoints/userEndpoint.php');
 
 use Ramsey\Uuid\Uuid;
 
+use function Skaut\HandbookAPI\v0_9\skautisTry;
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
 
@@ -50,7 +51,7 @@ SQL;
     };
 
     try {
-        return HandbookAPI\skautisTry($getAccount, false);
+        return skautisTry($getAccount, false);
     } catch (HandbookAPI\AuthenticationException $e) {
         header('www-authenticate: SkautIS');
         return ['status' => 401];

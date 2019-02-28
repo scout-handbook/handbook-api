@@ -7,33 +7,9 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/AuthenticationException.php');
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/RoleException.php');
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/SkautISException.php');
 
-function skautisTry(callable $callback, bool $hardCheck = true)
-{
-    $_API_SECRETS_EXEC = 1;
-    $SECRETS = require($_SERVER['DOCUMENT_ROOT'] . '/api-secrets.php');
-    $skautis = \Skautis\Skautis::getInstance($SECRETS->skautis_app_id, $SECRETS->skautis_test_mode);
-    if (isset($_COOKIE['skautis_token']) and isset($_COOKIE['skautis_timeout'])) {
-        $reconstructedPost = array(
-            'skautIS_Token' => $_COOKIE['skautis_token'],
-            'skautIS_IDRole' => '',
-            'skautIS_IDUnit' => '',
-            'skautIS_DateLogout' => \DateTime::createFromFormat('U', $_COOKIE['skautis_timeout'])
-                ->setTimezone(new \DateTimeZone('Europe/Prague'))->format('j. n. Y H:i:s'));
-        $skautis->setLoginData($reconstructedPost);
-        if ($skautis->getUser()->isLoggedIn($hardCheck)) {
-            try {
-                return $callback($skautis);
-            } catch (\Skautis\Exception $e) {
-                throw new SkautISException($e);
-            }
-        }
-    }
-    throw new AuthenticationException();
-}
+use function Skaut\HandbookAPI\v0_9\skautisTry;
 
 function roleTry(callable $callback, bool $hardCheck, Role $requiredRole)
 {

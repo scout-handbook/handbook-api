@@ -32,6 +32,9 @@
 		"phpcompatibility/php-compatibility": "^9.0"
 	},
 	"autoload": {
+		"files": [
+			"HandbookAPI/v0_9/skautisTry.php"
+		],
 		"psr-4": {
 			"Skaut\\": "./"
 		}
