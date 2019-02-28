@@ -5,11 +5,11 @@ namespace Skaut\HandbookAPI\v0_9;
 
 require($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/ExecutionException.php');
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/NotFoundException.php');
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/QueryException.php');
 
 use Skaut\HandbookAPI\v0_9\Exception\ConnectionException;
+use Skaut\HandbookAPI\v0_9\Exception\ExecutionException;
 
 /** @SuppressWarnings(PHPMD.TooManyPublicMethods) */
 class Database
