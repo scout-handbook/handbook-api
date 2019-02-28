@@ -2,25 +2,26 @@
 namespace v0_9;
 
 global $CONFIG;
-require_once('v0.9/internal/exceptions/LockedException.php');
+
+use Skaut\HandbookAPI\v0_9\Exception\LockedException;
 
 class LockedExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers HandbookAPI\LockedException::__construct()
+     * @covers Skaut\HandbookAPI\v0_9\Exception\LockedException::__construct()
      */
-    public function testCtor() : \HandbookAPI\LockedException
+    public function testCtor() : LockedException
     {
-        $e = new \HandbookAPI\LockedException('Eholder');
-        $this->assertInstanceOf('\HandbookAPI\LockedException', $e);
+        $e = new LockedException('Eholder');
+        $this->assertInstanceOf('\Skaut\HandbookAPI\v0_9\Exception\LockedException', $e);
         return $e;
     }
 
     /**
-     * @covers HandbookAPI\LockedException::handle()
+     * @covers Skaut\HandbookAPI\v0_9\Exception\LockedException::handle()
      * @depends testCtor
      */
-    public function testHandle(\HandbookAPI\LockedException $e) : void
+    public function testHandle(LockedException $e) : void
     {
         $this->assertSame(
             [

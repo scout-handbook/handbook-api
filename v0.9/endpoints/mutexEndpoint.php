@@ -5,12 +5,12 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/LockedException.php');
 
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\Helper;
 use Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException;
+use Skaut\HandbookAPI\v0_9\Exception\LockedException;
 
 $mutexEndpoint = new Endpoint();
 
@@ -53,7 +53,7 @@ SQL;
     $db->bindColumn('holder', $origHolder);
     $db->bindColumn('name', $origHolderName);
     if ($db->fetch() && $origHolder != $userId && $origTimeout > time()) {
-        throw new HandbookAPI\LockedException($origHolderName);
+        throw new LockedException($origHolderName);
     }
 
     $db->prepare($deleteSQL);
