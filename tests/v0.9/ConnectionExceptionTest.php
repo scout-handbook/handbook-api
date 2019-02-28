@@ -2,25 +2,26 @@
 namespace v0_9;
 
 global $CONFIG;
-require_once('v0.9/internal/exceptions/ConnectionException.php');
+
+use Skaut\HandbookAPI\v0_9\Exception\ConnectionException;
 
 class ConnectionExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers HandbookAPI\ConnectionException::__construct()
+     * @covers Skaut\HandbookAPI\v0_9\Exception\ConnectionException::__construct()
      */
-    public function testCtor() : \HandbookAPI\ConnectionException
+    public function testCtor() : ConnectionException
     {
-        $e = new \HandbookAPI\ConnectionException(new \PDOException());
-        $this->assertInstanceOf('\HandbookAPI\ConnectionException', $e);
+        $e = new ConnectionException(new \PDOException());
+        $this->assertInstanceOf('\Skaut\HandbookAPI\v0_9\Exception\ConnectionException', $e);
         return $e;
     }
 
     /**
-     * @covers HandbookAPI\ConnectionException::handle()
+     * @covers Skaut\HandbookAPI\v0_9\Exception\ConnectionException::handle()
      * @depends testCtor
      */
-    public function testHandle(\HandbookAPI\ConnectionException $e) : void
+    public function testHandle(ConnectionException $e) : void
     {
         $this->assertSame(
             [
