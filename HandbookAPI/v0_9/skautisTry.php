@@ -6,10 +6,11 @@ namespace Skaut\HandbookAPI\v0_9;
 require($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
 
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/AuthenticationException.php');
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/SkautISException.php');
 
 use Skautis\Skautis;
+
+use Exception\AuthenticationException;
 
 function skautisTry(callable $callback, bool $hardCheck = true)
 {
@@ -32,5 +33,5 @@ function skautisTry(callable $callback, bool $hardCheck = true)
             }
         }
     }
-    throw new \HandbookAPI\AuthenticationException();
+    throw new AuthenticationException();
 }

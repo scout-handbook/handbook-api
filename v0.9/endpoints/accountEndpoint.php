@@ -12,6 +12,7 @@ use Ramsey\Uuid\Uuid;
 use function Skaut\HandbookAPI\v0_9\skautisTry;
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
+use Skaut\HandbookAPI\v0_9\Exception\AuthenticationException;
 
 $accountEndpoint = new Endpoint();
 
@@ -52,7 +53,7 @@ SQL;
 
     try {
         return skautisTry($getAccount, false);
-    } catch (HandbookAPI\AuthenticationException $e) {
+    } catch (AuthenticationException $e) {
         header('www-authenticate: SkautIS');
         return ['status' => 401];
     }

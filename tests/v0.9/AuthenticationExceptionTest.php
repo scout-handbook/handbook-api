@@ -2,25 +2,26 @@
 namespace v0_9;
 
 global $CONFIG;
-require_once('v0.9/internal/exceptions/AuthenticationException.php');
+
+use Skaut\HandbookAPI\v0_9\Exception\AuthenticationException;
 
 class AuthenticationExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers HandbookAPI\AuthenticationException::__construct()
+     * @covers Skaut\HandbookAPI\v0_9\Exception\AuthenticationException::__construct()
      */
-    public function testCtor() : \HandbookAPI\AuthenticationException
+    public function testCtor() : AuthenticationException
     {
-        $e = new \HandbookAPI\AuthenticationException();
-        $this->assertInstanceOf('\HandbookAPI\AuthenticationException', $e);
+        $e = new AuthenticationException();
+        $this->assertInstanceOf('\Skaut\HandbookAPI\v0_9\Exception\AuthenticationException', $e);
         return $e;
     }
 
     /**
-     * @covers HandbookAPI\AuthenticationException::handle()
+     * @covers Skaut\HandbookAPI\v0_9\Exception\AuthenticationException::handle()
      * @depends testCtor
      */
-    public function testHandle(\HandbookAPI\AuthenticationException $e) : void
+    public function testHandle(AuthenticationException $e) : void
     {
         $this->assertSame(
             ['status' => 403, 'type' => 'AuthenticationException', 'message' => 'Authentication failed.'],
