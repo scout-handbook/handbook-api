@@ -5,13 +5,12 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/InvalidArgumentTypeException.php');
-
 use Ramsey\Uuid\Uuid;
 
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\Helper;
+use Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException;
 
 $lessonHistoryEndpoint = new Endpoint();
 
@@ -66,7 +65,7 @@ SQL;
     $id = Helper::parseUuid($data['parent-id'], 'lesson')->getBytes();
     $version = ctype_digit($data['id']) ? intval($data['id']) / 1000 : null;
     if ($version === null) {
-        throw new HandbookAPI\InvalidArgumentTypeException('number', ['Integer']);
+        throw new InvalidArgumentTypeException('number', ['Integer']);
     }
     $version = strval($version);
 

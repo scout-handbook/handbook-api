@@ -5,7 +5,6 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/InvalidArgumentTypeException.php');
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/MissingArgumentException.php');
 
 use Ramsey\Uuid\Uuid;
@@ -13,6 +12,7 @@ use Ramsey\Uuid\Uuid;
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\Helper;
+use Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException;
 
 $imageEndpoint = new Endpoint();
 
@@ -111,10 +111,10 @@ SQL;
         throw new HandbookAPI\MissingArgumentException(HandbookAPI\MissingArgumentException::FILE, 'image');
     }
     if (!getimagesize($_FILES['image']['tmp_name'])) {
-        throw new HandbookAPI\InvalidArgumentTypeException('image', ['image/jpeg', 'image/png']);
+        throw new InvalidArgumentTypeException('image', ['image/jpeg', 'image/png']);
     }
     if (!in_array(mb_strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png'])) {
-        throw new HandbookAPI\InvalidArgumentTypeException('image', ['image/jpeg', 'image/png']);
+        throw new InvalidArgumentTypeException('image', ['image/jpeg', 'image/png']);
     }
     $uuid = Uuid::uuid4();
     $tmp = $CONFIG->imagepath . '/tmp/' . $uuid->toString() . '.jpg';

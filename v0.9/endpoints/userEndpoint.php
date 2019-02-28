@@ -5,8 +5,6 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/InvalidArgumentTypeException.php');
-
 require_once($CONFIG->basepath . '/v0.9/endpoints/userRoleEndpoint.php');
 require_once($CONFIG->basepath . '/v0.9/endpoints/userGroupEndpoint.php');
 
@@ -14,6 +12,7 @@ use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\Helper;
 use Skaut\HandbookAPI\v0_9\User;
+use Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException;
 
 $userEndpoint = new Endpoint();
 $userEndpoint->addSubEndpoint('role', $userRoleEndpoint);
@@ -76,14 +75,14 @@ SQL;
     if (isset($data['per-page'])) {
         $per_page = ctype_digit($data['per-page']) ? intval($data['per-page']) : null;
         if ($per_page === null) {
-            throw new HandbookAPI\InvalidArgumentTypeException('per-page', ['Integer']);
+            throw new InvalidArgumentTypeException('per-page', ['Integer']);
         }
     }
     $start = 0;
     if (isset($data['page'])) {
         $start = ctype_digit($data['page']) ? ($per_page * (intval($data['page']) - 1)) : null;
         if ($start === null) {
-            throw new HandbookAPI\InvalidArgumentTypeException('page', ['Integer']);
+            throw new InvalidArgumentTypeException('page', ['Integer']);
         }
     }
 
@@ -144,7 +143,7 @@ $addUser = function (Skautis\Skautis $skautis, array $data) : array {
     }
     $id = ctype_digit($data['id']) ? intval($data['id']) : null;
     if ($id === null) {
-        throw new HandbookAPI\InvalidArgumentTypeException('id', ['Integer']);
+        throw new InvalidArgumentTypeException('id', ['Integer']);
     }
     if (!isset($data['name'])) {
         throw new HandbookAPI\MissingArgumentException(HandbookAPI\MissingArgumentException::POST, 'name');

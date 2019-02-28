@@ -5,11 +5,10 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/InvalidArgumentTypeException.php');
-
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\Helper;
+use Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException;
 
 $userGroupEndpoint = new Endpoint();
 
@@ -37,7 +36,7 @@ SQL;
 
     $id = ctype_digit($data['parent-id']) ? intval($data['parent-id']) : null;
     if ($id === null) {
-        throw new HandbookAPI\InvalidArgumentTypeException('id', ['Integer']);
+        throw new InvalidArgumentTypeException('id', ['Integer']);
     }
     $groups = [];
     if (isset($data['group'])) {

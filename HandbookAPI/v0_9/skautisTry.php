@@ -10,7 +10,7 @@ require_once($CONFIG->basepath . '/v0.9/internal/exceptions/SkautISException.php
 
 use Skautis\Skautis;
 
-use Exception\AuthenticationException;
+use Skaut\HandbookAPI\v0_9\Exception\AuthenticationException;
 
 function skautisTry(callable $callback, bool $hardCheck = true)
 {
