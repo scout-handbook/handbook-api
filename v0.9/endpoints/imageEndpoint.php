@@ -5,7 +5,6 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/Exception.php');
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/InvalidArgumentTypeException.php');
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/MissingArgumentException.php');
 
@@ -120,7 +119,7 @@ SQL;
     $uuid = Uuid::uuid4();
     $tmp = $CONFIG->imagepath . '/tmp/' . $uuid->toString() . '.jpg';
     if (!move_uploaded_file($_FILES['image']['tmp_name'], $tmp)) {
-        throw new HandbookAPI\Exception('File upload failed.');
+        throw new \Skaut\HandbookAPI\v0_9\Exception\Exception('File upload failed.');
     }
 
     $db = new Database();

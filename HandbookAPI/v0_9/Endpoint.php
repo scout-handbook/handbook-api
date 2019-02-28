@@ -6,7 +6,6 @@ namespace Skaut\HandbookAPI\v0_9;
 require($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/Exception.php');
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/MissingArgumentException.php');
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/NotImplementedException.php');
 
@@ -164,7 +163,7 @@ class Endpoint
         try {
             header('content-type: application/json; charset=utf-8');
             $ret = $this->call($method, $role, $data);
-        } catch (Exception $e) {
+        } catch (Exception\Exception $e) {
             header('content-type:application/json; charset=utf-8');
             $ret = $e->handle();
         }

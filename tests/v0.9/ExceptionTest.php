@@ -2,25 +2,24 @@
 namespace v0_9;
 
 global $CONFIG;
-require_once('v0.9/internal/exceptions/Exception.php');
 
 class ExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers HandbookAPI\Exception::__construct()
+     * @covers Skaut\HandbookAPI\v0_9\Exception\Exception::__construct()
      */
-    public function testCtor() : \HandbookAPI\Exception
+    public function testCtor() : \Skaut\HandbookAPI\v0_9\Exception\Exception
     {
-        $e = new \HandbookAPI\Exception('Emessage');
-        $this->assertInstanceOf('\HandbookAPI\Exception', $e);
+        $e = new \Skaut\HandbookAPI\v0_9\Exception\Exception('Emessage');
+        $this->assertInstanceOf('\Skaut\HandbookAPI\v0_9\Exception\Exception', $e);
         return $e;
     }
 
     /**
-     * @covers HandbookAPI\Exception::handle()
+     * @covers Skaut\HandbookAPI\v0_9\Exception\Exception::handle()
      * @depends testCtor
      */
-    public function testHandle(\HandbookAPI\Exception $e) : void
+    public function testHandle(\Skaut\HandbookAPI\v0_9\Exception\Exception $e) : void
     {
         $this->assertSame(['status' => 500, 'type' => 'Exception', 'message' => 'Emessage'], $e->handle());
     }
