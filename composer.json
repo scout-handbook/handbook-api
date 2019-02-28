@@ -33,6 +33,7 @@
 	},
 	"autoload": {
 		"files": [
+			"HandbookAPI/v0_9/roleTry.php",
 			"HandbookAPI/v0_9/skautisTry.php"
 		],
 		"psr-4": {
