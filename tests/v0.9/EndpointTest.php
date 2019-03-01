@@ -134,7 +134,7 @@ class EndpointTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers Skaut\HandbookAPI\v0_9\Endpoint::callFunctionHelper
      * @depends testSetDeleteMethod
-     * @expectedException HandbookAPI\MissingArgumentException
+     * @expectedException Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException
      */
     public function testCallFunctionHelperPutNoId(Endpoint $endpoint) : void
     {
@@ -159,7 +159,7 @@ class EndpointTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers Skaut\HandbookAPI\v0_9\Endpoint::callFunctionHelper
      * @depends testSetDeleteMethod
-     * @expectedException HandbookAPI\MissingArgumentException
+     * @expectedException Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException
      */
     public function testCallFunctionHelperDeleteNoId(Endpoint $endpoint) : void
     {

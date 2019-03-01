@@ -5,14 +5,13 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/MissingArgumentException.php');
-
 use Ramsey\Uuid\Uuid;
 
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\FullField;
 use Skaut\HandbookAPI\v0_9\Helper;
+use Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException;
 
 $fieldEndpoint = new Endpoint();
 
@@ -49,15 +48,15 @@ SQL;
 
     $uuid = Uuid::uuid4()->getBytes();
     if (!isset($data['name'])) {
-        throw new HandbookAPI\MissingArgumentException(HandbookAPI\MissingArgumentException::POST, 'name');
+        throw new MissingArgumentException(MissingArgumentException::POST, 'name');
     }
     $name = $data['name'];
     if (!isset($data['description'])) {
-        throw new HandbookAPI\MissingArgumentException(HandbookAPI\MissingArgumentException::POST, 'description');
+        throw new MissingArgumentException(MissingArgumentException::POST, 'description');
     }
     $description = $data['description'];
     if (!isset($data['image'])) {
-        throw new HandbookAPI\MissingArgumentException(HandbookAPI\MissingArgumentException::POST, 'image');
+        throw new MissingArgumentException(MissingArgumentException::POST, 'image');
     }
     $image = Helper::parseUuid($data['image'], 'image')->getBytes();
 
@@ -82,15 +81,15 @@ SQL;
 
     $id = Helper::parseUuid($data['id'], 'field')->getBytes();
     if (!isset($data['name'])) {
-        throw new HandbookAPI\MissingArgumentException(HandbookAPI\MissingArgumentException::POST, 'name');
+        throw new MissingArgumentException(MissingArgumentException::POST, 'name');
     }
     $name = $data['name'];
     if (!isset($data['description'])) {
-        throw new HandbookAPI\MissingArgumentException(HandbookAPI\MissingArgumentException::POST, 'description');
+        throw new MissingArgumentException(MissingArgumentException::POST, 'description');
     }
     $description = $data['description'];
     if (!isset($data['image'])) {
-        throw new HandbookAPI\MissingArgumentException(HandbookAPI\MissingArgumentException::POST, 'image');
+        throw new MissingArgumentException(MissingArgumentException::POST, 'image');
     }
     $image = Helper::parseUuid($data['image'], 'image')->getBytes();
 
