@@ -2,8 +2,6 @@
 @_API_EXEC === 1 or die('Restricted access.');
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
-require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
 require_once($CONFIG->basepath . '/v0.9/endpoints/accountEndpoint.php');
 
@@ -24,6 +22,7 @@ use Ramsey\Uuid\UuidInterface;
 
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
+use Skaut\HandbookAPI\v0_9\Role;
 
 $lessonEndpoint = new Endpoint();
 $lessonEndpoint->addSubEndpoint('competence', $lessonCompetenceEndpoint);
@@ -41,7 +40,7 @@ SELECT group_id FROM groups_for_lessons
 WHERE lesson_id = :lesson_id;
 SQL;
 
-    $loginState = $accountEndpoint->call('GET', new HandbookAPI\Role('guest'), ['no-avatar' => 'true']);
+    $loginState = $accountEndpoint->call('GET', new Role('guest'), ['no-avatar' => 'true']);
 
     if ($loginState['status'] == '200') {
         if ($overrideGroup and in_array($loginState['response']['role'], ['editor', 'administrator', 'superuser'])) {
@@ -69,8 +68,8 @@ SQL;
     return false;
 }
 
-$lessonEndpoint->setListMethod(new HandbookAPI\Role('guest'), $listLessons);
-$lessonEndpoint->setGetMethod(new HandbookAPI\Role('guest'), $getLesson);
-$lessonEndpoint->setAddMethod(new HandbookAPI\Role('editor'), $addLesson);
-$lessonEndpoint->setUpdateMethod(new HandbookAPI\Role('editor'), $updateLesson);
-$lessonEndpoint->setDeleteMethod(new HandbookAPI\Role('administrator'), $deleteLesson);
+$lessonEndpoint->setListMethod(new Role('guest'), $listLessons);
+$lessonEndpoint->setGetMethod(new Role('guest'), $getLesson);
+$lessonEndpoint->setAddMethod(new Role('editor'), $addLesson);
+$lessonEndpoint->setUpdateMethod(new Role('editor'), $updateLesson);
+$lessonEndpoint->setDeleteMethod(new Role('administrator'), $deleteLesson);

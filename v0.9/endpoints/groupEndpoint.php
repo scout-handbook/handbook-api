@@ -1,16 +1,13 @@
 <?php declare(strict_types=1);
 @_API_EXEC === 1 or die('Restricted access.');
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
-require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
-
 use Ramsey\Uuid\Uuid;
 
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\Group;
 use Skaut\HandbookAPI\v0_9\Helper;
+use Skaut\HandbookAPI\v0_9\Role;
 use Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException;
 use Skaut\HandbookAPI\v0_9\Exception\NotFoundException;
 use Skaut\HandbookAPI\v0_9\Exception\RefusedException;
@@ -47,7 +44,7 @@ SQL;
     }
     return ['status' => 200, 'response' => $groups];
 };
-$groupEndpoint->setListMethod(new HandbookAPI\Role('editor'), $listGroups);
+$groupEndpoint->setListMethod(new Role('editor'), $listGroups);
 
 $addGroup = function (Skautis\Skautis $skautis, array $data) : array {
     $SQL = <<<SQL
@@ -68,7 +65,7 @@ SQL;
     $db->execute();
     return ['status' => 201];
 };
-$groupEndpoint->setAddMethod(new HandbookAPI\Role('administrator'), $addGroup);
+$groupEndpoint->setAddMethod(new Role('administrator'), $addGroup);
 
 $updateGroup = function (Skautis\Skautis $skautis, array $data) : array {
     $updateSQL = <<<SQL
@@ -99,7 +96,7 @@ SQL;
     $db->endTransaction();
     return ['status' => 200];
 };
-$groupEndpoint->setUpdateMethod(new HandbookAPI\Role('administrator'), $updateGroup);
+$groupEndpoint->setUpdateMethod(new Role('administrator'), $updateGroup);
 
 $deleteGroup = function (Skautis\Skautis $skautis, array $data) : array {
     $deleteLessonsSQL = <<<SQL
@@ -144,4 +141,4 @@ SQL;
     $db->endTransaction();
     return ['status' => 200];
 };
-$groupEndpoint->setDeleteMethod(new HandbookAPI\Role('administrator'), $deleteGroup);
+$groupEndpoint->setDeleteMethod(new Role('administrator'), $deleteGroup);

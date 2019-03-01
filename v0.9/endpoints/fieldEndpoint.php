@@ -1,16 +1,13 @@
 <?php declare(strict_types=1);
 @_API_EXEC === 1 or die('Restricted access.');
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
-require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
-
 use Ramsey\Uuid\Uuid;
 
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\FullField;
 use Skaut\HandbookAPI\v0_9\Helper;
+use Skaut\HandbookAPI\v0_9\Role;
 use Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException;
 use Skaut\HandbookAPI\v0_9\Exception\NotFoundException;
 
@@ -39,7 +36,7 @@ SQL;
     }
     return ['status' => 200, 'response' => $fields];
 };
-$fieldEndpoint->setListMethod(new HandbookAPI\Role('guest'), $listFields);
+$fieldEndpoint->setListMethod(new Role('guest'), $listFields);
 
 $addField = function (Skautis\Skautis $skautis, array $data) : array {
     $SQL = <<<SQL
@@ -70,7 +67,7 @@ SQL;
     $db->execute();
     return ['status' => 201];
 };
-$fieldEndpoint->setAddMethod(new HandbookAPI\Role('administrator'), $addField);
+$fieldEndpoint->setAddMethod(new Role('administrator'), $addField);
 
 $updateField = function (Skautis\Skautis $skautis, array $data) : array {
     $SQL = <<<SQL
@@ -111,7 +108,7 @@ SQL;
     $db->endTransaction();
     return ['status' => 200];
 };
-$fieldEndpoint->setUpdateMethod(new HandbookAPI\Role('administrator'), $updateField);
+$fieldEndpoint->setUpdateMethod(new Role('administrator'), $updateField);
 
 $deleteField = function (Skautis\Skautis $skautis, array $data) : array {
     $deleteLessonsSQL = <<<SQL
@@ -144,4 +141,4 @@ SQL;
     $db->endTransaction();
     return ['status' => 200];
 };
-$fieldEndpoint->setDeleteMethod(new HandbookAPI\Role('administrator'), $deleteField);
+$fieldEndpoint->setDeleteMethod(new Role('administrator'), $deleteField);

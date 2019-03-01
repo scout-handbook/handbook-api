@@ -10,6 +10,7 @@ use Ramsey\Uuid\Uuid;
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\Helper;
+use Skaut\HandbookAPI\v0_9\Role;
 
 $lessonPDFEndpoint = new Endpoint();
 
@@ -36,7 +37,7 @@ SQL;
     }
 
 
-    $md = $endpoint->getParent()->call('GET', new HandbookAPI\Role('guest'), ['id' => $data['parent-id']])['response'];
+    $md = $endpoint->getParent()->call('GET', new Role('guest'), ['id' => $data['parent-id']])['response'];
 
     $html = '<body><h1>' . $name . '</h1>';
     $parser = new OdyMarkdown\OdyMarkdown();
@@ -112,4 +113,4 @@ SQL;
         \Mpdf\Output\Destination::INLINE
     );
 };
-$lessonPDFEndpoint->setListMethod(new HandbookAPI\Role('editor'), $getLessonPDF);
+$lessonPDFEndpoint->setListMethod(new Role('editor'), $getLessonPDF);

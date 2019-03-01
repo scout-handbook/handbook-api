@@ -33,8 +33,10 @@
 	},
 	"autoload": {
 		"files": [
+			"HandbookAPI/v0_9/getRole.php",
 			"HandbookAPI/v0_9/Lesson_cmp.php",
 			"HandbookAPI/v0_9/LessonContainer_cmp.php",
+			"HandbookAPI/v0_9/Role_cmp.php",
 			"HandbookAPI/v0_9/roleTry.php",
 			"HandbookAPI/v0_9/skautisTry.php"
 		],

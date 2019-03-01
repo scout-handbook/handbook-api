@@ -6,6 +6,7 @@ require_once('tests/PhpInputStream.php');
 global $CONFIG;
 
 use Skaut\HandbookAPI\v0_9\Endpoint;
+use Skaut\HandbookAPI\v0_9\Role;
 
 class EndpointTest extends \PHPUnit\Framework\TestCase
 {
@@ -25,7 +26,7 @@ class EndpointTest extends \PHPUnit\Framework\TestCase
      */
     public function testSetListMethod(Endpoint $endpoint) : Endpoint
     {
-        $this->assertNull($endpoint->setListMethod(new \HandbookAPI\Role('superuser'), function () {
+        $this->assertNull($endpoint->setListMethod(new Role('superuser'), function () {
             return 'list';
         }));
         return $endpoint;
@@ -37,7 +38,7 @@ class EndpointTest extends \PHPUnit\Framework\TestCase
      */
     public function testSetGetMethod(Endpoint $endpoint) : Endpoint
     {
-        $this->assertNull($endpoint->setGetMethod(new \HandbookAPI\Role('administrator'), function () {
+        $this->assertNull($endpoint->setGetMethod(new Role('administrator'), function () {
             return 'get';
         }));
         return $endpoint;
@@ -49,7 +50,7 @@ class EndpointTest extends \PHPUnit\Framework\TestCase
      */
     public function testSetUpdateMethod(Endpoint $endpoint) : Endpoint
     {
-        $this->assertNull($endpoint->setUpdateMethod(new \HandbookAPI\Role('editor'), function () {
+        $this->assertNull($endpoint->setUpdateMethod(new Role('editor'), function () {
             return 'update';
         }));
         return $endpoint;
@@ -61,7 +62,7 @@ class EndpointTest extends \PHPUnit\Framework\TestCase
      */
     public function testSetAddMethod(Endpoint $endpoint) : Endpoint
     {
-        $this->assertNull($endpoint->setAddMethod(new \HandbookAPI\Role('user'), function () {
+        $this->assertNull($endpoint->setAddMethod(new Role('user'), function () {
             return 'add';
         }));
         return $endpoint;
@@ -73,7 +74,7 @@ class EndpointTest extends \PHPUnit\Framework\TestCase
      */
     public function testSetDeleteMethod(Endpoint $endpoint) : Endpoint
     {
-        $this->assertNull($endpoint->setDeleteMethod(new \HandbookAPI\Role('guest'), function () {
+        $this->assertNull($endpoint->setDeleteMethod(new Role('guest'), function () {
             return 'delete';
         }));
         return $endpoint;

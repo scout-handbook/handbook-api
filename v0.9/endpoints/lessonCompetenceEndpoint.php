@@ -3,13 +3,13 @@
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
 use Ramsey\Uuid\Uuid;
 
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\Helper;
+use Skaut\HandbookAPI\v0_9\Role;
 
 $lessonCompetenceEndpoint = new Endpoint();
 
@@ -49,4 +49,4 @@ SQL;
     $db->endTransaction();
     return ['status' => 200];
 };
-$lessonCompetenceEndpoint->setUpdateMethod(new HandbookAPI\Role('editor'), $updateLessonCompetence);
+$lessonCompetenceEndpoint->setUpdateMethod(new Role('editor'), $updateLessonCompetence);

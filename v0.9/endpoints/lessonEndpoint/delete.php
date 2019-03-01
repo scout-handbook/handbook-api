@@ -3,6 +3,7 @@
 
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Helper;
+use Skaut\HandbookAPI\v0_9\Role;
 use Skaut\HandbookAPI\v0_9\Exception\NotFoundException;
 use Skaut\HandbookAPI\v0_9\Exception\NotLockedException;
 
@@ -32,7 +33,7 @@ SQL;
 
     global $mutexEndpoint;
     try {
-        $mutexEndpoint->call('DELETE', new HandbookAPI\Role('editor'), ['id' => $data['id']]);
+        $mutexEndpoint->call('DELETE', new Role('editor'), ['id' => $data['id']]);
     } catch (NotFoundException $e) {
         throw new NotLockedException();
     }

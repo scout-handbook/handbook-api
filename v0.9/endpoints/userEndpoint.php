@@ -2,15 +2,16 @@
 @_API_EXEC === 1 or die('Restricted access.');
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
-require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
 require_once($CONFIG->basepath . '/v0.9/endpoints/userRoleEndpoint.php');
 require_once($CONFIG->basepath . '/v0.9/endpoints/userGroupEndpoint.php');
 
+use function Skaut\HandbookAPI\v0_9\getRole;
+use function Skaut\HandbookAPI\v0_9\Role_cmp;
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\Helper;
+use Skaut\HandbookAPI\v0_9\Role;
 use Skaut\HandbookAPI\v0_9\User;
 use Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException;
 use Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException;
@@ -23,13 +24,13 @@ $userEndpoint->addSubEndpoint('group', $userGroupEndpoint);
 
 function constructSelectSQL(Skautis\Skautis $skautis, bool $roleSelect, bool $groupSelect) : string
 {
-    $role = HandbookAPI\getRole($skautis->UserManagement->LoginDetail()->ID_Person);
+    $role = getRole($skautis->UserManagement->LoginDetail()->ID_Person);
 
     $innerSQL = '';
-    if (HandbookAPI\Role_cmp($role, new HandbookAPI\Role('administrator')) >= 0) {
+    if (Role_cmp($role, new Role('administrator')) >= 0) {
         $innerSQL .= ', \'editor\'';
     }
-    if (HandbookAPI\Role_cmp($role, new HandbookAPI\Role('superuser')) === 0) {
+    if (Role_cmp($role, new Role('superuser')) === 0) {
         $innerSQL .= ', \'administrator\', \'superuser\'';
     }
 
@@ -103,7 +104,7 @@ SQL;
         if (!in_array($data['role'], ['user', 'editor', 'administrator', 'superuser'])) {
             throw new NotFoundException('role');
         }
-        $role = (new HandbookAPI\Role($data['role']))->__toString();
+        $role = (new Role($data['role']))->__toString();
         $db->bindParam(':role', $role, PDO::PARAM_STR);
     }
     if (isset($data['group'])) {
@@ -137,7 +138,7 @@ SQL;
 
     return ['status' => 200, 'response' => ['count' => $count, 'users' => $users]];
 };
-$userEndpoint->setListMethod(new HandbookAPI\Role('editor'), $listUsers);
+$userEndpoint->setListMethod(new Role('editor'), $listUsers);
 
 $addUser = function (Skautis\Skautis $skautis, array $data) : array {
     if (!isset($data['id'])) {
@@ -165,4 +166,4 @@ SQL;
     $db->execute();
     return ['status' => 200];
 };
-$userEndpoint->setAddMethod(new HandbookAPI\Role('editor'), $addUser);
+$userEndpoint->setAddMethod(new Role('editor'), $addUser);

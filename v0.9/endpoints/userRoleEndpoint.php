@@ -1,13 +1,11 @@
 <?php declare(strict_types=1);
 @_API_EXEC === 1 or die('Restricted access.');
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
-require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
-
-
+use function Skaut\HandbookAPI\v0_9\getRole;
+use function Skaut\HandbookAPI\v0_9\Role_cmp;
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
+use Skaut\HandbookAPI\v0_9\Role;
 use Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException;
 use Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException;
 use Skaut\HandbookAPI\v0_9\Exception\RoleException;
@@ -15,9 +13,9 @@ use Skaut\HandbookAPI\v0_9\Exception\RoleException;
 $userRoleEndpoint = new Endpoint();
 
 $updateUserRole = function (Skautis\Skautis $skautis, array $data) : array {
-    $checkRole = function (HandbookAPI\Role $my_role, HandbookAPI\Role $role) : void {
-        if ((HandbookAPI\Role_cmp($my_role, new HandbookAPI\Role('administrator')) === 0) and
-            (HandbookAPI\Role_cmp($role, new HandbookAPI\Role('administrator')) >= 0)) {
+    $checkRole = function (Role $my_role, Role $role) : void {
+        if ((Role_cmp($my_role, new Role('administrator')) === 0) and
+            (Role_cmp($role, new Role('administrator')) >= 0)) {
             throw new RoleException();
         }
     };
@@ -41,9 +39,9 @@ SQL;
     if (!isset($data['role'])) {
         throw new MissingArgumentException(MissingArgumentException::POST, 'role');
     }
-    $new_role = new HandbookAPI\Role($data['role']);
+    $new_role = new Role($data['role']);
 
-    $my_role = HandbookAPI\getRole($skautis->UserManagement->LoginDetail()->ID_Person);
+    $my_role = getRole($skautis->UserManagement->LoginDetail()->ID_Person);
     $checkRole($my_role, $new_role);
 
     $db = new Database();
@@ -53,7 +51,7 @@ SQL;
     $old_role = '';
     $db->bindColumn('role', $old_role);
     $db->fetchRequire('user');
-    $checkRole($my_role, new HandbookAPI\Role($old_role));
+    $checkRole($my_role, new Role($old_role));
 
     $new_role_str = $new_role->__toString();
     $db->prepare($updateSQL);
@@ -62,4 +60,4 @@ SQL;
     $db->execute();
     return ['status' => 200];
 };
-$userRoleEndpoint->setUpdateMethod(new HandbookAPI\Role('administrator'), $updateUserRole);
+$userRoleEndpoint->setUpdateMethod(new Role('administrator'), $updateUserRole);

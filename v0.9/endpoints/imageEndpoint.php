@@ -1,15 +1,12 @@
 <?php declare(strict_types=1);
 @_API_EXEC === 1 or die('Restricted access.');
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
-require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
-
 use Ramsey\Uuid\Uuid;
 
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\Helper;
+use Skaut\HandbookAPI\v0_9\Role;
 use Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException;
 use Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException;
 use Skaut\HandbookAPI\v0_9\Exception\NotFoundException;
@@ -67,7 +64,7 @@ SQL;
     }
     return ['status' => 200, 'response' => $images];
 };
-$imageEndpoint->setListMethod(new HandbookAPI\Role('editor'), $listImages);
+$imageEndpoint->setListMethod(new Role('editor'), $listImages);
 
 $getImage = function (Skautis\Skautis $skautis, array $data) use ($CONFIG) : array {
     $id = Helper::parseUuid($data['id'], 'image')->toString();
@@ -99,7 +96,7 @@ $getImage = function (Skautis\Skautis $skautis, array $data) use ($CONFIG) : arr
     readfile($file);
     return ['status' => 200];
 };
-$imageEndpoint->setGetMethod(new HandbookAPI\Role('guest'), $getImage);
+$imageEndpoint->setGetMethod(new Role('guest'), $getImage);
 
 $addImage = function () use ($CONFIG) : array {
     $SQL = <<<SQL
@@ -161,7 +158,7 @@ SQL;
     $db->endTransaction();
     return ['status' => 201];
 };
-$imageEndpoint->setAddMethod(new HandbookAPI\Role('editor'), $addImage);
+$imageEndpoint->setAddMethod(new Role('editor'), $addImage);
 
 $deleteImage = function (Skautis\Skautis $skautis, array $data) use ($CONFIG) : array {
     $SQL = <<<SQL
@@ -192,4 +189,4 @@ SQL;
 
     return ['status' => 200];
 };
-$imageEndpoint->setDeleteMethod(new HandbookAPI\Role('administrator'), $deleteImage);
+$imageEndpoint->setDeleteMethod(new Role('administrator'), $deleteImage);
