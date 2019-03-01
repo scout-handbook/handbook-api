@@ -1,11 +1,9 @@
 <?php declare(strict_types=1);
-namespace HandbookAPI;
+namespace Skaut\HandbookAPI\v0_9\Exception;
 
 @_API_EXEC === 1 or die('Restricted access.');
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
-
-class SkautISException extends \Skaut\HandbookAPI\v0_9\Exception\Exception
+class SkautISException extends Exception
 {
     const TYPE = 'SkautISException';
     const STATUS = 403;
