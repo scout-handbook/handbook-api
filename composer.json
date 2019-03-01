@@ -33,15 +33,15 @@
 	},
 	"autoload": {
 		"files": [
-			"HandbookAPI/v0_9/getRole.php",
-			"HandbookAPI/v0_9/Lesson_cmp.php",
-			"HandbookAPI/v0_9/LessonContainer_cmp.php",
-			"HandbookAPI/v0_9/Role_cmp.php",
-			"HandbookAPI/v0_9/roleTry.php",
-			"HandbookAPI/v0_9/skautisTry.php"
+			"Skaut/HandbookAPI/v0_9/getRole.php",
+			"Skaut/HandbookAPI/v0_9/Lesson_cmp.php",
+			"Skaut/HandbookAPI/v0_9/LessonContainer_cmp.php",
+			"Skaut/HandbookAPI/v0_9/Role_cmp.php",
+			"Skaut/HandbookAPI/v0_9/roleTry.php",
+			"Skaut/HandbookAPI/v0_9/skautisTry.php"
 		],
 		"psr-4": {
-			"Skaut\\": "./"
+			"Skaut\\": "Skaut/"
 		}
 	},
 	"scripts": {
