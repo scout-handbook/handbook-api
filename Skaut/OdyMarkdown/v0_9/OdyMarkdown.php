@@ -1,8 +1,5 @@
 <?php declare(strict_types=1);
-namespace OdyMarkdown;
-
-require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
-require_once($CONFIG->basepath . '/vendor/autoload.php');
+namespace Skaut\OdyMarkdown\v0_9;
 
 use \cebe\markdown\GithubMarkdown;
 

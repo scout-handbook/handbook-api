@@ -2,8 +2,6 @@
 @_API_EXEC === 1 or die('Restricted access.');
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
-require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/OdyMarkdown/OdyMarkdown.php');
 
 use Ramsey\Uuid\Uuid;
 
@@ -11,6 +9,8 @@ use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\Helper;
 use Skaut\HandbookAPI\v0_9\Role;
+
+use Skaut\OdyMarkdown\v0_9\OdyMarkdown;
 
 $lessonPDFEndpoint = new Endpoint();
 
@@ -40,7 +40,7 @@ SQL;
     $md = $endpoint->getParent()->call('GET', new Role('guest'), ['id' => $data['parent-id']])['response'];
 
     $html = '<body><h1>' . $name . '</h1>';
-    $parser = new OdyMarkdown\OdyMarkdown();
+    $parser = new OdyMarkdown();
     $html .= $parser->parse($md);
 
     $html .= '</body>';
