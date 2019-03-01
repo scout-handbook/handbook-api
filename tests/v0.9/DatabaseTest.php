@@ -54,7 +54,7 @@ SQL
 
     /**
      * @covers Skaut\HandbookAPI\v0_9\Database::prepare()
-     * @expectedException HandbookAPI\QueryException
+     * @expectedException Skaut\HandbookAPI\v0_9\Exception\QueryException
      * @depends testCtor
      */
     /*
