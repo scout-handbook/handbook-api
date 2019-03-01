@@ -2,11 +2,10 @@
 namespace v0_9;
 
 global $CONFIG;
-require_once('v0.9/internal/LessonContainer.php');
-require_once('v0.9/internal/Lesson.php');
 
 use function Skaut\HandbookAPI\v0_9\LessonContainer_cmp;
 use Skaut\HandbookAPI\v0_9\Field;
+use Skaut\HandbookAPI\v0_9\Lesson;
 use Skaut\HandbookAPI\v0_9\LessonContainer;
 
 class LessonContainerTest extends \PHPUnit\Framework\TestCase
@@ -83,7 +82,7 @@ class LessonContainerTest extends \PHPUnit\Framework\TestCase
     {
         $a = new Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'aname');
         $b = new Field(pack('H*', '1739a63ab2544a959508103b7c80bcdb'), 'bname');
-        $b->lessons[] = new \HandbookAPI\Lesson(pack('H*', '1739063ab2544a959508103b7c80bcdb'), 'blname', 123);
+        $b->lessons[] = new Lesson(pack('H*', '1739063ab2544a959508103b7c80bcdb'), 'blname', 123);
         $this->assertSame(-1, LessonContainer_cmp($a, $b));
     }
 
@@ -94,7 +93,7 @@ class LessonContainerTest extends \PHPUnit\Framework\TestCase
     {
         $a = new Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'aname');
         $b = new Field(pack('H*', '1739a63ab2544a959508103b7c80bcdb'), 'bname');
-        $a->lessons[] = new \HandbookAPI\Lesson(pack('H*', '1739063ab2544a959508103b7c80bcdb'), 'alname', 123);
+        $a->lessons[] = new Lesson(pack('H*', '1739063ab2544a959508103b7c80bcdb'), 'alname', 123);
         $this->assertSame(1, LessonContainer_cmp($a, $b));
     }
 
@@ -106,8 +105,8 @@ class LessonContainerTest extends \PHPUnit\Framework\TestCase
     {
         $a = new Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'aname');
         $b = new Field(pack('H*', '1739a63ab2544a959508103b7c80bcdb'), 'bname');
-        $a->lessons[] = new \HandbookAPI\Lesson(pack('H*', '1739063ab2544a959508103b7c80bcdb'), 'alname', 123);
-        $b->lessons[] = new \HandbookAPI\Lesson(pack('H*', '1735063ab2544a959508103b7c80bcdb'), 'blname', 456);
+        $a->lessons[] = new Lesson(pack('H*', '1739063ab2544a959508103b7c80bcdb'), 'alname', 123);
+        $b->lessons[] = new Lesson(pack('H*', '1735063ab2544a959508103b7c80bcdb'), 'blname', 456);
         $this->assertSame(0, LessonContainer_cmp($a, $b));
     }
 }

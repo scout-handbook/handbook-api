@@ -1,16 +1,13 @@
 <?php declare(strict_types=1);
 @_API_EXEC === 1 or die('Restricted access.');
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
-require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Lesson.php');
-require_once($CONFIG->basepath . '/v0.9/internal/LessonContainer.php');
-
 use Ramsey\Uuid\Uuid;
 
+use function Skaut\HandbookAPI\v0_9\Lesson_cmp;
 use function Skaut\HandbookAPI\v0_9\LessonContainer_cmp;
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Field;
+use Skaut\HandbookAPI\v0_9\Lesson;
 use Skaut\HandbookAPI\v0_9\LessonContainer;
 
 function populateContainer(
@@ -37,7 +34,7 @@ SQL;
     while ($db->fetch()) {
         if (checkLessonGroup(Uuid::fromBytes($lessonId), $overrideGroup)) {
             // Create a new Lesson in the newly-created Field
-            $container->lessons[] = new HandbookAPI\Lesson($lessonId, $lessonName, floatval($lessonVersion));
+            $container->lessons[] = new Lesson($lessonId, $lessonName, floatval($lessonVersion));
 
             // Find out the competences this Lesson belongs to
             $db2 = new Database();
@@ -103,7 +100,7 @@ SQL;
         populateContainer($db2, end($fields), $overrideGroup);
 
         // Sort the lessons in the newly-created Field - sorts by lowest competence low-to-high
-        usort(end($fields)->lessons, "HandbookAPI\Lesson_cmp");
+        usort(end($fields)->lessons, 'Skaut\HandbookAPI\v0_9\Lesson_cmp');
     }
     usort($fields, 'Skaut\HandbookAPI\v0_9\LessonContainer_cmp'); // Sort all the Fields by their lowest competence
     return ['status' => 200, 'response' => $fields];
