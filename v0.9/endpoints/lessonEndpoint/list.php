@@ -8,12 +8,14 @@ require_once($CONFIG->basepath . '/v0.9/internal/LessonContainer.php');
 
 use Ramsey\Uuid\Uuid;
 
+use function Skaut\HandbookAPI\v0_9\LessonContainer_cmp;
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Field;
+use Skaut\HandbookAPI\v0_9\LessonContainer;
 
 function populateContainer(
     Database $db,
-    HandbookAPI\LessonContainer $container,
+    LessonContainer $container,
     bool $overrideGroup = false
 ) : void {
     $competenceSQL = <<<SQL
@@ -78,7 +80,7 @@ SQL;
 
     $overrideGroup = (isset($data['override-group']) and $data['override-group'] == 'true');
 
-    $fields = [new HandbookAPI\LessonContainer()];
+    $fields = [new LessonContainer()];
 
     $db = new Database();
     $db->prepare($anonymousSQL);
@@ -103,6 +105,6 @@ SQL;
         // Sort the lessons in the newly-created Field - sorts by lowest competence low-to-high
         usort(end($fields)->lessons, "HandbookAPI\Lesson_cmp");
     }
-    usort($fields, 'HandbookAPI\LessonContainer_cmp'); // Sort all the Fields by their lowest competence
+    usort($fields, 'Skaut\HandbookAPI\v0_9\LessonContainer_cmp'); // Sort all the Fields by their lowest competence
     return ['status' => 200, 'response' => $fields];
 };
