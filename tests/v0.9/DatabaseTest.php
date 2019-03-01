@@ -142,7 +142,7 @@ SQL
     /**
      * @covers Skaut\HandbookAPI\v0_9\Database::fetchRequire()
      * @depends testCtor
-     * @expectedException HandbookAPI\NotFoundException
+     * @expectedException Skaut\HandbookAPI\v0_9\Exception\NotFoundException
      */
     public function testFetchRequireException(Database $db) : void
     {

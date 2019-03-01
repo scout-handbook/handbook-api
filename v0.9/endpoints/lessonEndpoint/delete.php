@@ -1,11 +1,9 @@
 <?php declare(strict_types=1);
 @_API_EXEC === 1 or die('Restricted access.');
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
-require_once($CONFIG->basepath . '/vendor/autoload.php');
-
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Helper;
+use Skaut\HandbookAPI\v0_9\Exception\NotFoundException;
 
 $deleteLesson = function (Skautis\Skautis $skautis, array $data) : array {
     $copySQL = <<<SQL
@@ -34,7 +32,7 @@ SQL;
     global $mutexEndpoint;
     try {
         $mutexEndpoint->call('DELETE', new HandbookAPI\Role('editor'), ['id' => $data['id']]);
-    } catch (HandbookAPI\NotFoundException $e) {
+    } catch (NotFoundException $e) {
         throw new HandbookAPI\NotLockedException();
     }
 
@@ -64,7 +62,7 @@ SQL;
     $db->execute();
 
     if ($db->rowCount() != 1) {
-        throw new HandbookAPI\NotFoundException("lesson");
+        throw new NotFoundException("lesson");
     }
 
     $db->endTransaction();

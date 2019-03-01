@@ -12,6 +12,7 @@ use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\FullField;
 use Skaut\HandbookAPI\v0_9\Helper;
 use Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException;
+use Skaut\HandbookAPI\v0_9\Exception\NotFoundException;
 
 $fieldEndpoint = new Endpoint();
 
@@ -104,7 +105,7 @@ SQL;
     $db->execute();
 
     if ($db->rowCount() != 1) {
-        throw new HandbookAPI\NotFoundException("field");
+        throw new NotFoundException("field");
     }
 
     $db->endTransaction();
@@ -137,7 +138,7 @@ SQL;
     $db->execute();
 
     if ($db->rowCount() != 1) {
-        throw new HandbookAPI\NotFoundException("field");
+        throw new NotFoundException("field");
     }
 
     $db->endTransaction();

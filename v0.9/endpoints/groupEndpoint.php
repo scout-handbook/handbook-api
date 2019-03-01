@@ -5,7 +5,6 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/NotFoundException.php');
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/RefusedException.php');
 
 use Ramsey\Uuid\Uuid;
@@ -15,6 +14,7 @@ use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\Group;
 use Skaut\HandbookAPI\v0_9\Helper;
 use Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException;
+use Skaut\HandbookAPI\v0_9\Exception\NotFoundException;
 
 $groupEndpoint = new Endpoint();
 
@@ -94,7 +94,7 @@ SQL;
     $db->execute();
 
     if ($db->rowCount() != 1) {
-        throw new HandbookAPI\NotFoundException("group");
+        throw new NotFoundException("group");
     }
 
     $db->endTransaction();
@@ -139,7 +139,7 @@ SQL;
     $db->execute();
 
     if ($db->rowCount() != 1) {
-        throw new HandbookAPI\NotFoundException("group");
+        throw new NotFoundException("group");
     }
 
     $db->endTransaction();

@@ -12,6 +12,7 @@ use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\Helper;
 use Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException;
 use Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException;
+use Skaut\HandbookAPI\v0_9\Exception\NotFoundException;
 
 $imageEndpoint = new Endpoint();
 
@@ -78,7 +79,7 @@ $getImage = function (Skautis\Skautis $skautis, array $data) use ($CONFIG) : arr
     $file = $CONFIG->imagepath . '/' . $quality . '/' . $id . '.jpg';
 
     if (!file_exists($file)) {
-        throw new HandbookAPI\NotFoundException('image');
+        throw new NotFoundException('image');
     }
 
     header('content-type: ' . mime_content_type($file));
@@ -180,7 +181,7 @@ SQL;
     $db->execute();
 
     if ($db->rowCount() != 1) {
-        throw new HandbookAPI\NotFoundException("image");
+        throw new NotFoundException("image");
     }
 
     $db->endTransaction();

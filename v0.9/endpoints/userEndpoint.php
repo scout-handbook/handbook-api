@@ -14,6 +14,7 @@ use Skaut\HandbookAPI\v0_9\Helper;
 use Skaut\HandbookAPI\v0_9\User;
 use Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException;
 use Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException;
+use Skaut\HandbookAPI\v0_9\Exception\NotFoundException;
 
 $userEndpoint = new Endpoint();
 $userEndpoint->addSubEndpoint('role', $userRoleEndpoint);
@@ -100,7 +101,7 @@ SQL;
     $db->bindParam(':name', $searchName, PDO::PARAM_STR);
     if (isset($data['role'])) {
         if (!in_array($data['role'], ['user', 'editor', 'administrator', 'superuser'])) {
-            throw new HandbookAPI\NotFoundException('role');
+            throw new NotFoundException('role');
         }
         $role = (new HandbookAPI\Role($data['role']))->__toString();
         $db->bindParam(':role', $role, PDO::PARAM_STR);
