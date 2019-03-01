@@ -9,6 +9,7 @@ use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\Helper;
 use Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException;
+use Skaut\HandbookAPI\v0_9\Exception\RoleException;
 
 $userGroupEndpoint = new Endpoint();
 
@@ -16,7 +17,7 @@ $updateUserRole = function (Skautis\Skautis $skautis, array $data) : array {
     $checkRole = function (HandbookAPI\Role $my_role, HandbookAPI\Role $role) : void {
         if ((HandbookAPI\Role_cmp($my_role, new HandbookAPI\Role('administrator')) === 0) and
             (HandbookAPI\Role_cmp($role, new HandbookAPI\Role('administrator')) >= 0)) {
-            throw new HandbookAPI\RoleException();
+            throw new RoleException();
         }
     };
 
