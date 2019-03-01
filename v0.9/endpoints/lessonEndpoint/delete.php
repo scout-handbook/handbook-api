@@ -4,6 +4,7 @@
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Helper;
 use Skaut\HandbookAPI\v0_9\Exception\NotFoundException;
+use Skaut\HandbookAPI\v0_9\Exception\NotLockedException;
 
 $deleteLesson = function (Skautis\Skautis $skautis, array $data) : array {
     $copySQL = <<<SQL
@@ -33,7 +34,7 @@ SQL;
     try {
         $mutexEndpoint->call('DELETE', new HandbookAPI\Role('editor'), ['id' => $data['id']]);
     } catch (NotFoundException $e) {
-        throw new HandbookAPI\NotLockedException();
+        throw new NotLockedException();
     }
 
     $id = Helper::parseUuid($data['id'], 'lesson')->getBytes();

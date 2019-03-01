@@ -4,13 +4,12 @@
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
 
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/NotLockedException.php');
-
 require_once($CONFIG->basepath . '/v0.9/endpoints/mutexEndpoint.php');
 
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Helper;
 use Skaut\HandbookAPI\v0_9\Exception\NotFoundException;
+use Skaut\HandbookAPI\v0_9\Exception\NotLockedException;
 
 $updateLesson = function (Skautis\Skautis $skautis, array $data) : array {
     $selectSQL = <<<SQL
@@ -35,7 +34,7 @@ SQL;
     try {
         $mutexEndpoint->call('DELETE', new HandbookAPI\Role('editor'), ['id' => $data['id']]);
     } catch (NotFoundException $e) {
-        throw new HandbookAPI\NotLockedException();
+        throw new NotLockedException();
     }
 
     $id = Helper::parseUuid($data['id'], 'lesson')->getBytes();

@@ -3,9 +3,7 @@ namespace HandbookAPI;
 
 @_API_EXEC === 1 or die('Restricted access.');
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
-
-class NotLockedException extends \Skaut\HandbookAPI\v0_9\Exception\Exception
+class NotLockedException extends Exception
 {
     const TYPE = 'NotLockedException';
     const STATUS = 412;
