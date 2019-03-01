@@ -5,10 +5,9 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/SkautISAuthorizationException.php');
-
 use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException;
+use Skaut\HandbookAPI\v0_9\Exception\SkautISAuthorizationException;
 
 $eventParticipantEndpoint = new Endpoint();
 
@@ -45,7 +44,7 @@ $listEventParticipants = function (Skautis\Skautis $skautis, array $data) : arra
             "^Server was unable to process request\. ---> Nemáte oprávnění k akci EV_ParticipantEducation_ALL_EventEducation nad záznamem ID=[\d]+!", // phpcs:ignore Generic.Files.LineLength.TooLong
             $e->getMessage()
         )) {
-            throw new HandbookAPI\SkautISAuthorizationException();
+            throw new SkautISAuthorizationException();
         }
         throw $e;
     }
