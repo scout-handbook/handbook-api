@@ -7,9 +7,9 @@ require($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/RoleException.php');
-
 use \Skautis\Skautis;
+
+use Skaut\HandbookAPI\v0_9\Exception\RoleException;
 
 function roleTry(callable $callback, bool $hardCheck, \HandbookAPI\Role $requiredRole)
 {
@@ -26,7 +26,7 @@ function roleTry(callable $callback, bool $hardCheck, \HandbookAPI\Role $require
         if (\HandbookAPI\Role_cmp($role, $requiredRole) >= 0) {
             return $callback($skautis);
         } else {
-            throw new \HandbookAPI\RoleException();
+            throw new RoleException();
         }
     };
     return skautisTry($safeCallback, $hardCheck);
