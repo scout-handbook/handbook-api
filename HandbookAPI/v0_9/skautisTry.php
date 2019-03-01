@@ -3,14 +3,10 @@ namespace Skaut\HandbookAPI\v0_9;
 
 @_API_EXEC === 1 or die('Restricted access.');
 
-require($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
-require_once($CONFIG->basepath . '/vendor/autoload.php');
-
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/SkautISException.php');
-
 use Skautis\Skautis;
 
 use Skaut\HandbookAPI\v0_9\Exception\AuthenticationException;
+use Skaut\HandbookAPI\v0_9\Exception\SkautISException;
 
 function skautisTry(callable $callback, bool $hardCheck = true)
 {
@@ -29,7 +25,7 @@ function skautisTry(callable $callback, bool $hardCheck = true)
             try {
                 return $callback($skautis);
             } catch (\Skautis\Exception $e) {
-                throw new \HandbookAPI\SkautISException($e);
+                throw new SkautISException($e);
             }
         }
     }
