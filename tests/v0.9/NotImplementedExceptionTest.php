@@ -2,25 +2,26 @@
 namespace v0_9;
 
 global $CONFIG;
-require_once('v0.9/internal/exceptions/NotImplementedException.php');
+
+use Skaut\HandbookAPI\v0_9\Exception\NotImplementedException;
 
 class NotImplementedExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers HandbookAPI\NotImplementedException::__construct()
+     * @covers Skaut\HandbookAPI\v0_9\Exception\NotImplementedException::__construct()
      */
-    public function testCtor() : \HandbookAPI\NotImplementedException
+    public function testCtor() : NotImplementedException
     {
-        $e = new \HandbookAPI\NotImplementedException();
-        $this->assertInstanceOf('\HandbookAPI\NotImplementedException', $e);
+        $e = new NotImplementedException();
+        $this->assertInstanceOf('\Skaut\HandbookAPI\v0_9\Exception\NotImplementedException', $e);
         return $e;
     }
 
     /**
-     * @covers HandbookAPI\NotImplementedException::handle()
+     * @covers Skaut\HandbookAPI\v0_9\Exception\NotImplementedException::handle()
      * @depends testCtor
      */
-    public function testHandle(\HandbookAPI\NotImplementedException $e) : void
+    public function testHandle(NotImplementedException $e) : void
     {
         $this->assertSame(
             [
