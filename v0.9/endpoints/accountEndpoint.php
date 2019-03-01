@@ -2,16 +2,16 @@
 @_API_EXEC === 1 or die('Restricted access.');
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
-require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
 require_once($CONFIG->basepath . '/v0.9/endpoints/userEndpoint.php');
 
 use Ramsey\Uuid\Uuid;
 
+use function Skaut\HandbookAPI\v0_9\getRole;
 use function Skaut\HandbookAPI\v0_9\skautisTry;
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
+use Skaut\HandbookAPI\v0_9\Role;
 use Skaut\HandbookAPI\v0_9\Exception\AuthenticationException;
 
 $accountEndpoint = new Endpoint();
@@ -27,7 +27,7 @@ SQL;
         $response = [];
         $loginDetail = $skautis->UserManagement->LoginDetail();
         $response['name'] = $loginDetail->Person;
-        $response['role'] = HandbookAPI\getRole($loginDetail->ID_Person);
+        $response['role'] = getRole($loginDetail->ID_Person);
         $response['groups'] = [];
 
         $db = new Database();
@@ -58,13 +58,13 @@ SQL;
         return ['status' => 401];
     }
 };
-$accountEndpoint->setListMethod(new HandbookAPI\Role('guest'), $listAccount);
+$accountEndpoint->setListMethod(new Role('guest'), $listAccount);
 
 $addAccount = function (Skautis\Skautis $skautis) : array {
     global $userEndpoint;
     $loginDetail = $skautis->UserManagement->LoginDetail();
     $userData = ['id' => $loginDetail->ID_Person, 'name' => $loginDetail->Person];
-    $userEndpoint->call('POST', new HandbookAPI\Role('user'), $userData);
+    $userEndpoint->call('POST', new Role('user'), $userData);
     return ['status' => 200];
 };
-$accountEndpoint->setAddMethod(new HandbookAPI\Role('user'), $addAccount);
+$accountEndpoint->setAddMethod(new Role('user'), $addAccount);

@@ -1,14 +1,10 @@
 <?php declare(strict_types=1);
 @_API_EXEC === 1 or die('Restricted access.');
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
-require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
-
-
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\Helper;
+use Skaut\HandbookAPI\v0_9\Role;
 use Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException;
 use Skaut\HandbookAPI\v0_9\Exception\LockedException;
 
@@ -69,7 +65,7 @@ SQL;
     $db->endTransaction();
     return ['status' => 201];
 };
-$mutexEndpoint->setAddMethod(new HandbookAPI\Role('editor'), $addMutex);
+$mutexEndpoint->setAddMethod(new Role('editor'), $addMutex);
 
 $extendMutex = function (Skautis\Skautis $skautis, array $data) : array {
     $selectSQL = <<<SQL
@@ -112,7 +108,7 @@ SQL;
     $db->endTransaction();
     return ['status' => 200];
 };
-$mutexEndpoint->setUpdateMethod(new HandbookAPI\Role('editor'), $extendMutex);
+$mutexEndpoint->setUpdateMethod(new Role('editor'), $extendMutex);
 
 $releaseMutex = function (Skautis\Skautis $skautis, array $data) : array {
     $selectSQL = <<<SQL
@@ -145,4 +141,4 @@ SQL;
     $db->endTransaction();
     return ['status' => 200];
 };
-$mutexEndpoint->setDeleteMethod(new HandbookAPI\Role('editor'), $releaseMutex);
+$mutexEndpoint->setDeleteMethod(new Role('editor'), $releaseMutex);

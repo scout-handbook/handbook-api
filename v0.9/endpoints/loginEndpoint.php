@@ -2,12 +2,11 @@
 @_API_EXEC === 1 or die('Restricted access.');
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
-require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
 require_once($CONFIG->basepath . '/v0.9/endpoints/accountEndpoint.php');
 
 use Skaut\HandbookAPI\v0_9\Endpoint;
+use Skaut\HandbookAPI\v0_9\Role;
 
 $loginEndpoint = new Endpoint();
 
@@ -33,7 +32,7 @@ $loginUser = function (Skautis\Skautis $skautis, array $data) use ($CONFIG, $acc
         $_COOKIE['skautis_token'] = $token;
         $_COOKIE['skautis_timeout'] = $timeout;
 
-        $accountEndpoint->call('POST', new HandbookAPI\Role('user'), []);
+        $accountEndpoint->call('POST', new Role('user'), []);
 
         $redirect = $CONFIG->baseuri;
         if (isset($_COOKIE['return-uri'])) {
@@ -66,5 +65,5 @@ $loginUser = function (Skautis\Skautis $skautis, array $data) use ($CONFIG, $acc
     header('Location: ' . $skautis->getLoginUrl());
     die();
 };
-$loginEndpoint->setListMethod(new HandbookAPI\Role('guest'), $loginUser);
-$loginEndpoint->setAddMethod(new HandbookAPI\Role('guest'), $loginUser);
+$loginEndpoint->setListMethod(new Role('guest'), $loginUser);
+$loginEndpoint->setAddMethod(new Role('guest'), $loginUser);

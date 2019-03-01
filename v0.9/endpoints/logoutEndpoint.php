@@ -1,11 +1,8 @@
 <?php declare(strict_types=1);
 @_API_EXEC === 1 or die('Restricted access.');
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
-require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
-
 use Skaut\HandbookAPI\v0_9\Endpoint;
+use Skaut\HandbookAPI\v0_9\Role;
 
 $logoutEndpoint = new Endpoint();
 
@@ -51,5 +48,5 @@ $logoutUser = function (Skautis\Skautis $skautis, array $data) use ($CONFIG) : v
     header('Location: ' . $CONFIG->baseuri);
     die();
 };
-$logoutEndpoint->setListMethod(new HandbookAPI\Role('guest'), $logoutUser);
-$logoutEndpoint->setAddMethod(new HandbookAPI\Role('guest'), $logoutUser);
+$logoutEndpoint->setListMethod(new Role('guest'), $logoutUser);
+$logoutEndpoint->setAddMethod(new Role('guest'), $logoutUser);

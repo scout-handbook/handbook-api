@@ -1,16 +1,13 @@
 <?php declare(strict_types=1);
 @_API_EXEC === 1 or die('Restricted access.');
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
-require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
-
 use Ramsey\Uuid\Uuid;
 
 use Skaut\HandbookAPI\v0_9\Competence;
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\Helper;
+use Skaut\HandbookAPI\v0_9\Role;
 use Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException;
 use Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException;
 use Skaut\HandbookAPI\v0_9\Exception\NotFoundException;
@@ -41,7 +38,7 @@ SQL;
     }
     return ['status' => 200, 'response' => $competences];
 };
-$competenceEndpoint->setListMethod(new HandbookAPI\Role('guest'), $listCompetences);
+$competenceEndpoint->setListMethod(new Role('guest'), $listCompetences);
 
 $addCompetence = function (Skautis\Skautis $skautis, array $data) : array {
     $SQL = <<<SQL
@@ -75,7 +72,7 @@ SQL;
     $db->execute();
     return ['status' => 201];
 };
-$competenceEndpoint->setAddMethod(new HandbookAPI\Role('administrator'), $addCompetence);
+$competenceEndpoint->setAddMethod(new Role('administrator'), $addCompetence);
 
 $updateCompetence = function (Skautis\Skautis $skautis, array $data) : array {
     $selectSQL = <<<SQL
@@ -144,7 +141,7 @@ SQL;
     $db->endTransaction();
     return ['status' => 200];
 };
-$competenceEndpoint->setUpdateMethod(new HandbookAPI\Role('administrator'), $updateCompetence);
+$competenceEndpoint->setUpdateMethod(new Role('administrator'), $updateCompetence);
 
 $deleteCompetence = function (Skautis\Skautis $skautis, array $data) : array {
     $deleteLessonsSQL = <<<SQL
@@ -177,4 +174,4 @@ SQL;
     $db->endTransaction();
     return ['status' => 200];
 };
-$competenceEndpoint->setDeleteMethod(new HandbookAPI\Role('administrator'), $deleteCompetence);
+$competenceEndpoint->setDeleteMethod(new Role('administrator'), $deleteCompetence);
