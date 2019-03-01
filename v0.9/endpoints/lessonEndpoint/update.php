@@ -4,13 +4,13 @@
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
 
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/NotFoundException.php');
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/NotLockedException.php');
 
 require_once($CONFIG->basepath . '/v0.9/endpoints/mutexEndpoint.php');
 
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Helper;
+use Skaut\HandbookAPI\v0_9\Exception\NotFoundException;
 
 $updateLesson = function (Skautis\Skautis $skautis, array $data) : array {
     $selectSQL = <<<SQL
@@ -34,7 +34,7 @@ SQL;
     global $mutexEndpoint;
     try {
         $mutexEndpoint->call('DELETE', new HandbookAPI\Role('editor'), ['id' => $data['id']]);
-    } catch (HandbookAPI\NotFoundException $e) {
+    } catch (NotFoundException $e) {
         throw new HandbookAPI\NotLockedException();
     }
 
@@ -57,7 +57,7 @@ SQL;
         $db->bindColumn('name', $origName);
         $db->bindColumn('body', $origBody);
         if (!$db->fetch()) {
-            throw new HandbookAPI\NotFoundException('lesson');
+            throw new NotFoundException('lesson');
         }
         if (!isset($name)) {
             $name = $origName;
@@ -80,7 +80,7 @@ SQL;
     $db->execute();
 
     if ($db->rowCount() != 1) {
-        throw new HandbookAPI\NotFoundException("lesson");
+        throw new NotFoundException("lesson");
     }
 
     $db->endTransaction();

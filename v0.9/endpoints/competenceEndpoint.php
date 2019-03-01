@@ -5,8 +5,6 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/NotFoundException.php');
-
 use Ramsey\Uuid\Uuid;
 
 use Skaut\HandbookAPI\v0_9\Competence;
@@ -15,6 +13,7 @@ use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\Helper;
 use Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException;
 use Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException;
+use Skaut\HandbookAPI\v0_9\Exception\NotFoundException;
 
 $competenceEndpoint = new Endpoint();
 
@@ -139,7 +138,7 @@ SQL;
     $db->execute();
 
     if ($db->rowCount() != 1) {
-        throw new HandbookAPI\NotFoundException("competence");
+        throw new NotFoundException("competence");
     }
 
     $db->endTransaction();
@@ -172,7 +171,7 @@ SQL;
     $db->execute();
 
     if ($db->rowCount() != 1) {
-        throw new HandbookAPI\NotFoundException("competence");
+        throw new NotFoundException("competence");
     }
 
     $db->endTransaction();

@@ -5,14 +5,13 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/NotFoundException.php');
-
 use Ramsey\Uuid\Uuid;
 
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\Helper;
 use Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException;
+use Skaut\HandbookAPI\v0_9\Exception\NotFoundException;
 
 $deletedLessonHistoryEndpoint = new Endpoint();
 
@@ -35,7 +34,7 @@ SQL;
     $db->bindParam(':id', $id, PDO::PARAM_STR);
     $db->execute();
     if ($db->fetch()) {
-        throw new HandbookAPI\NotFoundException('deleted lesson');
+        throw new NotFoundException('deleted lesson');
     }
 
     $db->prepare($selectSQL);
@@ -47,7 +46,7 @@ SQL;
     $db->bindColumn('name', $name);
     $db->bindColumn(2, $version);
     if (!$db->fetch()) {
-        throw new HandbookAPI\NotFoundException('deleted lesson');
+        throw new NotFoundException('deleted lesson');
     }
     $versions[] = ['name' => $name, 'version' => round($version * 1000)];
     while ($db->fetch()) {
@@ -82,7 +81,7 @@ SQL;
     $db->bindParam(':id', $id, PDO::PARAM_STR);
     $db->execute();
     if ($db->fetch()) {
-        throw new HandbookAPI\NotFoundException('deleted lesson');
+        throw new NotFoundException('deleted lesson');
     }
 
     $db->prepare($selectSQL);

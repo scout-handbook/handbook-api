@@ -21,7 +21,7 @@ class HelperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @covers Skaut\HandbookAPI\v0_9\Helper::parseUuid()
-     * @expectedException HandbookAPI\NotFoundException
+     * @expectedException Skaut\HandbookAPI\v0_9\Exception\NotFoundException
      */
     public function testParseUuidInvalid() : void
     {
