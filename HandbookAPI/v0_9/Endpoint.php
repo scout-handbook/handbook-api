@@ -6,11 +6,10 @@ namespace Skaut\HandbookAPI\v0_9;
 require($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/NotImplementedException.php');
-
 use \Skautis\Skautis;
 
 use Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException;
+use Skaut\HandbookAPI\v0_9\Exception\NotImplementedException;
 
 class Endpoint
 {
