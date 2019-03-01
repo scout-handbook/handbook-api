@@ -2,45 +2,46 @@
 namespace v0_9;
 
 global $CONFIG;
-require_once('v0.9/internal/exceptions/MissingArgumentException.php');
+
+use Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException;
 
 class MissingArgumentExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers HandbookAPI\MissingArgumentException::__construct()
+     * @covers Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException::__construct()
      */
-    public function testCtorGet() : \HandbookAPI\MissingArgumentException
+    public function testCtorGet() : MissingArgumentException
     {
-        $e = new \HandbookAPI\MissingArgumentException(\HandbookAPI\MissingArgumentException::GET, 'Gname');
-        $this->assertInstanceOf('\HandbookAPI\MissingArgumentException', $e);
+        $e = new MissingArgumentException(MissingArgumentException::GET, 'Gname');
+        $this->assertInstanceOf('\Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException', $e);
         return $e;
     }
 
     /**
-     * @covers HandbookAPI\MissingArgumentException::__construct()
+     * @covers Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException::__construct()
      */
-    public function testCtorPost() : \HandbookAPI\MissingArgumentException
+    public function testCtorPost() : MissingArgumentException
     {
-        $e = new \HandbookAPI\MissingArgumentException(\HandbookAPI\MissingArgumentException::POST, 'Pname');
-        $this->assertInstanceOf('\HandbookAPI\MissingArgumentException', $e);
+        $e = new MissingArgumentException(MissingArgumentException::POST, 'Pname');
+        $this->assertInstanceOf('\Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException', $e);
         return $e;
     }
 
     /**
-     * @covers HandbookAPI\MissingArgumentException::__construct()
+     * @covers Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException::__construct()
      */
-    public function testCtorFile() : \HandbookAPI\MissingArgumentException
+    public function testCtorFile() : MissingArgumentException
     {
-        $e = new \HandbookAPI\MissingArgumentException(\HandbookAPI\MissingArgumentException::FILE, 'Fname');
-        $this->assertInstanceOf('\HandbookAPI\MissingArgumentException', $e);
+        $e = new MissingArgumentException(MissingArgumentException::FILE, 'Fname');
+        $this->assertInstanceOf('\Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException', $e);
         return $e;
     }
 
     /**
-     * @covers HandbookAPI\MissingArgumentException::handle()
+     * @covers Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException::handle()
      * @depends testCtorGet
      */
-    public function testHandleGet(\HandbookAPI\MissingArgumentException $e) : void
+    public function testHandleGet(MissingArgumentException $e) : void
     {
         $this->assertSame(
             [
@@ -53,10 +54,10 @@ class MissingArgumentExceptionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers HandbookAPI\MissingArgumentException::handle()
+     * @covers Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException::handle()
      * @depends testCtorPost
      */
-    public function testHandlePost(\HandbookAPI\MissingArgumentException $e) : void
+    public function testHandlePost(MissingArgumentException $e) : void
     {
         $this->assertSame(
             [
@@ -69,10 +70,10 @@ class MissingArgumentExceptionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers HandbookAPI\MissingArgumentException::handle()
+     * @covers Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException::handle()
      * @depends testCtorFile
      */
-    public function testHandleFile(\HandbookAPI\MissingArgumentException $e) : void
+    public function testHandleFile(MissingArgumentException $e) : void
     {
         $this->assertSame(
             [

@@ -9,6 +9,7 @@ require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException;
+use Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException;
 
 $userRoleEndpoint = new Endpoint();
 
@@ -37,7 +38,7 @@ SQL;
         throw new InvalidArgumentTypeException('id', ['Integer']);
     }
     if (!isset($data['role'])) {
-        throw new HandbookAPI\MissingArgumentException(HandbookAPI\MissingArgumentException::POST, 'role');
+        throw new MissingArgumentException(MissingArgumentException::POST, 'role');
     }
     $new_role = new HandbookAPI\Role($data['role']);
 

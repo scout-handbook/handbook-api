@@ -5,7 +5,6 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/vendor/autoload.php');
 require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/MissingArgumentException.php');
 require_once($CONFIG->basepath . '/v0.9/internal/exceptions/NotFoundException.php');
 
 use Ramsey\Uuid\Uuid;
@@ -15,6 +14,7 @@ use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\Helper;
 use Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException;
+use Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException;
 
 $competenceEndpoint = new Endpoint();
 
@@ -51,10 +51,10 @@ VALUES (:id, :number, :name, :description);
 SQL;
 
     if (!isset($data['number'])) {
-        throw new HandbookAPI\MissingArgumentException(HandbookAPI\MissingArgumentException::POST, 'number');
+        throw new MissingArgumentException(MissingArgumentException::POST, 'number');
     }
     if (!isset($data['name'])) {
-        throw new HandbookAPI\MissingArgumentException(HandbookAPI\MissingArgumentException::POST, 'name');
+        throw new MissingArgumentException(MissingArgumentException::POST, 'name');
     }
     $number = ctype_digit($data['number']) ? intval($data['number']) : null;
     if ($number === null) {

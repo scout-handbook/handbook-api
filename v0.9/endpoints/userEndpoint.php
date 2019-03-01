@@ -13,6 +13,7 @@ use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\Helper;
 use Skaut\HandbookAPI\v0_9\User;
 use Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException;
+use Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException;
 
 $userEndpoint = new Endpoint();
 $userEndpoint->addSubEndpoint('role', $userRoleEndpoint);
@@ -139,14 +140,14 @@ $userEndpoint->setListMethod(new HandbookAPI\Role('editor'), $listUsers);
 
 $addUser = function (Skautis\Skautis $skautis, array $data) : array {
     if (!isset($data['id'])) {
-        throw new HandbookAPI\MissingArgumentException(HandbookAPI\MissingArgumentException::POST, 'id');
+        throw new MissingArgumentException(MissingArgumentException::POST, 'id');
     }
     $id = ctype_digit($data['id']) ? intval($data['id']) : null;
     if ($id === null) {
         throw new InvalidArgumentTypeException('id', ['Integer']);
     }
     if (!isset($data['name'])) {
-        throw new HandbookAPI\MissingArgumentException(HandbookAPI\MissingArgumentException::POST, 'name');
+        throw new MissingArgumentException(MissingArgumentException::POST, 'name');
     }
     $name = $data['name'];
 
