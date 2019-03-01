@@ -24,5 +24,5 @@ function LessonContainer_cmp(LessonContainer $first, LessonContainer $second) : 
     if (empty($second->lessons)) {
         return 1;
     }
-    return \HandbookAPI\Lesson_cmp($first->lessons[0], $second->lessons[0]);
+    return Lesson_cmp($first->lessons[0], $second->lessons[0]);
 }
