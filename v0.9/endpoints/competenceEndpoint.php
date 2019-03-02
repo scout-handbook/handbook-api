@@ -2,6 +2,7 @@
 @_API_EXEC === 1 or die('Restricted access.');
 
 use Ramsey\Uuid\Uuid;
+use Skautis\Skautis;
 
 use Skaut\HandbookAPI\v0_9\Competence;
 use Skaut\HandbookAPI\v0_9\Database;
@@ -40,7 +41,7 @@ SQL;
 };
 $competenceEndpoint->setListMethod(new Role('guest'), $listCompetences);
 
-$addCompetence = function (Skautis\Skautis $skautis, array $data) : array {
+$addCompetence = function (Skautis $skautis, array $data) : array {
     $SQL = <<<SQL
 INSERT INTO competences (id, number, name, description)
 VALUES (:id, :number, :name, :description);
@@ -74,7 +75,7 @@ SQL;
 };
 $competenceEndpoint->setAddMethod(new Role('administrator'), $addCompetence);
 
-$updateCompetence = function (Skautis\Skautis $skautis, array $data) : array {
+$updateCompetence = function (Skautis $skautis, array $data) : array {
     $selectSQL = <<<SQL
 SELECT number, name, description
 FROM competences
@@ -143,7 +144,7 @@ SQL;
 };
 $competenceEndpoint->setUpdateMethod(new Role('administrator'), $updateCompetence);
 
-$deleteCompetence = function (Skautis\Skautis $skautis, array $data) : array {
+$deleteCompetence = function (Skautis $skautis, array $data) : array {
     $deleteLessonsSQL = <<<SQL
 DELETE FROM competences_for_lessons
 WHERE competence_id = :competence_id;

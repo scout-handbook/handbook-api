@@ -3,9 +3,11 @@ namespace v0_9;
 
 global $CONFIG;
 
+use PHPUnit\Framework\TestCase;
+
 use Skaut\HandbookAPI\v0_9\Exception\AuthenticationException;
 
-class AuthenticationExceptionTest extends \PHPUnit\Framework\TestCase
+class AuthenticationExceptionTest extends TestCase
 {
     /**
      * @covers Skaut\HandbookAPI\v0_9\Exception\AuthenticationException::__construct()

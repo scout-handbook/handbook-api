@@ -1,12 +1,14 @@
 <?php declare(strict_types=1);
 @_API_EXEC === 1 or die('Restricted access.');
 
+use Skautis\Skautis;
+
 use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\Role;
 
 $logoutEndpoint = new Endpoint();
 
-$logoutUser = function (Skautis\Skautis $skautis, array $data) use ($CONFIG) : void {
+$logoutUser = function (Skautis $skautis, array $data) use ($CONFIG) : void {
     $startsWith = function (string $haystack, string $needle) : bool {
         return (mb_substr($haystack, 0, mb_strlen($needle)) === $needle);
     };

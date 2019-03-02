@@ -3,9 +3,11 @@ namespace v0_9;
 
 global $CONFIG;
 
+use PHPUnit\Framework\TestCase;
+
 use Skaut\HandbookAPI\v0_9\FullField;
 
-class FullFieldTest extends \PHPUnit\Framework\TestCase
+class FullFieldTest extends TestCase
 {
     /**
      * @covers Skaut\HandbookAPI\v0_9\FullField::__construct()

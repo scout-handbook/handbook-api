@@ -2,6 +2,7 @@
 @_API_EXEC === 1 or die('Restricted access.');
 
 use Ramsey\Uuid\Uuid;
+use Skautis\Skautis;
 
 use function Skaut\HandbookAPI\v0_9\Lesson_cmp;
 use function Skaut\HandbookAPI\v0_9\LessonContainer_cmp;
@@ -57,7 +58,7 @@ SQL;
     }
 }
 
-$listLessons = function (Skautis\Skautis $skautis, array $data) : array {
+$listLessons = function (Skautis $skautis, array $data) : array {
     $fieldSQL = <<<SQL
 SELECT id, name
 FROM fields;

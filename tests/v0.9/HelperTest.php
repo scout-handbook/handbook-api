@@ -3,11 +3,12 @@ namespace v0_9;
 
 global $CONFIG;
 
+use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 use Skaut\HandbookAPI\v0_9\Helper;
 
-class HelperTest extends \PHPUnit\Framework\TestCase
+class HelperTest extends TestCase
 {
     /**
      * @covers Skaut\HandbookAPI\v0_9\Helper::parseUuid()

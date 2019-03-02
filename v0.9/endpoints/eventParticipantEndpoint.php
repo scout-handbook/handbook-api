@@ -1,6 +1,8 @@
 <?php declare(strict_types=1);
 @_API_EXEC === 1 or die('Restricted access.');
 
+use Skautis\Skautis;
+
 use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\Role;
 use Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException;
@@ -8,7 +10,7 @@ use Skaut\HandbookAPI\v0_9\Exception\SkautISAuthorizationException;
 
 $eventParticipantEndpoint = new Endpoint();
 
-$listEventParticipants = function (Skautis\Skautis $skautis, array $data) : array {
+$listEventParticipants = function (Skautis $skautis, array $data) : array {
     $id = ctype_digit($data['parent-id']) ? intval($data['parent-id']) : null;
     if ($id === null) {
         throw new InvalidArgumentTypeException('id', ['Integer']);

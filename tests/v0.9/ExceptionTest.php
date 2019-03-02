@@ -3,7 +3,9 @@ namespace v0_9;
 
 global $CONFIG;
 
-class ExceptionTest extends \PHPUnit\Framework\TestCase
+use PHPUnit\Framework\TestCase;
+
+class ExceptionTest extends TestCase
 {
     /**
      * @covers Skaut\HandbookAPI\v0_9\Exception\Exception::__construct()

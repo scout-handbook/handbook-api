@@ -5,13 +5,15 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 
 require_once($CONFIG->basepath . '/v0.9/endpoints/mutexEndpoint.php');
 
+use Skautis\Skautis;
+
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Helper;
 use Skaut\HandbookAPI\v0_9\Role;
 use Skaut\HandbookAPI\v0_9\Exception\NotFoundException;
 use Skaut\HandbookAPI\v0_9\Exception\NotLockedException;
 
-$updateLesson = function (Skautis\Skautis $skautis, array $data) : array {
+$updateLesson = function (Skautis $skautis, array $data) : array {
     $selectSQL = <<<SQL
 SELECT name, body
 FROM lessons

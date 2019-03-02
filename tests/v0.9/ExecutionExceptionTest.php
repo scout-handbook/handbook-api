@@ -3,9 +3,11 @@ namespace v0_9;
 
 global $CONFIG;
 
+use PHPUnit\Framework\TestCase;
+
 use Skaut\HandbookAPI\v0_9\Exception\ExecutionException;
 
-class ExecutionExceptionTest extends \PHPUnit\Framework\TestCase
+class ExecutionExceptionTest extends TestCase
 {
     /**
      * @covers Skaut\HandbookAPI\v0_9\Exception\ExecutionException::__construct()

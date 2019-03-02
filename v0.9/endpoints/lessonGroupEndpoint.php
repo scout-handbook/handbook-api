@@ -2,6 +2,7 @@
 @_API_EXEC === 1 or die('Restricted access.');
 
 use Ramsey\Uuid\Uuid;
+use Skautis\Skautis;
 
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
@@ -10,7 +11,7 @@ use Skaut\HandbookAPI\v0_9\Role;
 
 $lessonGroupEndpoint = new Endpoint();
 
-$listLessonGroups = function (Skautis\Skautis $skautis, array $data) : array {
+$listLessonGroups = function (Skautis $skautis, array $data) : array {
     $SQL = <<<SQL
 SELECT group_id FROM groups_for_lessons
 WHERE lesson_id = :lesson_id;
@@ -31,7 +32,7 @@ SQL;
 };
 $lessonGroupEndpoint->setListMethod(new Role('editor'), $listLessonGroups);
 
-$updateLessonGroups = function (Skautis\Skautis $skautis, array $data) : array {
+$updateLessonGroups = function (Skautis $skautis, array $data) : array {
     $deleteSQL = <<<SQL
 DELETE FROM groups_for_lessons
 WHERE lesson_id = :lesson_id;

@@ -3,9 +3,11 @@ namespace v0_9;
 
 global $CONFIG;
 
+use PHPUnit\Framework\TestCase;
+
 use Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException;
 
-class MissingArgumentExceptionTest extends \PHPUnit\Framework\TestCase
+class MissingArgumentExceptionTest extends TestCase
 {
     /**
      * @covers Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException::__construct()

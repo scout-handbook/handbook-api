@@ -5,10 +5,13 @@ require_once('tests/PhpInputStream.php');
 
 global $CONFIG;
 
+use PHPUnit\Framework\TestCase;
+use TestUtils\PhpInputStream;
+
 use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\Role;
 
-class EndpointTest extends \PHPUnit\Framework\TestCase
+class EndpointTest extends TestCase
 {
     /**
      * @covers Skaut\HandbookAPI\v0_9\Endpoint::__construct()
@@ -192,9 +195,9 @@ class EndpointTest extends \PHPUnit\Framework\TestCase
         $method->setAccessible(true);
         $_GET['key'] = 'gval';
         $_POST['key'] = 'pval';
-        \TestUtils\PhpInputStream::register(['key' => 'ival']);
+        PhpInputStream::register(['key' => 'ival']);
         $data = $method->invokeArgs($endpoint, ['PUT']);
-        \TestUtils\PhpInputStream::unregister();
+        PhpInputStream::unregister();
         $this->assertSame(['key' => 'ival'], $data);
     }
 
@@ -208,9 +211,9 @@ class EndpointTest extends \PHPUnit\Framework\TestCase
         $method->setAccessible(true);
         $_GET['key'] = 'gval';
         $_POST['key'] = 'pval';
-        \TestUtils\PhpInputStream::register(['key' => 'ival']);
+        PhpInputStream::register(['key' => 'ival']);
         $data = $method->invokeArgs($endpoint, ['POST']);
-        \TestUtils\PhpInputStream::unregister();
+        PhpInputStream::unregister();
         $this->assertSame(['key' => 'pval'], $data);
     }
 
@@ -224,9 +227,9 @@ class EndpointTest extends \PHPUnit\Framework\TestCase
         $method->setAccessible(true);
         $_GET['key'] = 'gval';
         $_POST['key'] = 'pval';
-        \TestUtils\PhpInputStream::register(['key' => 'ival']);
+        PhpInputStream::register(['key' => 'ival']);
         $data = $method->invokeArgs($endpoint, ['GET']);
-        \TestUtils\PhpInputStream::unregister();
+        PhpInputStream::unregister();
         $this->assertSame(['key' => 'gval'], $data);
     }
 
@@ -240,9 +243,9 @@ class EndpointTest extends \PHPUnit\Framework\TestCase
         $method->setAccessible(true);
         $_GET['key'] = 'gval';
         $_POST['key'] = 'pval';
-        \TestUtils\PhpInputStream::register(['key' => 'ival']);
+        PhpInputStream::register(['key' => 'ival']);
         $data = $method->invokeArgs($endpoint, ['DELETE']);
-        \TestUtils\PhpInputStream::unregister();
+        PhpInputStream::unregister();
         $this->assertSame(['key' => 'gval'], $data);
     }
 
@@ -282,9 +285,9 @@ class EndpointTest extends \PHPUnit\Framework\TestCase
     {
         $method = new \ReflectionMethod('\Skaut\HandbookAPI\v0_9\Endpoint', 'handleDataHelper');
         $method->setAccessible(true);
-        \TestUtils\PhpInputStream::register(['id' => 'ival']);
+        PhpInputStream::register(['id' => 'ival']);
         $data = $method->invokeArgs($endpoint, ['POST']);
-        \TestUtils\PhpInputStream::unregister();
+        PhpInputStream::unregister();
         $this->assertSame([], $data);
     }
 }

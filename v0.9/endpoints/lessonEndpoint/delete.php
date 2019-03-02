@@ -1,13 +1,15 @@
 <?php declare(strict_types=1);
 @_API_EXEC === 1 or die('Restricted access.');
 
+use Skautis\Skautis;
+
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Helper;
 use Skaut\HandbookAPI\v0_9\Role;
 use Skaut\HandbookAPI\v0_9\Exception\NotFoundException;
 use Skaut\HandbookAPI\v0_9\Exception\NotLockedException;
 
-$deleteLesson = function (Skautis\Skautis $skautis, array $data) : array {
+$deleteLesson = function (Skautis $skautis, array $data) : array {
     $copySQL = <<<SQL
 INSERT INTO lesson_history (id, name, version, body)
 SELECT id, name, version, body

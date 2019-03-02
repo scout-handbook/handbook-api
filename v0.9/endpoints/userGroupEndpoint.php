@@ -1,6 +1,8 @@
 <?php declare(strict_types=1);
 @_API_EXEC === 1 or die('Restricted access.');
 
+use Skautis\Skautis;
+
 use function Skaut\HandbookAPI\v0_9\getRole;
 use function Skaut\HandbookAPI\v0_9\Role_cmp;
 use Skaut\HandbookAPI\v0_9\Database;
@@ -12,7 +14,7 @@ use Skaut\HandbookAPI\v0_9\Exception\RoleException;
 
 $userGroupEndpoint = new Endpoint();
 
-$updateUserRole = function (Skautis\Skautis $skautis, array $data) : array {
+$updateUserRole = function (Skautis $skautis, array $data) : array {
     $checkRole = function (Role $my_role, Role $role) : void {
         if ((Role_cmp($my_role, new Role('administrator')) === 0) and
             (Role_cmp($role, new Role('administrator')) >= 0)) {

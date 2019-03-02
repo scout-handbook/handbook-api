@@ -3,7 +3,14 @@
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 
+use BaconQrCode\Renderer\Image\ImagickImageBackEnd;
+use BaconQrCode\Renderer\ImageRenderer;
+use BaconQrCode\Renderer\RendererStyle\RendererStyle;
+use BaconQrCode\Writer;
+use Mpdf\Mpdf;
+use Mpdf\Output\Destination;
 use Ramsey\Uuid\Uuid;
+use Skautis\Skautis;
 
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
@@ -14,7 +21,7 @@ use Skaut\OdyMarkdown\v0_9\OdyMarkdown;
 
 $lessonPDFEndpoint = new Endpoint();
 
-$getLessonPDF = function (Skautis\Skautis $skautis, array $data, Endpoint $endpoint) use ($CONFIG) : void {
+$getLessonPDF = function (Skautis $skautis, array $data, Endpoint $endpoint) use ($CONFIG) : void {
     $id = Helper::parseUuid($data['parent-id'], 'lesson');
 
     $name = '';
@@ -45,7 +52,7 @@ SQL;
 
     $html .= '</body>';
 
-    $mpdf = new \Mpdf\Mpdf([
+    $mpdf = new Mpdf([
         'fontDir' => [$CONFIG->basepath . '/v0.9/internal/OdyMarkdown/fonts/'],
         'fontdata' => [
             'odymarathon' => [
@@ -71,11 +78,11 @@ SQL;
         'use_kwt' => true
     ]);
 
-    $qrRenderer = new \BaconQrCode\Renderer\ImageRenderer(
-        new \BaconQrCode\Renderer\RendererStyle\RendererStyle(90),
-        new \BaconQrCode\Renderer\Image\ImagickImageBackEnd()
+    $qrRenderer = new ImageRenderer(
+        new RendererStyle(90),
+        new ImagickImageBackEnd()
     );
-    $qrWriter = new \BaconQrCode\Writer($qrRenderer);
+    $qrWriter = new Writer($qrRenderer);
 
     $mpdf->DefHTMLHeaderByName(
         'OddHeaderFirst',
@@ -110,7 +117,7 @@ SQL;
     header('content-type:application/pdf; charset=utf-8');
     $mpdf->Output(
         $id->toString() . '_' . Helper::urlEscape($name) . '.pdf',
-        \Mpdf\Output\Destination::INLINE
+        Destination::INLINE
     );
 };
 $lessonPDFEndpoint->setListMethod(new Role('editor'), $getLessonPDF);

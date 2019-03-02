@@ -2,6 +2,7 @@
 @_API_EXEC === 1 or die('Restricted access.');
 
 use Ramsey\Uuid\Uuid;
+use Skautis\Skautis;
 
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
@@ -66,7 +67,7 @@ SQL;
 };
 $imageEndpoint->setListMethod(new Role('editor'), $listImages);
 
-$getImage = function (Skautis\Skautis $skautis, array $data) use ($CONFIG) : array {
+$getImage = function (Skautis $skautis, array $data) use ($CONFIG) : array {
     $id = Helper::parseUuid($data['id'], 'image')->toString();
     $quality = "web";
     if (isset($data['quality']) and in_array($data['quality'], ['original', 'web', 'thumbnail'])) {
@@ -160,7 +161,7 @@ SQL;
 };
 $imageEndpoint->setAddMethod(new Role('editor'), $addImage);
 
-$deleteImage = function (Skautis\Skautis $skautis, array $data) use ($CONFIG) : array {
+$deleteImage = function (Skautis $skautis, array $data) use ($CONFIG) : array {
     $SQL = <<<SQL
 DELETE FROM images
 WHERE id = :id

@@ -3,16 +3,19 @@ namespace v0_9;
 
 global $CONFIG;
 
+use PHPUnit\Framework\TestCase;
+use Skautis\StaticClassException;
+
 use Skaut\HandbookAPI\v0_9\Exception\SkautISException;
 
-class SkautISExceptionTest extends \PHPUnit\Framework\TestCase
+class SkautISExceptionTest extends TestCase
 {
     /**
      * @covers Skaut\HandbookAPI\v0_9\Exception\SkautISException::__construct()
      */
     public function testCtor() : SkautISException
     {
-        $e = new SkautISException(new \Skautis\StaticClassException('Emessage'));
+        $e = new SkautISException(new StaticClassException('Emessage'));
         $this->assertInstanceOf('\Skaut\HandbookAPI\v0_9\Exception\SkautISException', $e);
         return $e;
     }
