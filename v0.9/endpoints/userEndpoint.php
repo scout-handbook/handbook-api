@@ -6,6 +6,8 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 require_once($CONFIG->basepath . '/v0.9/endpoints/userRoleEndpoint.php');
 require_once($CONFIG->basepath . '/v0.9/endpoints/userGroupEndpoint.php');
 
+use Skautis\Skautis;
+
 use function Skaut\HandbookAPI\v0_9\getRole;
 use function Skaut\HandbookAPI\v0_9\Role_cmp;
 use Skaut\HandbookAPI\v0_9\Database;
@@ -22,7 +24,7 @@ $userEndpoint->addSubEndpoint('role', $userRoleEndpoint);
 $userEndpoint->addSubEndpoint('group', $userGroupEndpoint);
 
 
-function constructSelectSQL(Skautis\Skautis $skautis, bool $roleSelect, bool $groupSelect) : string
+function constructSelectSQL(Skautis $skautis, bool $roleSelect, bool $groupSelect) : string
 {
     $role = getRole($skautis->UserManagement->LoginDetail()->ID_Person);
 
@@ -53,7 +55,7 @@ SQL;
     return $selectSQL;
 }
 
-$listUsers = function (Skautis\Skautis $skautis, array $data) : array {
+$listUsers = function (Skautis $skautis, array $data) : array {
     $selectSQL = constructSelectSQL($skautis, isset($data['role']), isset($data['group']));
     $countSQL = <<<SQL
 SELECT FOUND_ROWS();
@@ -140,7 +142,7 @@ SQL;
 };
 $userEndpoint->setListMethod(new Role('editor'), $listUsers);
 
-$addUser = function (Skautis\Skautis $skautis, array $data) : array {
+$addUser = function (Skautis $skautis, array $data) : array {
     if (!isset($data['id'])) {
         throw new MissingArgumentException(MissingArgumentException::POST, 'id');
     }

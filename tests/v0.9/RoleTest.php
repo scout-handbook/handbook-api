@@ -5,11 +5,13 @@ require_once('tests/DatabaseTestCase.php');
 
 global $CONFIG;
 
+use TestUtils\DatabaseTestCase;
+
 use function Skaut\HandbookAPI\v0_9\getRole;
 use function Skaut\HandbookAPI\v0_9\Role_cmp;
 use Skaut\HandbookAPI\v0_9\Role;
 
-class RoleTest extends \TestUtils\DatabaseTestCase
+class RoleTest extends DatabaseTestCase
 {
     public function getDump() : string
     {

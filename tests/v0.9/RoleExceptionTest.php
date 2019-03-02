@@ -3,9 +3,11 @@ namespace v0_9;
 
 global $CONFIG;
 
+use PHPUnit\Framework\TestCase;
+
 use Skaut\HandbookAPI\v0_9\Exception\RoleException;
 
-class RoleExceptionTest extends \PHPUnit\Framework\TestCase
+class RoleExceptionTest extends TestCase
 {
     /**
      * @covers Skaut\HandbookAPI\v0_9\Exception\RoleException::__construct()

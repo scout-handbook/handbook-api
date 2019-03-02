@@ -3,9 +3,11 @@ namespace v0_9;
 
 global $CONFIG;
 
+use PHPUnit\Framework\TestCase;
+
 use Skaut\HandbookAPI\v0_9\DeletedLesson;
 
-class DeletedLessonTest extends \PHPUnit\Framework\TestCase
+class DeletedLessonTest extends TestCase
 {
     /*
      * @covers Skaut\HandbookAPI\v0_9\DeletedLesson::__construct()

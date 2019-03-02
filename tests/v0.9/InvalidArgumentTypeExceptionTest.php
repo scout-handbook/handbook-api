@@ -3,9 +3,11 @@ namespace v0_9;
 
 global $CONFIG;
 
+use PHPUnit\Framework\TestCase;
+
 use Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException;
 
-class InvalidArgumentTypeExceptionTest extends \PHPUnit\Framework\TestCase
+class InvalidArgumentTypeExceptionTest extends TestCase
 {
     /**
      * @covers Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException::__construct()

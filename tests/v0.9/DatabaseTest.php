@@ -5,9 +5,11 @@ require_once('tests/DatabaseTestCase.php');
 
 global $CONFIG;
 
+use TestUtils\DatabaseTestCase;
+
 use Skaut\HandbookAPI\v0_9\Database;
 
-class DatabaseTest extends \TestUtils\DatabaseTestCase
+class DatabaseTest extends DatabaseTestCase
 {
     public function getDump() : string
     {

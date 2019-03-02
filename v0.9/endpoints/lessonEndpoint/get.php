@@ -1,11 +1,13 @@
 <?php declare(strict_types=1);
 @_API_EXEC === 1 or die('Restricted access.');
 
+use Skautis\Skautis;
+
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Helper;
 use Skaut\HandbookAPI\v0_9\Exception\RoleException;
 
-$getLesson = function (Skautis\Skautis $skautis, array $data) : array {
+$getLesson = function (Skautis $skautis, array $data) : array {
     $SQL = <<<SQL
 SELECT body
 FROM lessons

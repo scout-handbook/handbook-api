@@ -3,9 +3,11 @@ namespace v0_9;
 
 global $CONFIG;
 
+use PHPUnit\Framework\TestCase;
+
 use Skaut\HandbookAPI\v0_9\Exception\ConnectionException;
 
-class ConnectionExceptionTest extends \PHPUnit\Framework\TestCase
+class ConnectionExceptionTest extends TestCase
 {
     /**
      * @covers Skaut\HandbookAPI\v0_9\Exception\ConnectionException::__construct()

@@ -1,6 +1,8 @@
 <?php declare(strict_types=1);
 @_API_EXEC === 1 or die('Restricted access.');
 
+use Skautis\Skautis;
+
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\Helper;
@@ -10,7 +12,7 @@ use Skaut\HandbookAPI\v0_9\Exception\LockedException;
 
 $mutexEndpoint = new Endpoint();
 
-$addMutex = function (Skautis\Skautis $skautis, array $data) : array {
+$addMutex = function (Skautis $skautis, array $data) : array {
     $selectSQL = <<<SQL
 SELECT DISTINCT UNIX_TIMESTAMP(mutexes.timeout), mutexes.holder, users.name
 FROM mutexes
@@ -67,7 +69,7 @@ SQL;
 };
 $mutexEndpoint->setAddMethod(new Role('editor'), $addMutex);
 
-$extendMutex = function (Skautis\Skautis $skautis, array $data) : array {
+$extendMutex = function (Skautis $skautis, array $data) : array {
     $selectSQL = <<<SQL
 SELECT 1
 FROM mutexes
@@ -110,7 +112,7 @@ SQL;
 };
 $mutexEndpoint->setUpdateMethod(new Role('editor'), $extendMutex);
 
-$releaseMutex = function (Skautis\Skautis $skautis, array $data) : array {
+$releaseMutex = function (Skautis $skautis, array $data) : array {
     $selectSQL = <<<SQL
 SELECT 1
 FROM mutexes

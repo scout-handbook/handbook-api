@@ -2,6 +2,7 @@
 @_API_EXEC === 1 or die('Restricted access.');
 
 use Ramsey\Uuid\Uuid;
+use Skautis\Skautis;
 
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
@@ -46,7 +47,7 @@ SQL;
 };
 $groupEndpoint->setListMethod(new Role('editor'), $listGroups);
 
-$addGroup = function (Skautis\Skautis $skautis, array $data) : array {
+$addGroup = function (Skautis $skautis, array $data) : array {
     $SQL = <<<SQL
 INSERT INTO groups (id, name)
 VALUES (:id, :name);
@@ -67,7 +68,7 @@ SQL;
 };
 $groupEndpoint->setAddMethod(new Role('administrator'), $addGroup);
 
-$updateGroup = function (Skautis\Skautis $skautis, array $data) : array {
+$updateGroup = function (Skautis $skautis, array $data) : array {
     $updateSQL = <<<SQL
 UPDATE groups
 SET name = :name
@@ -98,7 +99,7 @@ SQL;
 };
 $groupEndpoint->setUpdateMethod(new Role('administrator'), $updateGroup);
 
-$deleteGroup = function (Skautis\Skautis $skautis, array $data) : array {
+$deleteGroup = function (Skautis $skautis, array $data) : array {
     $deleteLessonsSQL = <<<SQL
 DELETE FROM groups_for_lessons
 WHERE group_id = :group_id;

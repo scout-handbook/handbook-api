@@ -3,9 +3,11 @@ namespace v0_9;
 
 global $CONFIG;
 
+use PHPUnit\Framework\TestCase;
+
 use Skaut\HandbookAPI\v0_9\User;
 
-class UserTest extends \PHPUnit\Framework\TestCase
+class UserTest extends TestCase
 {
     /**
      * @covers Skaut\HandbookAPI\v0_9\User::__construct()

@@ -3,9 +3,11 @@ namespace v0_9;
 
 global $CONFIG;
 
+use PHPUnit\Framework\TestCase;
+
 use Skaut\HandbookAPI\v0_9\Exception\RefusedException;
 
-class RefusedExceptionTest extends \PHPUnit\Framework\TestCase
+class RefusedExceptionTest extends TestCase
 {
     /**
      * @covers Skaut\HandbookAPI\v0_9\Exception\RefusedException::__construct()

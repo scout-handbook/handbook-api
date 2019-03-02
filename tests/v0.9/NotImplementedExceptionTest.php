@@ -3,9 +3,11 @@ namespace v0_9;
 
 global $CONFIG;
 
+use PHPUnit\Framework\TestCase;
+
 use Skaut\HandbookAPI\v0_9\Exception\NotImplementedException;
 
-class NotImplementedExceptionTest extends \PHPUnit\Framework\TestCase
+class NotImplementedExceptionTest extends TestCase
 {
     /**
      * @covers Skaut\HandbookAPI\v0_9\Exception\NotImplementedException::__construct()

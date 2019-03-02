@@ -2,11 +2,12 @@
 @_API_EXEC === 1 or die('Restricted access.');
 
 use Ramsey\Uuid\Uuid;
+use Skautis\Skautis;
 
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException;
 
-$addLesson = function (Skautis\Skautis $skautis, array $data) : array {
+$addLesson = function (Skautis $skautis, array $data) : array {
     $SQL = <<<SQL
 INSERT INTO lessons (id, name, body)
 VALUES (:id, :name, :body);

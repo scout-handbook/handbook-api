@@ -3,11 +3,13 @@ namespace v0_9;
 
 global $CONFIG;
 
+use PHPUnit\Framework\TestCase;
+
 use function Skaut\HandbookAPI\v0_9\Lesson_cmp;
 use Skaut\HandbookAPI\v0_9\Competence;
 use Skaut\HandbookAPI\v0_9\Lesson;
 
-class LessonTest extends \PHPUnit\Framework\TestCase
+class LessonTest extends TestCase
 {
     /**
      * @covers Skaut\HandbookAPI\v0_9\Lesson::__construct()

@@ -3,11 +3,12 @@ namespace v0_9;
 
 global $CONFIG;
 
-use Skaut\HandbookAPI\v0_9\Exception\QueryException;
+use PHPUnit\Framework\TestCase;
 
+use Skaut\HandbookAPI\v0_9\Exception\QueryException;
 use Skaut\HandbookAPI\v0_9\Database;
 
-class QueryExceptionTest extends \PHPUnit\Framework\TestCase
+class QueryExceptionTest extends TestCase
 {
     /**
      * @covers Skaut\HandbookAPI\v0_9\Exception\QueryException::__construct()

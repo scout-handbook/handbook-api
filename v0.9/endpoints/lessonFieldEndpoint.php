@@ -2,6 +2,7 @@
 @_API_EXEC === 1 or die('Restricted access.');
 
 use Ramsey\Uuid\Uuid;
+use Skautis\Skautis;
 
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
@@ -10,7 +11,7 @@ use Skaut\HandbookAPI\v0_9\Role;
 
 $lessonFieldEndpoint = new Endpoint();
 
-$updateLessonField = function (Skautis\Skautis $skautis, array $data) : array {
+$updateLessonField = function (Skautis $skautis, array $data) : array {
     $deleteSQL = <<<SQL
 DELETE FROM lessons_in_fields
 WHERE lesson_id = :lesson_id

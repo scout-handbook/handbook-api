@@ -2,6 +2,7 @@
 @_API_EXEC === 1 or die('Restricted access.');
 
 use Ramsey\Uuid\Uuid;
+use Skautis\Skautis;
 
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
@@ -12,7 +13,7 @@ use Skaut\HandbookAPI\v0_9\Exception\NotFoundException;
 
 $deletedLessonHistoryEndpoint = new Endpoint();
 
-$listDeletedLessonHistory = function (Skautis\Skautis $skautis, array $data) : array {
+$listDeletedLessonHistory = function (Skautis $skautis, array $data) : array {
     $checkSQL = <<<SQL
 SELECT 1 FROM lessons
 WHERE id = :id
@@ -53,7 +54,7 @@ SQL;
 };
 $deletedLessonHistoryEndpoint->setListMethod(new Role('administrator'), $listDeletedLessonHistory);
 
-$getDeletedLessonHistory = function (Skautis\Skautis $skautis, array $data) : array {
+$getDeletedLessonHistory = function (Skautis $skautis, array $data) : array {
     $checkSQL = <<<SQL
 SELECT 1 FROM lessons
 WHERE id = :id

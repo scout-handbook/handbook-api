@@ -3,10 +3,12 @@ namespace v0_9;
 
 global $CONFIG;
 
+use PHPUnit\Framework\TestCase;
+
 use Skaut\HandbookAPI\v0_9\Field;
 use Skaut\HandbookAPI\v0_9\Lesson;
 
-class FieldTest extends \PHPUnit\Framework\TestCase
+class FieldTest extends TestCase
 {
     /**
      * @covers Skaut\HandbookAPI\v0_9\Field::__construct()
