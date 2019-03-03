@@ -72,4 +72,9 @@ SQL;
         $db->fetchRequire('user');
         return new Role(strval($role));
     }
+
+    public static function compare(Role $first, Role $second) : int
+    {
+        return $first->role <=> $second->role;
+    }
 }

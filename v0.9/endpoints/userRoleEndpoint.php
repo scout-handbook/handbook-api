@@ -3,7 +3,6 @@
 
 use Skautis\Skautis;
 
-use function Skaut\HandbookAPI\v0_9\Role_cmp;
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\Role;
@@ -15,8 +14,8 @@ $userRoleEndpoint = new Endpoint();
 
 $updateUserRole = function (Skautis $skautis, array $data) : array {
     $checkRole = function (Role $my_role, Role $role) : void {
-        if ((Role_cmp($my_role, new Role('administrator')) === 0) and
-            (Role_cmp($role, new Role('administrator')) >= 0)) {
+        if ((Role::compare($my_role, new Role('administrator')) === 0) and
+            (Role::compare($role, new Role('administrator')) >= 0)) {
             throw new RoleException();
         }
     };

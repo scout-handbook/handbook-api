@@ -33,7 +33,6 @@
 	},
 	"autoload": {
 		"files": [
-			"Skaut/HandbookAPI/v0_9/Role_cmp.php",
 			"Skaut/HandbookAPI/v0_9/roleTry.php",
 			"Skaut/HandbookAPI/v0_9/skautisTry.php"
 		],
