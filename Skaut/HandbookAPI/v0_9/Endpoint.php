@@ -101,7 +101,7 @@ class Endpoint
             return $func($skautis, $data, $self);
         };
         $hardCheck = (Role::compare($role, new Role('user')) > 0);
-        $ret = roleTry($wrapper, $hardCheck, $role);
+        $ret = Helper::roleTry($wrapper, $hardCheck, $role);
         if (isset($ret)) {
             return $ret;
         }
