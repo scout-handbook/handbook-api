@@ -1,19 +1,18 @@
 <?php declare(strict_types=1);
 @_API_EXEC === 1 or die('Restricted access.');
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
-require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Database.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Endpoint.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Helper.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
+use Skautis\Skautis;
 
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/InvalidArgumentTypeException.php');
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/LockedException.php');
+use Skaut\HandbookAPI\v0_9\Database;
+use Skaut\HandbookAPI\v0_9\Endpoint;
+use Skaut\HandbookAPI\v0_9\Helper;
+use Skaut\HandbookAPI\v0_9\Role;
+use Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException;
+use Skaut\HandbookAPI\v0_9\Exception\LockedException;
 
-$mutexEndpoint = new HandbookAPI\Endpoint();
+$mutexEndpoint = new Endpoint();
 
-$addMutex = function (Skautis\Skautis $skautis, array $data) : array {
+$addMutex = function (Skautis $skautis, array $data) : array {
     $selectSQL = <<<SQL
 SELECT DISTINCT UNIX_TIMESTAMP(mutexes.timeout), mutexes.holder, users.name
 FROM mutexes
@@ -29,17 +28,17 @@ INSERT INTO mutexes (id, timeout, holder)
 VALUES (:id, FROM_UNIXTIME(:timeout), :holder);
 SQL;
 
-    $id = HandbookAPI\Helper::parseUuid($data['id'], 'resource')->getBytes();
+    $id = Helper::parseUuid($data['id'], 'resource')->getBytes();
     $timeout = time() + 1800;
     if (isset($_COOKIE['skautis_timeout'])) {
         $timeout = ctype_digit($_COOKIE['skautis_timeout']) ? intval($_COOKIE['skautis_timeout']) : null;
         if ($timeout === null || abs($timeout - time()) > 3600) {
-            throw new HandbookAPI\InvalidArgumentTypeException('number', ['Unix timestamp']);
+            throw new InvalidArgumentTypeException('number', ['Unix timestamp']);
         }
     }
     $userId = $skautis->UserManagement->LoginDetail()->ID_Person;
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->beginTransaction();
 
     $db->prepare($selectSQL);
@@ -52,7 +51,7 @@ SQL;
     $db->bindColumn('holder', $origHolder);
     $db->bindColumn('name', $origHolderName);
     if ($db->fetch() && $origHolder != $userId && $origTimeout > time()) {
-        throw new HandbookAPI\LockedException($origHolderName);
+        throw new LockedException($origHolderName);
     }
 
     $db->prepare($deleteSQL);
@@ -68,9 +67,9 @@ SQL;
     $db->endTransaction();
     return ['status' => 201];
 };
-$mutexEndpoint->setAddMethod(new HandbookAPI\Role('editor'), $addMutex);
+$mutexEndpoint->setAddMethod(new Role('editor'), $addMutex);
 
-$extendMutex = function (Skautis\Skautis $skautis, array $data) : array {
+$extendMutex = function (Skautis $skautis, array $data) : array {
     $selectSQL = <<<SQL
 SELECT 1
 FROM mutexes
@@ -83,17 +82,17 @@ WHERE id = :id AND holder = :holder
 LIMIT 1;
 SQL;
 
-    $id = HandbookAPI\Helper::parseUuid($data['id'], 'resource')->getBytes();
+    $id = Helper::parseUuid($data['id'], 'resource')->getBytes();
     $timeout = time() + 1800;
     if (isset($_COOKIE['skautis_timeout'])) {
         $timeout = ctype_digit($_COOKIE['skautis_timeout']) ? intval($_COOKIE['skautis_timeout']) : null;
         if ($timeout === null || abs($timeout - time()) > 3600) {
-            throw new HandbookAPI\InvalidArgumentTypeException('number', ['Unix timestamp']);
+            throw new InvalidArgumentTypeException('number', ['Unix timestamp']);
         }
     }
     $userId = $skautis->UserManagement->LoginDetail()->ID_Person;
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->beginTransaction();
 
     $db->prepare($selectSQL);
@@ -111,9 +110,9 @@ SQL;
     $db->endTransaction();
     return ['status' => 200];
 };
-$mutexEndpoint->setUpdateMethod(new HandbookAPI\Role('editor'), $extendMutex);
+$mutexEndpoint->setUpdateMethod(new Role('editor'), $extendMutex);
 
-$releaseMutex = function (Skautis\Skautis $skautis, array $data) : array {
+$releaseMutex = function (Skautis $skautis, array $data) : array {
     $selectSQL = <<<SQL
 SELECT 1
 FROM mutexes
@@ -124,10 +123,10 @@ DELETE FROM mutexes
 WHERE id = :id AND holder = :holder;
 SQL;
 
-    $id = HandbookAPI\Helper::parseUuid($data['id'], 'resource')->getBytes();
+    $id = Helper::parseUuid($data['id'], 'resource')->getBytes();
     $userId = $skautis->UserManagement->LoginDetail()->ID_Person;
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->beginTransaction();
 
     $db->prepare($selectSQL);
@@ -144,4 +143,4 @@ SQL;
     $db->endTransaction();
     return ['status' => 200];
 };
-$mutexEndpoint->setDeleteMethod(new HandbookAPI\Role('editor'), $releaseMutex);
+$mutexEndpoint->setDeleteMethod(new Role('editor'), $releaseMutex);

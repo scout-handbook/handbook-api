@@ -1,21 +1,19 @@
 <?php declare(strict_types=1);
 @_API_EXEC === 1 or die('Restricted access.');
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
-require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Competence.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Database.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Endpoint.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Helper.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
-
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/InvalidArgumentTypeException.php');
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/MissingArgumentException.php');
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/NotFoundException.php');
-
 use Ramsey\Uuid\Uuid;
+use Skautis\Skautis;
 
-$competenceEndpoint = new HandbookAPI\Endpoint();
+use Skaut\HandbookAPI\v0_9\Competence;
+use Skaut\HandbookAPI\v0_9\Database;
+use Skaut\HandbookAPI\v0_9\Endpoint;
+use Skaut\HandbookAPI\v0_9\Helper;
+use Skaut\HandbookAPI\v0_9\Role;
+use Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException;
+use Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException;
+use Skaut\HandbookAPI\v0_9\Exception\NotFoundException;
+
+$competenceEndpoint = new Endpoint();
 
 $listCompetences = function () : array {
     $SQL = <<<SQL
@@ -24,7 +22,7 @@ FROM competences
 ORDER BY number;
 SQL;
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->prepare($SQL);
     $db->execute();
     $id = '';
@@ -37,27 +35,27 @@ SQL;
     $db->bindColumn('description', $description);
     $competences = [];
     while ($db->fetch()) {
-        $competences[] = new HandbookAPI\Competence($id, intval($number), strval($name), strval($description));
+        $competences[] = new Competence($id, intval($number), strval($name), strval($description));
     }
     return ['status' => 200, 'response' => $competences];
 };
-$competenceEndpoint->setListMethod(new HandbookAPI\Role('guest'), $listCompetences);
+$competenceEndpoint->setListMethod(new Role('guest'), $listCompetences);
 
-$addCompetence = function (Skautis\Skautis $skautis, array $data) : array {
+$addCompetence = function (Skautis $skautis, array $data) : array {
     $SQL = <<<SQL
 INSERT INTO competences (id, number, name, description)
 VALUES (:id, :number, :name, :description);
 SQL;
 
     if (!isset($data['number'])) {
-        throw new HandbookAPI\MissingArgumentException(HandbookAPI\MissingArgumentException::POST, 'number');
+        throw new MissingArgumentException(MissingArgumentException::POST, 'number');
     }
     if (!isset($data['name'])) {
-        throw new HandbookAPI\MissingArgumentException(HandbookAPI\MissingArgumentException::POST, 'name');
+        throw new MissingArgumentException(MissingArgumentException::POST, 'name');
     }
     $number = ctype_digit($data['number']) ? intval($data['number']) : null;
     if ($number === null) {
-        throw new HandbookAPI\InvalidArgumentTypeException('number', ['Integer']);
+        throw new InvalidArgumentTypeException('number', ['Integer']);
     }
     $name = $data['name'];
     $description = '';
@@ -66,7 +64,7 @@ SQL;
     }
     $uuid = Uuid::uuid4()->getBytes();
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->prepare($SQL);
     $db->bindParam(':id', $uuid, PDO::PARAM_STR);
     $db->bindParam(':number', $number, PDO::PARAM_INT);
@@ -75,9 +73,9 @@ SQL;
     $db->execute();
     return ['status' => 201];
 };
-$competenceEndpoint->setAddMethod(new HandbookAPI\Role('administrator'), $addCompetence);
+$competenceEndpoint->setAddMethod(new Role('administrator'), $addCompetence);
 
-$updateCompetence = function (Skautis\Skautis $skautis, array $data) : array {
+$updateCompetence = function (Skautis $skautis, array $data) : array {
     $selectSQL = <<<SQL
 SELECT number, name, description
 FROM competences
@@ -90,11 +88,11 @@ WHERE id = :id
 LIMIT 1;
 SQL;
 
-    $id = HandbookAPI\Helper::parseUuid($data['id'], 'competence')->getBytes();
+    $id = Helper::parseUuid($data['id'], 'competence')->getBytes();
     if (isset($data['number'])) {
         $number = ctype_digit($data['number']) ? intval($data['number']) : null;
         if ($number === null) {
-            throw new HandbookAPI\InvalidArgumentTypeException('number', ['Integer']);
+            throw new InvalidArgumentTypeException('number', ['Integer']);
         }
     }
     if (isset($data['name'])) {
@@ -104,7 +102,7 @@ SQL;
         $description = $data['description'];
     }
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
 
     if (!isset($number) or !isset($name) or !isset($description)) {
         $db->prepare($selectSQL);
@@ -138,15 +136,15 @@ SQL;
     $db->execute();
 
     if ($db->rowCount() != 1) {
-        throw new HandbookAPI\NotFoundException("competence");
+        throw new NotFoundException("competence");
     }
 
     $db->endTransaction();
     return ['status' => 200];
 };
-$competenceEndpoint->setUpdateMethod(new HandbookAPI\Role('administrator'), $updateCompetence);
+$competenceEndpoint->setUpdateMethod(new Role('administrator'), $updateCompetence);
 
-$deleteCompetence = function (Skautis\Skautis $skautis, array $data) : array {
+$deleteCompetence = function (Skautis $skautis, array $data) : array {
     $deleteLessonsSQL = <<<SQL
 DELETE FROM competences_for_lessons
 WHERE competence_id = :competence_id;
@@ -157,9 +155,9 @@ WHERE id = :id
 LIMIT 1;
 SQL;
 
-    $id = HandbookAPI\Helper::parseUuid($data['id'], 'competence')->getBytes();
+    $id = Helper::parseUuid($data['id'], 'competence')->getBytes();
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->beginTransaction();
 
     $db->prepare($deleteLessonsSQL);
@@ -171,10 +169,10 @@ SQL;
     $db->execute();
 
     if ($db->rowCount() != 1) {
-        throw new HandbookAPI\NotFoundException("competence");
+        throw new NotFoundException("competence");
     }
 
     $db->endTransaction();
     return ['status' => 200];
 };
-$competenceEndpoint->setDeleteMethod(new HandbookAPI\Role('administrator'), $deleteCompetence);
+$competenceEndpoint->setDeleteMethod(new Role('administrator'), $deleteCompetence);

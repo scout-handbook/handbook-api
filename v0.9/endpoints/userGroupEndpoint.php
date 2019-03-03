@@ -1,21 +1,22 @@
 <?php declare(strict_types=1);
 @_API_EXEC === 1 or die('Restricted access.');
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
-require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Endpoint.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Helper.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
+use Skautis\Skautis;
 
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/InvalidArgumentTypeException.php');
+use Skaut\HandbookAPI\v0_9\Database;
+use Skaut\HandbookAPI\v0_9\Endpoint;
+use Skaut\HandbookAPI\v0_9\Helper;
+use Skaut\HandbookAPI\v0_9\Role;
+use Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException;
+use Skaut\HandbookAPI\v0_9\Exception\RoleException;
 
-$userGroupEndpoint = new HandbookAPI\Endpoint();
+$userGroupEndpoint = new Endpoint();
 
-$updateUserRole = function (Skautis\Skautis $skautis, array $data) : array {
-    $checkRole = function (HandbookAPI\Role $my_role, HandbookAPI\Role $role) : void {
-        if ((HandbookAPI\Role_cmp($my_role, new HandbookAPI\Role('administrator')) === 0) and
-            (HandbookAPI\Role_cmp($role, new HandbookAPI\Role('administrator')) >= 0)) {
-            throw new HandbookAPI\RoleException();
+$updateUserRole = function (Skautis $skautis, array $data) : array {
+    $checkRole = function (Role $my_role, Role $role) : void {
+        if ((Role::compare($my_role, new Role('administrator')) === 0) and
+            (Role::compare($role, new Role('administrator')) >= 0)) {
+            throw new RoleException();
         }
     };
 
@@ -35,22 +36,22 @@ SQL;
 
     $id = ctype_digit($data['parent-id']) ? intval($data['parent-id']) : null;
     if ($id === null) {
-        throw new HandbookAPI\InvalidArgumentTypeException('id', ['Integer']);
+        throw new InvalidArgumentTypeException('id', ['Integer']);
     }
     $groups = [];
     if (isset($data['group'])) {
         if (is_array($data['group'])) {
             foreach ($data['group'] as $group) {
-                $groups[] = HandbookAPI\Helper::parseUuid($group, 'group')->getBytes();
+                $groups[] = Helper::parseUuid($group, 'group')->getBytes();
             }
         } else {
-            $groups[] = HandbookAPI\Helper::parseUuid($data['group'], 'group')->getBytes();
+            $groups[] = Helper::parseUuid($data['group'], 'group')->getBytes();
         }
     }
 
-    $my_role = HandbookAPI\getRole($skautis->UserManagement->LoginDetail()->ID_Person);
+    $my_role = Role::get($skautis->UserManagement->LoginDetail()->ID_Person);
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->beginTransaction();
 
     $db->prepare($selectSQL);
@@ -59,7 +60,7 @@ SQL;
     $other_role = '';
     $db->bindColumn('role', $other_role);
     $db->fetchRequire('user');
-    $checkRole($my_role, new HandbookAPI\Role($other_role));
+    $checkRole($my_role, new Role($other_role));
 
     $db->prepare($deleteSQL);
     $db->bindParam(':user_id', $id, PDO::PARAM_STR);
@@ -75,4 +76,4 @@ SQL;
     $db->endTransaction();
     return ['status' => 200];
 };
-$userGroupEndpoint->setUpdateMethod(new HandbookAPI\Role('administrator'), $updateUserRole);
+$userGroupEndpoint->setUpdateMethod(new Role('administrator'), $updateUserRole);

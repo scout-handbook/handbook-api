@@ -2,25 +2,28 @@
 namespace v0_9;
 
 global $CONFIG;
-require_once('v0.9/internal/exceptions/NotLockedException.php');
 
-class NotLockedExceptionTest extends \PHPUnit\Framework\TestCase
+use PHPUnit\Framework\TestCase;
+
+use Skaut\HandbookAPI\v0_9\Exception\NotLockedException;
+
+class NotLockedExceptionTest extends TestCase
 {
     /**
-     * @covers HandbookAPI\NotLockedException::__construct()
+     * @covers Skaut\HandbookAPI\v0_9\Exception\NotLockedException::__construct()
      */
-    public function testCtor() : \HandbookAPI\NotLockedException
+    public function testCtor() : NotLockedException
     {
-        $e = new \HandbookAPI\NotLockedException();
-        $this->assertInstanceOf('\HandbookAPI\NotLockedException', $e);
+        $e = new NotLockedException();
+        $this->assertInstanceOf('\Skaut\HandbookAPI\v0_9\Exception\NotLockedException', $e);
         return $e;
     }
 
     /**
-     * @covers HandbookAPI\NotLockedException::handle()
+     * @covers Skaut\HandbookAPI\v0_9\Exception\NotLockedException::handle()
      * @depends testCtor
      */
-    public function testHandle(\HandbookAPI\NotLockedException $e) : void
+    public function testHandle(NotLockedException $e) : void
     {
         $this->assertSame(
             [

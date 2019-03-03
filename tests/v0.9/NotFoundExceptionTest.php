@@ -2,25 +2,28 @@
 namespace v0_9;
 
 global $CONFIG;
-require_once('v0.9/internal/exceptions/NotFoundException.php');
 
-class NotFoundExceptionTest extends \PHPUnit\Framework\TestCase
+use PHPUnit\Framework\TestCase;
+
+use Skaut\HandbookAPI\v0_9\Exception\NotFoundException;
+
+class NotFoundExceptionTest extends TestCase
 {
     /**
-     * @covers HandbookAPI\NotFoundException::__construct()
+     * @covers Skaut\HandbookAPI\v0_9\Exception\NotFoundException::__construct()
      */
-    public function testCtor() : \HandbookAPI\NotFoundException
+    public function testCtor() : NotFoundException
     {
-        $e = new \HandbookAPI\NotFoundException('Rname');
-        $this->assertInstanceOf('\HandbookAPI\NotFoundException', $e);
+        $e = new NotFoundException('Rname');
+        $this->assertInstanceOf('\Skaut\HandbookAPI\v0_9\Exception\NotFoundException', $e);
         return $e;
     }
 
     /**
-     * @covers HandbookAPI\NotFoundException::handle()
+     * @covers Skaut\HandbookAPI\v0_9\Exception\NotFoundException::handle()
      * @depends testCtor
      */
-    public function testHandle(\HandbookAPI\NotFoundException $e) : void
+    public function testHandle(NotFoundException $e) : void
     {
         $this->assertSame(
             ['status' => 404, 'type' => 'NotFoundException', 'message' => 'No such Rname has been found.'],
