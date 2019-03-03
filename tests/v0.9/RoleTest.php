@@ -7,7 +7,6 @@ global $CONFIG;
 
 use TestUtils\DatabaseTestCase;
 
-use function Skaut\HandbookAPI\v0_9\Role_cmp;
 use Skaut\HandbookAPI\v0_9\Role;
 
 class RoleTest extends DatabaseTestCase
@@ -214,248 +213,248 @@ class RoleTest extends DatabaseTestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Role_cmp()
+     * @covers Skaut\HandbookAPI\v0_9\Role::compare()
      * @depends testCtorSuperuser
      */
     public function testRoleCompareSuperuserAndSuperuser(Role $a) : void
     {
-        $this->assertSame(0, Role_cmp($a, new Role('superuser')));
+        $this->assertSame(0, Role::compare($a, new Role('superuser')));
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Role_cmp()
+     * @covers Skaut\HandbookAPI\v0_9\Role::compare()
      * @depends testCtorSuperuser
      * @depends testCtorAdministrator
      */
     public function testRoleCompareSuperuserAndAdministrator(Role $a, Role $b) : void
     {
-        $this->assertSame(1, Role_cmp($a, $b));
+        $this->assertSame(1, Role::compare($a, $b));
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Role_cmp()
+     * @covers Skaut\HandbookAPI\v0_9\Role::compare()
      * @depends testCtorSuperuser
      * @depends testCtorEditor
      */
     public function testRoleCompareSuperuserAndEditor(Role $a, Role $b) : void
     {
-        $this->assertSame(1, Role_cmp($a, $b));
+        $this->assertSame(1, Role::compare($a, $b));
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Role_cmp()
+     * @covers Skaut\HandbookAPI\v0_9\Role::compare()
      * @depends testCtorSuperuser
      * @depends testCtorUser
      */
     public function testRoleCompareSuperuserAndUser(Role $a, Role $b) : void
     {
-        $this->assertSame(1, Role_cmp($a, $b));
+        $this->assertSame(1, Role::compare($a, $b));
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Role_cmp()
+     * @covers Skaut\HandbookAPI\v0_9\Role::compare()
      * @depends testCtorSuperuser
      * @depends testCtorGuest
      */
     public function testRoleCompareSuperuserAndEditorGuest(Role $a, Role $b) : void
     {
-        $this->assertSame(1, Role_cmp($a, $b));
+        $this->assertSame(1, Role::compare($a, $b));
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Role_cmp()
+     * @covers Skaut\HandbookAPI\v0_9\Role::compare()
      * @depends testCtorAdministrator
      * @depends testCtorSuperuser
      */
     public function testRoleCompareAdministratorAndSuperuser(Role $a, Role $b) : void
     {
-        $this->assertSame(-1, Role_cmp($a, $b));
+        $this->assertSame(-1, Role::compare($a, $b));
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Role_cmp()
+     * @covers Skaut\HandbookAPI\v0_9\Role::compare()
      * @depends testCtorAdministrator
      */
     public function testRoleCompareAdministratorAndAdministrator(Role $a) : void
     {
-        $this->assertSame(0, Role_cmp($a, new Role('administrator')));
+        $this->assertSame(0, Role::compare($a, new Role('administrator')));
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Role_cmp()
+     * @covers Skaut\HandbookAPI\v0_9\Role::compare()
      * @depends testCtorAdministrator
      * @depends testCtorEditor
      */
     public function testRoleCompareAdministratorAndEditor(Role $a, Role $b) : void
     {
-        $this->assertSame(1, Role_cmp($a, $b));
+        $this->assertSame(1, Role::compare($a, $b));
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Role_cmp()
+     * @covers Skaut\HandbookAPI\v0_9\Role::compare()
      * @depends testCtorAdministrator
      * @depends testCtorUser
      */
     public function testRoleCompareAdministratorAndUser(Role $a, Role $b) : void
     {
-        $this->assertSame(1, Role_cmp($a, $b));
+        $this->assertSame(1, Role::compare($a, $b));
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Role_cmp()
+     * @covers Skaut\HandbookAPI\v0_9\Role::compare()
      * @depends testCtorAdministrator
      * @depends testCtorGuest
      */
     public function testRoleCompareAdministratorAndGuest(Role $a, Role $b) : void
     {
-        $this->assertSame(1, Role_cmp($a, $b));
+        $this->assertSame(1, Role::compare($a, $b));
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Role_cmp()
+     * @covers Skaut\HandbookAPI\v0_9\Role::compare()
      * @depends testCtorEditor
      * @depends testCtorSuperuser
      */
     public function testRoleCompareEditorAndSuperuser(Role $a, Role $b) : void
     {
-        $this->assertSame(-1, Role_cmp($a, $b));
+        $this->assertSame(-1, Role::compare($a, $b));
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Role_cmp()
+     * @covers Skaut\HandbookAPI\v0_9\Role::compare()
      * @depends testCtorEditor
      * @depends testCtorAdministrator
      */
     public function testRoleCompareEditorAndAdministrator(Role $a, Role $b) : void
     {
-        $this->assertSame(-1, Role_cmp($a, $b));
+        $this->assertSame(-1, Role::compare($a, $b));
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Role_cmp()
+     * @covers Skaut\HandbookAPI\v0_9\Role::compare()
      * @depends testCtorEditor
      */
     public function testRoleCompareEditorAndEditor(Role $a) : void
     {
-        $this->assertSame(0, Role_cmp($a, new Role('editor')));
+        $this->assertSame(0, Role::compare($a, new Role('editor')));
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Role_cmp()
+     * @covers Skaut\HandbookAPI\v0_9\Role::compare()
      * @depends testCtorEditor
      * @depends testCtorUser
      */
     public function testRoleCompareEditorAndUser(Role $a, Role $b) : void
     {
-        $this->assertSame(1, Role_cmp($a, $b));
+        $this->assertSame(1, Role::compare($a, $b));
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Role_cmp()
+     * @covers Skaut\HandbookAPI\v0_9\Role::compare()
      * @depends testCtorEditor
      * @depends testCtorGuest
      */
     public function testRoleCompareEditorAndGuest(Role $a, Role $b) : void
     {
-        $this->assertSame(1, Role_cmp($a, $b));
+        $this->assertSame(1, Role::compare($a, $b));
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Role_cmp()
+     * @covers Skaut\HandbookAPI\v0_9\Role::compare()
      * @depends testCtorUser
      * @depends testCtorSuperuser
      */
     public function testRoleCompareUserAndSuperuser(Role $a, Role $b) : void
     {
-        $this->assertSame(-1, Role_cmp($a, $b));
+        $this->assertSame(-1, Role::compare($a, $b));
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Role_cmp()
+     * @covers Skaut\HandbookAPI\v0_9\Role::compare()
      * @depends testCtorUser
      * @depends testCtorAdministrator
      */
     public function testRoleCompareUserAndAdministrator(Role $a, Role $b) : void
     {
-        $this->assertSame(-1, Role_cmp($a, $b));
+        $this->assertSame(-1, Role::compare($a, $b));
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Role_cmp()
+     * @covers Skaut\HandbookAPI\v0_9\Role::compare()
      * @depends testCtorUser
      * @depends testCtorEditor
      */
     public function testRoleCompareUserAndEditor(Role $a, Role $b) : void
     {
-        $this->assertSame(-1, Role_cmp($a, $b));
+        $this->assertSame(-1, Role::compare($a, $b));
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Role_cmp()
+     * @covers Skaut\HandbookAPI\v0_9\Role::compare()
      * @depends testCtorUser
      */
     public function testRoleCompareUserAndUser(Role $a) : void
     {
-        $this->assertSame(0, Role_cmp($a, new Role('user')));
+        $this->assertSame(0, Role::compare($a, new Role('user')));
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Role_cmp()
+     * @covers Skaut\HandbookAPI\v0_9\Role::compare()
      * @depends testCtorUser
      * @depends testCtorGuest
      */
     public function testRoleCompareUserAndGuest(Role $a, Role $b) : void
     {
-        $this->assertSame(1, Role_cmp($a, $b));
+        $this->assertSame(1, Role::compare($a, $b));
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Role_cmp()
+     * @covers Skaut\HandbookAPI\v0_9\Role::compare()
      * @depends testCtorGuest
      * @depends testCtorSuperuser
      */
     public function testRoleCompareGuestAndSuperuser(Role $a, Role $b) : void
     {
-        $this->assertSame(-1, Role_cmp($a, $b));
+        $this->assertSame(-1, Role::compare($a, $b));
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Role_cmp()
+     * @covers Skaut\HandbookAPI\v0_9\Role::compare()
      * @depends testCtorGuest
      * @depends testCtorAdministrator
      */
     public function testRoleCompareGuestAndAdministrator(Role $a, Role $b) : void
     {
-        $this->assertSame(-1, Role_cmp($a, $b));
+        $this->assertSame(-1, Role::compare($a, $b));
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Role_cmp()
+     * @covers Skaut\HandbookAPI\v0_9\Role::compare()
      * @depends testCtorGuest
      * @depends testCtorEditor
      */
     public function testRoleCompareGuestAndEditor(Role $a, Role $b) : void
     {
-        $this->assertSame(-1, Role_cmp($a, $b));
+        $this->assertSame(-1, Role::compare($a, $b));
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Role_cmp()
+     * @covers Skaut\HandbookAPI\v0_9\Role::compare()
      * @depends testCtorGuest
      * @depends testCtorUser
      */
     public function testRoleCompareGuestAndUser(Role $a, Role $b) : void
     {
-        $this->assertSame(-1, Role_cmp($a, $b));
+        $this->assertSame(-1, Role::compare($a, $b));
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Role_cmp()
+     * @covers Skaut\HandbookAPI\v0_9\Role::compare()
      * @depends testCtorGuest
      */
     public function testRoleCompareGuestAndGuest(Role $a) : void
     {
-        $this->assertSame(0, Role_cmp($a, new Role('guest')));
+        $this->assertSame(0, Role::compare($a, new Role('guest')));
     }
 
     /**

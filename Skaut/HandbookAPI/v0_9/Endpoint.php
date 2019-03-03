@@ -100,7 +100,7 @@ class Endpoint
         $wrapper = function (Skautis $skautis) use ($data, $func, $self) : array {
             return $func($skautis, $data, $self);
         };
-        $hardCheck = (Role_cmp($role, new Role('user')) > 0);
+        $hardCheck = (Role::compare($role, new Role('user')) > 0);
         $ret = roleTry($wrapper, $hardCheck, $role);
         if (isset($ret)) {
             return $ret;
