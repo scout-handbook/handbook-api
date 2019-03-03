@@ -4,9 +4,13 @@ namespace v0_9;
 require_once('tests/DatabaseTestCase.php');
 
 global $CONFIG;
-require_once('v0.9/internal/Database.php');
 
-class DatabaseTest extends \TestUtils\DatabaseTestCase
+use TestUtils\DatabaseTestCase;
+
+use Skaut\HandbookAPI\v0_9\Database;
+
+/** @SuppressWarnings(PHPMD.TooManyPublicMethods) */
+class DatabaseTest extends DatabaseTestCase
 {
     public function getDump() : string
     {
@@ -14,11 +18,11 @@ class DatabaseTest extends \TestUtils\DatabaseTestCase
     }
 
     /**
-     * @covers HandbookAPI\Database::__destruct()
+     * @covers Skaut\HandbookAPI\v0_9\Database::__destruct()
      */
     public function testDtor() : void
     {
-        $db = new \HandbookAPI\Database();
+        $db = new Database();
         $db->prepare(<<<SQL
 SELECT * from lessons
 SQL
@@ -28,20 +32,20 @@ SQL
     }
 
     /**
-     * @covers HandbookAPI\Database::__construct()
+     * @covers Skaut\HandbookAPI\v0_9\Database::__construct()
      */
-    public function testCtor() : \HandbookAPI\Database
+    public function testCtor() : Database
     {
-        $db = new \HandbookAPI\Database();
-        $this->assertInstanceOf('\HandbookAPI\Database', $db);
+        $db = new Database();
+        $this->assertInstanceOf('\Skaut\HandbookAPI\v0_9\Database', $db);
         return $db;
     }
 
     /**
-     * @covers HandbookAPI\Database::prepare()
+     * @covers Skaut\HandbookAPI\v0_9\Database::prepare()
      * @depends testCtor
      */
-    public function testPrepare(\HandbookAPI\Database $db) : \HandbookAPI\Database
+    public function testPrepare(Database $db) : Database
     {
         $this->assertNull($db->prepare(<<<SQL
 SELECT * FROM lessons
@@ -52,12 +56,12 @@ SQL
     }
 
     /**
-     * @covers HandbookAPI\Database::prepare()
-     * @expectedException HandbookAPI\QueryException
+     * @covers Skaut\HandbookAPI\v0_9\Database::prepare()
+     * @expectedException Skaut\HandbookAPI\v0_9\Exception\QueryException
      * @depends testCtor
      */
     /*
-    public function testPrepareException(\HandbookAPI\Database $db) : void
+    public function testPrepareException(Database $db) : void
     {
         $db->prepare(<<<SQL
 XELECT * FROM lessons
@@ -67,10 +71,10 @@ SQL
     */
 
     /**
-     * @covers HandbookAPI\Database::bindParam()
+     * @covers Skaut\HandbookAPI\v0_9\Database::bindParam()
      * @depends testPrepare
      */
-    public function testBindParam(\HandbookAPI\Database $db) : \HandbookAPI\Database
+    public function testBindParam(Database $db) : Database
     {
         $value = 'Test';
         $this->assertNull($db->bindParam('name', $value, \PDO::PARAM_STR));
@@ -78,49 +82,49 @@ SQL
     }
 
     /**
-     * @covers HandbookAPI\Database::execute()
+     * @covers Skaut\HandbookAPI\v0_9\Database::execute()
      * @depends testBindParam
      */
-    public function testExecute(\HandbookAPI\Database $db) : \HandbookAPI\Database
+    public function testExecute(Database $db) : Database
     {
         $this->assertNull($db->execute());
         return $db;
     }
 
     /**
-     * @covers HandbookAPI\Database::rowCount()
+     * @covers Skaut\HandbookAPI\v0_9\Database::rowCount()
      * @depends testExecute
      */
-    public function testRowCountZero(\HandbookAPI\Database $db) : void
+    public function testRowCountZero(Database $db) : void
     {
         $this->assertSame(0, $db->rowCount());
     }
 
     /**
-     * @covers HandbookAPI\Database::bindColumn()
+     * @covers Skaut\HandbookAPI\v0_9\Database::bindColumn()
      * @depends testExecute
      */
-    public function testBindColumn(\HandbookAPI\Database $db) : void
+    public function testBindColumn(Database $db) : void
     {
         $value;
         $this->assertNull($db->bindColumn('name', $value));
     }
 
     /**
-     * @covers HandbookAPI\Database::fetch()
+     * @covers Skaut\HandbookAPI\v0_9\Database::fetch()
      * @depends testExecute
      */
-    public function testFetchEmpty(\HandbookAPI\Database $db) : void
+    public function testFetchEmpty(Database $db) : void
     {
         $this->assertFalse($db->fetch());
     }
 
     /**
-     * @covers HandbookAPI\Database::execute()
+     * @covers Skaut\HandbookAPI\v0_9\Database::execute()
      * @depends testCtor
-     * @expectedException HandbookAPI\ExecutionException
+     * @expectedException Skaut\HandbookAPI\v0_9\Exception\ExecutionException
      */
-    public function testExecuteException(\HandbookAPI\Database $db) : void
+    public function testExecuteException(Database $db) : void
     {
         $db->prepare(<<<SQL
 XELECT * FROM lessons
@@ -129,7 +133,7 @@ SQL
         $db->execute();
     }
 
-    private function prepareEmpty(\HandbookAPI\Database $db) : void
+    private function prepareEmpty(Database $db) : void
     {
         $db->prepare(<<<SQL
 SELECT * FROM lessons
@@ -139,27 +143,27 @@ SQL
     }
 
     /**
-     * @covers HandbookAPI\Database::fetchRequire()
+     * @covers Skaut\HandbookAPI\v0_9\Database::fetchRequire()
      * @depends testCtor
-     * @expectedException HandbookAPI\NotFoundException
+     * @expectedException Skaut\HandbookAPI\v0_9\Exception\NotFoundException
      */
-    public function testFetchRequireException(\HandbookAPI\Database $db) : void
+    public function testFetchRequireException(Database $db) : void
     {
         $this->prepareEmpty($db);
         $db->fetchRequire('Lesson');
     }
 
     /**
-     * @covers HandbookAPI\Database::fetchAll()
+     * @covers Skaut\HandbookAPI\v0_9\Database::fetchAll()
      * @depends testCtor
      */
-    public function testFetchAllEmpty(\HandbookAPI\Database $db) : void
+    public function testFetchAllEmpty(Database $db) : void
     {
         $this->prepareEmpty($db);
         $this->assertEmpty($db->fetchAll());
     }
 
-    private function prepareNonEmpty(\HandbookAPI\Database $db) : void
+    private function prepareNonEmpty(Database $db) : void
     {
         $db->prepare(<<<SQL
 SELECT * FROM users
@@ -170,10 +174,10 @@ SQL
     }
 
     /**
-     * @covers HandbookAPI\Database::rowCount()
+     * @covers Skaut\HandbookAPI\v0_9\Database::rowCount()
      * @depends testCtor
      */
-    public function testRowCountNonZero(\HandbookAPI\Database $db) : \HandbookAPI\Database
+    public function testRowCountNonZero(Database $db) : Database
     {
         $this->prepareNonEmpty($db);
         $this->assertSame(4, $db->rowCount());
@@ -181,29 +185,29 @@ SQL
     }
 
     /**
-     * @covers HandbookAPI\Database::fetch()
+     * @covers Skaut\HandbookAPI\v0_9\Database::fetch()
      * @depends testRowCountNonZero
      */
-    public function testFetchNonEmpty(\HandbookAPI\Database $db) : void
+    public function testFetchNonEmpty(Database $db) : void
     {
         $this->assertTrue($db->fetch());
     }
 
     /**
-     * @covers HandbookAPI\Database::fetchRequire()
+     * @covers Skaut\HandbookAPI\v0_9\Database::fetchRequire()
      * @depends testCtor
      */
-    public function testFetchRequireOk(\HandbookAPI\Database $db) : void
+    public function testFetchRequireOk(Database $db) : void
     {
         $this->prepareNonEmpty($db);
         $this->assertNull($db->fetchRequire('User'));
     }
 
     /**
-     * @covers HandbookAPI\Database::fetchAll()
+     * @covers Skaut\HandbookAPI\v0_9\Database::fetchAll()
      * @depends testCtor
      */
-    public function testFetchAllNonEmpty(\HandbookAPI\Database $db) : void
+    public function testFetchAllNonEmpty(Database $db) : void
     {
         $this->prepareNonEmpty($db);
         $this->assertSame(
@@ -218,30 +222,30 @@ SQL
     }
 
     /**
-     * @covers HandbookAPI\Database::endTransaction()
+     * @covers Skaut\HandbookAPI\v0_9\Database::endTransaction()
      * @depends testCtor
-     * @expectedException HandbookAPI\ConnectionException
+     * @expectedException Skaut\HandbookAPI\v0_9\Exception\ConnectionException
      */
-    public function testEndNonexistentTransaction(\HandbookAPI\Database $db) : void
+    public function testEndNonexistentTransaction(Database $db) : void
     {
         $this->assertNull($db->endTransaction());
     }
 
     /**
-     * @covers HandbookAPI\Database::beginTransaction()
+     * @covers Skaut\HandbookAPI\v0_9\Database::beginTransaction()
      * @depends testCtor
      */
-    public function testBeginTransaction(\HandbookAPI\Database $db) : \HandbookAPI\Database
+    public function testBeginTransaction(Database $db) : Database
     {
         $this->assertNull($db->beginTransaction());
         return $db;
     }
 
     /**
-     * @covers HandbookAPI\Database::endTransaction()
+     * @covers Skaut\HandbookAPI\v0_9\Database::endTransaction()
      * @depends testBeginTransaction
      */
-    public function testEndTransaction(\HandbookAPI\Database $db) : void
+    public function testEndTransaction(Database $db) : void
     {
         $this->assertNull($db->endTransaction());
     }

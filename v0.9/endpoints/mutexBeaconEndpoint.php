@@ -1,16 +1,16 @@
 <?php declare(strict_types=1);
 @_API_EXEC === 1 or die('Restricted access.');
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
-require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Database.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Endpoint.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Helper.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
+use Skautis\Skautis;
 
-$mutexBeaconEndpoint = new HandbookAPI\Endpoint();
+use Skaut\HandbookAPI\v0_9\Database;
+use Skaut\HandbookAPI\v0_9\Endpoint;
+use Skaut\HandbookAPI\v0_9\Helper;
+use Skaut\HandbookAPI\v0_9\Role;
 
-$releaseBeaconMutex = function (Skautis\Skautis $skautis, array $data) : void {
+$mutexBeaconEndpoint = new Endpoint();
+
+$releaseBeaconMutex = function (Skautis $skautis, array $data) : void {
     $selectSQL = <<<SQL
 SELECT 1
 FROM mutexes
@@ -22,10 +22,10 @@ WHERE id = :id AND holder = :holder;
 SQL;
 
     try {
-        $id = HandbookAPI\Helper::parseUuid($data['id'], 'resource')->getBytes();
+        $id = Helper::parseUuid($data['id'], 'resource')->getBytes();
         $userId = $skautis->UserManagement->LoginDetail()->ID_Person;
 
-        $db = new HandbookAPI\Database();
+        $db = new Database();
         $db->beginTransaction();
 
         $db->prepare($selectSQL);
@@ -45,4 +45,4 @@ SQL;
     }
     die();
 };
-$mutexBeaconEndpoint->setAddMethod(new HandbookAPI\Role('editor'), $releaseBeaconMutex);
+$mutexBeaconEndpoint->setAddMethod(new Role('editor'), $releaseBeaconMutex);

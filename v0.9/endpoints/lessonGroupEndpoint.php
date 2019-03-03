@@ -1,26 +1,25 @@
 <?php declare(strict_types=1);
 @_API_EXEC === 1 or die('Restricted access.');
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
-require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Database.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Endpoint.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Helper.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
-
 use Ramsey\Uuid\Uuid;
+use Skautis\Skautis;
 
-$lessonGroupEndpoint = new HandbookAPI\Endpoint();
+use Skaut\HandbookAPI\v0_9\Database;
+use Skaut\HandbookAPI\v0_9\Endpoint;
+use Skaut\HandbookAPI\v0_9\Helper;
+use Skaut\HandbookAPI\v0_9\Role;
 
-$listLessonGroups = function (Skautis\Skautis $skautis, array $data) : array {
+$lessonGroupEndpoint = new Endpoint();
+
+$listLessonGroups = function (Skautis $skautis, array $data) : array {
     $SQL = <<<SQL
 SELECT group_id FROM groups_for_lessons
 WHERE lesson_id = :lesson_id;
 SQL;
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->prepare($SQL);
-    $id = HandbookAPI\Helper::parseUuid($data['parent-id'], 'lesson')->getBytes();
+    $id = Helper::parseUuid($data['parent-id'], 'lesson')->getBytes();
     $db->bindParam(':lesson_id', $id, PDO::PARAM_STR);
     $db->execute();
     $groups = [];
@@ -31,9 +30,9 @@ SQL;
     }
     return ['status' => 200, 'response' => $groups];
 };
-$lessonGroupEndpoint->setListMethod(new HandbookAPI\Role('editor'), $listLessonGroups);
+$lessonGroupEndpoint->setListMethod(new Role('editor'), $listLessonGroups);
 
-$updateLessonGroups = function (Skautis\Skautis $skautis, array $data) : array {
+$updateLessonGroups = function (Skautis $skautis, array $data) : array {
     $deleteSQL = <<<SQL
 DELETE FROM groups_for_lessons
 WHERE lesson_id = :lesson_id;
@@ -43,15 +42,15 @@ INSERT INTO groups_for_lessons (lesson_id, group_id)
 VALUES (:lesson_id, :group_id);
 SQL;
 
-    $id = HandbookAPI\Helper::parseUuid($data['parent-id'], 'lesson')->getBytes();
+    $id = Helper::parseUuid($data['parent-id'], 'lesson')->getBytes();
     $groups = [];
     if (isset($data['group'])) {
         foreach ($data['group'] as $group) {
-            $groups[] = HandbookAPI\Helper::parseUuid($group, 'group')->getBytes();
+            $groups[] = Helper::parseUuid($group, 'group')->getBytes();
         }
     }
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->beginTransaction();
 
     $db->prepare($deleteSQL);
@@ -67,4 +66,4 @@ SQL;
     $db->endTransaction();
     return ['status' => 200];
 };
-$lessonGroupEndpoint->setUpdateMethod(new HandbookAPI\Role('editor'), $updateLessonGroups);
+$lessonGroupEndpoint->setUpdateMethod(new Role('editor'), $updateLessonGroups);

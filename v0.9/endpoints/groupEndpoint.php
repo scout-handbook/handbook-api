@@ -1,21 +1,19 @@
 <?php declare(strict_types=1);
 @_API_EXEC === 1 or die('Restricted access.');
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
-require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Database.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Endpoint.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Group.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Helper.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
-
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/MissingArgumentException.php');
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/NotFoundException.php');
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/RefusedException.php');
-
 use Ramsey\Uuid\Uuid;
+use Skautis\Skautis;
 
-$groupEndpoint = new HandbookAPI\Endpoint();
+use Skaut\HandbookAPI\v0_9\Database;
+use Skaut\HandbookAPI\v0_9\Endpoint;
+use Skaut\HandbookAPI\v0_9\Group;
+use Skaut\HandbookAPI\v0_9\Helper;
+use Skaut\HandbookAPI\v0_9\Role;
+use Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException;
+use Skaut\HandbookAPI\v0_9\Exception\NotFoundException;
+use Skaut\HandbookAPI\v0_9\Exception\RefusedException;
+
+$groupEndpoint = new Endpoint();
 
 $listGroups = function () : array {
     $selectSQL = <<<SQL
@@ -27,7 +25,7 @@ SELECT COUNT(*) FROM users_in_groups
 WHERE group_id = :group_id;
 SQL;
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->prepare($selectSQL);
     $db->execute();
     $id = '';
@@ -36,41 +34,41 @@ SQL;
     $db->bindColumn('name', $name);
     $groups = [];
     while ($db->fetch()) {
-        $db2 = new HandbookAPI\Database();
+        $db2 = new Database();
         $db2->prepare($countSQL);
         $db2->bindParam(':group_id', $id, PDO::PARAM_STR);
         $db2->execute();
         $count = '';
         $db2->bindColumn(1, $count);
         $db2->fetchRequire('group');
-        $groups[] = new HandbookAPI\Group($id, strval($name), intval($count));
+        $groups[] = new Group($id, strval($name), intval($count));
     }
     return ['status' => 200, 'response' => $groups];
 };
-$groupEndpoint->setListMethod(new HandbookAPI\Role('editor'), $listGroups);
+$groupEndpoint->setListMethod(new Role('editor'), $listGroups);
 
-$addGroup = function (Skautis\Skautis $skautis, array $data) : array {
+$addGroup = function (Skautis $skautis, array $data) : array {
     $SQL = <<<SQL
 INSERT INTO groups (id, name)
 VALUES (:id, :name);
 SQL;
 
     if (!isset($data['name'])) {
-        throw new HandbookAPI\MissingArgumentException(HandbookAPI\MissingArgumentException::POST, 'name');
+        throw new MissingArgumentException(MissingArgumentException::POST, 'name');
     }
     $name = $data['name'];
     $uuid = Uuid::uuid4()->getBytes();
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->prepare($SQL);
     $db->bindParam(':id', $uuid, PDO::PARAM_STR);
     $db->bindParam(':name', $name, PDO::PARAM_STR);
     $db->execute();
     return ['status' => 201];
 };
-$groupEndpoint->setAddMethod(new HandbookAPI\Role('administrator'), $addGroup);
+$groupEndpoint->setAddMethod(new Role('administrator'), $addGroup);
 
-$updateGroup = function (Skautis\Skautis $skautis, array $data) : array {
+$updateGroup = function (Skautis $skautis, array $data) : array {
     $updateSQL = <<<SQL
 UPDATE groups
 SET name = :name
@@ -78,13 +76,13 @@ WHERE id = :id
 LIMIT 1;
 SQL;
 
-    $id = HandbookAPI\Helper::parseUuid($data['id'], 'group')->getBytes();
+    $id = Helper::parseUuid($data['id'], 'group')->getBytes();
     if (!isset($data['name'])) {
-        throw new HandbookAPI\MissingArgumentException(HandbookAPI\MissingArgumentException::POST, 'name');
+        throw new MissingArgumentException(MissingArgumentException::POST, 'name');
     }
     $name = $data['name'];
     
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->beginTransaction();
 
     $db->prepare($updateSQL);
@@ -93,15 +91,15 @@ SQL;
     $db->execute();
 
     if ($db->rowCount() != 1) {
-        throw new HandbookAPI\NotFoundException("group");
+        throw new NotFoundException("group");
     }
 
     $db->endTransaction();
     return ['status' => 200];
 };
-$groupEndpoint->setUpdateMethod(new HandbookAPI\Role('administrator'), $updateGroup);
+$groupEndpoint->setUpdateMethod(new Role('administrator'), $updateGroup);
 
-$deleteGroup = function (Skautis\Skautis $skautis, array $data) : array {
+$deleteGroup = function (Skautis $skautis, array $data) : array {
     $deleteLessonsSQL = <<<SQL
 DELETE FROM groups_for_lessons
 WHERE group_id = :group_id;
@@ -116,13 +114,13 @@ WHERE id = :id
 LIMIT 1;
 SQL;
     
-    $id = HandbookAPI\Helper::parseUuid($data['id'], 'group');
+    $id = Helper::parseUuid($data['id'], 'group');
     if ($id == Uuid::fromString('00000000-0000-0000-0000-000000000000')) {
-        throw new HandbookAPI\RefusedException();
+        throw new RefusedException();
     }
     $id = $id->getBytes();
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->beginTransaction();
 
     $db->prepare($deleteLessonsSQL);
@@ -138,10 +136,10 @@ SQL;
     $db->execute();
 
     if ($db->rowCount() != 1) {
-        throw new HandbookAPI\NotFoundException("group");
+        throw new NotFoundException("group");
     }
 
     $db->endTransaction();
     return ['status' => 200];
 };
-$groupEndpoint->setDeleteMethod(new HandbookAPI\Role('administrator'), $deleteGroup);
+$groupEndpoint->setDeleteMethod(new Role('administrator'), $deleteGroup);

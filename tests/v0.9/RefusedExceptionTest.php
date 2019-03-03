@@ -2,25 +2,28 @@
 namespace v0_9;
 
 global $CONFIG;
-require_once('v0.9/internal/exceptions/RefusedException.php');
 
-class RefusedExceptionTest extends \PHPUnit\Framework\TestCase
+use PHPUnit\Framework\TestCase;
+
+use Skaut\HandbookAPI\v0_9\Exception\RefusedException;
+
+class RefusedExceptionTest extends TestCase
 {
     /**
-     * @covers HandbookAPI\RefusedException::__construct()
+     * @covers Skaut\HandbookAPI\v0_9\Exception\RefusedException::__construct()
      */
-    public function testCtor() : \HandbookAPI\RefusedException
+    public function testCtor() : RefusedException
     {
-        $e = new \HandbookAPI\RefusedException();
-        $this->assertInstanceOf('\HandbookAPI\RefusedException', $e);
+        $e = new RefusedException();
+        $this->assertInstanceOf('\Skaut\HandbookAPI\v0_9\Exception\RefusedException', $e);
         return $e;
     }
 
     /**
-     * @covers HandbookAPI\RefusedException::handle()
+     * @covers Skaut\HandbookAPI\v0_9\Exception\RefusedException::handle()
      * @depends testCtor
      */
-    public function testHandle(\HandbookAPI\RefusedException $e) : void
+    public function testHandle(RefusedException $e) : void
     {
         $this->assertSame(
             ['status' => 403, 'type' => 'RefusedException', 'message' => 'Operation has been refused by the server.'],

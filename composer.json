@@ -31,9 +31,14 @@
 		"phpunit/dbunit": "^4.0",
 		"phpcompatibility/php-compatibility": "^9.0"
 	},
+	"autoload": {
+		"psr-4": {
+			"Skaut\\": "Skaut/"
+		}
+	},
 	"scripts": {
 		"phpcs": "vendor/bin/phpcs",
-		"phpmd": "vendor/bin/phpmd --ignore-violations-on-exit v0.9 text phpmd.xml",
+		"phpmd": "vendor/bin/phpmd ./ text phpmd.xml --ignore-violations-on-exit --exclude vendor",
 		"phpunit": "vendor/bin/phpunit",
 		"lint": [
 			"@phpcs",
