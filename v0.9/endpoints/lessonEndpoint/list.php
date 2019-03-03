@@ -4,7 +4,6 @@
 use Ramsey\Uuid\Uuid;
 use Skautis\Skautis;
 
-use function Skaut\HandbookAPI\v0_9\LessonContainer_cmp;
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Field;
 use Skaut\HandbookAPI\v0_9\Lesson;
@@ -102,6 +101,6 @@ SQL;
         // Sort the lessons in the newly-created Field - sorts by lowest competence low-to-high
         usort(end($fields)->lessons, 'Skaut\HandbookAPI\v0_9\Lesson::compare');
     }
-    usort($fields, 'Skaut\HandbookAPI\v0_9\LessonContainer_cmp'); // Sort all the Fields by their lowest competence
+    usort($fields, 'Skaut\HandbookAPI\v0_9\LessonContainer::compare'); // Sort all the Fields by their lowest competence
     return ['status' => 200, 'response' => $fields];
 };
