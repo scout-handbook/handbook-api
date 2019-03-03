@@ -8,7 +8,6 @@ require_once($CONFIG->basepath . '/v0.9/endpoints/userGroupEndpoint.php');
 
 use Skautis\Skautis;
 
-use function Skaut\HandbookAPI\v0_9\getRole;
 use function Skaut\HandbookAPI\v0_9\Role_cmp;
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
@@ -26,7 +25,7 @@ $userEndpoint->addSubEndpoint('group', $userGroupEndpoint);
 
 function constructSelectSQL(Skautis $skautis, bool $roleSelect, bool $groupSelect) : string
 {
-    $role = getRole($skautis->UserManagement->LoginDetail()->ID_Person);
+    $role = Role::get($skautis->UserManagement->LoginDetail()->ID_Person);
 
     $innerSQL = '';
     if (Role_cmp($role, new Role('administrator')) >= 0) {

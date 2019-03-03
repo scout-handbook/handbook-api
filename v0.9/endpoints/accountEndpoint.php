@@ -8,7 +8,6 @@ require_once($CONFIG->basepath . '/v0.9/endpoints/userEndpoint.php');
 use Ramsey\Uuid\Uuid;
 use Skautis\Skautis;
 
-use function Skaut\HandbookAPI\v0_9\getRole;
 use function Skaut\HandbookAPI\v0_9\skautisTry;
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
@@ -28,7 +27,7 @@ SQL;
         $response = [];
         $loginDetail = $skautis->UserManagement->LoginDetail();
         $response['name'] = $loginDetail->Person;
-        $response['role'] = getRole($loginDetail->ID_Person);
+        $response['role'] = Role::get($loginDetail->ID_Person);
         $response['groups'] = [];
 
         $db = new Database();

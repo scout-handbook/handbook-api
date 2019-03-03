@@ -3,7 +3,6 @@
 
 use Skautis\Skautis;
 
-use function Skaut\HandbookAPI\v0_9\getRole;
 use function Skaut\HandbookAPI\v0_9\Role_cmp;
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
@@ -51,7 +50,7 @@ SQL;
         }
     }
 
-    $my_role = getRole($skautis->UserManagement->LoginDetail()->ID_Person);
+    $my_role = Role::get($skautis->UserManagement->LoginDetail()->ID_Person);
 
     $db = new Database();
     $db->beginTransaction();

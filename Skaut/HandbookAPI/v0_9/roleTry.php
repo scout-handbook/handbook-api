@@ -5,6 +5,7 @@ namespace Skaut\HandbookAPI\v0_9;
 
 use \Skautis\Skautis;
 
+use Skaut\HandbookAPI\v0_9\Role;
 use Skaut\HandbookAPI\v0_9\Exception\RoleException;
 
 function roleTry(callable $callback, bool $hardCheck, Role $requiredRole)
@@ -18,7 +19,7 @@ function roleTry(callable $callback, bool $hardCheck, Role $requiredRole)
         return skautisTry($callback, $hardCheck);
     }
     $safeCallback = function (Skautis $skautis) use ($callback, $requiredRole) {
-        $role = getRole($skautis->UserManagement->LoginDetail()->ID_Person);
+        $role = Role::get($skautis->UserManagement->LoginDetail()->ID_Person);
         if (Role_cmp($role, $requiredRole) >= 0) {
             return $callback($skautis);
         } else {
