@@ -9,6 +9,12 @@ use TestUtils\DatabaseTestCase;
 
 use Skaut\HandbookAPI\v0_9\Role;
 
+/**
+ * @SuppressWarnings(PHPMD.ExcessivePublicCount)
+ * @SuppressWarnings(PHPMD.TooManyMethods)
+ * @SuppressWarnings(PHPMD.TooManyPublicMethods)
+ * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
+ */
 class RoleTest extends DatabaseTestCase
 {
     public function getDump() : string
