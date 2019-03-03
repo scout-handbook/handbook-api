@@ -35,4 +35,22 @@ class Lesson implements \JsonSerializable
             'competences' => $ucomp
         ];
     }
+
+    // Lesson comparison function used in usort. Assumes that both Lessons have their competences field sorted low-to-high.
+    public static function compare(Lesson $first, Lesson $second) : int
+    {
+        if (empty($first->competences)) {
+            if (empty($second->competences)) {
+                return 0;
+            }
+            return -1;
+        }
+        if (empty($second->competences)) {
+            return 1;
+        }
+        if ($first->lowestCompetence === $second->lowestCompetence) {
+            return 0;
+        }
+        return ($first->lowestCompetence < $second->lowestCompetence) ? -1 : 1;
+    }
 }

@@ -5,7 +5,6 @@ namespace Skaut\HandbookAPI\v0_9;
 
 use \Skautis\Skautis;
 
-use Skaut\HandbookAPI\v0_9\Role;
 use Skaut\HandbookAPI\v0_9\Exception\RoleException;
 
 function roleTry(callable $callback, bool $hardCheck, Role $requiredRole)

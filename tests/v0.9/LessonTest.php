@@ -5,7 +5,6 @@ global $CONFIG;
 
 use PHPUnit\Framework\TestCase;
 
-use function Skaut\HandbookAPI\v0_9\Lesson_cmp;
 use Skaut\HandbookAPI\v0_9\Competence;
 use Skaut\HandbookAPI\v0_9\Lesson;
 
@@ -57,39 +56,39 @@ class LessonTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Lesson_cmp
+     * @covers Skaut\HandbookAPI\v0_9\Lesson::compare()
      */
     public function testCompareLessonBothEmpty() : void
     {
         $a = new Lesson(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'lname', 123.4567);
         $b = new Lesson(pack('H*', '1739a63aa2542a959508103b7c80bcdb'), 'lname', 123.4567);
-        $this->assertSame(0, Lesson_cmp($a, $b));
+        $this->assertSame(0, Lesson::compare($a, $b));
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Lesson_cmp
+     * @covers Skaut\HandbookAPI\v0_9\Lesson::compare()
      */
     public function testCompareLessonFirstEmpty() : void
     {
         $a = new Lesson(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'lname', 123.4567);
         $b = new Lesson(pack('H*', '1739a63aa2542a959508103b7c80bcdb'), 'lname', 123.4567);
         $b->competences[] = pack('H*', '1739a63ab2544a959508103b7080bcdb');
-        $this->assertSame(-1, Lesson_cmp($a, $b));
+        $this->assertSame(-1, Lesson::compare($a, $b));
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Lesson_cmp
+     * @covers Skaut\HandbookAPI\v0_9\Lesson::compare()
      */
     public function testCompareLessonSecondEmpty() : void
     {
         $a = new Lesson(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'lname', 123.4567);
         $b = new Lesson(pack('H*', '1739a63aa2542a959508103b7c80bcdb'), 'lname', 123.4567);
         $a->competences[] = pack('H*', '1739a63ab2544a959508103b7080bcdb');
-        $this->assertSame(1, Lesson_cmp($a, $b));
+        $this->assertSame(1, Lesson::compare($a, $b));
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Lesson_cmp
+     * @covers Skaut\HandbookAPI\v0_9\Lesson::compare()
      */
     public function testCompareLessonFirstLower() : void
     {
@@ -99,11 +98,11 @@ class LessonTest extends TestCase
         $b->competences[] = pack('H*', '2739a63ab2544a959508103b7080bcdb');
         $a->lowestCompetence = 1;
         $b->lowestCompetence = 2;
-        $this->assertSame(-1, Lesson_cmp($a, $b));
+        $this->assertSame(-1, Lesson::compare($a, $b));
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Lesson_cmp
+     * @covers Skaut\HandbookAPI\v0_9\Lesson::compare()
      */
     public function testCompareLessonSecondLower() : void
     {
@@ -113,11 +112,11 @@ class LessonTest extends TestCase
         $b->competences[] = pack('H*', '2739a63ab2544a959508103b7080bcdb');
         $a->lowestCompetence = 2;
         $b->lowestCompetence = 1;
-        $this->assertSame(1, Lesson_cmp($a, $b));
+        $this->assertSame(1, Lesson::compare($a, $b));
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Lesson_cmp
+     * @covers Skaut\HandbookAPI\v0_9\Lesson::compare()
      */
     public function testCompareLessonBothSame() : void
     {
@@ -127,11 +126,11 @@ class LessonTest extends TestCase
         $b->competences[] = pack('H*', '2739a63ab2544a959508103b7080bcdb');
         $a->lowestCompetence = 1;
         $b->lowestCompetence = 1;
-        $this->assertSame(0, Lesson_cmp($a, $b));
+        $this->assertSame(0, Lesson::compare($a, $b));
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Lesson_cmp
+     * @covers Skaut\HandbookAPI\v0_9\Lesson::compare()
      */
     public function testCompareLessonBothEmptyAndUndefined() : void
     {
@@ -139,6 +138,6 @@ class LessonTest extends TestCase
         $b = new Lesson(pack('H*', '1739a63aa2542a959508103b7c80bcdb'), 'lname', 123.4567);
         $a->competences[] = pack('H*', '1739a63ab2544a959508103b7080bcdb');
         $b->competences[] = pack('H*', '2739a63ab2544a959508103b7080bcdb');
-        $this->assertSame(0, Lesson_cmp($a, $b));
+        $this->assertSame(0, Lesson::compare($a, $b));
     }
 }
