@@ -7,7 +7,6 @@ global $CONFIG;
 
 use TestUtils\DatabaseTestCase;
 
-use function Skaut\HandbookAPI\v0_9\getRole;
 use function Skaut\HandbookAPI\v0_9\Role_cmp;
 use Skaut\HandbookAPI\v0_9\Role;
 
@@ -460,41 +459,41 @@ class RoleTest extends DatabaseTestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\getRole
+     * @covers Skaut\HandbookAPI\v0_9\Role::get()
      */
     public function testGetRoleSuperuser() : void
     {
-        $role = getRole(125099);
+        $role = Role::get(125099);
         $this->assertInstanceOf('\Skaut\HandbookAPI\v0_9\Role', $role);
         $this->assertSame('superuser', $role->__toString());
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\getRole
+     * @covers Skaut\HandbookAPI\v0_9\Role::get()
      */
     public function testGetRoleAdministrator() : void
     {
-        $role = getRole(125098);
+        $role = Role::get(125098);
         $this->assertInstanceOf('\Skaut\HandbookAPI\v0_9\Role', $role);
         $this->assertSame('administrator', $role->__toString());
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\getRole
+     * @covers Skaut\HandbookAPI\v0_9\Role::get()
      */
     public function testGetRoleEditor() : void
     {
-        $role = getRole(125097);
+        $role = Role::get(125097);
         $this->assertInstanceOf('\Skaut\HandbookAPI\v0_9\Role', $role);
         $this->assertSame('editor', $role->__toString());
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\getRole
+     * @covers Skaut\HandbookAPI\v0_9\Role::get()
      */
     public function testGetRoleUser() : void
     {
-        $role = getRole(125096);
+        $role = Role::get(125096);
         $this->assertInstanceOf('\Skaut\HandbookAPI\v0_9\Role', $role);
         $this->assertSame('user', $role->__toString());
     }

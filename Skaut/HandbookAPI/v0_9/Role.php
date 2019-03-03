@@ -54,4 +54,22 @@ class Role implements \JsonSerializable
     {
         return $this->__toString();
     }
+
+    public static function get(int $idPerson) : Role
+    {
+        $SQL = <<<SQL
+SELECT role
+FROM users
+WHERE id = :id;
+SQL;
+
+        $db = new Database();
+        $db->prepare($SQL);
+        $db->bindParam(':id', $idPerson, \PDO::PARAM_INT);
+        $db->execute();
+        $role = '';
+        $db->bindColumn('role', $role);
+        $db->fetchRequire('user');
+        return new Role(strval($role));
+    }
 }
