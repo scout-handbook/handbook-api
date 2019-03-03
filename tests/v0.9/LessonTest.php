@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Skaut\HandbookAPI\v0_9\Competence;
 use Skaut\HandbookAPI\v0_9\Lesson;
 
+/** @SuppressWarnings(PHPMD.TooManyPublicMethods) */
 class LessonTest extends TestCase
 {
     /**

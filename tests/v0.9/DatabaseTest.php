@@ -9,6 +9,7 @@ use TestUtils\DatabaseTestCase;
 
 use Skaut\HandbookAPI\v0_9\Database;
 
+/** @SuppressWarnings(PHPMD.TooManyPublicMethods) */
 class DatabaseTest extends DatabaseTestCase
 {
     public function getDump() : string

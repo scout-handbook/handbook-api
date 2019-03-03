@@ -11,6 +11,7 @@ use TestUtils\PhpInputStream;
 use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\Role;
 
+/** @SuppressWarnings(PHPMD.TooManyPublicMethods) */
 class EndpointTest extends TestCase
 {
     /**

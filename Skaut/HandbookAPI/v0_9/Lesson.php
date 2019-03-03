@@ -36,7 +36,8 @@ class Lesson implements \JsonSerializable
         ];
     }
 
-    // Lesson comparison function used in usort. Assumes that both Lessons have their competences field sorted low-to-high.
+    // Lesson comparison function used in usort.
+    // Assumes that both Lessons have their competences field sorted low-to-high.
     public static function compare(Lesson $first, Lesson $second) : int
     {
         if (empty($first->competences)) {
