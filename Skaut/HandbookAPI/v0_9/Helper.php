@@ -4,8 +4,10 @@ namespace Skaut\HandbookAPI\v0_9;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Ramsey\Uuid\Exception\InvalidUuidStringException;
+use Skautis\Skautis;
 
 use Skaut\HandbookAPI\v0_9\Exception\NotFoundException;
+use Skaut\HandbookAPI\v0_9\Exception\RoleException;
 
 @_API_EXEC === 1 or die('Restricted access.');
 
@@ -23,6 +25,27 @@ class Helper // Helper functions
     public static function xssSanitize(string $input) : string
     {
         return htmlspecialchars($input, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+    }
+
+    public static function roleTry(callable $callback, bool $hardCheck, Role $requiredRole)
+    {
+        $_API_SECRETS_EXEC = 1;
+        $SECRETS = require($_SERVER['DOCUMENT_ROOT'] . '/api-secrets.php');
+        if (Role::compare($requiredRole, new Role('guest')) === 0) {
+            return $callback(Skautis::getInstance($SECRETS->skautis_app_id, $SECRETS->skautis_test_mode));
+        }
+        if (Role::compare($requiredRole, new Role('user')) === 0) {
+            return skautisTry($callback, $hardCheck);
+        }
+        $safeCallback = function (Skautis $skautis) use ($callback, $requiredRole) {
+            $role = Role::get($skautis->UserManagement->LoginDetail()->ID_Person);
+            if (Role::compare($role, $requiredRole) >= 0) {
+                return $callback($skautis);
+            } else {
+                throw new RoleException();
+            }
+        };
+        return skautisTry($safeCallback, $hardCheck);
     }
 
     /** @SuppressWarnings(PHPMD.ExcessiveMethodLength) */
