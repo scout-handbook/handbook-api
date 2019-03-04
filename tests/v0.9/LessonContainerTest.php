@@ -2,109 +2,112 @@
 namespace v0_9;
 
 global $CONFIG;
-require_once('v0.9/internal/LessonContainer.php');
-require_once('v0.9/internal/Field.php');
-require_once('v0.9/internal/Lesson.php');
 
-class LessonContainerTest extends \PHPUnit\Framework\TestCase
+use PHPUnit\Framework\TestCase;
+
+use Skaut\HandbookAPI\v0_9\Field;
+use Skaut\HandbookAPI\v0_9\Lesson;
+use Skaut\HandbookAPI\v0_9\LessonContainer;
+
+class LessonContainerTest extends TestCase
 {
     /**
-     * @covers HandbookAPI\LessonContainer::__construct()
+     * @covers Skaut\HandbookAPI\v0_9\LessonContainer::__construct()
      */
-    public function testCtor() : \HandbookAPI\LessonContainer
+    public function testCtor() : LessonContainer
     {
-        $lessonContainer = new \HandbookAPI\LessonContainer();
-        $this->assertInstanceOf('\HandbookAPI\LessonContainer', $lessonContainer);
+        $lessonContainer = new LessonContainer();
+        $this->assertInstanceOf('\Skaut\HandbookAPI\v0_9\LessonContainer', $lessonContainer);
         return $lessonContainer;
     }
 
     /**
-     * @covers HandbookAPI\LessonContainer_cmp
+     * @covers Skaut\HandbookAPI\v0_9\LessonContainer::compare()
      * @depends testCtor
      */
-    public function testCompareLessonContainerAndField(\HandbookAPI\LessonContainer $lessonContainer) : void
+    public function testCompareLessonContainerAndField(LessonContainer $lessonContainer) : void
     {
         $this->assertSame(
             -1,
-            \HandbookAPI\LessonContainer_cmp(
+            LessonContainer::compare(
                 $lessonContainer,
-                new \HandbookAPI\Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'fname')
+                new Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'fname')
             )
         );
     }
 
     /**
-     * @covers HandbookAPI\LessonContainer_cmp
+     * @covers Skaut\HandbookAPI\v0_9\LessonContainer::compare()
      * @depends testCtor
      */
-    public function testCompareFieldAndLessonContainer(\HandbookAPI\LessonContainer $lessonContainer) : void
+    public function testCompareFieldAndLessonContainer(LessonContainer $lessonContainer) : void
     {
         $this->assertSame(
             1,
-            \HandbookAPI\LessonContainer_cmp(
-                new \HandbookAPI\Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'fname'),
+            LessonContainer::compare(
+                new Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'fname'),
                 $lessonContainer
             )
         );
     }
 
     /**
-     * @covers HandbookAPI\LessonContainer_cmp
+     * @covers Skaut\HandbookAPI\v0_9\LessonContainer::compare()
      * @depends testCtor
      */
-    public function testCompareLessonContainerAndLessonContainer(\HandbookAPI\LessonContainer $lessonContainer) : void
+    public function testCompareLessonContainerAndLessonContainer(LessonContainer $lessonContainer) : void
     {
         $this->assertSame(
             0,
-            \HandbookAPI\LessonContainer_cmp(
+            LessonContainer::compare(
                 $lessonContainer,
-                new \HandbookAPI\LessonContainer()
+                new LessonContainer()
             )
         );
     }
 
     /**
-     * @covers HandbookAPI\LessonContainer_cmp
+     * @covers Skaut\HandbookAPI\v0_9\LessonContainer::compare()
      */
     public function testCompareLessonContainerBothEmpty() : void
     {
-        $a = new \HandbookAPI\Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'aname');
-        $b = new \HandbookAPI\Field(pack('H*', '1739a63ab2544a959508103b7c80bcdb'), 'bname');
-        $this->assertSame(0, \HandbookAPI\LessonContainer_cmp($a, $b));
+        $a = new Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'aname');
+        $b = new Field(pack('H*', '1739a63ab2544a959508103b7c80bcdb'), 'bname');
+        $this->assertSame(0, LessonContainer::compare($a, $b));
     }
 
     /**
-     * @covers HandbookAPI\LessonContainer_cmp
+     * @covers Skaut\HandbookAPI\v0_9\LessonContainer::compare()
      */
     public function testCompareLessonContainerFirstEmpty() : void
     {
-        $a = new \HandbookAPI\Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'aname');
-        $b = new \HandbookAPI\Field(pack('H*', '1739a63ab2544a959508103b7c80bcdb'), 'bname');
-        $b->lessons[] = new \HandbookAPI\Lesson(pack('H*', '1739063ab2544a959508103b7c80bcdb'), 'blname', 123);
-        $this->assertSame(-1, \HandbookAPI\LessonContainer_cmp($a, $b));
+        $a = new Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'aname');
+        $b = new Field(pack('H*', '1739a63ab2544a959508103b7c80bcdb'), 'bname');
+        $b->lessons[] = new Lesson(pack('H*', '1739063ab2544a959508103b7c80bcdb'), 'blname', 123);
+        $this->assertSame(-1, LessonContainer::compare($a, $b));
     }
 
     /**
-     * @covers HandbookAPI\LessonContainer_cmp
+     * @covers Skaut\HandbookAPI\v0_9\LessonContainer::compare()
      */
     public function testCompareLessonContainerSecondEmpty() : void
     {
-        $a = new \HandbookAPI\Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'aname');
-        $b = new \HandbookAPI\Field(pack('H*', '1739a63ab2544a959508103b7c80bcdb'), 'bname');
-        $a->lessons[] = new \HandbookAPI\Lesson(pack('H*', '1739063ab2544a959508103b7c80bcdb'), 'alname', 123);
-        $this->assertSame(1, \HandbookAPI\LessonContainer_cmp($a, $b));
+        $a = new Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'aname');
+        $b = new Field(pack('H*', '1739a63ab2544a959508103b7c80bcdb'), 'bname');
+        $a->lessons[] = new Lesson(pack('H*', '1739063ab2544a959508103b7c80bcdb'), 'alname', 123);
+        $this->assertSame(1, LessonContainer::compare($a, $b));
     }
 
 
     /**
-     * @covers HandbookAPI\LessonContainer_cmp
+     * @covers Skaut\HandbookAPI\v0_9\LessonContainer::compare()
      */
     public function testCompareLessonContainerNoneEmpty() : void
     {
-        $a = new \HandbookAPI\Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'aname');
-        $b = new \HandbookAPI\Field(pack('H*', '1739a63ab2544a959508103b7c80bcdb'), 'bname');
-        $a->lessons[] = new \HandbookAPI\Lesson(pack('H*', '1739063ab2544a959508103b7c80bcdb'), 'alname', 123);
-        $b->lessons[] = new \HandbookAPI\Lesson(pack('H*', '1735063ab2544a959508103b7c80bcdb'), 'blname', 456);
-        $this->assertSame(0, \HandbookAPI\LessonContainer_cmp($a, $b));
+        $a = new Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'aname');
+        $b = new Field(pack('H*', '1739a63ab2544a959508103b7c80bcdb'), 'bname');
+        $a->lessons[] = new Lesson(pack('H*', '1739063ab2544a959508103b7c80bcdb'), 'alname', 123);
+        $b->lessons[] = new Lesson(pack('H*', '1735063ab2544a959508103b7c80bcdb'), 'blname', 456);
+        $this->assertSame(0, LessonContainer::compare($a, $b));
     }
 }

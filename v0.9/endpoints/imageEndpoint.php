@@ -1,20 +1,18 @@
 <?php declare(strict_types=1);
 @_API_EXEC === 1 or die('Restricted access.');
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
-require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Database.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Endpoint.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Helper.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
-
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/Exception.php');
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/InvalidArgumentTypeException.php');
-require_once($CONFIG->basepath . '/v0.9/internal/exceptions/MissingArgumentException.php');
-
 use Ramsey\Uuid\Uuid;
+use Skautis\Skautis;
 
-$imageEndpoint = new HandbookAPI\Endpoint();
+use Skaut\HandbookAPI\v0_9\Database;
+use Skaut\HandbookAPI\v0_9\Endpoint;
+use Skaut\HandbookAPI\v0_9\Helper;
+use Skaut\HandbookAPI\v0_9\Role;
+use Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException;
+use Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException;
+use Skaut\HandbookAPI\v0_9\Exception\NotFoundException;
+
+$imageEndpoint = new Endpoint();
 
 function applyRotation(Imagick $image) : void
 {
@@ -56,7 +54,7 @@ FROM images
 ORDER BY time DESC;
 SQL;
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->prepare($SQL);
     $db->execute();
     $id = '';
@@ -67,10 +65,10 @@ SQL;
     }
     return ['status' => 200, 'response' => $images];
 };
-$imageEndpoint->setListMethod(new HandbookAPI\Role('editor'), $listImages);
+$imageEndpoint->setListMethod(new Role('editor'), $listImages);
 
-$getImage = function (Skautis\Skautis $skautis, array $data) use ($CONFIG) : array {
-    $id = HandbookAPI\Helper::parseUuid($data['id'], 'image')->toString();
+$getImage = function (Skautis $skautis, array $data) use ($CONFIG) : array {
+    $id = Helper::parseUuid($data['id'], 'image')->toString();
     $quality = "web";
     if (isset($data['quality']) and in_array($data['quality'], ['original', 'web', 'thumbnail'])) {
         $quality = $data['quality'];
@@ -79,7 +77,7 @@ $getImage = function (Skautis\Skautis $skautis, array $data) use ($CONFIG) : arr
     $file = $CONFIG->imagepath . '/' . $quality . '/' . $id . '.jpg';
 
     if (!file_exists($file)) {
-        throw new HandbookAPI\NotFoundException('image');
+        throw new NotFoundException('image');
     }
 
     header('content-type: ' . mime_content_type($file));
@@ -99,7 +97,7 @@ $getImage = function (Skautis\Skautis $skautis, array $data) use ($CONFIG) : arr
     readfile($file);
     return ['status' => 200];
 };
-$imageEndpoint->setGetMethod(new HandbookAPI\Role('guest'), $getImage);
+$imageEndpoint->setGetMethod(new Role('guest'), $getImage);
 
 $addImage = function () use ($CONFIG) : array {
     $SQL = <<<SQL
@@ -108,21 +106,21 @@ VALUES (:id);
 SQL;
 
     if (!isset($_FILES['image'])) {
-        throw new HandbookAPI\MissingArgumentException(HandbookAPI\MissingArgumentException::FILE, 'image');
+        throw new MissingArgumentException(MissingArgumentException::FILE, 'image');
     }
     if (!getimagesize($_FILES['image']['tmp_name'])) {
-        throw new HandbookAPI\InvalidArgumentTypeException('image', ['image/jpeg', 'image/png']);
+        throw new InvalidArgumentTypeException('image', ['image/jpeg', 'image/png']);
     }
     if (!in_array(mb_strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png'])) {
-        throw new HandbookAPI\InvalidArgumentTypeException('image', ['image/jpeg', 'image/png']);
+        throw new InvalidArgumentTypeException('image', ['image/jpeg', 'image/png']);
     }
     $uuid = Uuid::uuid4();
     $tmp = $CONFIG->imagepath . '/tmp/' . $uuid->toString() . '.jpg';
     if (!move_uploaded_file($_FILES['image']['tmp_name'], $tmp)) {
-        throw new HandbookAPI\Exception('File upload failed.');
+        throw new \Skaut\HandbookAPI\v0_9\Exception\Exception('File upload failed.');
     }
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->beginTransaction();
     $db->prepare($SQL);
     $uuidBin = $uuid->getBytes();
@@ -161,18 +159,18 @@ SQL;
     $db->endTransaction();
     return ['status' => 201];
 };
-$imageEndpoint->setAddMethod(new HandbookAPI\Role('editor'), $addImage);
+$imageEndpoint->setAddMethod(new Role('editor'), $addImage);
 
-$deleteImage = function (Skautis\Skautis $skautis, array $data) use ($CONFIG) : array {
+$deleteImage = function (Skautis $skautis, array $data) use ($CONFIG) : array {
     $SQL = <<<SQL
 DELETE FROM images
 WHERE id = :id
 LIMIT 1;
 SQL;
 
-    $id = HandbookAPI\Helper::parseUuid($data['id'], 'image');
+    $id = Helper::parseUuid($data['id'], 'image');
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->beginTransaction();
 
     $db->prepare($SQL);
@@ -181,7 +179,7 @@ SQL;
     $db->execute();
 
     if ($db->rowCount() != 1) {
-        throw new HandbookAPI\NotFoundException("image");
+        throw new NotFoundException("image");
     }
 
     $db->endTransaction();
@@ -192,4 +190,4 @@ SQL;
 
     return ['status' => 200];
 };
-$imageEndpoint->setDeleteMethod(new HandbookAPI\Role('administrator'), $deleteImage);
+$imageEndpoint->setDeleteMethod(new Role('administrator'), $deleteImage);

@@ -2,25 +2,28 @@
 namespace v0_9;
 
 global $CONFIG;
-require_once('v0.9/internal/exceptions/RoleException.php');
 
-class RoleExceptionTest extends \PHPUnit\Framework\TestCase
+use PHPUnit\Framework\TestCase;
+
+use Skaut\HandbookAPI\v0_9\Exception\RoleException;
+
+class RoleExceptionTest extends TestCase
 {
     /**
-     * @covers HandbookAPI\RoleException::__construct()
+     * @covers Skaut\HandbookAPI\v0_9\Exception\RoleException::__construct()
      */
-    public function testCtor() : \HandbookAPI\RoleException
+    public function testCtor() : RoleException
     {
-        $e = new \HandbookAPI\RoleException();
-        $this->assertInstanceOf('\HandbookAPI\RoleException', $e);
+        $e = new RoleException();
+        $this->assertInstanceOf('\Skaut\HandbookAPI\v0_9\Exception\RoleException', $e);
         return $e;
     }
 
     /**
-     * @covers HandbookAPI\RoleException::handle()
+     * @covers Skaut\HandbookAPI\v0_9\Exception\RoleException::handle()
      * @depends testCtor
      */
-    public function testHandle(\HandbookAPI\RoleException $e) : void
+    public function testHandle(RoleException $e) : void
     {
         $this->assertSame(
             ['status' => 403, 'type' => 'RoleException', 'message' => 'You don\'t have permission for this action.'],

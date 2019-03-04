@@ -2,16 +2,18 @@
 @_API_EXEC === 1 or die('Restricted access.');
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
-require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Endpoint.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Role.php');
 
 require_once($CONFIG->basepath . '/v0.9/endpoints/eventParticipantEndpoint.php');
 
-$eventEndpoint = new HandbookAPI\Endpoint();
+use Skautis\Skautis;
+
+use Skaut\HandbookAPI\v0_9\Endpoint;
+use Skaut\HandbookAPI\v0_9\Role;
+
+$eventEndpoint = new Endpoint();
 $eventEndpoint->addSubEndpoint('participant', $eventParticipantEndpoint);
 
-$listUsers = function (Skautis\Skautis $skautis) : array {
+$listUsers = function (Skautis $skautis) : array {
     $ISevents = $skautis->Events->EventEducationAllMyActions();
     $events = [];
     foreach ($ISevents as $event) {
@@ -19,4 +21,4 @@ $listUsers = function (Skautis\Skautis $skautis) : array {
     }
     return ['status' => 200, 'response' => $events];
 };
-$eventEndpoint->setListMethod(new HandbookAPI\Role('editor'), $listUsers);
+$eventEndpoint->setListMethod(new Role('editor'), $listUsers);

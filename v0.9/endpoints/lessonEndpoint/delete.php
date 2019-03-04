@@ -1,12 +1,15 @@
 <?php declare(strict_types=1);
 @_API_EXEC === 1 or die('Restricted access.');
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
-require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Database.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Helper.php');
+use Skautis\Skautis;
 
-$deleteLesson = function (Skautis\Skautis $skautis, array $data) : array {
+use Skaut\HandbookAPI\v0_9\Database;
+use Skaut\HandbookAPI\v0_9\Helper;
+use Skaut\HandbookAPI\v0_9\Role;
+use Skaut\HandbookAPI\v0_9\Exception\NotFoundException;
+use Skaut\HandbookAPI\v0_9\Exception\NotLockedException;
+
+$deleteLesson = function (Skautis $skautis, array $data) : array {
     $copySQL = <<<SQL
 INSERT INTO lesson_history (id, name, version, body)
 SELECT id, name, version, body
@@ -32,14 +35,14 @@ SQL;
 
     global $mutexEndpoint;
     try {
-        $mutexEndpoint->call('DELETE', new HandbookAPI\Role('editor'), ['id' => $data['id']]);
-    } catch (HandbookAPI\NotFoundException $e) {
-        throw new HandbookAPI\NotLockedException();
+        $mutexEndpoint->call('DELETE', new Role('editor'), ['id' => $data['id']]);
+    } catch (NotFoundException $e) {
+        throw new NotLockedException();
     }
 
-    $id = HandbookAPI\Helper::parseUuid($data['id'], 'lesson')->getBytes();
+    $id = Helper::parseUuid($data['id'], 'lesson')->getBytes();
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->beginTransaction();
 
     $db->prepare($copySQL);
@@ -63,7 +66,7 @@ SQL;
     $db->execute();
 
     if ($db->rowCount() != 1) {
-        throw new HandbookAPI\NotFoundException("lesson");
+        throw new NotFoundException("lesson");
     }
 
     $db->endTransaction();

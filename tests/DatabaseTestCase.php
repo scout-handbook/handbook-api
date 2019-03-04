@@ -1,7 +1,11 @@
 <?php declare(strict_types=1);
 namespace TestUtils;
 
-abstract class DatabaseTestCase extends \PHPUnit\Framework\TestCase
+use PHPUnit\DbUnit\Database\Connection;
+use PHPUnit\DbUnit\Database\DataSet;
+use PHPUnit\Framework\TestCase;
+
+abstract class DatabaseTestCase extends TestCase
 {
     use \PHPUnit\DbUnit\TestCaseTrait;
 
@@ -10,7 +14,7 @@ abstract class DatabaseTestCase extends \PHPUnit\Framework\TestCase
 
     abstract public function getDump() : string;
 
-    public function getConnection() : \PHPUnit\DbUnit\Database\Connection
+    public function getConnection() : Connection
     {
         if ($this->connection == null) {
             if (self::$PDO == null) {
@@ -25,7 +29,7 @@ abstract class DatabaseTestCase extends \PHPUnit\Framework\TestCase
         return $this->connection;
     }
 
-    public function getDataSet() : \PHPUnit\DbUnit\Database\DataSet
+    public function getDataSet() : DataSet
     {
         return $this->getConnection()->createDataSet();
     }
