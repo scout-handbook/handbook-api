@@ -49,10 +49,6 @@
 		],
 		"unit": [
 			"@phpunit"
-		],
-		"ci": [
-			"@lint",
-			"@unit"
 		]
 	}
 }
