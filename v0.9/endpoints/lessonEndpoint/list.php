@@ -1,18 +1,17 @@
 <?php declare(strict_types=1);
 @_API_EXEC === 1 or die('Restricted access.');
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
-require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Database.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Field.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Lesson.php');
-require_once($CONFIG->basepath . '/v0.9/internal/LessonContainer.php');
-
 use Ramsey\Uuid\Uuid;
+use Skautis\Skautis;
+
+use Skaut\HandbookAPI\v0_9\Database;
+use Skaut\HandbookAPI\v0_9\Field;
+use Skaut\HandbookAPI\v0_9\Lesson;
+use Skaut\HandbookAPI\v0_9\LessonContainer;
 
 function populateContainer(
-    HandbookAPI\Database $db,
-    HandbookAPI\LessonContainer $container,
+    Database $db,
+    LessonContainer $container,
     bool $overrideGroup = false
 ) : void {
     $competenceSQL = <<<SQL
@@ -34,10 +33,10 @@ SQL;
     while ($db->fetch()) {
         if (checkLessonGroup(Uuid::fromBytes($lessonId), $overrideGroup)) {
             // Create a new Lesson in the newly-created Field
-            $container->lessons[] = new HandbookAPI\Lesson($lessonId, $lessonName, floatval($lessonVersion));
+            $container->lessons[] = new Lesson($lessonId, $lessonName, floatval($lessonVersion));
 
             // Find out the competences this Lesson belongs to
-            $db2 = new HandbookAPI\Database();
+            $db2 = new Database();
             $db2->prepare($competenceSQL);
             $db2->bindParam(':lesson_id', $lessonId, PDO::PARAM_STR);
             $db2->execute();
@@ -57,7 +56,7 @@ SQL;
     }
 }
 
-$listLessons = function (Skautis\Skautis $skautis, array $data) : array {
+$listLessons = function (Skautis $skautis, array $data) : array {
     $fieldSQL = <<<SQL
 SELECT id, name
 FROM fields;
@@ -77,9 +76,9 @@ SQL;
 
     $overrideGroup = (isset($data['override-group']) and $data['override-group'] == 'true');
 
-    $fields = [new HandbookAPI\LessonContainer()];
+    $fields = [new LessonContainer()];
 
-    $db = new HandbookAPI\Database();
+    $db = new Database();
     $db->prepare($anonymousSQL);
     populateContainer($db, end($fields), $overrideGroup);
 
@@ -92,16 +91,16 @@ SQL;
     $db->bindColumn('name', $field_name);
 
     while ($db->fetch()) {
-        $fields[] = new HandbookAPI\Field($field_id, strval($field_name)); // Create a new field
+        $fields[] = new Field($field_id, strval($field_name)); // Create a new field
 
-        $db2 = new HandbookAPI\Database();
+        $db2 = new Database();
         $db2->prepare($lessonSQL);
         $db2->bindParam(':field_id', $field_id, PDO::PARAM_STR);
         populateContainer($db2, end($fields), $overrideGroup);
 
         // Sort the lessons in the newly-created Field - sorts by lowest competence low-to-high
-        usort(end($fields)->lessons, "HandbookAPI\Lesson_cmp");
+        usort(end($fields)->lessons, 'Skaut\HandbookAPI\v0_9\Lesson::compare');
     }
-    usort($fields, 'HandbookAPI\LessonContainer_cmp'); // Sort all the Fields by their lowest competence
+    usort($fields, 'Skaut\HandbookAPI\v0_9\LessonContainer::compare'); // Sort all the Fields by their lowest competence
     return ['status' => 200, 'response' => $fields];
 };

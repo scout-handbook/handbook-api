@@ -2,18 +2,27 @@
 @_API_EXEC === 1 or die('Restricted access.');
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
-require_once($CONFIG->basepath . '/vendor/autoload.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Database.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Endpoint.php');
-require_once($CONFIG->basepath . '/v0.9/internal/Helper.php');
-require_once($CONFIG->basepath . '/v0.9/internal/OdyMarkdown/OdyMarkdown.php');
 
+use BaconQrCode\Renderer\Image\ImagickImageBackEnd;
+use BaconQrCode\Renderer\ImageRenderer;
+use BaconQrCode\Renderer\RendererStyle\RendererStyle;
+use BaconQrCode\Writer;
+use Mpdf\Mpdf;
+use Mpdf\Output\Destination;
 use Ramsey\Uuid\Uuid;
+use Skautis\Skautis;
 
-$lessonPDFEndpoint = new HandbookAPI\Endpoint();
+use Skaut\HandbookAPI\v0_9\Database;
+use Skaut\HandbookAPI\v0_9\Endpoint;
+use Skaut\HandbookAPI\v0_9\Helper;
+use Skaut\HandbookAPI\v0_9\Role;
 
-$getLessonPDF = function (Skautis\Skautis $skautis, array $data, HandbookAPI\Endpoint $endpoint) use ($CONFIG) : void {
-    $id = HandbookAPI\Helper::parseUuid($data['parent-id'], 'lesson');
+use Skaut\OdyMarkdown\v0_9\OdyMarkdown;
+
+$lessonPDFEndpoint = new Endpoint();
+
+$getLessonPDF = function (Skautis $skautis, array $data, Endpoint $endpoint) use ($CONFIG) : void {
+    $id = Helper::parseUuid($data['parent-id'], 'lesson');
 
     $name = '';
     if (!isset($data['caption']) || $data['caption'] === 'true') {
@@ -23,7 +32,7 @@ FROM lessons
 WHERE id = :id;
 SQL;
 
-        $db = new HandbookAPI\Database();
+        $db = new Database();
         $db->prepare($SQL);
         $idbytes = $id->getBytes();
         $db->bindParam(':id', $idbytes, PDO::PARAM_STR);
@@ -35,15 +44,15 @@ SQL;
     }
 
 
-    $md = $endpoint->getParent()->call('GET', new HandbookAPI\Role('guest'), ['id' => $data['parent-id']])['response'];
+    $md = $endpoint->getParent()->call('GET', new Role('guest'), ['id' => $data['parent-id']])['response'];
 
     $html = '<body><h1>' . $name . '</h1>';
-    $parser = new OdyMarkdown\OdyMarkdown();
+    $parser = new OdyMarkdown();
     $html .= $parser->parse($md);
 
     $html .= '</body>';
 
-    $mpdf = new \Mpdf\Mpdf([
+    $mpdf = new Mpdf([
         'fontDir' => [$CONFIG->basepath . '/v0.9/internal/OdyMarkdown/fonts/'],
         'fontdata' => [
             'odymarathon' => [
@@ -69,11 +78,11 @@ SQL;
         'use_kwt' => true
     ]);
 
-    $qrRenderer = new \BaconQrCode\Renderer\ImageRenderer(
-        new \BaconQrCode\Renderer\RendererStyle\RendererStyle(90),
-        new \BaconQrCode\Renderer\Image\ImagickImageBackEnd()
+    $qrRenderer = new ImageRenderer(
+        new RendererStyle(90),
+        new ImagickImageBackEnd()
     );
-    $qrWriter = new \BaconQrCode\Writer($qrRenderer);
+    $qrWriter = new Writer($qrRenderer);
 
     $mpdf->DefHTMLHeaderByName(
         'OddHeaderFirst',
@@ -107,8 +116,8 @@ SQL;
 
     header('content-type:application/pdf; charset=utf-8');
     $mpdf->Output(
-        $id->toString() . '_' . \HandbookAPI\Helper::urlEscape($name) . '.pdf',
-        \Mpdf\Output\Destination::INLINE
+        $id->toString() . '_' . Helper::urlEscape($name) . '.pdf',
+        Destination::INLINE
     );
 };
-$lessonPDFEndpoint->setListMethod(new HandbookAPI\Role('editor'), $getLessonPDF);
+$lessonPDFEndpoint->setListMethod(new Role('editor'), $getLessonPDF);
