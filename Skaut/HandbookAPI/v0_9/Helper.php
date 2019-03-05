@@ -35,12 +35,17 @@ class Helper // Helper functions
         $SECRETS = require($_SERVER['DOCUMENT_ROOT'] . '/api-secrets.php');
         $skautis = Skautis::getInstance($SECRETS->skautis_app_id, $SECRETS->skautis_test_mode);
         if (isset($_COOKIE['skautis_token']) and isset($_COOKIE['skautis_timeout'])) {
+            $dateLogout = \DateTime::createFromFormat('U', $_COOKIE['skautis_timeout']);
+            if (!$dateLogout) {
+                $dateLogout = (new \DateTime('now', new \DateTimeZone('UTC')))->add(new \DateInterval('10M'));
+            }
+            $dateLogout = $dateLogout->setTimezone(new \DateTimeZone('Europe/Prague'))->format('j. n. Y H:i:s');
             $reconstructedPost = array(
                 'skautIS_Token' => $_COOKIE['skautis_token'],
                 'skautIS_IDRole' => '',
                 'skautIS_IDUnit' => '',
-                'skautIS_DateLogout' => \DateTime::createFromFormat('U', $_COOKIE['skautis_timeout'])
-                    ->setTimezone(new \DateTimeZone('Europe/Prague'))->format('j. n. Y H:i:s'));
+                'skautIS_DateLogout' => $dateLogout
+            );
             $skautis->setLoginData($reconstructedPost);
             if ($skautis->getUser()->isLoggedIn($hardCheck)) {
                 try {
