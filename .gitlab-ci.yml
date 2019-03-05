@@ -13,7 +13,7 @@ stages:
 .composer:
   before_script:
     - apt-get update -yqq
-    - apt-get install -yqq wget libpng-dev libxml2-dev unzip imagemagick
+    - apt-get install -yqq wget libpng-dev libxml2-dev unzip libmagickwand-dev
 
     - docker-php-ext-install gd
     - docker-php-ext-install soap
