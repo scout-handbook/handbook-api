@@ -8,7 +8,7 @@ parameters:
   excludes_analyse:
     - vendor
     - tests
-  bootstrap: bootstrap.php
+  bootstrap: bootstrap.php.lint
   ignoreErrors:
     - '#Undefined variable: \$CONFIG#'
     - '#Undefined variable: \$_API_SECRETS_EXEC#'
