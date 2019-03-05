@@ -27,7 +27,11 @@ $loginUser = function (Skautis $skautis, array $data) use ($CONFIG, $accountEndp
             'j. n. Y H:i:s',
             $data['skautIS_DateLogout'],
             new DateTimeZone('Europe/Prague')
-        )->format('U');
+        );
+        if (!$timeout) {
+            $timeout = (new \DateTime('now', new \DateTimeZone('Europe/Prague')))->add(new \DateInterval('10M'));
+        }
+        $timeout = $timeout->format('U');
 
         setcookie('skautis_token', $token, intval($timeout), "/", $CONFIG->cookieuri, true, true);
         setcookie('skautis_timeout', $timeout, intval($timeout), "/", $CONFIG->cookieuri, true, false);

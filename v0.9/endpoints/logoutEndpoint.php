@@ -23,12 +23,15 @@ $logoutUser = function (Skautis $skautis, array $data) use ($CONFIG) : void {
             $_COOKIE['return-uri'] = $data['return-uri'];
         }
 
+        $dateLogout = (new \DateTime('now', new \DateTimeZone('Europe/Prague')))
+            ->add(new \DateInterval('60S'))
+            ->format('j. n. Y H:i:s');
         $reconstructedPost = array(
             'skautIS_Token' => $_COOKIE['skautis_token'],
             'skautIS_IDRole' => '',
             'skautIS_IDUnit' => '',
-            'skautIS_DateLogout' => \DateTime::createFromFormat('U', strval(time() + 60))
-                ->setTimezone(new \DateTimeZone('Europe/Prague'))->format('j. n. Y H:i:s'));
+            'skautIS_DateLogout' => $dateLogout
+        );
         $skautis->setLoginData($reconstructedPost);
         header('Location: ' . $skautis->getLogoutUrl());
         die();
