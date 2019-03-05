@@ -14,7 +14,11 @@ $refreshLogin = function (Skautis $skautis) use ($CONFIG) : array {
         'Y-m-d\TH:i:s.u',
         $dateLogout,
         new DateTimeZone('Europe/Prague')
-    )->format('U');
+    );
+    if (!$timeout) {
+        $timeout = (new \DateTime('now', new \DateTimeZone('Europe/Prague')))->add(new \DateInterval('10M'));
+    }
+    $timeout = $timeout->format('U');
     setcookie('skautis_timeout', $timeout, intval($timeout), "/", $CONFIG->cookieuri, true, false);
     $_COOKIE['skautis_timeout'] = $timeout;
     return ['status' => 200];

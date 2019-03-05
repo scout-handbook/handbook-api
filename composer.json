@@ -29,6 +29,7 @@
 		"phpmd/phpmd": "^2.6",
 		"phpunit/phpunit": "^7.5",
 		"phpunit/dbunit": "^4.0",
+		"phpstan/phpstan": "^0.10.6",
 		"phpcompatibility/php-compatibility": "^9.0"
 	},
 	"autoload": {
@@ -39,10 +40,12 @@
 	"scripts": {
 		"phpcs": "vendor/bin/phpcs",
 		"phpmd": "vendor/bin/phpmd ./ text phpmd.xml --ignore-violations-on-exit --exclude vendor",
+		"phpstan": "php -d memory_limit=-1 vendor/bin/phpstan analyse",
 		"phpunit": "vendor/bin/phpunit",
 		"lint": [
 			"@phpcs",
-			"@phpmd"
+			"@phpmd",
+			"@phpstan"
 		],
 		"unit": [
 			"@phpunit"

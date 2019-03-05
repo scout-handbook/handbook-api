@@ -91,7 +91,8 @@ SQL;
     $db->bindColumn('name', $field_name);
 
     while ($db->fetch()) {
-        $fields[] = new Field($field_id, strval($field_name)); // Create a new field
+        $newField = new Field($field_id, strval($field_name)); // Create a new field
+        $fields[] = $newField;
 
         $db2 = new Database();
         $db2->prepare($lessonSQL);
@@ -99,7 +100,7 @@ SQL;
         populateContainer($db2, end($fields), $overrideGroup);
 
         // Sort the lessons in the newly-created Field - sorts by lowest competence low-to-high
-        usort(end($fields)->lessons, 'Skaut\HandbookAPI\v0_9\Lesson::compare');
+        usort($newField->lessons, 'Skaut\HandbookAPI\v0_9\Lesson::compare');
     }
     usort($fields, 'Skaut\HandbookAPI\v0_9\LessonContainer::compare'); // Sort all the Fields by their lowest competence
     return ['status' => 200, 'response' => $fields];

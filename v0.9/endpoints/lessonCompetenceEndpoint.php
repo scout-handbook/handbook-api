@@ -36,13 +36,11 @@ SQL;
     $db->bindParam(':lesson_id', $id, PDO::PARAM_STR);
     $db->execute();
 
-    if (isset($competences)) {
-        $db->prepare($insertSQL);
-        foreach ($competences as $competence) {
-            $db->bindParam(':lesson_id', $id, PDO::PARAM_STR);
-            $db->bindParam(':competence_id', $competence, PDO::PARAM_STR);
-            $db->execute("lesson or competence");
-        }
+    $db->prepare($insertSQL);
+    foreach ($competences as $competence) {
+        $db->bindParam(':lesson_id', $id, PDO::PARAM_STR);
+        $db->bindParam(':competence_id', $competence, PDO::PARAM_STR);
+        $db->execute("lesson or competence");
     }
     $db->endTransaction();
     return ['status' => 200];
