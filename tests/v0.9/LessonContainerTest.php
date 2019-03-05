@@ -12,25 +12,14 @@ use Skaut\HandbookAPI\v0_9\LessonContainer;
 class LessonContainerTest extends TestCase
 {
     /**
-     * @covers Skaut\HandbookAPI\v0_9\LessonContainer::__construct()
-     */
-    public function testCtor() : LessonContainer
-    {
-        $lessonContainer = new LessonContainer();
-        $this->assertInstanceOf('\Skaut\HandbookAPI\v0_9\LessonContainer', $lessonContainer);
-        return $lessonContainer;
-    }
-
-    /**
      * @covers Skaut\HandbookAPI\v0_9\LessonContainer::compare()
-     * @depends testCtor
      */
-    public function testCompareLessonContainerAndField(LessonContainer $lessonContainer) : void
+    public function testCompareLessonContainerAndField() : void
     {
         $this->assertSame(
             -1,
             LessonContainer::compare(
-                $lessonContainer,
+                new LessonContainer(),
                 new Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'fname')
             )
         );
@@ -38,29 +27,27 @@ class LessonContainerTest extends TestCase
 
     /**
      * @covers Skaut\HandbookAPI\v0_9\LessonContainer::compare()
-     * @depends testCtor
      */
-    public function testCompareFieldAndLessonContainer(LessonContainer $lessonContainer) : void
+    public function testCompareFieldAndLessonContainer() : void
     {
         $this->assertSame(
             1,
             LessonContainer::compare(
                 new Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'fname'),
-                $lessonContainer
+                new LessonContainer()
             )
         );
     }
 
     /**
      * @covers Skaut\HandbookAPI\v0_9\LessonContainer::compare()
-     * @depends testCtor
      */
-    public function testCompareLessonContainerAndLessonContainer(LessonContainer $lessonContainer) : void
+    public function testCompareLessonContainerAndLessonContainer() : void
     {
         $this->assertSame(
             0,
             LessonContainer::compare(
-                $lessonContainer,
+                new LessonContainer(),
                 new LessonContainer()
             )
         );
