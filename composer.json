@@ -40,7 +40,7 @@
 	"scripts": {
 		"phpcs": "vendor/bin/phpcs",
 		"phpmd": "vendor/bin/phpmd ./ text phpmd.xml --ignore-violations-on-exit --exclude vendor",
-		"phpstan": "vendor/bin/phpstan analyse",
+		"phpstan": "php -d display_errors=on vendor/bin/phpstan analyse",
 		"phpunit": "vendor/bin/phpunit",
 		"lint": [
 			"@phpcs",
