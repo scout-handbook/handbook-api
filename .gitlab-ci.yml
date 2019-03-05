@@ -10,18 +10,22 @@ stages:
   - lint
   - deploy
 
-.unit-test:
-  stage: unit-test
-  services:
-    - name: mariadb:latest
-      alias: mysql
+.composer:
+  variables:
+    IMAGICK: "false"
+    XDEBUG: "false"
   before_script:
     - apt-get update -yqq
     - apt-get install -yqq wget libpng-dev libxml2-dev unzip
+    - $IMAGICK && apt-get install -yqq libmagickwand-dev
 
     - docker-php-ext-install gd
     - docker-php-ext-install soap
     - docker-php-ext-install pdo_mysql
+    - $IMAGICK && pecl install imagick
+    - $IMAGICK && docker-php-ext-enable imagick
+    - $XDEBUG && pecl install xdebug
+    - $XDEBUG && docker-php-ext-enable xdebug
 
     - wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig
     - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
@@ -30,6 +34,13 @@ stages:
     - php -r "unlink('composer-setup.php'); unlink('installer.sig');"
 
     - php composer.phar install
+
+.unit-test:
+  extends: .composer
+  stage: unit-test
+  services:
+    - name: mariadb:latest
+      alias: mysql
   script:
     - php composer.phar unit
 
@@ -39,23 +50,8 @@ unit-php71:
 
 unit-php72:
   extends: .unit-test
-  before_script:
-    - apt-get update -yqq
-    - apt-get install -yqq wget libpng-dev libxml2-dev unzip
-
-    - docker-php-ext-install gd
-    - docker-php-ext-install soap
-    - docker-php-ext-install pdo_mysql
-    - pecl install xdebug
-    - docker-php-ext-enable xdebug
-
-    - wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig
-    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-    - php -r "if (hash_file('SHA384', 'composer-setup.php') === file_get_contents('installer.sig')) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-    - php composer-setup.php
-    - php -r "unlink('composer-setup.php'); unlink('installer.sig');"
-
-    - php composer.phar install
+  variables:
+    XDEBUG: "true"
   image: php:7.2
 
 unit-php73:
@@ -63,24 +59,10 @@ unit-php73:
   image: php:7.3
 
 .lint:
+  extends: .composer
   stage: lint
-  before_script:
-    - apt-get update -yqq
-    - apt-get install -yqq wget libpng-dev libxml2-dev unzip libmagickwand-dev
-
-    - docker-php-ext-install gd
-    - docker-php-ext-install soap
-    - docker-php-ext-install pdo_mysql
-    - pecl install imagick
-    - docker-php-ext-enable imagick
-
-    - wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig
-    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-    - php -r "if (hash_file('SHA384', 'composer-setup.php') === file_get_contents('installer.sig')) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-    - php composer-setup.php
-    - php -r "unlink('composer-setup.php'); unlink('installer.sig');"
-
-    - php composer.phar install
+  variables:
+    IMAGICK: "true"
   script:
     - php composer.phar lint
 
