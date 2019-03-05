@@ -123,7 +123,8 @@ SQL;
 
     $users = [];
     foreach ($userResult as $row) {
-        $users[] = new User(intval($row['id']), $row['name'], $row['role']);
+        $newUser = new User(intval($row['id']), $row['name'], $row['role']);
+        $users[] = $newUser;
 
         $db2 = new Database();
         $db2->prepare($groupSQL);
@@ -132,7 +133,7 @@ SQL;
         $group = '';
         $db2->bindColumn('group_id', $group);
         while ($db2->fetch()) {
-            end($users)->groups[] = $group;
+            $newUser->groups[] = $group;
         }
     }
 

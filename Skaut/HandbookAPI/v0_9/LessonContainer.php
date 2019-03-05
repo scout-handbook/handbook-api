@@ -7,10 +7,6 @@ class LessonContainer
 {
     public $lessons = array();
 
-    public function __construct()
-    {
-    }
-
     // Container comparison function used in usort. Assumes that both Containers have their lessons sorted low-to-high.
     public static function compare(LessonContainer $first, LessonContainer $second) : int
     {
