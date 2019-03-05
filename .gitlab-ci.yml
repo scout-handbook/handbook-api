@@ -52,7 +52,7 @@ unit-php72:
   extends: .unit-test
   before_script:
     - apt-get update -yqq
-    - apt-get install -yqq wget libpng-dev libxml2-dev
+    - apt-get install -yqq wget libpng-dev libxml2-dev unzip
 
     - docker-php-ext-install gd
     - docker-php-ext-install soap
