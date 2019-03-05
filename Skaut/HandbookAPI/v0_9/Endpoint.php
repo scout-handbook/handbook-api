@@ -164,10 +164,8 @@ class Endpoint
             header('content-type:application/json; charset=utf-8');
             $ret = $e->handle();
         }
-        if (isset($ret)) {
-            http_response_code($ret['status']);
-            echo(json_encode($ret, JSON_UNESCAPED_UNICODE));
-        }
+        http_response_code($ret['status']);
+        echo(json_encode($ret, JSON_UNESCAPED_UNICODE));
     }
 
     public function handle() : void
@@ -198,7 +196,7 @@ class Endpoint
         $data = [];
         switch ($method) {
             case 'PUT':
-                mb_parse_str(file_get_contents("php://input"), $data);
+                mb_parse_str(file_get_contents("php://input") ?: '', $data);
                 break;
             case 'POST':
                 $data = $_POST;

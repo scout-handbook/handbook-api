@@ -11,5 +11,12 @@ parameters:
   bootstrap: bootstrap.php
   ignoreErrors:
     - '#Undefined variable: \$CONFIG#'
+    - '#Undefined variable: \$_API_SECRETS_EXEC#'
     - '#Undefined variable: \$[a-zA-Z]+Endpoint#'
+    - '#Undefined variable: \$[a-zA-Z]+Lessons?#'
     - '#Access to an undefined property Skautis\\Skautis::\$[a-zA-Z]+.#'
+    - '#Function constructSelectSQL not found#'
+    - '#Function populateContainer not found#'
+    - '#Function checkLessonGroup not found#'
+    - '#Function applyRotation not found#'
+    - '#Call to an undefined method Skautis\\Exception::getMessage().#'

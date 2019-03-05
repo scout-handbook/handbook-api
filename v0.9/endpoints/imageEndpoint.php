@@ -93,7 +93,9 @@ $getImage = function (Skautis $skautis, array $data) use ($CONFIG) : array {
         }
     }
 
-    header('last-modified: ' . date('r', $modified));
+    if ($modified) {
+        header('last-modified: ' . date('r', $modified));
+    }
     readfile($file);
     return ['status' => 200];
 };
