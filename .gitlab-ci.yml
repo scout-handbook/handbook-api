@@ -12,8 +12,6 @@ stages:
 
 .composer:
   before_script:
-    - mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
-
     - apt-get update -yqq
     - apt-get install -yqq wget libpng-dev libxml2-dev unzip
 
@@ -53,8 +51,6 @@ unit-php71:
 unit-php72:
   extends: .unit-test
   before_script:
-    - mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
-
     - apt-get update -yqq
     - apt-get install -yqq wget libpng-dev libxml2-dev unzip
 
@@ -81,7 +77,7 @@ unit-php73:
   extends: .composer
   stage: lint
   script:
-    - php composer.phar lint
+    - php -d display_errors=on composer.phar lint
 
 lint-php71:
   extends: .lint
