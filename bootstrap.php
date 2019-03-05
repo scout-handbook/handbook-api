@@ -1,6 +1,5 @@
 <?php declare(strict_types=1);
 const _API_EXEC = 1;
-const _API_SECRETS_EXEC = 1;
 
 $CONFIG = (object)[
         'basepath' => $_SERVER['DOCUMENT_ROOT'] . '/API',
