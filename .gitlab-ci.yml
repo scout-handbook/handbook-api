@@ -29,14 +29,6 @@ stages:
 
     - php composer.phar install
 
-.test:
-  stage: test
-  services:
-    - name: mariadb:latest
-      alias: mysql
-  before_script:
-    - apt-get install -yqq git wget libpng-dev libxml2-dev unzip
-
 .unit-test:
   extends: .composer
   stage: unit-test
