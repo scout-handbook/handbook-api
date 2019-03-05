@@ -13,6 +13,7 @@ use Skaut\HandbookAPI\v0_9\Exception\SkautISException;
 
 @_API_EXEC === 1 or die('Restricted access.');
 
+/** @SuppressWarnings(PHPMD.CouplingBetweenObjects) */
 class Helper // Helper functions
 {
     public static function parseUuid(string $id, string $resourceName) : UuidInterface
