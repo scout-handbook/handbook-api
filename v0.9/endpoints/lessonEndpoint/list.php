@@ -44,7 +44,6 @@ SQL;
             $competenceNumber = '';
             $db2->bindColumn('id', $competenceId);
             $db2->bindColumn('number', $competenceNumber);
-            $newLesson->setLowestCompetence(0);
             if ($db2->fetch()) {
                 $newLesson->setLowestCompetence(intval($competenceNumber));
                 $newLesson->addCompetence($competenceId);
