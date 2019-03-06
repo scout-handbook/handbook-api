@@ -12,6 +12,7 @@ class Field extends LessonContainer implements \JsonSerializable
 
     public function __construct(string $id, string $name)
     {
+        parent::__construct();
         $this->id = Uuid::fromBytes($id);
         $this->name = Helper::xssSanitize($name);
     }
