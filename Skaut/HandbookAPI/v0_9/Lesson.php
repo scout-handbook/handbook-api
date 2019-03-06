@@ -9,17 +9,27 @@ use Skaut\HandbookAPI\v0_9\Helper;
 
 class Lesson implements \JsonSerializable
 {
-    public $id;
-    public $name;
-    public $version;
-    public $competences = [];
-    public $lowestCompetence;
+    private $id;
+    private $name;
+    private $version;
+    private $competences = [];
+    private $lowestCompetence;
 
     public function __construct(string $id, string $name, float $version)
     {
         $this->id = Uuid::fromBytes($id);
         $this->name = Helper::xssSanitize($name);
         $this->version = round($version * 1000);
+    }
+
+    public function setLowestCompetence(int $competence) : void
+    {
+        $this->lowestCompetence = $competence;
+    }
+
+    public function addCompetence(string $competence) : void
+    {
+        $this->competences[] = $competence;
     }
 
     public function jsonSerialize() : array
