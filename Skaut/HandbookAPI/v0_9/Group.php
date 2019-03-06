@@ -7,9 +7,9 @@ use Ramsey\Uuid\Uuid;
 
 class Group implements \JsonSerializable
 {
-    public $id;
-    public $name;
-    public $count;
+    private $id;
+    private $name;
+    private $count;
 
     public function __construct(string $id, string $name, int $count)
     {

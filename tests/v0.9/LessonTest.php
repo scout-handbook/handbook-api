@@ -39,7 +39,7 @@ class LessonTest extends TestCase
     public function testJsonSerializeLessons() : void
     {
         $lesson = new Lesson(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'lname', 123.4567);
-        $lesson->competences[] = pack('H*', '1739a63ab2544a959508103b7c80bcdb');
+        $lesson->addCompetence(pack('H*', '1739a63ab2544a959508103b7c80bcdb'));
         $this->assertJsonStringEqualsJsonString(
             '{"id":"1739a63a-a254-4a95-9508-103b7c80bcdb","name":"lname","version":123457,' .
                 '"competences":["1739a63a-b254-4a95-9508-103b7c80bcdb"]}',
@@ -73,7 +73,7 @@ class LessonTest extends TestCase
     {
         $a = new Lesson(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'lname', 123.4567);
         $b = new Lesson(pack('H*', '1739a63aa2542a959508103b7c80bcdb'), 'lname', 123.4567);
-        $b->competences[] = pack('H*', '1739a63ab2544a959508103b7080bcdb');
+        $b->addCompetence(pack('H*', '1739a63ab2544a959508103b7080bcdb'));
         $this->assertSame(-1, Lesson::compare($a, $b));
     }
 
@@ -84,7 +84,7 @@ class LessonTest extends TestCase
     {
         $a = new Lesson(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'lname', 123.4567);
         $b = new Lesson(pack('H*', '1739a63aa2542a959508103b7c80bcdb'), 'lname', 123.4567);
-        $a->competences[] = pack('H*', '1739a63ab2544a959508103b7080bcdb');
+        $a->addCompetence(pack('H*', '1739a63ab2544a959508103b7080bcdb'));
         $this->assertSame(1, Lesson::compare($a, $b));
     }
 
@@ -95,10 +95,10 @@ class LessonTest extends TestCase
     {
         $a = new Lesson(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'lname', 123.4567);
         $b = new Lesson(pack('H*', '1739a63aa2542a959508103b7c80bcdb'), 'lname', 123.4567);
-        $a->competences[] = pack('H*', '1739a63ab2544a959508103b7080bcdb');
-        $b->competences[] = pack('H*', '2739a63ab2544a959508103b7080bcdb');
-        $a->lowestCompetence = 1;
-        $b->lowestCompetence = 2;
+        $a->addCompetence(pack('H*', '1739a63ab2544a959508103b7080bcdb'));
+        $b->addCompetence(pack('H*', '2739a63ab2544a959508103b7080bcdb'));
+        $a->setLowestCompetence(1);
+        $b->setLowestCompetence(2);
         $this->assertSame(-1, Lesson::compare($a, $b));
     }
 
@@ -109,10 +109,10 @@ class LessonTest extends TestCase
     {
         $a = new Lesson(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'lname', 123.4567);
         $b = new Lesson(pack('H*', '1739a63aa2542a959508103b7c80bcdb'), 'lname', 123.4567);
-        $a->competences[] = pack('H*', '1739a63ab2544a959508103b7080bcdb');
-        $b->competences[] = pack('H*', '2739a63ab2544a959508103b7080bcdb');
-        $a->lowestCompetence = 2;
-        $b->lowestCompetence = 1;
+        $a->addCompetence(pack('H*', '1739a63ab2544a959508103b7080bcdb'));
+        $b->addCompetence(pack('H*', '2739a63ab2544a959508103b7080bcdb'));
+        $a->setLowestCompetence(2);
+        $b->setLowestCompetence(1);
         $this->assertSame(1, Lesson::compare($a, $b));
     }
 
@@ -123,10 +123,10 @@ class LessonTest extends TestCase
     {
         $a = new Lesson(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'lname', 123.4567);
         $b = new Lesson(pack('H*', '1739a63aa2542a959508103b7c80bcdb'), 'lname', 123.4567);
-        $a->competences[] = pack('H*', '1739a63ab2544a959508103b7080bcdb');
-        $b->competences[] = pack('H*', '2739a63ab2544a959508103b7080bcdb');
-        $a->lowestCompetence = 1;
-        $b->lowestCompetence = 1;
+        $a->addCompetence(pack('H*', '1739a63ab2544a959508103b7080bcdb'));
+        $b->addCompetence(pack('H*', '2739a63ab2544a959508103b7080bcdb'));
+        $a->setLowestCompetence(1);
+        $b->setLowestCompetence(1);
         $this->assertSame(0, Lesson::compare($a, $b));
     }
 
@@ -137,8 +137,8 @@ class LessonTest extends TestCase
     {
         $a = new Lesson(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'lname', 123.4567);
         $b = new Lesson(pack('H*', '1739a63aa2542a959508103b7c80bcdb'), 'lname', 123.4567);
-        $a->competences[] = pack('H*', '1739a63ab2544a959508103b7080bcdb');
-        $b->competences[] = pack('H*', '2739a63ab2544a959508103b7080bcdb');
+        $a->addCompetence(pack('H*', '1739a63ab2544a959508103b7080bcdb'));
+        $b->addCompetence(pack('H*', '2739a63ab2544a959508103b7080bcdb'));
         $this->assertSame(0, Lesson::compare($a, $b));
     }
 }

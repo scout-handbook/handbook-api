@@ -133,7 +133,7 @@ SQL;
         $group = '';
         $db2->bindColumn('group_id', $group);
         while ($db2->fetch()) {
-            $newUser->groups[] = $group;
+            $newUser->addGroup($group);
         }
     }
 

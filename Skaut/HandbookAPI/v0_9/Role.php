@@ -11,7 +11,7 @@ class Role implements \JsonSerializable
     private const ADMINISTRATOR = 3;
     private const SUPERUSER = 4;
 
-    public $role;
+    private $role;
 
     public function __construct(string $str)
     {

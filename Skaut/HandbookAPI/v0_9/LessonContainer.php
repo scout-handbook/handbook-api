@@ -3,9 +3,29 @@ namespace Skaut\HandbookAPI\v0_9;
 
 @_API_EXEC === 1 or die('Restricted access.');
 
-class LessonContainer
+class LessonContainer implements \JsonSerializable
 {
-    public $lessons = array();
+    protected $lessons;
+
+    public function __construct()
+    {
+        $this->lessons = [];
+    }
+
+    public function addLesson(Lesson $lesson) : void
+    {
+        $this->lessons[] = $lesson;
+    }
+
+    public function sortLessons() : void
+    {
+        usort($this->lessons, 'Skaut\HandbookAPI\v0_9\Lesson::compare');
+    }
+
+    public function jsonSerialize() : array
+    {
+        return ['lessons' => $this->lessons];
+    }
 
     // Container comparison function used in usort. Assumes that both Containers have their lessons sorted low-to-high.
     public static function compare(LessonContainer $first, LessonContainer $second) : int
