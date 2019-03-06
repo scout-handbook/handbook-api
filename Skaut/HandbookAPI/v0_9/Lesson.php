@@ -12,7 +12,7 @@ class Lesson implements \JsonSerializable
     private $id;
     private $name;
     private $version;
-    private $competences = [];
+    private $competences;
     private $lowestCompetence;
 
     public function __construct(string $id, string $name, float $version)
@@ -20,6 +20,8 @@ class Lesson implements \JsonSerializable
         $this->id = Uuid::fromBytes($id);
         $this->name = Helper::xssSanitize($name);
         $this->version = round($version * 1000);
+        $this->competences = [];
+        $this->lowestCompetence = 0;
     }
 
     public function setLowestCompetence(int $competence) : void
@@ -29,20 +31,16 @@ class Lesson implements \JsonSerializable
 
     public function addCompetence(string $competence) : void
     {
-        $this->competences[] = $competence;
+        $this->competences[] = Uuid::fromBytes($competence);
     }
 
     public function jsonSerialize() : array
     {
-        $ucomp = [];
-        foreach ($this->competences as $competence) {
-            $ucomp[] = Uuid::fromBytes($competence);
-        }
         return [
             'id' => $this->id,
             'name' => $this->name,
             'version' => $this->version,
-            'competences' => $ucomp
+            'competences' => $this->competences
         ];
     }
 

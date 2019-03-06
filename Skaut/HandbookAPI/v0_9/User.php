@@ -22,15 +22,11 @@ class User implements \JsonSerializable
 
     public function addGroup(string $group) : void
     {
-        $this->groups[] = $group;
+        $this->groups[] = Uuid::fromBytes($group);
     }
 
     public function jsonSerialize() : array
     {
-        $ugroup = [];
-        foreach ($this->groups as $group) {
-            $ugroup[] = Uuid::fromBytes($group);
-        }
-        return ['id' => $this->id, 'name' => $this->name, 'role' => $this->role, 'groups' => $ugroup];
+        return ['id' => $this->id, 'name' => $this->name, 'role' => $this->role, 'groups' => $this->groups];
     }
 }
