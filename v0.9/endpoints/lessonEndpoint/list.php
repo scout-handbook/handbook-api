@@ -33,7 +33,7 @@ SQL;
     while ($db->fetch()) {
         if (checkLessonGroup(Uuid::fromBytes($lessonId), $overrideGroup)) {
             // Create a new Lesson in the newly-created Field
-            $container->addLesson(new Lesson($lessonId, $lessonName, floatval($lessonVersion)));
+            $newLesson = new Lesson($lessonId, $lessonName, floatval($lessonVersion));
 
             // Find out the competences this Lesson belongs to
             $db2 = new Database();
@@ -44,14 +44,15 @@ SQL;
             $competenceNumber = '';
             $db2->bindColumn('id', $competenceId);
             $db2->bindColumn('number', $competenceNumber);
-            $container->getLastLesson()->setLowestCompetence(0);
+            $newLesson->setLowestCompetence(0);
             if ($db2->fetch()) {
-                $container->getLastLesson()->setLowestCompetence($competenceNumber);
-                $container->getLastLesson()->addCompetence($competenceId);
+                $newLesson->setLowestCompetence(intval($competenceNumber));
+                $newLesson->addCompetence($competenceId);
             }
             while ($db2->fetch()) {
-                $container->getLastLesson()->addCompetence($competenceId);
+                $newLesson->addCompetence($competenceId);
             }
+            $container->addLesson($newLesson);
         }
     }
 }
