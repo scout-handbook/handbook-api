@@ -33,7 +33,7 @@ SQL;
     while ($db->fetch()) {
         if (checkLessonGroup(Uuid::fromBytes($lessonId), $overrideGroup)) {
             // Create a new Lesson in the newly-created Field
-            $container->lessons[] = new Lesson($lessonId, $lessonName, floatval($lessonVersion));
+            $container->addLesson(new Lesson($lessonId, $lessonName, floatval($lessonVersion)));
 
             // Find out the competences this Lesson belongs to
             $db2 = new Database();
@@ -44,13 +44,13 @@ SQL;
             $competenceNumber = '';
             $db2->bindColumn('id', $competenceId);
             $db2->bindColumn('number', $competenceNumber);
-            end($container->lessons)->lowestCompetence = 0;
+            $container->getLastLesson()->setLowestCompetence(0);
             if ($db2->fetch()) {
-                end($container->lessons)->lowestCompetence = intval($competenceNumber);
-                end($container->lessons)->competences[] = $competenceId;
+                $container->getLastLesson()->setLowestCompetence($competenceNumber);
+                $container->getLastLesson()->addCompetence($competenceId);
             }
             while ($db2->fetch()) {
-                end($container->lessons)->competences[] = $competenceId;
+                $container->getLastLesson()->addCompetence($competenceId);
             }
         }
     }
@@ -100,7 +100,7 @@ SQL;
         populateContainer($db2, end($fields), $overrideGroup);
 
         // Sort the lessons in the newly-created Field - sorts by lowest competence low-to-high
-        usort($newField->lessons, 'Skaut\HandbookAPI\v0_9\Lesson::compare');
+        $newField->sortLessons();
     }
     usort($fields, 'Skaut\HandbookAPI\v0_9\LessonContainer::compare'); // Sort all the Fields by their lowest competence
     return ['status' => 200, 'response' => $fields];

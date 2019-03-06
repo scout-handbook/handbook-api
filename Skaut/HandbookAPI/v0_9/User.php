@@ -7,10 +7,10 @@ use Ramsey\Uuid\Uuid;
 
 class User implements \JsonSerializable
 {
-    public $id;
-    public $name;
-    public $role;
-    public $groups;
+    private $id;
+    private $name;
+    private $role;
+    private $groups;
 
     public function __construct(int $id, string $name, string $role)
     {
@@ -18,6 +18,11 @@ class User implements \JsonSerializable
         $this->name = Helper::xssSanitize($name);
         $this->role = new Role($role);
         $this->groups = [];
+    }
+
+    public function addGroup(string $group) : void
+    {
+        $this->groups[] = $group;
     }
 
     public function jsonSerialize() : array

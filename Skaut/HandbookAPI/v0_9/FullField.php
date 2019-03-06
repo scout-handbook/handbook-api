@@ -7,10 +7,10 @@ use Ramsey\Uuid\Uuid;
 
 class FullField implements \JsonSerializable
 {
-    public $id;
-    public $name;
-    public $description;
-    public $image;
+    private $id;
+    private $name;
+    private $description;
+    private $image;
 
     public function __construct(string $id, string $name, $description, string $image)
     {

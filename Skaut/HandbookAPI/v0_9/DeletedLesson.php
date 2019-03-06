@@ -7,8 +7,8 @@ use Ramsey\Uuid\Uuid;
 
 class DeletedLesson implements \JsonSerializable
 {
-    public $id;
-    public $name;
+    private $id;
+    private $name;
 
     public function __construct(string $id, string $name)
     {

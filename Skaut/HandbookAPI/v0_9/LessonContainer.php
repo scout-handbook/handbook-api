@@ -5,7 +5,22 @@ namespace Skaut\HandbookAPI\v0_9;
 
 class LessonContainer
 {
-    public $lessons = array();
+    protected $lessons = [];
+
+    public function addLesson(Lesson $lesson) : void
+    {
+        $this->lessons[] = $lesson;
+    }
+
+    public function getLastLesson() : Lesson
+    {
+        return end($this->lessons);
+    }
+
+    public function sortLessons() : void
+    {
+        usort($this->lessons, 'Skaut\HandbookAPI\v0_9\Lesson::compare');
+    }
 
     // Container comparison function used in usort. Assumes that both Containers have their lessons sorted low-to-high.
     public static function compare(LessonContainer $first, LessonContainer $second) : int
