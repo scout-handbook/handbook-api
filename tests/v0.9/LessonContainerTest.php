@@ -70,7 +70,7 @@ class LessonContainerTest extends TestCase
     {
         $a = new Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'aname');
         $b = new Field(pack('H*', '1739a63ab2544a959508103b7c80bcdb'), 'bname');
-        $b->lessons[] = new Lesson(pack('H*', '1739063ab2544a959508103b7c80bcdb'), 'blname', 123);
+        $b->addLesson(new Lesson(pack('H*', '1739063ab2544a959508103b7c80bcdb'), 'blname', 123));
         $this->assertSame(-1, LessonContainer::compare($a, $b));
     }
 
@@ -81,7 +81,7 @@ class LessonContainerTest extends TestCase
     {
         $a = new Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'aname');
         $b = new Field(pack('H*', '1739a63ab2544a959508103b7c80bcdb'), 'bname');
-        $a->lessons[] = new Lesson(pack('H*', '1739063ab2544a959508103b7c80bcdb'), 'alname', 123);
+        $a->addLesson(new Lesson(pack('H*', '1739063ab2544a959508103b7c80bcdb'), 'alname', 123));
         $this->assertSame(1, LessonContainer::compare($a, $b));
     }
 
@@ -93,8 +93,8 @@ class LessonContainerTest extends TestCase
     {
         $a = new Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'aname');
         $b = new Field(pack('H*', '1739a63ab2544a959508103b7c80bcdb'), 'bname');
-        $a->lessons[] = new Lesson(pack('H*', '1739063ab2544a959508103b7c80bcdb'), 'alname', 123);
-        $b->lessons[] = new Lesson(pack('H*', '1735063ab2544a959508103b7c80bcdb'), 'blname', 456);
+        $a->addLesson(new Lesson(pack('H*', '1739063ab2544a959508103b7c80bcdb'), 'alname', 123));
+        $b->addLesson(new Lesson(pack('H*', '1735063ab2544a959508103b7c80bcdb'), 'blname', 456));
         $this->assertSame(0, LessonContainer::compare($a, $b));
     }
 }

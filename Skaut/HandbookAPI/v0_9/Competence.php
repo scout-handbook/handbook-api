@@ -7,10 +7,10 @@ use Ramsey\Uuid\Uuid;
 
 class Competence implements \JsonSerializable
 {
-    public $id;
-    public $number;
-    public $name;
-    public $description;
+    private $id;
+    private $number;
+    private $name;
+    private $description;
 
     public function __construct(string $id, int $number, string $name, string $description)
     {

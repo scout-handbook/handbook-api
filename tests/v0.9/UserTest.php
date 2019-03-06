@@ -37,7 +37,7 @@ class UserTest extends TestCase
     public function testJsonSerializeGroups() : void
     {
         $user = new User(12345, 'uname', 'superuser');
-        $user->groups[] = pack('H*', '1739a63aa2544a959508103b7c80bcdb');
+        $user->addGroup(pack('H*', '1739a63aa2544a959508103b7c80bcdb'));
         $this->assertJsonStringEqualsJsonString(
             '{"id":12345,"name":"uname","role":"superuser","groups":["1739a63a-a254-4a95-9508-103b7c80bcdb"]}',
             json_encode($user)
