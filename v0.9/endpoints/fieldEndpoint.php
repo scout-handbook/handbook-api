@@ -102,10 +102,6 @@ SQL;
     $db->bindParam(':id', $id, PDO::PARAM_STR);
     $db->execute();
 
-    if ($db->rowCount() != 1) {
-        throw new NotFoundException("field");
-    }
-
     $db->endTransaction();
     return ['status' => 200];
 };
