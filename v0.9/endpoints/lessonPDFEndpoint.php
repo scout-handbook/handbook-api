@@ -53,7 +53,7 @@ SQL;
     $html .= '</body>';
 
     $mpdf = new Mpdf([
-        'fontDir' => [$CONFIG->basepath . '/v0.9/internal/OdyMarkdown/fonts/'],
+        'fontDir' => [$CONFIG->basepath . '/Skaut/OdyMarkdown/v0_9/fonts/'],
         'fontdata' => [
             'odymarathon' => [
                 'R' => 'OdyMarathon-Regular.ttf'
@@ -94,12 +94,12 @@ SQL;
     $mpdf->DefHTMLFooterByName(
         'OddFooter',
         '<div class="oddFooterLeft">...jsme na jedné lodi</div>
-        <img class="oddFooterRight" src="' . $CONFIG->basepath . '/v0.9/internal/OdyMarkdown/images/logo.svg' . '">'
+        <img class="oddFooterRight" src="' . $CONFIG->basepath . '/Skaut/OdyMarkdown/v0_9/images/logo.svg' . '">'
     );
     $mpdf->DefHTMLFooterByName(
         'EvenFooter',
         '<div class="evenFooterLeft">Odyssea ' . date('Y') . '</div>
-        <img class="evenFooterRight" src="' . $CONFIG->basepath . '/v0.9/internal/OdyMarkdown/images/ovce.svg' . '">'
+        <img class="evenFooterRight" src="' . $CONFIG->basepath . '/Skaut/OdyMarkdown/v0_9/images/ovce.svg' . '">'
     );
 
     if (!isset($data['qr']) || $data['qr'] === 'true') {
@@ -111,7 +111,7 @@ SQL;
     $mpdf->WriteHTML('', 2);
     $mpdf->SetHTMLHeaderByName('OddHeader', 'O');
 
-    $mpdf->WriteHTML(file_get_contents($CONFIG->apiuri . '/internal/OdyMarkdown/styles.php') ?: '', 1);
+    $mpdf->WriteHTML(file_get_contents($CONFIG->basepath . '/Skaut/OdyMarkdown/v0_9/styles.php') ?: '', 1);
     $mpdf->WriteHTML($html, 2);
 
     header('content-type:application/pdf; charset=utf-8');
