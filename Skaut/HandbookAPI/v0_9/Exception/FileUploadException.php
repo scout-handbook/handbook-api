@@ -10,7 +10,8 @@ class FileUploadException extends Exception
 
     public function __construct(int $errorCode)
     {
-        switch($errorCode) {
+        $message = 'Unknown error.';
+        switch ($errorCode) {
             case UPLOAD_ERR_INI_SIZE:
             case UPLOAD_ERR_FORM_SIZE:
                 $message = 'The uploaded file is too big.';
@@ -18,12 +19,11 @@ class FileUploadException extends Exception
             case UPLOAD_ERR_PARTIAL:
             case UPLOAD_ERR_NO_FILE:
                 $message = 'The uploaded file is corrupt.';
+                break;
             case UPLOAD_ERR_NO_TMP_DIR:
             case UPLOAD_ERR_CANT_WRITE:
                 $message = 'The server filesystem is misconfigured.';
-            case UPLOAD_ERR_OK:
-            case UPLOAD_ERR_EXTENSION:
-                $message = 'Unknown error.';
+                break;
         }
         parent::__construct($message);
     }
