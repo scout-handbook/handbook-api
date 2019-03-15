@@ -8,6 +8,7 @@ use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\Helper;
 use Skaut\HandbookAPI\v0_9\Role;
+use Skaut\HandbookAPI\v0_9\Exception\FileUploadException;
 use Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException;
 use Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException;
 use Skaut\HandbookAPI\v0_9\Exception\NotFoundException;
@@ -109,6 +110,9 @@ SQL;
 
     if (!isset($_FILES['image'])) {
         throw new MissingArgumentException(MissingArgumentException::FILE, 'image');
+    }
+    if ($_FILES['image']['error'] !== UPLOAD_ERR_OK) {
+        throw new FileUploadException($_FILES['image']['error']);
     }
     if (!getimagesize($_FILES['image']['tmp_name'])) {
         throw new InvalidArgumentTypeException('image', ['image/jpeg', 'image/png']);
