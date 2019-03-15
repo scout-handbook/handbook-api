@@ -21,7 +21,7 @@
 		"cebe/markdown": "^1.2",
 		"skautis/skautis": "^2.1",
 		"ramsey/uuid": "^3.6",
-		"mpdf/mpdf": "^7.0",
+		"mpdf/mpdf": "^8.0",
 		"bacon/bacon-qr-code": "^2.0"
 	},
 	"require-dev": {
@@ -29,7 +29,7 @@
 		"phpmd/phpmd": "^2.6",
 		"phpunit/phpunit": "^7.5",
 		"phpunit/dbunit": "^4.0",
-		"phpstan/phpstan": "^0.10.6",
+		"phpstan/phpstan": "^0.11.4",
 		"phpcompatibility/php-compatibility": "^9.0"
 	},
 	"autoload": {
