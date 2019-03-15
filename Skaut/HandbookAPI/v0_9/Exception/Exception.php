@@ -3,6 +3,7 @@ namespace Skaut\HandbookAPI\v0_9\Exception;
 
 @_API_EXEC === 1 or die('Restricted access.');
 
+/** @SuppressWarnings(PHPMD.NumberOfChildren) */
 class Exception extends \Exception
 {
     const TYPE = 'Exception';
