@@ -132,13 +132,13 @@ class Helper // Helper functions
 
         $str = mb_strtolower(trim($str));
         foreach ($lookupTable as $pair) {
-            $str = mb_ereg_replace($pair['letters'], $pair['base'], $str);
+            $str = mb_ereg_replace($pair['letters'], $pair['base'], strval($str));
         }
-        $str = mb_ereg_replace('\s+', '-', $str);
-        $str = mb_ereg_replace('[^\w\-]+', '', $str);
-        $str = mb_ereg_replace('_', '-', $str);
-        $str = mb_ereg_replace('\-\-+', '-', $str);
+        $str = mb_ereg_replace('\s+', '-', strval($str));
+        $str = mb_ereg_replace('[^\w\-]+', '', strval($str));
+        $str = mb_ereg_replace('_', '-', strval($str));
+        $str = mb_ereg_replace('\-\-+', '-', strval($str));
 
-        return $str;
+        return strval($str);
     }
 }
