@@ -29,7 +29,7 @@ $loginUser = function (Skautis $skautis, array $data) use ($CONFIG, $accountEndp
             new DateTimeZone('Europe/Prague')
         );
         if (!$timeout) {
-            $timeout = (new \DateTime('now', new \DateTimeZone('Europe/Prague')))->add(new \DateInterval('10M'));
+            $timeout = (new \DateTime('now', new \DateTimeZone('Europe/Prague')))->add(new \DateInterval('PT10M'));
         }
         $timeout = $timeout->format('U');
 
