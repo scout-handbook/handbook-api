@@ -18,23 +18,32 @@ $logoutUser = function (Skautis $skautis, array $data) use ($CONFIG) : void {
 
     // Called by a user, set up and redirect to SkautIS
     if (isset($_SERVER['HTTP_REFERER']) and !$startsWith($_SERVER['HTTP_REFERER'], $ISprefix)) {
-        if (isset($data['return-uri']) and $data['return-uri'] != '') {
-            setcookie('return-uri', $data['return-uri'], time() + 30, "/", $CONFIG->cookieuri, true, true);
-            $_COOKIE['return-uri'] = $data['return-uri'];
-        }
+        if (isset($_COOKIE['skautis_token'])) {
+            if (isset($data['return-uri']) and $data['return-uri'] != '') {
+                setcookie('return-uri', $data['return-uri'], time() + 30, "/", $CONFIG->cookieuri, true, true);
+                $_COOKIE['return-uri'] = $data['return-uri'];
+            }
 
-        $dateLogout = (new \DateTime('now', new \DateTimeZone('Europe/Prague')))
-            ->add(new \DateInterval('PT60S'))
-            ->format('j. n. Y H:i:s');
-        $reconstructedPost = array(
-            'skautIS_Token' => $_COOKIE['skautis_token'],
-            'skautIS_IDRole' => '',
-            'skautIS_IDUnit' => '',
-            'skautIS_DateLogout' => $dateLogout
-        );
-        $skautis->setLoginData($reconstructedPost);
-        header('Location: ' . $skautis->getLogoutUrl());
-        die();
+            $dateLogout = (new \DateTime('now', new \DateTimeZone('Europe/Prague')))
+                ->add(new \DateInterval('PT60S'))
+                ->format('j. n. Y H:i:s');
+            $reconstructedPost = array(
+                'skautIS_Token' => $_COOKIE['skautis_token'],
+                'skautIS_IDRole' => '',
+                'skautIS_IDUnit' => '',
+                'skautIS_DateLogout' => $dateLogout
+            );
+            $skautis->setLoginData($reconstructedPost);
+            header('Location: ' . $skautis->getLogoutUrl());
+            die();
+        } else {
+            if (isset($_COOKIE['return-uri'])) {
+                header('Location: ' . $_COOKIE['return-uri']);
+                die();
+            }
+            header('Location: ' . $CONFIG->baseuri);
+            die();
+        }
     }
 
     // Back from SkautIS, finish logging out and redirect back
