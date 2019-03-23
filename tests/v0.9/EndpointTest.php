@@ -10,6 +10,7 @@ use TestUtils\PhpInputStream;
 
 use Skaut\HandbookAPI\v0_9\Endpoint;
 use Skaut\HandbookAPI\v0_9\Role;
+use Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException;
 
 /** @SuppressWarnings(PHPMD.TooManyPublicMethods) */
 class EndpointTest extends TestCase
@@ -139,10 +140,10 @@ class EndpointTest extends TestCase
     /**
      * @covers Skaut\HandbookAPI\v0_9\Endpoint::callFunctionHelper
      * @depends testSetDeleteMethod
-     * @expectedException Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException
      */
     public function testCallFunctionHelperPutNoId(Endpoint $endpoint) : void
     {
+        $this->expectException(MissingArgumentException::class);
         $method = new \ReflectionMethod('\Skaut\HandbookAPI\v0_9\Endpoint', 'callFunctionHelper');
         $method->setAccessible(true);
         $fn = $method->invokeArgs($endpoint, ['PUT', []]);
@@ -164,10 +165,10 @@ class EndpointTest extends TestCase
     /**
      * @covers Skaut\HandbookAPI\v0_9\Endpoint::callFunctionHelper
      * @depends testSetDeleteMethod
-     * @expectedException Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException
      */
     public function testCallFunctionHelperDeleteNoId(Endpoint $endpoint) : void
     {
+        $this->expectException(MissingArgumentException::class);
         $method = new \ReflectionMethod('\Skaut\HandbookAPI\v0_9\Endpoint', 'callFunctionHelper');
         $method->setAccessible(true);
         $fn = $method->invokeArgs($endpoint, ['DELETE', []]);

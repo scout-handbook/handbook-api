@@ -33,10 +33,10 @@ class GroupTest extends TestCase
 
     /**
      * @covers Skaut\HandbookAPI\v0_9\Group::__construct()
-     * @expectedException InvalidArgumentException
      */
     public function testCtorInvalid() : void
     {
+        $this->expectException(\InvalidArgumentException::class);
         new Group(pack('H*', '1739a63aa2544a959508103b7c80bcdbf'), 'gname', 123);
     }
 }
