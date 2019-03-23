@@ -41,7 +41,7 @@ SQL;
         $count = '';
         $db2->bindColumn(1, $count);
         $db2->fetchRequire('group');
-        $groups[] = new Group($id, strval($name), intval($count));
+        $groups[Uuid::fromBytes($id)->toString()] = new Group(strval($name), intval($count));
     }
     return ['status' => 200, 'response' => $groups];
 };
