@@ -46,12 +46,12 @@ stages:
 
 unit-php72:
   extends: .unit-test
-  variables:
-    XDEBUG: "true"
   image: php:7.2
 
 unit-php73:
   extends: .unit-test
+  variables:
+    XDEBUG: "true"
   image: php:7.3
 
 .lint:
