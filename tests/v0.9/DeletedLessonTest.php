@@ -33,10 +33,10 @@ class DeletedLessonTest extends TestCase
 
     /**
      * @covers Skaut\HandbookAPI\v0_9\DeletedLesson::__construct()
-     * @expectedException InvalidArgumentException
      */
     public function testCtorInvalid()
     {
+        $this->expectException(\InvalidArgumentException::class);
         new DeletedLesson(pack('H*', '1739a63aa2544a959508103b7c80bcdbf'), 'dlname');
     }
 }

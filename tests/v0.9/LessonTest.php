@@ -49,10 +49,10 @@ class LessonTest extends TestCase
 
     /**
      * @covers Skaut\HandbookAPI\v0_9\Lesson::__construct()
-     * @expectedException InvalidArgumentException
      */
     public function testCtorInvalid() : void
     {
+        $this->expectException(\InvalidArgumentException::class);
         new Lesson(pack('H*', '1739a63aa2544a959508103b7c80bcdbf'), 'lname', 123.4567);
     }
 
