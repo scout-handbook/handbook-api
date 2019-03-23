@@ -1,16 +1,16 @@
-openapi: 3.0.0
+openapi: 3.0.2
 info:
   title: Handbook API
   description:
     See [GitLab](https://gitlab.com/skaut-handbook/handbook-api) or [OdyMateriály](https://odymaterialy.skauting.cz/) for more.
-  version: "0.9"
+  version: "1.0"
   contact:
     email: genabitu@gmail.com
   license:
     name: MIT License
     url: 'https://gitlab.com/skaut-handbook/handbook-api/blob/master/LICENSE.md'
 servers:
-  - url: https://odymaterialy.skauting.cz/API/v0.9
+  - url: https://odymaterialy.skauting.cz/API/v1.0
 tags:
   - name: lesson
     description: Lessons, their fields and competences
