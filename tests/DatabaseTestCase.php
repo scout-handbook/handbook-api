@@ -7,8 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 abstract class DatabaseTestCase extends TestCase
 {
-    use \PHPUnit\DbUnit\TestCaseTrait;
-
     private static $PDO = null;
     private $connection = null;
 
