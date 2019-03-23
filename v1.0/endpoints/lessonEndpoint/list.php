@@ -15,7 +15,7 @@ SQL;
     $competenceSQL = <<<SQL
 SELECT competence_id
 FROM competences_for_lessons
-WHERE lesson_id = :lesson_id
+WHERE lesson_id = :lesson_id;
 SQL;
 
     $overrideGroup = (isset($data['override-group']) and $data['override-group'] == 'true');
