@@ -34,7 +34,7 @@ SQL;
     $db->bindColumn('name', $name);
 
     while ($db->fetch()) {
-        $lessons[] = new DeletedLesson($id, $name);
+        $lessons[Uuid::fromBytes($id)->toString()] = new DeletedLesson($name);
     }
 
     return ['status' => 200, 'response' => $lessons];
