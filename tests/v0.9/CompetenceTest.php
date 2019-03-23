@@ -38,10 +38,10 @@ class CompetenceTest extends TestCase
 
     /**
      * @covers Skaut\HandbookAPI\v0_9\Competence::__construct()
-     * @expectedException InvalidArgumentException
      */
     public function testCtorInvalid() : void
     {
+        $this->expectException(\InvalidArgumentException::class);
         new Competence(pack('H*', '2a0205609ddf4694b8ac8f846a195865f'), 42, 'cname', 'cdescription');
     }
 }
