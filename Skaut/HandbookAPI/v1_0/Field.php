@@ -5,23 +5,28 @@ namespace Skaut\HandbookAPI\v1_0;
 
 use Ramsey\Uuid\Uuid;
 
-class FullField implements \JsonSerializable
+class Field implements \JsonSerializable
 {
-    private $id;
     private $name;
     private $description;
     private $image;
+    private $lessons;
 
-    public function __construct(string $id, string $name, $description, string $image)
+    public function __construct(string $name, $description, string $image)
     {
-        $this->id = Uuid::fromBytes($id);
         $this->name = Helper::xssSanitize($name);
         $this->description = Helper::xssSanitize($description);
         $this->image = Uuid::fromBytes($image);
+        $this->lessons = [];
+    }
+
+    public function addLesson(string $lesson) : void
+    {
+        $this->lessons[] = Uuid::fromBytes($lesson);
     }
 
     public function jsonSerialize() : array
     {
-        return ['id' => $this->id, 'name' => $this->name, 'description' => $this->description, 'image' => $this->image];
+        return ['name' => $this->name, 'description' => $this->description, 'image' => $this->image, 'lessons' => $this->lessons];
     }
 }

@@ -6,7 +6,7 @@ use Skautis\Skautis;
 
 use Skaut\HandbookAPI\v1_0\Database;
 use Skaut\HandbookAPI\v1_0\Endpoint;
-use Skaut\HandbookAPI\v1_0\FullField;
+use Skaut\HandbookAPI\v1_0\Field;
 use Skaut\HandbookAPI\v1_0\Helper;
 use Skaut\HandbookAPI\v1_0\Role;
 use Skaut\HandbookAPI\v1_0\Exception\MissingArgumentException;
@@ -15,13 +15,18 @@ use Skaut\HandbookAPI\v1_0\Exception\NotFoundException;
 $fieldEndpoint = new Endpoint();
 
 $listFields = function (Skautis $skautis, array $data) : array {
-    $SQL = <<<SQL
+    $fieldSQL = <<<SQL
 SELECT id, name, description, image
 FROM fields;
 SQL;
+    $lessonSQL = <<<SQL
+SELECT lesson_id
+FROM lessons_in_fields
+WHERE field_id = :field_id;
+SQL;
 
     $db = new Database();
-    $db->prepare($SQL);
+    $db->prepare($fieldSQL);
     $db->execute();
     $field_id = '';
     $field_name = '';
@@ -33,7 +38,19 @@ SQL;
     $db->bindColumn('image', $field_image);
     $fields = [];
     while ($db->fetch()) {
-        $fields[] = new FullField($field_id, $field_name, $field_description, $field_image);
+        $newField = new Field($field_name, $field_description, $field_image);
+
+        $db2 = new Database();
+        $db2->prepare($lessonSQL);
+        $db2->bindParam(':field_id', $field_id, PDO::PARAM_STR);
+        $db2->execute();
+        $lesson_id = '';
+        $db2->bindColumn('lesson_id', $lesson_id);
+        while ($db2->fetch()) {
+            $newField->addLesson($lesson_id);
+        }
+
+        $fields[Uuid::fromBytes($field_id)->toString()] = $newField;
     }
     return ['status' => 200, 'response' => $fields];
 };
