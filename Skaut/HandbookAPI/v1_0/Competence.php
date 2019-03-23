@@ -7,14 +7,12 @@ use Ramsey\Uuid\Uuid;
 
 class Competence implements \JsonSerializable
 {
-    private $id;
     private $number;
     private $name;
     private $description;
 
-    public function __construct(string $id, int $number, string $name, string $description)
+    public function __construct(int $number, string $name, string $description)
     {
-        $this->id = Uuid::fromBytes($id);
         $this->number = $number;
         $this->name = Helper::xssSanitize($name);
         $this->description = Helper::xssSanitize($description);
@@ -23,7 +21,6 @@ class Competence implements \JsonSerializable
     public function jsonSerialize() : array
     {
         return [
-            'id' => $this->id,
             'number' => $this->number,
             'name' => $this->name,
             'description' => $this->description
