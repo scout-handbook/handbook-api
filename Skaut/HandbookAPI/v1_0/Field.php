@@ -27,6 +27,11 @@ class Field implements \JsonSerializable
 
     public function jsonSerialize() : array
     {
-        return ['name' => $this->name, 'description' => $this->description, 'image' => $this->image, 'lessons' => $this->lessons];
+        return [
+            'name' => $this->name,
+            'description' => $this->description,
+            'image' => $this->image,
+            'lessons' => $this->lessons
+        ];
     }
 }

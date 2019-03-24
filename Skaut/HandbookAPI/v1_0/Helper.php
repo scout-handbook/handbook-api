@@ -93,7 +93,10 @@ SQL;
         $loginState = $accountEndpoint->call('GET', new Role('guest'), ['no-avatar' => 'true']);
 
         if ($loginState['status'] == '200') {
-            if ($overrideGroup and in_array($loginState['response']['role'], ['editor', 'administrator', 'superuser'])) {
+            if ($overrideGroup and in_array(
+                $loginState['response']['role'],
+                ['editor', 'administrator', 'superuser']
+            )) {
                 return true;
             }
             $groups = $loginState['response']['groups'];

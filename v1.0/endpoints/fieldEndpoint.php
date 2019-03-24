@@ -49,7 +49,7 @@ SQL;
         $lesson_id = '';
         $db2->bindColumn('lesson_id', $lesson_id);
         while ($db2->fetch()) {
-            if(Helper::checkLessonGroup(Uuid::fromBytes($lesson_id), $overrideGroup)) {
+            if (Helper::checkLessonGroup(Uuid::fromBytes($lesson_id), $overrideGroup)) {
                 $newField->addLesson($lesson_id);
             }
         }
