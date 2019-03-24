@@ -44,18 +44,14 @@ stages:
   script:
     - php composer.phar unit
 
-unit-php71:
-  extends: .unit-test
-  image: php:7.1
-
 unit-php72:
   extends: .unit-test
-  variables:
-    XDEBUG: "true"
   image: php:7.2
 
 unit-php73:
   extends: .unit-test
+  variables:
+    XDEBUG: "true"
   image: php:7.3
 
 .lint:
@@ -65,10 +61,6 @@ unit-php73:
     IMAGICK: "true"
   script:
     - php composer.phar lint
-
-lint-php71:
-  extends: .lint
-  image: php:7.1
 
 lint-php72:
   extends: .lint

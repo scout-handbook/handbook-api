@@ -6,6 +6,7 @@ global $CONFIG;
 use PHPUnit\Framework\TestCase;
 
 use Skaut\HandbookAPI\v0_9\Helper;
+use Skaut\HandbookAPI\v0_9\Exception\NotFoundException;
 
 class HelperTest extends TestCase
 {
@@ -21,10 +22,10 @@ class HelperTest extends TestCase
 
     /**
      * @covers Skaut\HandbookAPI\v0_9\Helper::parseUuid()
-     * @expectedException Skaut\HandbookAPI\v0_9\Exception\NotFoundException
      */
     public function testParseUuidInvalid() : void
     {
+        $this->expectException(NotFoundException::class);
         $uuid = Helper::parseUuid('6f99ef12-4815-4f5e-9ede-40d14007a3d12', '');
     }
 

@@ -29,7 +29,7 @@ $loginUser = function (Skautis $skautis, array $data) use ($CONFIG, $accountEndp
             new DateTimeZone('Europe/Prague')
         );
         if (!$timeout) {
-            $timeout = (new \DateTime('now', new \DateTimeZone('Europe/Prague')))->add(new \DateInterval('10M'));
+            $timeout = (new \DateTime('now', new \DateTimeZone('Europe/Prague')))->add(new \DateInterval('PT10M'));
         }
         $timeout = $timeout->format('U');
 
@@ -65,7 +65,7 @@ $loginUser = function (Skautis $skautis, array $data) use ($CONFIG, $accountEndp
         $redirect = mb_substr($_SERVER['HTTP_REFERER'], mb_strlen($CONFIG->baseuri));
     }
     if (isset($redirect)) {
-        setcookie('return-uri', $redirect, time() + 30, "/", $CONFIG->cookieuri, true, true);
+        setcookie('return-uri', $redirect, time() + 600, "/", $CONFIG->cookieuri, true, true);
         $_COOKIE['return-uri'] = $redirect;
     }
     header('Location: ' . $skautis->getLoginUrl());

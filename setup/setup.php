@@ -34,6 +34,9 @@ chmod($CONFIG->imagepath . '/web/00000000-0000-0000-0000-000000000000.jpg', 0444
 chmod($CONFIG->imagepath . '/thumbnail/00000000-0000-0000-0000-000000000000.jpg', 0444);
 
 $file_content = file($CONFIG->basepath . '/setup/setup.php');
+if (!$file_content) {
+    $file_content = [];
+}
 $file_content[6] = "die(); // Comment out this line by putting // at its beginning. Do not delete this line.\n";
 $file = fopen($CONFIG->basepath . '/setup/setup.php', "w");
 if ($file) {

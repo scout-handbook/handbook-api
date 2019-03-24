@@ -48,10 +48,10 @@ class FieldTest extends TestCase
 
     /**
      * @covers Skaut\HandbookAPI\v0_9\Field::__construct()
-     * @expectedException InvalidArgumentException
      */
     public function testCtorInvalid() : void
     {
+        $this->expectException(\InvalidArgumentException::class);
         new Field(pack('H*', '1739a63aa2544a959508103b7c80bcdbf'), 'fname', 123);
     }
 }

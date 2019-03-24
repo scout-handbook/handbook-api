@@ -38,10 +38,10 @@ class FullFieldTest extends TestCase
 
     /**
      * @covers Skaut\HandbookAPI\v0_9\FullField::__construct()
-     * @expectedException InvalidArgumentException
      */
     public function testCtorInvalidName() : void
     {
+        $this->expectException(\InvalidArgumentException::class);
         new FullField(
             pack('H*', '1739a63aa2544a959508103b7c80bcdbf'),
             'fname',
@@ -52,10 +52,10 @@ class FullFieldTest extends TestCase
 
     /**
      * @covers Skaut\HandbookAPI\v0_9\FullField::__construct()
-     * @expectedException InvalidArgumentException
      */
     public function testCtorInvalidImage() : void
     {
+        $this->expectException(\InvalidArgumentException::class);
         new FullField(
             pack('H*', '1739a63aa2544a959508103b7c80bcdb'),
             'fname',
