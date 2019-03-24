@@ -16,7 +16,7 @@ SQL;
 
     $id = Helper::parseUuid($data['id'], 'lesson');
 
-    if (!checkLessonGroup($id, true)) {
+    if (!Helper::checkLessonGroup($id, true)) {
         throw new RoleException();
     }
 
