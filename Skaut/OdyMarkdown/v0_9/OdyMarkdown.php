@@ -34,7 +34,7 @@ class OdyMarkdown extends GithubMarkdown
             }
         }
 
-        if (mb_strpos($block['url'], $CONFIG->apiuri . '/image') !== false) {
+        if (mb_strpos($block['url'], $CONFIG->apiuri . '/v0.9/image') !== false) {
             if (mb_strpos($block['url'], 'quality=') !== false) {
                 $block['url'] = str_replace('quality=web', 'quality=original', $block['url']);
                 $block['url'] = str_replace('quality=thumbnail', 'quality=original', $block['url']);
