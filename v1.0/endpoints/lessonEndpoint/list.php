@@ -5,6 +5,7 @@ use Ramsey\Uuid\Uuid;
 use Skautis\Skautis;
 
 use Skaut\HandbookAPI\v1_0\Database;
+use Skaut\HandbookAPI\v1_0\Helper;
 use Skaut\HandbookAPI\v1_0\Lesson;
 
 $listLessons = function (Skautis $skautis, array $data) : array {
@@ -33,7 +34,7 @@ SQL;
     $db->bindColumn(3, $lesson_version);
 
     while ($db->fetch()) {
-        if (!checkLessonGroup(Uuid::fromBytes($lesson_id), $overrideGroup)) {
+        if (!Helper::checkLessonGroup(Uuid::fromBytes($lesson_id), $overrideGroup)) {
             continue;
         }
         $newLesson = new Lesson($lesson_name, floatval($lesson_version));

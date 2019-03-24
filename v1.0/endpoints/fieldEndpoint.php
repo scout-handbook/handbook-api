@@ -25,6 +25,8 @@ FROM lessons_in_fields
 WHERE field_id = :field_id;
 SQL;
 
+    $overrideGroup = (isset($data['override-group']) and $data['override-group'] == 'true');
+
     $db = new Database();
     $db->prepare($fieldSQL);
     $db->execute();
@@ -47,7 +49,9 @@ SQL;
         $lesson_id = '';
         $db2->bindColumn('lesson_id', $lesson_id);
         while ($db2->fetch()) {
-            $newField->addLesson($lesson_id);
+            if(Helper::checkLessonGroup(Uuid::fromBytes($lesson_id), $overrideGroup)) {
+                $newField->addLesson($lesson_id);
+            }
         }
 
         $fields[Uuid::fromBytes($field_id)->toString()] = $newField;
