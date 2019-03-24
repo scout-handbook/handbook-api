@@ -25,7 +25,7 @@ class LessonTest extends TestCase
      * @covers Skaut\HandbookAPI\v0_9\Lesson::jsonSerialize
      * @depends testCtor
      */
-    public function testJsonSerializeNoLessons(Lesson $lesson) : void
+    public function testJsonSerializeNoCompetences(Lesson $lesson) : void
     {
         $this->assertJsonStringEqualsJsonString(
             '{"id":"1739a63a-a254-4a95-9508-103b7c80bcdb","name":"lname","version":123457,"competences":[]}',
@@ -34,9 +34,10 @@ class LessonTest extends TestCase
     }
 
     /**
+     * @covers Skaut\HandbookAPI\v0_9\Lesson::addCompetence
      * @covers Skaut\HandbookAPI\v0_9\Lesson::jsonSerialize
      */
-    public function testJsonSerializeLessons() : void
+    public function testJsonSerializeCompetences() : void
     {
         $lesson = new Lesson(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'lname', 123.4567);
         $lesson->addCompetence(pack('H*', '1739a63ab2544a959508103b7c80bcdb'));
