@@ -38,7 +38,7 @@
 	},
 	"scripts": {
 		"phpcs": "vendor/bin/phpcs",
-		"phpmd": "vendor/bin/phpmd ./ text phpmd.xml --ignore-violations-on-exit --exclude vendor",
+		"phpmd": "vendor/bin/phpmd ./ text phpmd.xml --exclude vendor",
 		"phpstan": "php -d memory_limit=-1 vendor/bin/phpstan analyse",
 		"phpunit": "vendor/bin/phpunit",
 		"lint": [
