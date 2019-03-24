@@ -80,6 +80,44 @@ class Helper // Helper functions
         return self::skautisTry($safeCallback, $hardCheck);
     }
 
+    public static function checkLessonGroup(UuidInterface $lessonId, bool $overrideGroup = false) : bool
+    {
+        require($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
+        require($CONFIG->basepath . '/v1.0/endpoints/accountEndpoint.php');
+
+        $groupSQL = <<<SQL
+SELECT group_id FROM groups_for_lessons
+WHERE lesson_id = :lesson_id;
+SQL;
+
+        $loginState = $accountEndpoint->call('GET', new Role('guest'), ['no-avatar' => 'true']);
+
+        if ($loginState['status'] == '200') {
+            if ($overrideGroup and in_array($loginState['response']['role'], ['editor', 'administrator', 'superuser'])) {
+                return true;
+            }
+            $groups = $loginState['response']['groups'];
+            $groups[] = '00000000-0000-0000-0000-000000000000';
+        } else {
+            $groups = ['00000000-0000-0000-0000-000000000000'];
+        }
+        array_walk($groups, '\Ramsey\Uuid\Uuid::fromString');
+
+        $db = new Database();
+        $db->prepare($groupSQL);
+        $lessonId = $lessonId->getBytes();
+        $db->bindParam(':lesson_id', $lessonId, \PDO::PARAM_STR);
+        $db->execute();
+        $groupId = '';
+        $db->bindColumn('group_id', $groupId);
+        while ($db->fetch()) {
+            if (in_array(Uuid::fromBytes(strval($groupId)), $groups)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /** @SuppressWarnings(PHPMD.ExcessiveMethodLength) */
     public static function urlEscape(string $str) : string
     {
