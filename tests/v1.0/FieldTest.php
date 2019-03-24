@@ -32,6 +32,7 @@ class FieldTest extends TestCase
     }
 
     /**
+     * @covers Skaut\HandbookAPI\v1_0\Field::addLesson()
      * @covers Skaut\HandbookAPI\v1_0\Field::jsonSerialize()
      */
     public function testJsonSerializeLessons() : void
