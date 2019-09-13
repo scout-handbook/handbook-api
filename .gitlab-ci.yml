@@ -6,8 +6,7 @@ cache:
     - node_modules/
     - vendor/
 stages:
-  - unit-test
-  - lint
+  - test
   - deploy
 
 .composer:
@@ -35,40 +34,26 @@ stages:
 
     - php composer.phar install
 
-.unit-test:
+unit-test:
+  image: php:7.3
   extends: .composer
-  stage: unit-test
+  stage: test
+  variables:
+    XDEBUG: "true"
   services:
     - name: mariadb:latest
       alias: mysql
   script:
     - php composer.phar unit
 
-unit-php72:
-  extends: .unit-test
-  image: php:7.2
-
-unit-php73:
-  extends: .unit-test
-  variables:
-    XDEBUG: "true"
+lint:
   image: php:7.3
-
-.lint:
   extends: .composer
-  stage: lint
+  stage: test
   variables:
     IMAGICK: "true"
   script:
     - php composer.phar lint
-
-lint-php72:
-  extends: .lint
-  image: php:7.2
-
-lint-php73:
-  extends: .lint
-  image: php:7.3
 
 pages:
   stage: deploy
