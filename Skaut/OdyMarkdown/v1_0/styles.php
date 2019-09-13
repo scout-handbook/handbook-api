@@ -38,12 +38,18 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 	padding-right: -250px;
 }
 
+.dottedlineh
+{
+	border-top: 10px solid red;
+	margin-top: 30px;
+}
+
 .dottedpage
 {
-	background-image: url('<?php echo($CONFIG->apiuri); ?>/Skaut/OdyMarkdown/v1_0/dottedlines.png');
-	background-repeat: no-repeat;
-	background-size: cover;
-	height: 1000px;
+	height: 300px;
+	position: absolute;
+	overflow: hidden;
+	page-break-inside: avoid;
 }
 
 h1
