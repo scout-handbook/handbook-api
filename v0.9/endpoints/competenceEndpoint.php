@@ -17,9 +17,9 @@ $competenceEndpoint = new Endpoint();
 
 $listCompetences = function () : array {
     $SQL = <<<SQL
-SELECT id, number, name, description
-FROM competences
-ORDER BY number;
+SELECT `id`, `number`, `name`, `description`
+FROM `competences`
+ORDER BY `number`;
 SQL;
 
     $db = new Database();
@@ -43,7 +43,7 @@ $competenceEndpoint->setListMethod(new Role('guest'), $listCompetences);
 
 $addCompetence = function (Skautis $skautis, array $data) : array {
     $SQL = <<<SQL
-INSERT INTO competences (id, number, name, description)
+INSERT INTO `competences` (`id`, `number`, `name`, `description`)
 VALUES (:id, :number, :name, :description);
 SQL;
 
@@ -77,14 +77,14 @@ $competenceEndpoint->setAddMethod(new Role('administrator'), $addCompetence);
 
 $updateCompetence = function (Skautis $skautis, array $data) : array {
     $selectSQL = <<<SQL
-SELECT number, name, description
-FROM competences
-WHERE id = :id;
+SELECT `number`, `name`, `description`
+FROM `competences`
+WHERE `id` = :id;
 SQL;
     $updateSQL = <<<SQL
-UPDATE competences
-SET number = :number, name = :name, description = :description
-WHERE id = :id
+UPDATE `competences`
+SET `number` = :number, `name` = :name, `description` = :description
+WHERE `id` = :id
 LIMIT 1;
 SQL;
 
@@ -142,12 +142,12 @@ $competenceEndpoint->setUpdateMethod(new Role('administrator'), $updateCompetenc
 
 $deleteCompetence = function (Skautis $skautis, array $data) : array {
     $deleteLessonsSQL = <<<SQL
-DELETE FROM competences_for_lessons
-WHERE competence_id = :competence_id;
+DELETE FROM `competences_for_lessons`
+WHERE `competence_id` = :competence_id;
 SQL;
     $deleteSQL = <<<SQL
-DELETE FROM competences
-WHERE id = :id
+DELETE FROM `competences`
+WHERE `id` = :id
 LIMIT 1;
 SQL;
 
