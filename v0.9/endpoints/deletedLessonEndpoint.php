@@ -17,11 +17,11 @@ $deletedLessonEndpoint->addSubEndpoint('history', $deletedLessonHistoryEndpoint)
 
 $listDeletedLessons = function () : array {
     $SQL = <<<SQL
-SELECT a.id, a.name
-FROM lesson_history a
-LEFT JOIN lessons ON a.id = lessons.id # Only deleted lessons
-LEFT JOIN lesson_history b ON a.id = b.id AND a.version < b.version # Only most recent version
-WHERE lessons.id IS NULL AND b.id IS NULL;
+SELECT `a`.`id`, `a`.`name`
+FROM `lesson_history` `a`
+LEFT JOIN `lessons` ON `a`.`id` = `lessons`.`id` # Only deleted lessons
+LEFT JOIN `lesson_history` `b` ON `a`.`id` = `b`.`id` AND `a`.`version` < `b`.`version` # Only most recent version
+WHERE `lessons`.`id` IS NULL AND `b`.`id` IS NULL;
 SQL;
 
     $db = new Database();

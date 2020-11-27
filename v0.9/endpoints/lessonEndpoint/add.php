@@ -9,7 +9,7 @@ use Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException;
 
 $addLesson = function (Skautis $skautis, array $data) : array {
     $SQL = <<<SQL
-INSERT INTO lessons (id, name, body)
+INSERT INTO `lessons` (`id`, `name`, `body`)
 VALUES (:id, :name, :body);
 SQL;
 

@@ -9,9 +9,9 @@ use Skaut\HandbookAPI\v0_9\Exception\RoleException;
 
 $getLesson = function (Skautis $skautis, array $data) : array {
     $SQL = <<<SQL
-SELECT body
-FROM lessons
-WHERE id = :id;
+SELECT `body`
+FROM `lessons`
+WHERE `id` = :id;
 SQL;
 
     $id = Helper::parseUuid($data['id'], 'lesson');
