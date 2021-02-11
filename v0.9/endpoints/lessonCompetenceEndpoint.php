@@ -13,11 +13,11 @@ $lessonCompetenceEndpoint = new Endpoint();
 
 $updateLessonCompetence = function (Skautis $skautis, array $data) : array {
     $deleteSQL = <<<SQL
-DELETE FROM competences_for_lessons
-WHERE lesson_id = :lesson_id;
+DELETE FROM `competences_for_lessons`
+WHERE `lesson_id` = :lesson_id;
 SQL;
     $insertSQL = <<<SQL
-INSERT INTO competences_for_lessons (lesson_id, competence_id)
+INSERT INTO `competences_for_lessons` (`lesson_id`, `competence_id`)
 VALUES (:lesson_id, :competence_id);
 SQL;
 

@@ -15,20 +15,20 @@ use Skaut\HandbookAPI\v0_9\Exception\NotLockedException;
 
 $updateLesson = function (Skautis $skautis, array $data) : array {
     $selectSQL = <<<SQL
-SELECT name, body
-FROM lessons
-WHERE id = :id;
+SELECT `name`, `body`
+FROM `lessons`
+WHERE `id` = :id;
 SQL;
     $copySQL = <<<SQL
-INSERT INTO lesson_history (id, name, version, body)
-SELECT id, name, version, body
-FROM lessons
-WHERE id = :id;
+INSERT INTO `lesson_history` (`id`, `name`, `version`, `body`)
+SELECT `id`, `name`, `version`, `body`
+FROM `lessons`
+WHERE `id` = :id;
 SQL;
     $updateSQL = <<<SQL
-UPDATE lessons
-SET name = :name, version = CURRENT_TIMESTAMP(3), body = :body
-WHERE id = :id
+UPDATE `lessons`
+SET `name` = :name, `version` = CURRENT_TIMESTAMP(3), `body` = :body
+WHERE `id` = :id
 LIMIT 1;
 SQL;
 

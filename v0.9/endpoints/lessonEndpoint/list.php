@@ -15,11 +15,11 @@ function populateContainer(
     bool $overrideGroup = false
 ) : void {
     $competenceSQL = <<<SQL
-SELECT DISTINCT competences.id, competences.number
-FROM competences
-JOIN competences_for_lessons ON competences.id = competences_for_lessons.competence_id
-WHERE competences_for_lessons.lesson_id = :lesson_id
-ORDER BY competences.number;
+SELECT DISTINCT `competences`.`id`, `competences`.`number`
+FROM `competences`
+JOIN `competences_for_lessons` ON `competences`.`id` = `competences_for_lessons`.`competence_id`
+WHERE `competences_for_lessons`.`lesson_id` = :lesson_id
+ORDER BY `competences`.`number`;
 SQL;
 
     $db->execute();
@@ -58,20 +58,20 @@ SQL;
 
 $listLessons = function (Skautis $skautis, array $data) : array {
     $fieldSQL = <<<SQL
-SELECT id, name
-FROM fields;
+SELECT `id`, `name`
+FROM `fields`;
 SQL;
     $anonymousSQL = <<<SQL
-SELECT DISTINCT lessons.id, lessons.name, UNIX_TIMESTAMP(lessons.version)
-FROM lessons
-LEFT JOIN lessons_in_fields ON lessons.id = lessons_in_fields.lesson_id
-WHERE lessons_in_fields.field_id IS NULL;
+SELECT DISTINCT `lessons`.`id`, `lessons`.`name`, UNIX_TIMESTAMP(`lessons`.`version`)
+FROM `lessons`
+LEFT JOIN `lessons_in_fields` ON `lessons`.`id` = `lessons_in_fields`.`lesson_id`
+WHERE `lessons_in_fields`.`field_id` IS NULL;
 SQL;
     $lessonSQL = <<<SQL
-SELECT DISTINCT lessons.id, lessons.name, UNIX_TIMESTAMP(lessons.version)
-FROM lessons
-JOIN lessons_in_fields ON lessons.id = lessons_in_fields.lesson_id
-WHERE lessons_in_fields.field_id = :field_id;
+SELECT DISTINCT `lessons`.`id`, `lessons`.`name`, UNIX_TIMESTAMP(`lessons`.`version`)
+FROM `lessons`
+JOIN `lessons_in_fields` ON `lessons`.`id` = `lessons_in_fields`.`lesson_id`
+WHERE `lessons_in_fields`.`field_id` = :field_id;
 SQL;
 
     $overrideGroup = (isset($data['override-group']) and $data['override-group'] == 'true');

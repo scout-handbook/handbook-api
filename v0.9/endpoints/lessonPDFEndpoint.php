@@ -27,9 +27,9 @@ $getLessonPDF = function (Skautis $skautis, array $data, Endpoint $endpoint) use
     $name = '';
     if (!isset($data['caption']) || $data['caption'] === 'true') {
         $SQL = <<<SQL
-SELECT name
-FROM lessons
-WHERE id = :id;
+SELECT `name`
+FROM `lessons`
+WHERE `id` = :id;
 SQL;
 
         $db = new Database();
