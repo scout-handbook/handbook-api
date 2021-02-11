@@ -50,9 +50,9 @@ function applyRotation(Imagick $image) : void
 
 $listImages = function () : array {
     $SQL = <<<SQL
-SELECT id
-FROM images
-ORDER BY time DESC;
+SELECT `id`
+FROM `images`
+ORDER BY `time` DESC;
 SQL;
 
     $db = new Database();
@@ -104,7 +104,7 @@ $imageEndpoint->setGetMethod(new Role('guest'), $getImage);
 
 $addImage = function () use ($CONFIG) : array {
     $SQL = <<<SQL
-INSERT INTO images (id)
+INSERT INTO `images` (`id`)
 VALUES (:id);
 SQL;
 
@@ -169,8 +169,8 @@ $imageEndpoint->setAddMethod(new Role('editor'), $addImage);
 
 $deleteImage = function (Skautis $skautis, array $data) use ($CONFIG) : array {
     $SQL = <<<SQL
-DELETE FROM images
-WHERE id = :id
+DELETE FROM `images`
+WHERE `id` = :id
 LIMIT 1;
 SQL;
 

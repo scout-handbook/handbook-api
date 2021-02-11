@@ -17,12 +17,12 @@ $groupEndpoint = new Endpoint();
 
 $listGroups = function () : array {
     $selectSQL = <<<SQL
-SELECT id, name
-FROM groups;
+SELECT `id`, `name`
+FROM `groups`;
 SQL;
     $countSQL = <<<SQL
-SELECT COUNT(*) FROM users_in_groups
-WHERE group_id = :group_id;
+SELECT COUNT(*) FROM `users_in_groups`
+WHERE `group_id` = :group_id;
 SQL;
 
     $db = new Database();
@@ -49,7 +49,7 @@ $groupEndpoint->setListMethod(new Role('editor'), $listGroups);
 
 $addGroup = function (Skautis $skautis, array $data) : array {
     $SQL = <<<SQL
-INSERT INTO groups (id, name)
+INSERT INTO `groups` (`id`, `name`)
 VALUES (:id, :name);
 SQL;
 
@@ -70,9 +70,9 @@ $groupEndpoint->setAddMethod(new Role('administrator'), $addGroup);
 
 $updateGroup = function (Skautis $skautis, array $data) : array {
     $updateSQL = <<<SQL
-UPDATE groups
-SET name = :name
-WHERE id = :id
+UPDATE `groups`
+SET `name` = :name
+WHERE `id` = :id
 LIMIT 1;
 SQL;
 
@@ -97,16 +97,16 @@ $groupEndpoint->setUpdateMethod(new Role('administrator'), $updateGroup);
 
 $deleteGroup = function (Skautis $skautis, array $data) : array {
     $deleteLessonsSQL = <<<SQL
-DELETE FROM groups_for_lessons
-WHERE group_id = :group_id;
+DELETE FROM `groups_for_lessons`
+WHERE `group_id` = :group_id;
 SQL;
     $deleteUsersSQL = <<<SQL
-DELETE FROM users_in_groups
-WHERE group_id = :group_id;
+DELETE FROM `users_in_groups`
+WHERE `group_id` = :group_id;
 SQL;
     $deleteSQL = <<<SQL
-DELETE FROM groups
-WHERE id = :id
+DELETE FROM `groups`
+WHERE `id` = :id
 LIMIT 1;
 SQL;
     

@@ -38,16 +38,16 @@ function constructSelectSQL(Skautis $skautis, bool $roleSelect, bool $groupSelec
     $groupSQL = $groupSelect ? 'AND users_in_groups.group_id = :group_id ' : '';
 
     $selectSQL = <<<SQL
-SELECT DISTINCT SQL_CALC_FOUND_ROWS users.id, users.name, users.role
-FROM users
-LEFT JOIN users_in_groups ON users.id = users_in_groups.user_id
-WHERE users.name LIKE CONCAT('%', :name, '%') AND users.role IN ('guest', 'user'
+SELECT DISTINCT SQL_CALC_FOUND_ROWS `users`.`id`, `users`.`name`, `users`.`role`
+FROM `users`
+LEFT JOIN `users_in_groups` ON `users`.`id` = `users_in_groups`.`user_id`
+WHERE `users`.`name` LIKE CONCAT('%', :name, '%') AND `users`.`role` IN ('guest', 'user'
 SQL
     . $innerSQL . <<<SQL
 )
 SQL
     . $roleSQL . $groupSQL . <<<SQL
-ORDER BY users.name
+ORDER BY `users`.`name`
 LIMIT :start, :per_page;
 SQL;
     return $selectSQL;
@@ -59,14 +59,14 @@ $listUsers = function (Skautis $skautis, array $data) : array {
 SELECT FOUND_ROWS();
 SQL;
     $groupSQL = <<<SQL
-SELECT group_id
-FROM users_in_groups
-WHERE user_id = :user_id;
+SELECT `group_id`
+FROM `users_in_groups`
+WHERE `user_id` = :user_id;
 SQL;
     $groupCheckSQL = <<<SQL
 SELECT 1
-FROM groups
-WHERE id = :id
+FROM `groups`
+WHERE `id` = :id
 LIMIT 1;
 SQL;
 
@@ -155,9 +155,9 @@ $addUser = function (Skautis $skautis, array $data) : array {
     $name = $data['name'];
 
     $SQL = <<<SQL
-INSERT INTO users (id, name)
+INSERT INTO `users` (`id`, `name`)
 VALUES (:id, :name)
-ON DUPLICATE KEY UPDATE name = VALUES(name);
+ON DUPLICATE KEY UPDATE `name` = VALUES(`name`);
 SQL;
 
     $db = new Database();

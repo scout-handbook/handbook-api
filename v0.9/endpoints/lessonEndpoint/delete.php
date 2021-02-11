@@ -11,26 +11,26 @@ use Skaut\HandbookAPI\v0_9\Exception\NotLockedException;
 
 $deleteLesson = function (Skautis $skautis, array $data) : array {
     $copySQL = <<<SQL
-INSERT INTO lesson_history (id, name, version, body)
-SELECT id, name, version, body
-FROM lessons
-WHERE id = :id;
+INSERT INTO `lesson_history` (`id`, `name`, `version`, `body`)
+SELECT `id`, `name`, `version`, `body`
+FROM `lessons`
+WHERE `id` = :id;
 SQL;
     $deleteFieldSQL = <<<SQL
-DELETE FROM lessons_in_fields
-WHERE lesson_id = :lesson_id;
+DELETE FROM `lessons_in_fields`
+WHERE `lesson_id` = :lesson_id;
 SQL;
     $deleteCompetencesSQL = <<<SQL
-DELETE FROM competences_for_lessons
-WHERE lesson_id = :lesson_id;
+DELETE FROM `competences_for_lessons`
+WHERE `lesson_id` = :lesson_id;
 SQL;
     $deleteGroupsSQL = <<<SQL
-DELETE FROM groups_for_lessons
-WHERE lesson_id = :lesson_id;
+DELETE FROM `groups_for_lessons`
+WHERE `lesson_id` = :lesson_id;
 SQL;
     $deleteSQL = <<<SQL
-DELETE FROM lessons
-WHERE id = :id;
+DELETE FROM `lessons`
+WHERE `id` = :id;
 SQL;
 
     global $mutexEndpoint;
