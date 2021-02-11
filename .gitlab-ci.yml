@@ -21,7 +21,8 @@ stages:
     - docker-php-ext-install gd
     - docker-php-ext-install soap
     - docker-php-ext-install pdo_mysql
-    - $IMAGICK && docker-php-ext-install imagick
+    - $IMAGICK && pecl install imagick
+    - $IMAGICK && docker-php-ext-enable imagick
     - $XDEBUG && pecl install xdebug
     - $XDEBUG && docker-php-ext-enable xdebug
 
@@ -34,7 +35,7 @@ stages:
     - php composer.phar install
 
 unit-test:
-  image: php:8.0
+  image: php:7.4
   extends: .composer
   stage: test
   variables:
@@ -46,7 +47,7 @@ unit-test:
     - php composer.phar unit
 
 lint:
-  image: php:8.0
+  image: php:7.4
   extends: .composer
   stage: test
   variables:
