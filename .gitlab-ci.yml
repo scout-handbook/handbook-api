@@ -21,8 +21,7 @@ stages:
     - docker-php-ext-install gd
     - docker-php-ext-install soap
     - docker-php-ext-install pdo_mysql
-    - $IMAGICK && pecl install imagick
-    - $IMAGICK && docker-php-ext-enable imagick
+    - $IMAGICK && docker-php-ext-install imagick
     - $XDEBUG && pecl install xdebug
     - $XDEBUG && docker-php-ext-enable xdebug
 
