@@ -36,8 +36,8 @@ function checkLessonGroup(UuidInterface $lessonId, bool $overrideGroup = false) 
     global $accountEndpoint;
 
     $groupSQL = <<<SQL
-SELECT group_id FROM groups_for_lessons
-WHERE lesson_id = :lesson_id;
+SELECT `group_id` FROM `groups_for_lessons`
+WHERE `lesson_id` = :lesson_id;
 SQL;
 
     $loginState = $accountEndpoint->call('GET', new Role('guest'), ['no-avatar' => 'true']);

@@ -15,14 +15,14 @@ $deletedLessonHistoryEndpoint = new Endpoint();
 
 $listDeletedLessonHistory = function (Skautis $skautis, array $data) : array {
     $checkSQL = <<<SQL
-SELECT 1 FROM lessons
-WHERE id = :id
+SELECT 1 FROM `lessons`
+WHERE `id` = :id
 LIMIT 1;
 SQL;
     $selectSQL = <<<SQL
-SELECT name, UNIX_TIMESTAMP(version) FROM lesson_history
-WHERE id = :id
-ORDER BY version DESC;
+SELECT `name`, UNIX_TIMESTAMP(`version`) FROM `lesson_history`
+WHERE `id` = :id
+ORDER BY `version` DESC;
 SQL;
 
     $id = Helper::parseUuid($data['parent-id'], 'deleted lesson')->getBytes();
@@ -56,15 +56,15 @@ $deletedLessonHistoryEndpoint->setListMethod(new Role('administrator'), $listDel
 
 $getDeletedLessonHistory = function (Skautis $skautis, array $data) : array {
     $checkSQL = <<<SQL
-SELECT 1 FROM lessons
-WHERE id = :id
+SELECT 1 FROM `lessons`
+WHERE `id` = :id
 LIMIT 1;
 SQL;
     $selectSQL = <<<SQL
-SELECT body
-FROM lesson_history
-WHERE id = :id
-AND version = FROM_UNIXTIME(:version);
+SELECT `body`
+FROM `lesson_history`
+WHERE `id` = :id
+AND `version` = FROM_UNIXTIME(:version);
 SQL;
 
     $id = Helper::parseUuid($data['parent-id'], 'deleted lesson')->getBytes();

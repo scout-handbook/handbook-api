@@ -1,5 +1,5 @@
 parameters:
-  level: max
+  level: 5
   paths:
     - .
   fileExtensions:
@@ -10,13 +10,9 @@ parameters:
     - tests
   bootstrap: bootstrap.php.lint
   ignoreErrors:
-    - '#Undefined variable: \$CONFIG#'
-    - '#Undefined variable: \$_API_SECRETS_EXEC#'
-    - '#Undefined variable: \$[a-zA-Z]+Endpoint#'
-    - '#Undefined variable: \$[a-zA-Z]+Lessons?#'
+    - '#Variable \$CONFIG might not be defined.#'
+    - '#Variable \$_API_SECRETS_EXEC might not be defined.#'
+    - '#Variable \$[a-zA-Z]+Endpoint might not be defined.#'
+    - '#Variable \$[a-zA-Z]+Lessons? might not be defined.#'
     - '#Access to an undefined property Skautis\\Skautis::\$[a-zA-Z]+.#'
-    - '#Function constructSelectSQL not found#'
-    - '#Function populateContainer not found#'
-    - '#Function checkLessonGroup not found#'
-    - '#Function applyRotation not found#'
-    - '#Call to an undefined method Skautis\\Exception::getMessage().#'
+    - '#Call to an undefined method Skautis\\Exception::getMessage\(\).#'
