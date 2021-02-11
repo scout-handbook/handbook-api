@@ -16,7 +16,7 @@ $fieldEndpoint = new Endpoint();
 
 $listFields = function (Skautis $skautis, array $data) : array {
     $SQL = <<<SQL
-SELECT id, name, description, image
+SELECT `id`, `name`, `description`, `image`
 FROM fields;
 SQL;
 
@@ -41,7 +41,7 @@ $fieldEndpoint->setListMethod(new Role('guest'), $listFields);
 
 $addField = function (Skautis $skautis, array $data) : array {
     $SQL = <<<SQL
-INSERT INTO fields (id, name, description, image)
+INSERT INTO `fields` (`id`, `name`, `description`, `image`)
 VALUES (:id, :name, :description, :image);
 SQL;
 
@@ -72,9 +72,9 @@ $fieldEndpoint->setAddMethod(new Role('administrator'), $addField);
 
 $updateField = function (Skautis $skautis, array $data) : array {
     $SQL = <<<SQL
-UPDATE fields
-SET name = :name, description = :description, image = :image
-WHERE id = :id
+UPDATE `fields`
+SET `name` = :name, `description` = :description, `image` = :image
+WHERE `id` = :id
 LIMIT 1;
 SQL;
 
@@ -109,12 +109,12 @@ $fieldEndpoint->setUpdateMethod(new Role('administrator'), $updateField);
 
 $deleteField = function (Skautis $skautis, array $data) : array {
     $deleteLessonsSQL = <<<SQL
-DELETE FROM lessons_in_fields
-WHERE field_id = :field_id;
+DELETE FROM `lessons_in_fields`
+WHERE `field_id` = :field_id;
 SQL;
     $deleteSQL = <<<SQL
-DELETE FROM fields
-WHERE id = :id
+DELETE FROM `fields`
+WHERE `id` = :id
 LIMIT 1;
 SQL;
 
