@@ -106,6 +106,7 @@ CREATE TABLE IF NOT EXISTS `fields` (
   `name` varchar(255) COLLATE utf8mb4_czech_ci NOT NULL,
   `description` text COLLATE utf8mb4_czech_ci NOT NULL,
   `image` binary(16) NOT NULL,
+  `icon` binary(16) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
