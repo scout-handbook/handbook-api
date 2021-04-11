@@ -58,7 +58,7 @@ SQL;
             }
         }
     }
-    $icon = '00000000-0000-0000-000000000000';
+    $icon = '00000000-0000-0000-0000-000000000000';
     if ($field !== null) {
         $fullFields = $fieldEndpoint->call('GET', new Role('guest'), [])['response'];
         foreach($fullFields as $fullField) {
@@ -113,14 +113,17 @@ SQL;
         ) . '">'
     );
     $mpdf->DefHTMLHeaderByName('OddHeader', '<div class="oddHeaderRight">' . $name . '</div>');
-    $mpdf->DefHTMLFooterByName(
-        'OddFooter',
-        '<img class="oddFooterRight" src="' . $CONFIG->imagepath . '/original/' . $icon . '.jpg">'
-    );
-    $mpdf->DefHTMLFooterByName(
-        'EvenFooter',
-        '<img class="evenFooterLeft" src="' . $CONFIG->imagepath . '/original/' . $icon . '.jpg">'
-    );
+    if ($icon !== '00000000-0000-0000-0000-000000000000')
+    {
+        $mpdf->DefHTMLFooterByName(
+            'OddFooter',
+            '<img class="oddFooterRight" src="' . $CONFIG->imagepath . '/original/' . $icon . '.jpg">'
+        );
+        $mpdf->DefHTMLFooterByName(
+            'EvenFooter',
+            '<img class="evenFooterLeft" src="' . $CONFIG->imagepath . '/original/' . $icon . '.jpg">'
+        );
+    }
 
     if (!isset($data['qr']) || $data['qr'] === 'true') {
         $mpdf->SetHTMLHeaderByName('OddHeaderFirst', 'O');
