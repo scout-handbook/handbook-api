@@ -14,14 +14,17 @@ use Skautis\Skautis;
 
 use Skaut\HandbookAPI\v0_9\Database;
 use Skaut\HandbookAPI\v0_9\Endpoint;
+use Skaut\HandbookAPI\v0_9\Field;
 use Skaut\HandbookAPI\v0_9\Helper;
 use Skaut\HandbookAPI\v0_9\Role;
 
 use Skaut\OdyMarkdown\v0_9\OdyMarkdown;
 
+require_once($CONFIG->basepath . '/v0.9/endpoints/fieldEndpoint.php');
+
 $lessonPDFEndpoint = new Endpoint();
 
-$getLessonPDF = function (Skautis $skautis, array $data, Endpoint $endpoint) use ($CONFIG) : void {
+$getLessonPDF = function (Skautis $skautis, array $data, Endpoint $endpoint) use ($CONFIG, $fieldEndpoint) : void {
     $id = Helper::parseUuid($data['parent-id'], 'lesson');
 
     $name = '';
@@ -45,6 +48,25 @@ SQL;
 
 
     $md = $endpoint->getParent()->call('GET', new Role('guest'), ['id' => $data['parent-id']])['response'];
+    $partialFields = $endpoint->getParent()->call('GET', new Role('guest'), [])['response'];
+    $field = null;
+    foreach($partialFields as $partialField) {
+        foreach($partialField->getLessons() as $lesson) {
+            if ($lesson->getId()->equals($id)) {
+                $field = $partialField instanceof Field ? $partialField->getId() : null;
+                break 2;
+            }
+        }
+    }
+    $icon = '00000000-0000-0000-000000000000';
+    if ($field !== null) {
+        $fullFields = $fieldEndpoint->call('GET', new Role('guest'), [])['response'];
+        foreach($fullFields as $fullField) {
+            if ($fullField->getId()->equals($field)) {
+                $icon = $fullField->getIcon()->toString();
+            }
+        }
+    }
 
     $html = '<body><h1>' . $name . '</h1>';
     $parser = new OdyMarkdown();
@@ -93,13 +115,11 @@ SQL;
     $mpdf->DefHTMLHeaderByName('OddHeader', '<div class="oddHeaderRight">' . $name . '</div>');
     $mpdf->DefHTMLFooterByName(
         'OddFooter',
-        '<div class="oddFooterLeft">...jsme na jedné lodi</div>
-        <img class="oddFooterRight" src="' . $CONFIG->basepath . '/Skaut/OdyMarkdown/v0_9/images/logo.svg' . '">'
+        '<img class="oddFooterRight" src="' . $CONFIG->imagepath . '/original/' . $icon . '.jpg">'
     );
     $mpdf->DefHTMLFooterByName(
         'EvenFooter',
-        '<div class="evenFooterLeft">Odyssea ' . date('Y') . '</div>
-        <img class="evenFooterRight" src="' . $CONFIG->basepath . '/Skaut/OdyMarkdown/v0_9/images/ovce.svg' . '">'
+        '<img class="evenFooterLeft" src="' . $CONFIG->imagepath . '/original/' . $icon . '.jpg">'
     );
 
     if (!isset($data['qr']) || $data['qr'] === 'true') {
