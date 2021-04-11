@@ -23,16 +23,12 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 	width: 60px;
 }
 
-.oddFooterRight, .evenFooterLeft
-{
-	height: 19px;
-	margin-bottom: 1.85em;
-	margin-top: -1.85em;
-}
-
 .oddFooterRight
 {
 	float: right;
+	height: 25px;
+	margin-bottom: 1.95em;
+	margin-top: -1.95em;
 }
 
 .dottedline

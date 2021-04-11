@@ -119,10 +119,6 @@ SQL;
             'OddFooter',
             '<img class="oddFooterRight" src="' . $CONFIG->imagepath . '/original/' . $icon . '.jpg">'
         );
-        $mpdf->DefHTMLFooterByName(
-            'EvenFooter',
-            '<img class="evenFooterLeft" src="' . $CONFIG->imagepath . '/original/' . $icon . '.jpg">'
-        );
     }
 
     if (!isset($data['qr']) || $data['qr'] === 'true') {
