@@ -4,6 +4,7 @@ namespace Skaut\HandbookAPI\v0_9;
 @_API_EXEC === 1 or die('Restricted access.');
 
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 class FullField implements \JsonSerializable
 {
@@ -20,6 +21,16 @@ class FullField implements \JsonSerializable
         $this->description = Helper::xssSanitize($description);
         $this->image = Uuid::fromBytes($image);
         $this->icon = Uuid::fromBytes($icon);
+    }
+
+    public function getId() : UuidInterface
+    {
+        return $this->id;
+    }
+
+    public function getIcon() : UuidInterface
+    {
+        return $this->icon;
     }
 
     public function jsonSerialize() : array
