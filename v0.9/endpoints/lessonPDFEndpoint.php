@@ -48,7 +48,7 @@ SQL;
 
 
     $md = $endpoint->getParent()->call('GET', new Role('guest'), ['id' => $data['parent-id']])['response'];
-    $partialFields = $endpoint->getParent()->call('GET', new Role('guest'), [])['response'];
+    $partialFields = $endpoint->getParent()->call('GET', new Role('editor'), ['override-group' => true])['response'];
     $field = null;
     foreach($partialFields as $partialField) {
         foreach($partialField->getLessons() as $lesson) {
