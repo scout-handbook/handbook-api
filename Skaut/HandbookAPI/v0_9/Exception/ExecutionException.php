@@ -12,7 +12,7 @@ class ExecutionException extends Exception
     {
         $message = 'Query "' . $query . '" has failed.';
         $errorInfo = $statement->errorInfo();
-        if ( isset($errorInfo[2]) ) {
+        if (isset($errorInfo[2])) {
             $message .= ' Error message: "' . $errorInfo[2] . '".';
         }
         parent::__construct($message);
