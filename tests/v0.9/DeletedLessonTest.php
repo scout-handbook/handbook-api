@@ -9,7 +9,7 @@ use Skaut\HandbookAPI\v0_9\DeletedLesson;
 
 class DeletedLessonTest extends TestCase
 {
-    /*
+    /**
      * @covers Skaut\HandbookAPI\v0_9\DeletedLesson::__construct()
      */
     public function testCtor()
