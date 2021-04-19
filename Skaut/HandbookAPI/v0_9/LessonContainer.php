@@ -17,7 +17,8 @@ class LessonContainer implements \JsonSerializable
         $this->lessons[] = $lesson;
     }
 
-    public function getLessons() : array {
+    public function getLessons() : array
+    {
         return $this->lessons;
     }
 
