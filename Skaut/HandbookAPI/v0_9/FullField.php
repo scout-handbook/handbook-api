@@ -35,6 +35,12 @@ class FullField implements \JsonSerializable
 
     public function jsonSerialize() : array
     {
-        return ['id' => $this->id, 'name' => $this->name, 'description' => $this->description, 'image' => $this->image, 'icon' => $this->icon];
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'description' => $this->description,
+            'image' => $this->image,
+            'icon' => $this->icon
+        ];
     }
 }
