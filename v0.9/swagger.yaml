@@ -1180,11 +1180,16 @@ paths:
                           type: string
                           format: uuid
                           example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
+                        icon:
+                          type: string
+                          format: uuid
+                          example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
                       required:
                         - id
                         - name
                         - description
                         - image
+                        - icon
                 required:
                   - status
                   - response
@@ -1214,10 +1219,15 @@ paths:
                   type: string
                   format: uuid
                   example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
+                icon:
+                  type: string
+                  format: uuid
+                  example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
               required:
                 - name
                 - description
                 - image
+                - icon
       responses:
         '201':
           $ref: '#/components/responses/201'
@@ -1260,10 +1270,15 @@ paths:
                   type: string
                   format: uuid
                   example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
+                icon:
+                  type: string
+                  format: uuid
+                  example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
               required:
                 - name
                 - description
                 - image
+                - icon
       responses:
         '200':
           $ref: '#/components/responses/200'

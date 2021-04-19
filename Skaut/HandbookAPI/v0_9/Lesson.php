@@ -4,6 +4,7 @@ namespace Skaut\HandbookAPI\v0_9;
 @_API_EXEC === 1 or die('Restricted access.');
 
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 use Skaut\HandbookAPI\v0_9\Helper;
 
@@ -22,6 +23,11 @@ class Lesson implements \JsonSerializable
         $this->version = round($version * 1000);
         $this->competences = [];
         $this->lowestCompetence = 0;
+    }
+
+    public function getId() : UuidInterface
+    {
+        return $this->id;
     }
 
     public function setLowestCompetence(int $competence) : void
