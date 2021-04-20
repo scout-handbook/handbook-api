@@ -118,6 +118,8 @@ class Endpoint
                 } else {
                     throw new MissingArgumentException(MissingArgumentException::POST, 'id');
                 }
+                // @phpstan-ignore-next-line
+                break;
             case 'POST':
                 return $this->addFunction;
             case 'DELETE':
@@ -126,6 +128,8 @@ class Endpoint
                 } else {
                     throw new MissingArgumentException(MissingArgumentException::GET, 'id');
                 }
+                // @phpstan-ignore-next-line
+                break;
             case 'GET':
             default:
                 return isset($data['id']) ? $this->getFunction : $this->listFunction;
