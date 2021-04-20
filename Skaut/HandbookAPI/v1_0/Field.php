@@ -4,6 +4,7 @@ namespace Skaut\HandbookAPI\v1_0;
 @_API_EXEC === 1 or die('Restricted access.');
 
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 class Field implements \JsonSerializable
 {
@@ -25,6 +26,21 @@ class Field implements \JsonSerializable
     public function addLesson(string $lesson) : void
     {
         $this->lessons[] = Uuid::fromBytes($lesson);
+    }
+
+    public function containsLesson(UuidInterface $id): bool
+    {
+        foreach ($this->lessons as $lesson) {
+            if ($lesson->equals($id)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function getIcon(): UuidInterface
+    {
+        return $this->icon;
     }
 
     public function jsonSerialize() : array

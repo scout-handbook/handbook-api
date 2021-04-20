@@ -48,23 +48,11 @@ SQL;
 
 
     $md = $endpoint->getParent()->call('GET', new Role('guest'), ['id' => $data['parent-id']])['response'];
-    $partialFields = $endpoint->getParent()->call('GET', new Role('editor'), ['override-group' => true])['response'];
-    $field = null;
-    foreach ($partialFields as $partialField) {
-        foreach ($partialField->getLessons() as $lesson) {
-            if ($lesson->getId()->equals($id)) {
-                $field = $partialField instanceof Field ? $partialField->getId() : null;
-                break 2;
-            }
-        }
-    }
     $icon = '00000000-0000-0000-0000-000000000000';
-    if ($field !== null) {
-        $fullFields = $fieldEndpoint->call('GET', new Role('guest'), [])['response'];
-        foreach ($fullFields as $fullField) {
-            if ($fullField->getId()->equals($field)) {
-                $icon = $fullField->getIcon()->toString();
-            }
+    $fields = $fieldEndpoint->call('GET', new Role('editor'), ['override-group' => true])['response'];
+    foreach ($fields as $field) {
+        if ($field->containsLesson($id)) {
+            $icon = $field->getIcon()->toString();
         }
     }
 
