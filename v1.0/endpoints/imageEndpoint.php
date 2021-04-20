@@ -117,11 +117,12 @@ SQL;
     if (!getimagesize($_FILES['image']['tmp_name'])) {
         throw new InvalidArgumentTypeException('image', ['image/jpeg', 'image/png']);
     }
-    if (!in_array(mb_strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png'])) {
+    $extension = mb_strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
+    if (!in_array($extension, ['jpg', 'jpeg', 'png'])) {
         throw new InvalidArgumentTypeException('image', ['image/jpeg', 'image/png']);
     }
     $uuid = Uuid::uuid4();
-    $tmp = $CONFIG->imagepath . '/tmp/' . $uuid->toString() . '.jpg';
+    $tmp = $CONFIG->imagepath . '/tmp/' . $uuid->toString() . '.' . $extension;
     if (!move_uploaded_file($_FILES['image']['tmp_name'], $tmp)) {
         throw new \Skaut\HandbookAPI\v1_0\Exception\Exception('File upload failed.');
     }
@@ -137,13 +138,17 @@ SQL;
     $web = $CONFIG->imagepath . '/web/' . $uuid->toString() . '.jpg';
     $thumbnail = $CONFIG->imagepath . '/thumbnail/' . $uuid->toString() . '.jpg';
 
-    $origMagick = new Imagick($tmp);
+    $tmpMagick = new Imagick($tmp);
+    $origMagick = new Imagick();
+    $origMagick->newImage($tmpMagick->getImageWidth(), $tmpMagick->getImageHeight(), new ImagickPixel("white"));
+    $origMagick->compositeImage($tmpMagick, imagick::COMPOSITE_OVER, 0, 0);
     $ICCProfile = $origMagick->getImageProfiles("icc", true);
     applyRotation($origMagick);
     $origMagick->stripImage();
     if (!empty($ICCProfile)) {
         $origMagick->profileImage("icc", $ICCProfile['icc']);
     }
+    $origMagick->setFormat('JPEG');
     $origMagick->writeImage($orig);
     chmod($orig, 0444);
     unlink($tmp);
