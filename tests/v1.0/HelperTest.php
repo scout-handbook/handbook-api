@@ -16,7 +16,7 @@ class HelperTest extends TestCase
     public function testParseUuid() : void
     {
         $uuid = Helper::parseUuid('6f99ef12-4815-4f5e-9ede-40d14007a3d1', '');
-        $this->assertInstanceOf('\Ramsey\Uuid\Uuid', $uuid);
+        $this->assertInstanceOf('\Ramsey\Uuid\UuidInterface', $uuid);
         $this->assertSame('6f99ef12-4815-4f5e-9ede-40d14007a3d1', $uuid->toString());
     }
 

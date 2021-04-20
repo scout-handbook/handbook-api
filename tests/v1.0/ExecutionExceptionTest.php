@@ -29,7 +29,7 @@ class ExecutionExceptionTest extends TestCase
             [
                 'status' => 500,
                 'type' => 'ExecutionException',
-                'message' => 'Query "EXAMPLE QUERY" has failed. Error message: "".'
+                'message' => 'Query "EXAMPLE QUERY" has failed.'
             ],
             $e->handle()
         );
