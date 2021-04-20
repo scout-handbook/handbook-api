@@ -17,6 +17,11 @@ class LessonContainer implements \JsonSerializable
         $this->lessons[] = $lesson;
     }
 
+    public function getLessons() : array
+    {
+        return $this->lessons;
+    }
+
     public function sortLessons() : void
     {
         usort($this->lessons, 'Skaut\HandbookAPI\v0_9\Lesson::compare');

@@ -13,8 +13,8 @@ $lessonGroupEndpoint = new Endpoint();
 
 $listLessonGroups = function (Skautis $skautis, array $data) : array {
     $SQL = <<<SQL
-SELECT group_id FROM groups_for_lessons
-WHERE lesson_id = :lesson_id;
+SELECT `group_id` FROM `groups_for_lessons`
+WHERE `lesson_id` = :lesson_id;
 SQL;
 
     $db = new Database();
@@ -34,11 +34,11 @@ $lessonGroupEndpoint->setListMethod(new Role('editor'), $listLessonGroups);
 
 $updateLessonGroups = function (Skautis $skautis, array $data) : array {
     $deleteSQL = <<<SQL
-DELETE FROM groups_for_lessons
-WHERE lesson_id = :lesson_id;
+DELETE FROM `groups_for_lessons`
+WHERE `lesson_id` = :lesson_id;
 SQL;
     $insertSQL = <<<SQL
-INSERT INTO groups_for_lessons (lesson_id, group_id)
+INSERT INTO `groups_for_lessons` (`lesson_id`, `group_id`)
 VALUES (:lesson_id, :group_id);
 SQL;
 

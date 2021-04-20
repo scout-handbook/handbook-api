@@ -13,12 +13,12 @@ $mutexBeaconEndpoint = new Endpoint();
 $releaseBeaconMutex = function (Skautis $skautis, array $data) : void {
     $selectSQL = <<<SQL
 SELECT 1
-FROM mutexes
-WHERE id = :id AND holder = :holder;
+FROM `mutexes`
+WHERE `id` = :id AND `holder` = :holder;
 SQL;
     $deleteSQL = <<<SQL
-DELETE FROM mutexes
-WHERE id = :id AND holder = :holder;
+DELETE FROM `mutexes`
+WHERE `id` = :id AND `holder` = :holder;
 SQL;
 
     try {

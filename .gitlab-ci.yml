@@ -35,7 +35,7 @@ stages:
     - php composer.phar install
 
 unit-test:
-  image: php:7.3
+  image: php:7.4
   extends: .composer
   stage: test
   variables:
@@ -47,7 +47,7 @@ unit-test:
     - php composer.phar unit
 
 lint:
-  image: php:7.3
+  image: php:7.4
   extends: .composer
   stage: test
   variables:
