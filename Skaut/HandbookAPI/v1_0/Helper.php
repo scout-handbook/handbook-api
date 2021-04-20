@@ -87,8 +87,8 @@ class Helper // Helper functions
         require($CONFIG->basepath . '/v1.0/endpoints/accountEndpoint.php');
 
         $groupSQL = <<<SQL
-SELECT group_id FROM groups_for_lessons
-WHERE lesson_id = :lesson_id;
+SELECT `group_id` FROM `groups_for_lessons`
+WHERE `lesson_id` = :lesson_id;
 SQL;
 
         // @phpstan-ignore-next-line

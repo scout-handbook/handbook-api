@@ -19,9 +19,9 @@ $accountEndpoint = new Endpoint();
 $listAccount = function (Skautis $skautis, array $data) : array {
     $getAccount = function (Skautis $skautis) use ($data) : array {
         $SQL = <<<SQL
-SELECT group_id
-FROM users_in_groups
-WHERE user_id = :id;
+SELECT `group_id`
+FROM `users_in_groups`
+WHERE `user_id` = :id;
 SQL;
 
         $response = [];
