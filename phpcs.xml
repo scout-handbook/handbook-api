@@ -3,7 +3,7 @@
 	<file>./</file>
 	<exclude-pattern>node_modules/*/*</exclude-pattern>
 	<exclude-pattern>vendor/*/*</exclude-pattern>
-	<exclude-pattern>*/Skaut/OdyMarkdown/v0_9/styles.php</exclude-pattern>
+	<exclude-pattern>*/Skaut/OdyMarkdown/v*/styles.php</exclude-pattern>
 
 	<config name="installed_paths" value="vendor/phpcompatibility/php-compatibility"/>
 	<config name="testVersion" value="7.1-"/>

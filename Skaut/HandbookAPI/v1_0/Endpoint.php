@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
-namespace Skaut\HandbookAPI\v0_9;
+namespace Skaut\HandbookAPI\v1_0;
 
 @_API_EXEC === 1 or die('Restricted access.');
 
 use Skautis\Skautis;
 
-use Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException;
-use Skaut\HandbookAPI\v0_9\Exception\NotImplementedException;
+use Skaut\HandbookAPI\v1_0\Exception\MissingArgumentException;
+use Skaut\HandbookAPI\v1_0\Exception\NotImplementedException;
 
 class Endpoint
 {
