@@ -21,14 +21,14 @@ $updateUserRole = function (Skautis $skautis, array $data) : array {
     };
 
     $selectSQL = <<<SQL
-SELECT role
-FROM users
-WHERE id = :id;
+SELECT `role`
+FROM `users`
+WHERE `id` = :id;
 SQL;
     $updateSQL = <<<SQL
-UPDATE users
-SET role = :role
-WHERE id = :id
+UPDATE `users`
+SET `role` = :role
+WHERE `id` = :id
 LIMIT 1;
 SQL;
 

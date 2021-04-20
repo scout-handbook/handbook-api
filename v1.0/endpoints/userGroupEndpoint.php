@@ -21,16 +21,16 @@ $updateUserRole = function (Skautis $skautis, array $data) : array {
     };
 
     $selectSQL = <<<SQL
-SELECT role
-FROM users
-WHERE id = :id;
+SELECT `role`
+FROM `users`
+WHERE `id` = :id;
 SQL;
     $deleteSQL = <<<SQL
-DELETE FROM users_in_groups
-WHERE user_id = :user_id;
+DELETE FROM `users_in_groups`
+WHERE `user_id` = :user_id;
 SQL;
     $insertSQL = <<<SQL
-INSERT INTO users_in_groups (user_id, group_id)
+INSERT INTO `users_in_groups` (`user_id`, `group_id`)
 VALUES (:user_id, :group_id);
 SQL;
 

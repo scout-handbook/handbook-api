@@ -14,17 +14,17 @@ $mutexEndpoint = new Endpoint();
 
 $addMutex = function (Skautis $skautis, array $data) : array {
     $selectSQL = <<<SQL
-SELECT DISTINCT UNIX_TIMESTAMP(mutexes.timeout), mutexes.holder, users.name
-FROM mutexes
-LEFT JOIN users ON mutexes.holder = users.id
-WHERE mutexes.id = :id;
+SELECT DISTINCT UNIX_TIMESTAMP(`mutexes`.`timeout`), `mutexes`.`holder`, `users`.`name`
+FROM `mutexes`
+LEFT JOIN `users` ON `mutexes`.`holder` = `users`.`id`
+WHERE `mutexes`.`id` = :id;
 SQL;
     $deleteSQL = <<<SQL
-DELETE FROM mutexes
-WHERE id = :id;
+DELETE FROM `mutexes`
+WHERE `id` = :id;
 SQL;
     $insertSQL = <<<SQL
-INSERT INTO mutexes (id, timeout, holder)
+INSERT INTO `mutexes` (`id`, `timeout`, `holder`)
 VALUES (:id, FROM_UNIXTIME(:timeout), :holder);
 SQL;
 
@@ -72,13 +72,13 @@ $mutexEndpoint->setAddMethod(new Role('editor'), $addMutex);
 $extendMutex = function (Skautis $skautis, array $data) : array {
     $selectSQL = <<<SQL
 SELECT 1
-FROM mutexes
-WHERE id = :id AND holder = :holder;
+FROM `mutexes`
+WHERE `id` = :id AND `holder` = :holder;
 SQL;
     $updateSQL = <<<SQL
-UPDATE mutexes
-SET timeout = FROM_UNIXTIME(:timeout)
-WHERE id = :id AND holder = :holder
+UPDATE `mutexes`
+SET `timeout` = FROM_UNIXTIME(:timeout)
+WHERE `id` = :id AND `holder` = :holder
 LIMIT 1;
 SQL;
 
@@ -115,12 +115,12 @@ $mutexEndpoint->setUpdateMethod(new Role('editor'), $extendMutex);
 $releaseMutex = function (Skautis $skautis, array $data) : array {
     $selectSQL = <<<SQL
 SELECT 1
-FROM mutexes
-WHERE id = :id AND holder = :holder;
+FROM `mutexes`
+WHERE `id` = :id AND `holder` = :holder;
 SQL;
     $deleteSQL = <<<SQL
-DELETE FROM mutexes
-WHERE id = :id AND holder = :holder;
+DELETE FROM `mutexes`
+WHERE `id` = :id AND `holder` = :holder;
 SQL;
 
     $id = Helper::parseUuid($data['id'], 'resource')->getBytes();

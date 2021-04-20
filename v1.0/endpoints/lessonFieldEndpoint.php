@@ -13,12 +13,12 @@ $lessonFieldEndpoint = new Endpoint();
 
 $updateLessonField = function (Skautis $skautis, array $data) : array {
     $deleteSQL = <<<SQL
-DELETE FROM lessons_in_fields
-WHERE lesson_id = :lesson_id
+DELETE FROM `lessons_in_fields`
+WHERE `lesson_id` = :lesson_id
 LIMIT 1;
 SQL;
     $insertSQL = <<<SQL
-INSERT INTO lessons_in_fields (field_id, lesson_id)
+INSERT INTO `lessons_in_fields` (`field_id`, `lesson_id`)
 VALUES (:field_id, :lesson_id);
 SQL;
 

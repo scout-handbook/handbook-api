@@ -58,9 +58,9 @@ class Role implements \JsonSerializable
     public static function get(int $idPerson) : Role
     {
         $SQL = <<<SQL
-SELECT role
-FROM users
-WHERE id = :id;
+SELECT `role`
+FROM `users`
+WHERE `id` = :id;
 SQL;
 
         $db = new Database();

@@ -32,13 +32,13 @@ $lessonEndpoint->addSubEndpoint('pdf', $lessonPDFEndpoint);
 
 $listLessons = function (Skautis $skautis, array $data) : array {
     $lessonSQL = <<<SQL
-SELECT id, name, UNIX_TIMESTAMP(version)
-FROM lessons;
+SELECT `id`, `name`, UNIX_TIMESTAMP(`version`)
+FROM `lessons`;
 SQL;
     $competenceSQL = <<<SQL
-SELECT competence_id
-FROM competences_for_lessons
-WHERE lesson_id = :lesson_id;
+SELECT `competence_id`
+FROM `competences_for_lessons`
+WHERE `lesson_id` = :lesson_id;
 SQL;
 
     $overrideGroup = (isset($data['override-group']) and $data['override-group'] == 'true');
@@ -79,9 +79,9 @@ $lessonEndpoint->setListMethod(new Role('guest'), $listLessons);
 
 $getLesson = function (Skautis $skautis, array $data) : array {
     $SQL = <<<SQL
-SELECT body
-FROM lessons
-WHERE id = :id;
+SELECT `body`
+FROM `lessons`
+WHERE `id` = :id;
 SQL;
 
     $id = Helper::parseUuid($data['id'], 'lesson');
@@ -105,7 +105,7 @@ $lessonEndpoint->setGetMethod(new Role('guest'), $getLesson);
 
 $addLesson = function (Skautis $skautis, array $data) : array {
     $SQL = <<<SQL
-INSERT INTO lessons (id, name, body)
+INSERT INTO `lessons` (`id`, `name`, `body`)
 VALUES (:id, :name, :body);
 SQL;
 
@@ -132,20 +132,20 @@ $lessonEndpoint->setAddMethod(new Role('editor'), $addLesson);
 
 $updateLesson = function (Skautis $skautis, array $data) : array {
     $selectSQL = <<<SQL
-SELECT name, body
-FROM lessons
-WHERE id = :id;
+SELECT `name`, `body`
+FROM `lessons`
+WHERE `id` = :id;
 SQL;
     $copySQL = <<<SQL
-INSERT INTO lesson_history (id, name, version, body)
-SELECT id, name, version, body
-FROM lessons
-WHERE id = :id;
+INSERT INTO `lesson_history` (`id`, `name`, `version`, `body`)
+SELECT `id`, `name`, `version`, `body`
+FROM `lessons`
+WHERE `id` = :id;
 SQL;
     $updateSQL = <<<SQL
-UPDATE lessons
-SET name = :name, version = CURRENT_TIMESTAMP(3), body = :body
-WHERE id = :id
+UPDATE `lessons`
+SET `name` = :name, `version` = CURRENT_TIMESTAMP(3), `body` = :body
+WHERE `id` = :id
 LIMIT 1;
 SQL;
 
@@ -208,26 +208,26 @@ $lessonEndpoint->setUpdateMethod(new Role('editor'), $updateLesson);
 
 $deleteLesson = function (Skautis $skautis, array $data) : array {
     $copySQL = <<<SQL
-INSERT INTO lesson_history (id, name, version, body)
-SELECT id, name, version, body
-FROM lessons
-WHERE id = :id;
+INSERT INTO `lesson_history` (`id`, `name`, `version`, `body`)
+SELECT `id`, `name`, `version`, `body`
+FROM `lessons`
+WHERE `id` = :id;
 SQL;
     $deleteFieldSQL = <<<SQL
-DELETE FROM lessons_in_fields
-WHERE lesson_id = :lesson_id;
+DELETE FROM `lessons_in_fields`
+WHERE `lesson_id` = :lesson_id;
 SQL;
     $deleteCompetencesSQL = <<<SQL
-DELETE FROM competences_for_lessons
-WHERE lesson_id = :lesson_id;
+DELETE FROM `competences_for_lessons`
+WHERE `lesson_id` = :lesson_id;
 SQL;
     $deleteGroupsSQL = <<<SQL
-DELETE FROM groups_for_lessons
-WHERE lesson_id = :lesson_id;
+DELETE FROM `groups_for_lessons`
+WHERE `lesson_id` = :lesson_id;
 SQL;
     $deleteSQL = <<<SQL
-DELETE FROM lessons
-WHERE id = :id;
+DELETE FROM `lessons`
+WHERE `id` = :id;
 SQL;
 
     global $mutexEndpoint;
