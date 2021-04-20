@@ -13,6 +13,9 @@ use Skaut\HandbookAPI\v1_0\Exception\SkautISException;
 
 @_API_EXEC === 1 or die('Restricted access.');
 
+require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
+require_once($CONFIG->basepath . '/v0.9/endpoints/accountEndpoint.php');
+
 /** @SuppressWarnings(PHPMD.CouplingBetweenObjects) */
 class Helper // Helper functions
 {

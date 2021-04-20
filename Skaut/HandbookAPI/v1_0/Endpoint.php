@@ -118,6 +118,7 @@ class Endpoint
                 } else {
                     throw new MissingArgumentException(MissingArgumentException::POST, 'id');
                 }
+                // @phpstan-ignore-next-line
                 break;
             case 'POST':
                 return $this->addFunction;
@@ -127,6 +128,7 @@ class Endpoint
                 } else {
                     throw new MissingArgumentException(MissingArgumentException::GET, 'id');
                 }
+                // @phpstan-ignore-next-line
                 break;
             case 'GET':
             default:
