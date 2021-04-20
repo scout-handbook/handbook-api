@@ -1148,6 +1148,10 @@ paths:
                           type: string
                           format: uuid
                           example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
+                        icon:
+                          type: string
+                          format: uuid
+                          example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2
                         lessons:
                           type: array
                           items:
@@ -1158,6 +1162,7 @@ paths:
                         - name
                         - description
                         - image
+                        - icon
                         - lessons
                 required:
                   - status
@@ -1188,10 +1193,15 @@ paths:
                   type: string
                   format: uuid
                   example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
+                icon:
+                  type: string
+                  format: uuid
+                  example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
               required:
                 - name
                 - description
                 - image
+                - icon
       responses:
         '201':
           $ref: '#/components/responses/201'
@@ -1234,10 +1244,15 @@ paths:
                   type: string
                   format: uuid
                   example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
+                icon:
+                  type: string
+                  format: uuid
+                  example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
               required:
                 - name
                 - description
                 - image
+                - icon
       responses:
         '200':
           $ref: '#/components/responses/200'
