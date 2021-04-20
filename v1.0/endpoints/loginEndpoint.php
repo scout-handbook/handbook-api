@@ -18,7 +18,7 @@ $loginUser = function (Skautis $skautis, array $data) use ($CONFIG, $accountEndp
     };
     $_API_SECRETS_EXEC = 1;
     $SECRETS = require($_SERVER['DOCUMENT_ROOT'] . '/api-secrets.php');
-    $ISprefix = $SECRETS->skautis_test_mode ? 'https://test-is.skaut.cz/Login' : 'https://is.skaut.cz/Login';
+    $ISprefix = $SECRETS->skautis_test_mode ? 'https://test-is.skaut.cz' : 'https://is.skaut.cz';
 
     // Back from SkautIS, finish logging in and redirect back
     if (isset($_SERVER['HTTP_REFERER']) and $startsWith($_SERVER['HTTP_REFERER'], $ISprefix)) {
