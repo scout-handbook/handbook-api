@@ -23,33 +23,12 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 	width: 60px;
 }
 
-.oddFooterLeft
-{
-	font-style: italic;
-	padding-bottom: 0.2em;
-}
-
 .oddFooterRight
 {
 	float: right;
-	height: 19px;
-	margin-bottom: 1.85em;
-	margin-top: -1.85em;
-}
-
-.evenFooterLeft
-{
-	font-family: 'odymarathon';
-	font-size: 2.0em;
-	padding-bottom: 0.1em;
-}
-
-.evenFooterRight
-{
-	float: right;
-	height: 15px;
-	margin-bottom: 1.85em;
-	margin-top: -1.85em;
+	height: 25px;
+	margin-bottom: 1.95em;
+	margin-top: -1.95em;
 }
 
 .dottedline
