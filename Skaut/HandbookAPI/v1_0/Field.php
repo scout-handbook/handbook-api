@@ -10,13 +10,15 @@ class Field implements \JsonSerializable
     private $name;
     private $description;
     private $image;
+    private $icon;
     private $lessons;
 
-    public function __construct(string $name, $description, string $image)
+    public function __construct(string $name, $description, string $image, string $icon)
     {
         $this->name = Helper::xssSanitize($name);
         $this->description = Helper::xssSanitize($description);
         $this->image = Uuid::fromBytes($image);
+        $this->icon = Uuid::fromBytes($icon);
         $this->lessons = [];
     }
 
@@ -31,6 +33,7 @@ class Field implements \JsonSerializable
             'name' => $this->name,
             'description' => $this->description,
             'image' => $this->image,
+            'icon' => $this->icon,
             'lessons' => $this->lessons
         ];
     }
