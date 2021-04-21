@@ -19,7 +19,6 @@ $listCompetences = function () : array {
     $SQL = <<<SQL
 SELECT `id`, `number`, `name`, `description`
 FROM `competences`
-ORDER BY `number`;
 SQL;
 
     $db = new Database();
