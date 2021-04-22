@@ -1,7 +1,7 @@
 {
 	"name": "genabitu/handbookapi",
 	"description": "A back-end API for creating a course handbook connected to SkautIS",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"type": "project",
 	"readme": "README.md",
 	"license": "MIT",
