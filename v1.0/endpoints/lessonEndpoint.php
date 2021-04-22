@@ -8,6 +8,7 @@ require_once($CONFIG->basepath . '/v1.0/endpoints/lessonFieldEndpoint.php');
 require_once($CONFIG->basepath . '/v1.0/endpoints/lessonGroupEndpoint.php');
 require_once($CONFIG->basepath . '/v1.0/endpoints/lessonHistoryEndpoint.php');
 require_once($CONFIG->basepath . '/v1.0/endpoints/lessonPDFEndpoint.php');
+require_once($CONFIG->basepath . '/v1.0/endpoints/mutexEndpoint.php');
 
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
