@@ -17,7 +17,7 @@
 		"docs": "https://skaut-handbook.gitlab.io/handbook-api/"
 	},
 	"require": {
-		"php": "^7.1",
+		"php": "^8.0",
 		"cebe/markdown": "^1.2",
 		"skautis/skautis": "^2.1",
 		"ramsey/uuid": "^4.1",
