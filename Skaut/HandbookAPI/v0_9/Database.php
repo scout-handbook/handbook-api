@@ -8,7 +8,10 @@ use Skaut\HandbookAPI\v0_9\Exception\ExecutionException;
 use Skaut\HandbookAPI\v0_9\Exception\NotFoundException;
 use Skaut\HandbookAPI\v0_9\Exception\QueryException;
 
-/** @SuppressWarnings(PHPMD.TooManyPublicMethods) */
+/**
+ * @SuppressWarnings(PHPMD.TooManyPublicMethods)
+ * @SuppressWarnings(PHPMD.CamelCasePropertyName)
+ */
 class Database
 {
     private static $db;
