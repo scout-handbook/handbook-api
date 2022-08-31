@@ -43,12 +43,11 @@ SQL;
     $version = '';
     $db->bindColumn('name', $name);
     $db->bindColumn(2, $version);
-    if (!$db->fetch()) {
-        throw new NotFoundException('deleted lesson');
-    }
-    $versions[] = ['name' => $name, 'version' => round($version * 1000)];
     while ($db->fetch()) {
         $versions[] = ['name' => $name, 'version' => round($version * 1000)];
+    }
+    if (0 === count($versions)) {
+        throw new NotFoundException('deleted lesson');
     }
     return ['status' => 200, 'response' => $versions];
 };

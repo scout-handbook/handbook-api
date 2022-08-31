@@ -5,10 +5,11 @@ parameters:
   fileExtensions:
     - php
     - sample
-  excludes_analyse:
+  excludePaths:
     - vendor
     - tests
-  bootstrap: bootstrap.php.lint
+  bootstrapFiles:
+    - bootstrap.php.lint
   ignoreErrors:
     - '#Variable \$CONFIG might not be defined.#'
     - '#Variable \$_API_SECRETS_EXEC might not be defined.#'
