@@ -9,8 +9,6 @@ info:
   license:
     name: MIT License
     url: 'https://gitlab.com/skaut-handbook/handbook-api/blob/master/LICENSE.md'
-servers:
-  - url: https://odymaterialy.skauting.cz/API/v0.9
 tags:
   - name: lesson
     description: Lessons, their fields and competences
