@@ -13,7 +13,7 @@
 	"support": {
 		"issues": "https://github.com/scout-handbook/handbook-api/issues",
 		"source": "https://github.com/scout-handbook/handbook-api",
-		"docs": "https://skaut-handbook.gitlab.io/handbook-api/"
+		"docs": "https://scout-handbook.github.io/handbook-api/"
 	},
 	"require": {
 		"php": "^8.0",
