@@ -43,7 +43,7 @@ jobs:
 
       - name: "Run unit tests"
         run: |
-          npm run unit
+          composer unit
   lint:
     name: "Lint"
     runs-on: ubuntu-latest
@@ -73,4 +73,4 @@ jobs:
 
       - name: "Lint"
         run: |
-          npm run lint
+          composer lint
