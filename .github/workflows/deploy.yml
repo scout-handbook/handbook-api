@@ -43,7 +43,7 @@ jobs:
 
       - name: "Change API definitions list"
         run: |
-          URLS=$(echo "    urls: [$(ls -d */ | grep -E "v.*\\..*" | sed ''s/.$//'' | awk -v ORS= ''{print "{url: \"https://skaut-handbook.gitlab.io/handbook-api/definitions/" $1 ".yaml\", name: \"Version " substr($1, 2) "\"}, "}'' | sed ''s/..$//'')],")
+          URLS=$(echo "    urls: [$(ls -d */ | grep -E "v.*\\..*" | sed 's/.$//' | awk -v ORS= '{print "{url: \"https://skaut-handbook.gitlab.io/handbook-api/definitions/" $1 ".yaml\", name: \"Version " substr($1, 2) "\"}, "}' | sed 's/..$//')],")
           sed -i -e "/url: \"https:\/\/petstore\.swagger\.io\/v2\/swagger\.json\",/c \\${URLS}" docs-dist/swagger-initializer.js
 
       - name: "Upload artifact"
