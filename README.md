@@ -5,4 +5,4 @@
 An API for creating a handbook with educational materials.
 
 ## Documentation
-[https://skaut-handbook.gitlab.io/handbook-api/](https://skaut-handbook.gitlab.io/handbook-api/)
+[https://scout-handbook.github.io/handbook-api/](https://scout-handbook.github.io/handbook-api/)
