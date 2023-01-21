@@ -1,20 +1,19 @@
 {
 	"name": "genabitu/handbookapi",
 	"description": "A back-end API for creating a course handbook connected to SkautIS",
-	"version": "1.0.2",
 	"type": "project",
 	"readme": "README.md",
 	"license": "MIT",
 	"authors": [
 		{
-			"name": "GenaBitu",
-			"email": "genabitu@gmail.com"
+			"name": "Marek Dědič",
+			"email": "developer@dedic.eu"
 		}
 	],
 	"support": {
-		"issues": "https://gitlab.com/skaut-handbook/handbook-api/issues",
-		"source": "https://gitlab.com/skaut-handbook/handbook-api",
-		"docs": "https://skaut-handbook.gitlab.io/handbook-api/"
+		"issues": "https://github.com/scout-handbook/handbook-api/issues",
+		"source": "https://github.com/scout-handbook/handbook-api",
+		"docs": "https://scout-handbook.github.io/handbook-api/"
 	},
 	"require": {
 		"php": "^8.0",
