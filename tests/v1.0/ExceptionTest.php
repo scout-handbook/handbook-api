@@ -8,21 +8,11 @@ use PHPUnit\Framework\TestCase;
 class ExceptionTest extends TestCase
 {
     /**
-     * @covers Skaut\HandbookAPI\v1_0\Exception\Exception::__construct()
+     * @covers Skaut\HandbookAPI\v1_0\Exception\Exception::handle()
      */
-    public function testCtor() : \Skaut\HandbookAPI\v1_0\Exception\Exception
+    public function testHandle() : void
     {
         $e = new \Skaut\HandbookAPI\v1_0\Exception\Exception('Emessage');
-        $this->assertInstanceOf('\Skaut\HandbookAPI\v1_0\Exception\Exception', $e);
-        return $e;
-    }
-
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Exception\Exception::handle()
-     * @depends testCtor
-     */
-    public function testHandle(\Skaut\HandbookAPI\v1_0\Exception\Exception $e) : void
-    {
         $this->assertSame(['status' => 500, 'type' => 'Exception', 'message' => 'Emessage'], $e->handle());
     }
 }
