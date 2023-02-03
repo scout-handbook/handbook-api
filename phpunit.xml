@@ -1,56 +1,52 @@
+<?xml version="1.0"?>
 <phpunit
-		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/|version|/phpunit.xsd"
-		backupGlobals="true"
-		backupStaticAttributes="false"
-		bootstrap="tests/bootstrap.php"
-		cacheResult="false"
-		cacheTokens="false"
-		colors="false"
-		convertErrorsToExceptions="true"
-		convertNoticesToExceptions="true"
-		convertWarningsToExceptions="true"
-		forceCoversAnnotation="true"
-		printerClass="PHPUnit\Util\TestDox\CliTestDoxPrinter"
-		processIsolation="false"
-		stopOnError="false"
-		stopOnFailure="false"
-		stopOnIncomplete="false"
-		stopOnSkipped="false"
-		stopOnRisky="false"
-		testSuiteLoaderClass="PHPUnit\Runner\StandardTestSuiteLoader"
-		timeoutForSmallTests="1"
-		timeoutForMediumTests="10"
-		timeoutForLargeTests="60"
-		verbose="false">
-	<php>
-		<server name="DOCUMENT_ROOT" value="tests/v0.9"/>
-		<server name="DOCUMENT_ROOT" value="tests/v1.0"/>
-	</php>
-	<filter>
-		<whitelist>
-			<directory suffix=".php">./</directory>
-			<exclude>
-				<directory>node_modules/</directory>
-				<directory>tests/</directory>
-				<directory>vendor/</directory>
-			</exclude>
-		</whitelist>
-	</filter>
-	<testsuites>
-		<testsuite name="v0.9">
-			<directory suffix=".php">tests/v0.9</directory>
-			<exclude>tests/v0.9/api-config.php</exclude>
-			<exclude>tests/v0.9/api-secrets.php</exclude>
-		</testsuite>
-		<testsuite name="v1.0">
-			<directory suffix=".php">tests/v1.0</directory>
-			<exclude>tests/v1.0/api-config.php</exclude>
-			<exclude>tests/v1.0/api-secrets.php</exclude>
-		</testsuite>
-	</testsuites>
-	<logging>
-		<log type="coverage-clover" target="clover.xml"/>
-		<log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
-	</logging>
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.0/phpunit.xsd"
+  backupGlobals="true"
+  bootstrap="tests/bootstrap.php"
+  cacheResult="false"
+  colors="true"
+  processIsolation="false"
+  stopOnError="false"
+  stopOnFailure="false"
+  stopOnIncomplete="false"
+  stopOnSkipped="false"
+  stopOnRisky="false"
+  timeoutForSmallTests="1"
+  timeoutForMediumTests="10"
+  timeoutForLargeTests="60"
+  cacheDirectory=".phpunit.cache"
+  backupStaticProperties="false"
+  requireCoverageMetadata="true"
+>
+  <coverage>
+    <include>
+      <directory suffix=".php">./</directory>
+    </include>
+    <exclude>
+      <directory>node_modules/</directory>
+      <directory>tests/</directory>
+      <directory>vendor/</directory>
+    </exclude>
+    <report>
+      <clover outputFile="clover.xml"/>
+      <text outputFile="php://stdout" showUncoveredFiles="false"/>
+    </report>
+  </coverage>
+  <php>
+    <server name="DOCUMENT_ROOT" value="tests/v0.9"/>
+    <server name="DOCUMENT_ROOT" value="tests/v1.0"/>
+  </php>
+  <testsuites>
+    <testsuite name="v0.9">
+      <directory suffix=".php">tests/v0.9</directory>
+      <exclude>tests/v0.9/api-config.php</exclude>
+      <exclude>tests/v0.9/api-secrets.php</exclude>
+    </testsuite>
+    <testsuite name="v1.0">
+      <directory suffix=".php">tests/v1.0</directory>
+      <exclude>tests/v1.0/api-config.php</exclude>
+      <exclude>tests/v1.0/api-secrets.php</exclude>
+    </testsuite>
+  </testsuites>
 </phpunit>
