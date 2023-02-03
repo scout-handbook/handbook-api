@@ -9,9 +9,6 @@ use Skaut\HandbookAPI\v0_9\Exception\NotLockedException;
 
 class NotLockedExceptionTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Exception\NotLockedException::__construct()
-     */
     public function testCtor() : NotLockedException
     {
         $e = new NotLockedException();
@@ -20,7 +17,6 @@ class NotLockedExceptionTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Exception\NotLockedException::handle()
      * @depends testCtor
      */
     public function testHandle(NotLockedException $e) : void

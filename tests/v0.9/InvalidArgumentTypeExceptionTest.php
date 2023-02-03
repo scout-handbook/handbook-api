@@ -9,9 +9,6 @@ use Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException;
 
 class InvalidArgumentTypeExceptionTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException::__construct()
-     */
     public function testCtor() : InvalidArgumentTypeException
     {
         $e = new InvalidArgumentTypeException('Ename', ['json', 'int']);
@@ -20,7 +17,6 @@ class InvalidArgumentTypeExceptionTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException::handle()
      * @depends testCtor
      */
     public function testHandle(InvalidArgumentTypeException $e) : void

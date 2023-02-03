@@ -10,9 +10,6 @@ use Skaut\HandbookAPI\v0_9\Exception\FileUploadException;
 /** @SuppressWarnings(PHPMD.TooManyPublicMethods) */
 class FileUploadExceptionTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Exception\FileUploadException::__construct()
-     */
     public function testCtorOk() : FileUploadException
     {
         $e = new FileUploadException(UPLOAD_ERR_OK);
@@ -20,9 +17,6 @@ class FileUploadExceptionTest extends TestCase
         return $e;
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Exception\FileUploadException::__construct()
-     */
     public function testCtorIniSize() : FileUploadException
     {
         $e = new FileUploadException(UPLOAD_ERR_INI_SIZE);
@@ -30,9 +24,6 @@ class FileUploadExceptionTest extends TestCase
         return $e;
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Exception\FileUploadException::__construct()
-     */
     public function testCtorFormSize() : FileUploadException
     {
         $e = new FileUploadException(UPLOAD_ERR_FORM_SIZE);
@@ -40,9 +31,6 @@ class FileUploadExceptionTest extends TestCase
         return $e;
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Exception\FileUploadException::__construct()
-     */
     public function testCtorPartial() : FileUploadException
     {
         $e = new FileUploadException(UPLOAD_ERR_PARTIAL);
@@ -50,9 +38,6 @@ class FileUploadExceptionTest extends TestCase
         return $e;
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Exception\FileUploadException::__construct()
-     */
     public function testCtorNoFile() : FileUploadException
     {
         $e = new FileUploadException(UPLOAD_ERR_NO_FILE);
@@ -60,9 +45,6 @@ class FileUploadExceptionTest extends TestCase
         return $e;
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Exception\FileUploadException::__construct()
-     */
     public function testCtorNoTmpDir() : FileUploadException
     {
         $e = new FileUploadException(UPLOAD_ERR_NO_TMP_DIR);
@@ -70,9 +52,6 @@ class FileUploadExceptionTest extends TestCase
         return $e;
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Exception\FileUploadException::__construct()
-     */
     public function testCtorCantWrite() : FileUploadException
     {
         $e = new FileUploadException(UPLOAD_ERR_CANT_WRITE);
@@ -80,9 +59,6 @@ class FileUploadExceptionTest extends TestCase
         return $e;
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Exception\FileUploadException::__construct()
-     */
     public function testCtorExtension() : FileUploadException
     {
         $e = new FileUploadException(UPLOAD_ERR_EXTENSION);
@@ -91,7 +67,6 @@ class FileUploadExceptionTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Exception\FileUploadException::handle()
      * @depends testCtorOk
      */
     public function testHandleOk(FileUploadException $e) : void
@@ -103,7 +78,6 @@ class FileUploadExceptionTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Exception\FileUploadException::handle()
      * @depends testCtorIniSize
      */
     public function testHandleIniSize(FileUploadException $e) : void
@@ -115,7 +89,6 @@ class FileUploadExceptionTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Exception\FileUploadException::handle()
      * @depends testCtorFormSize
      */
     public function testHandleFormSize(FileUploadException $e) : void
@@ -127,7 +100,6 @@ class FileUploadExceptionTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Exception\FileUploadException::handle()
      * @depends testCtorPartial
      */
     public function testHandlePartial(FileUploadException $e) : void
@@ -139,7 +111,6 @@ class FileUploadExceptionTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Exception\FileUploadException::handle()
      * @depends testCtorNoFile
      */
     public function testHandleNoFile(FileUploadException $e) : void
@@ -151,7 +122,6 @@ class FileUploadExceptionTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Exception\FileUploadException::handle()
      * @depends testCtorNoTmpDir
      */
     public function testHandleNoTmpDir(FileUploadException $e) : void
@@ -163,7 +133,6 @@ class FileUploadExceptionTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Exception\FileUploadException::handle()
      * @depends testCtorCantWrite
      */
     public function testHandleCantWrite(FileUploadException $e) : void
@@ -175,7 +144,6 @@ class FileUploadExceptionTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Exception\FileUploadException::handle()
      * @depends testCtorExtension
      */
     public function testHandleExtension(FileUploadException $e) : void

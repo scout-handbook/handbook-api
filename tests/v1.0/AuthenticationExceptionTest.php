@@ -9,9 +9,6 @@ use Skaut\HandbookAPI\v1_0\Exception\AuthenticationException;
 
 class AuthenticationExceptionTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Exception\AuthenticationException::__construct()
-     */
     public function testCtor() : AuthenticationException
     {
         $e = new AuthenticationException();
@@ -20,7 +17,6 @@ class AuthenticationExceptionTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v1_0\Exception\AuthenticationException::handle()
      * @depends testCtor
      */
     public function testHandle(AuthenticationException $e) : void

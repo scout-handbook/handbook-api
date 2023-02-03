@@ -9,9 +9,6 @@ use Skaut\HandbookAPI\v1_0\Exception\LockedException;
 
 class LockedExceptionTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Exception\LockedException::__construct()
-     */
     public function testCtor() : LockedException
     {
         $e = new LockedException('Eholder');
@@ -20,7 +17,6 @@ class LockedExceptionTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v1_0\Exception\LockedException::handle()
      * @depends testCtor
      */
     public function testHandle(LockedException $e) : void

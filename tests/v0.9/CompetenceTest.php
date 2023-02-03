@@ -9,9 +9,6 @@ use Skaut\HandbookAPI\v0_9\Competence;
 
 class CompetenceTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Competence::__construct()
-     */
     public function testCtor() : Competence
     {
         $competence = new Competence(
@@ -25,7 +22,6 @@ class CompetenceTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Competence::jsonSerialize()
      * @depends testCtor
      */
     public function testJsonSerialize(Competence $competence) : void
@@ -36,9 +32,6 @@ class CompetenceTest extends TestCase
         );
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Competence::__construct()
-     */
     public function testCtorInvalid() : void
     {
         $this->expectException(\InvalidArgumentException::class);
