@@ -9,9 +9,6 @@ use Skaut\HandbookAPI\v0_9\DeletedLesson;
 
 class DeletedLessonTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\DeletedLesson::__construct()
-     */
     public function testCtor()
     {
         $deletedLesson = new DeletedLesson(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'dlname');
@@ -20,7 +17,6 @@ class DeletedLessonTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\DeletedLesson::jsonSerialize()
      * @depends testCtor
      */
     public function testJsonSerialize(DeletedLesson $deletedLesson) : void
@@ -31,9 +27,6 @@ class DeletedLessonTest extends TestCase
         );
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\DeletedLesson::__construct()
-     */
     public function testCtorInvalid()
     {
         $this->expectException(\InvalidArgumentException::class);

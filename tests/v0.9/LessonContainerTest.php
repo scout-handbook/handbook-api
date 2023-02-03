@@ -11,9 +11,6 @@ use Skaut\HandbookAPI\v0_9\LessonContainer;
 
 class LessonContainerTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\LessonContainer::compare()
-     */
     public function testCompareLessonContainerAndField() : void
     {
         $this->assertSame(
@@ -25,9 +22,6 @@ class LessonContainerTest extends TestCase
         );
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\LessonContainer::compare()
-     */
     public function testCompareFieldAndLessonContainer() : void
     {
         $this->assertSame(
@@ -39,9 +33,6 @@ class LessonContainerTest extends TestCase
         );
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\LessonContainer::compare()
-     */
     public function testCompareLessonContainerAndLessonContainer() : void
     {
         $this->assertSame(
@@ -53,9 +44,6 @@ class LessonContainerTest extends TestCase
         );
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\LessonContainer::compare()
-     */
     public function testCompareLessonContainerBothEmpty() : void
     {
         $a = new Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'aname');
@@ -63,9 +51,6 @@ class LessonContainerTest extends TestCase
         $this->assertSame(0, LessonContainer::compare($a, $b));
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\LessonContainer::compare()
-     */
     public function testCompareLessonContainerFirstEmpty() : void
     {
         $a = new Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'aname');
@@ -74,9 +59,6 @@ class LessonContainerTest extends TestCase
         $this->assertSame(-1, LessonContainer::compare($a, $b));
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\LessonContainer::compare()
-     */
     public function testCompareLessonContainerSecondEmpty() : void
     {
         $a = new Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'aname');
@@ -86,9 +68,6 @@ class LessonContainerTest extends TestCase
     }
 
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\LessonContainer::compare()
-     */
     public function testCompareLessonContainerNoneEmpty() : void
     {
         $a = new Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'aname');

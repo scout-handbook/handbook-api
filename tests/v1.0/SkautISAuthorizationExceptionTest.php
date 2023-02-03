@@ -9,9 +9,6 @@ use Skaut\HandbookAPI\v1_0\Exception\SkautISAuthorizationException;
 
 class SkautISAuthorizationExceptionTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Exception\SkautISAuthorizationException::__construct()
-     */
     public function testCtor() : SkautISAuthorizationException
     {
         $e = new SkautISAuthorizationException();
@@ -20,7 +17,6 @@ class SkautISAuthorizationExceptionTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v1_0\Exception\SkautISAuthorizationException::handle()
      * @depends testCtor
      */
     public function testHandle(SkautISAuthorizationException $e) : void

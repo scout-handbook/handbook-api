@@ -9,9 +9,6 @@ use Skaut\HandbookAPI\v0_9\Group;
 
 class GroupTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Group::__construct()
-     */
     public function testCtor() : Group
     {
         $group = new Group(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'gname', 123);
@@ -20,7 +17,6 @@ class GroupTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Group::jsonSerialize()
      * @depends testCtor
      */
     public function testJsonSerialize(Group $group) : void
@@ -31,9 +27,6 @@ class GroupTest extends TestCase
         );
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Group::__construct()
-     */
     public function testCtorInvalid() : void
     {
         $this->expectException(\InvalidArgumentException::class);

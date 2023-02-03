@@ -9,9 +9,6 @@ use Skaut\HandbookAPI\v1_0\Exception\RoleException;
 
 class RoleExceptionTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Exception\RoleException::__construct()
-     */
     public function testCtor() : RoleException
     {
         $e = new RoleException();
@@ -20,7 +17,6 @@ class RoleExceptionTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v1_0\Exception\RoleException::handle()
      * @depends testCtor
      */
     public function testHandle(RoleException $e) : void

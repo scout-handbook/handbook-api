@@ -9,9 +9,6 @@ use Skaut\HandbookAPI\v0_9\Exception\ConnectionException;
 
 class ConnectionExceptionTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Exception\ConnectionException::__construct()
-     */
     public function testCtor() : ConnectionException
     {
         $e = new ConnectionException(new \PDOException());
@@ -20,7 +17,6 @@ class ConnectionExceptionTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Exception\ConnectionException::handle()
      * @depends testCtor
      */
     public function testHandle(ConnectionException $e) : void

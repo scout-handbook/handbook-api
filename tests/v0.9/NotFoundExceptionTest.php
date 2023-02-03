@@ -9,9 +9,6 @@ use Skaut\HandbookAPI\v0_9\Exception\NotFoundException;
 
 class NotFoundExceptionTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Exception\NotFoundException::__construct()
-     */
     public function testCtor() : NotFoundException
     {
         $e = new NotFoundException('Rname');
@@ -20,7 +17,6 @@ class NotFoundExceptionTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Exception\NotFoundException::handle()
      * @depends testCtor
      */
     public function testHandle(NotFoundException $e) : void

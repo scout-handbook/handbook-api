@@ -9,9 +9,6 @@ use Skaut\HandbookAPI\v1_0\Exception\RefusedException;
 
 class RefusedExceptionTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Exception\RefusedException::__construct()
-     */
     public function testCtor() : RefusedException
     {
         $e = new RefusedException();
@@ -20,7 +17,6 @@ class RefusedExceptionTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v1_0\Exception\RefusedException::handle()
      * @depends testCtor
      */
     public function testHandle(RefusedException $e) : void

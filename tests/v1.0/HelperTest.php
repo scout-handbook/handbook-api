@@ -10,9 +10,6 @@ use Skaut\HandbookAPI\v1_0\Exception\NotFoundException;
 
 class HelperTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Helper::parseUuid()
-     */
     public function testParseUuid() : void
     {
         $uuid = Helper::parseUuid('6f99ef12-4815-4f5e-9ede-40d14007a3d1', '');
@@ -20,18 +17,12 @@ class HelperTest extends TestCase
         $this->assertSame('6f99ef12-4815-4f5e-9ede-40d14007a3d1', $uuid->toString());
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Helper::parseUuid()
-     */
     public function testParseUuidInvalid() : void
     {
         $this->expectException(NotFoundException::class);
         $uuid = Helper::parseUuid('6f99ef12-4815-4f5e-9ede-40d14007a3d12', '');
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Helper::xssSanitize()
-     */
     public function testXssSanitize() : void
     {
         $this->assertSame(
@@ -40,9 +31,6 @@ class HelperTest extends TestCase
         );
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Helper::urlEscape()
-     */
     public function testUrlEscape() : void
     {
         $this->assertSame('acdeeilnorstuuyz', Helper::urlEscape('áčďéěíľňóřšťúůýž'));

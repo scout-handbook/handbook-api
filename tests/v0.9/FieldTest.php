@@ -10,9 +10,6 @@ use Skaut\HandbookAPI\v0_9\Lesson;
 
 class FieldTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Field::__construct()
-     */
     public function testCtor() : Field
     {
         $field = new Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'fname');
@@ -21,7 +18,6 @@ class FieldTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Field::jsonSerialize()
      * @depends testCtor
      */
     public function testJsonSerializeNoLessons(Field $field) : void
@@ -32,9 +28,6 @@ class FieldTest extends TestCase
         );
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Field::jsonSerialize()
-     */
     public function testJsonSerializeLessons() : void
     {
         $field = new Field(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'fname');
@@ -46,9 +39,6 @@ class FieldTest extends TestCase
         );
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Field::__construct()
-     */
     public function testCtorInvalid() : void
     {
         $this->expectException(\InvalidArgumentException::class);

@@ -9,9 +9,6 @@ use Skaut\HandbookAPI\v1_0\Exception\NotImplementedException;
 
 class NotImplementedExceptionTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Exception\NotImplementedException::__construct()
-     */
     public function testCtor() : NotImplementedException
     {
         $e = new NotImplementedException();
@@ -20,7 +17,6 @@ class NotImplementedExceptionTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v1_0\Exception\NotImplementedException::handle()
      * @depends testCtor
      */
     public function testHandle(NotImplementedException $e) : void

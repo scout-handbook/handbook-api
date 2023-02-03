@@ -11,9 +11,6 @@ use Skaut\HandbookAPI\v0_9\Lesson;
 /** @SuppressWarnings(PHPMD.TooManyPublicMethods) */
 class LessonTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Lesson::__construct()
-     */
     public function testCtor() : Lesson
     {
         $lesson = new Lesson(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'lname', 123.4567);
@@ -22,7 +19,6 @@ class LessonTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Lesson::jsonSerialize
      * @depends testCtor
      */
     public function testJsonSerializeNoCompetences(Lesson $lesson) : void
@@ -33,10 +29,6 @@ class LessonTest extends TestCase
         );
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Lesson::addCompetence
-     * @covers Skaut\HandbookAPI\v0_9\Lesson::jsonSerialize
-     */
     public function testJsonSerializeCompetences() : void
     {
         $lesson = new Lesson(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'lname', 123.4567);
@@ -48,18 +40,12 @@ class LessonTest extends TestCase
         );
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Lesson::__construct()
-     */
     public function testCtorInvalid() : void
     {
         $this->expectException(\InvalidArgumentException::class);
         new Lesson(pack('H*', '1739a63aa2544a959508103b7c80bcdbf'), 'lname', 123.4567);
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Lesson::compare()
-     */
     public function testCompareLessonBothEmpty() : void
     {
         $a = new Lesson(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'lname', 123.4567);
@@ -67,9 +53,6 @@ class LessonTest extends TestCase
         $this->assertSame(0, Lesson::compare($a, $b));
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Lesson::compare()
-     */
     public function testCompareLessonFirstEmpty() : void
     {
         $a = new Lesson(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'lname', 123.4567);
@@ -78,9 +61,6 @@ class LessonTest extends TestCase
         $this->assertSame(-1, Lesson::compare($a, $b));
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Lesson::compare()
-     */
     public function testCompareLessonSecondEmpty() : void
     {
         $a = new Lesson(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'lname', 123.4567);
@@ -89,9 +69,6 @@ class LessonTest extends TestCase
         $this->assertSame(1, Lesson::compare($a, $b));
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Lesson::compare()
-     */
     public function testCompareLessonFirstLower() : void
     {
         $a = new Lesson(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'lname', 123.4567);
@@ -103,9 +80,6 @@ class LessonTest extends TestCase
         $this->assertSame(-1, Lesson::compare($a, $b));
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Lesson::compare()
-     */
     public function testCompareLessonSecondLower() : void
     {
         $a = new Lesson(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'lname', 123.4567);
@@ -117,9 +91,6 @@ class LessonTest extends TestCase
         $this->assertSame(1, Lesson::compare($a, $b));
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Lesson::compare()
-     */
     public function testCompareLessonBothSame() : void
     {
         $a = new Lesson(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'lname', 123.4567);
@@ -131,9 +102,6 @@ class LessonTest extends TestCase
         $this->assertSame(0, Lesson::compare($a, $b));
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Lesson::compare()
-     */
     public function testCompareLessonBothEmptyAndUndefined() : void
     {
         $a = new Lesson(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'lname', 123.4567);

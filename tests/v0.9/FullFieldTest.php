@@ -9,9 +9,6 @@ use Skaut\HandbookAPI\v0_9\FullField;
 
 class FullFieldTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\FullField::__construct()
-     */
     public function testCtor() : FullField
     {
         $field = new FullField(
@@ -26,7 +23,6 @@ class FullFieldTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\FullField::jsonSerialize()
      * @depends testCtor
      */
     public function testJsonSerializeNoLessons(FullField $field) : void
@@ -37,9 +33,6 @@ class FullFieldTest extends TestCase
         );
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\FullField::__construct()
-     */
     public function testCtorInvalidName() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -52,9 +45,6 @@ class FullFieldTest extends TestCase
         );
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\FullField::__construct()
-     */
     public function testCtorInvalidImage() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -67,9 +57,6 @@ class FullFieldTest extends TestCase
         );
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\FullField::__construct()
-     */
     public function testCtorInvalidIcon() : void
     {
         $this->expectException(\InvalidArgumentException::class);

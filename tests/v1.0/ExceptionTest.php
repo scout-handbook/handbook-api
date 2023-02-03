@@ -7,9 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class ExceptionTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Exception\Exception::handle()
-     */
     public function testHandle() : void
     {
         $e = new \Skaut\HandbookAPI\v1_0\Exception\Exception('Emessage');

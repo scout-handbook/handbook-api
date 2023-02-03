@@ -9,9 +9,6 @@ use Skaut\HandbookAPI\v0_9\User;
 
 class UserTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\User::__construct()
-     */
     public function testCtor() : User
     {
         $user = new User(12345, 'uname', 'superuser');
@@ -20,7 +17,6 @@ class UserTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\User::jsonSerialize
      * @depends testCtor
      */
     public function testJsonSerializeNoGroups(User $user) : void
@@ -31,9 +27,6 @@ class UserTest extends TestCase
         );
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\User::jsonSerialize
-     */
     public function testJsonSerializeGroups() : void
     {
         $user = new User(12345, 'uname', 'superuser');

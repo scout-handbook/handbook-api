@@ -11,9 +11,6 @@ use Skaut\HandbookAPI\v1_0\Lesson;
 /** @SuppressWarnings(PHPMD.TooManyPublicMethods) */
 class LessonTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Lesson::__construct()
-     */
     public function testCtor() : Lesson
     {
         $lesson = new Lesson('lname', 123.4567);
@@ -22,7 +19,6 @@ class LessonTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v1_0\Lesson::jsonSerialize
      * @depends testCtor
      */
     public function testJsonSerializeNoCompetences(Lesson $lesson) : void
@@ -33,9 +29,6 @@ class LessonTest extends TestCase
         );
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Lesson::jsonSerialize
-     */
     public function testJsonSerializeCompetences() : void
     {
         $lesson = new Lesson('lname', 123.4567);

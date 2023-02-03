@@ -16,7 +16,6 @@ use Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException;
 class EndpointTest extends TestCase
 {
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Endpoint::__construct()
      */
     public function testCtor() : Endpoint
     {
@@ -26,7 +25,6 @@ class EndpointTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Endpoint::setListMethod()
      * @depends testCtor
      */
     public function testSetListMethod(Endpoint $endpoint) : Endpoint
@@ -38,7 +36,6 @@ class EndpointTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Endpoint::setGetMethod()
      * @depends testSetListMethod
      */
     public function testSetGetMethod(Endpoint $endpoint) : Endpoint
@@ -50,7 +47,6 @@ class EndpointTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Endpoint::setUpdateMethod()
      * @depends testSetGetMethod
      */
     public function testSetUpdateMethod(Endpoint $endpoint) : Endpoint
@@ -62,7 +58,6 @@ class EndpointTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Endpoint::setAddMethod()
      * @depends testSetUpdateMethod
      */
     public function testSetAddMethod(Endpoint $endpoint) : Endpoint
@@ -74,7 +69,6 @@ class EndpointTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Endpoint::setDeleteMethod()
      * @depends testSetAddMethod
      */
     public function testSetDeleteMethod(Endpoint $endpoint) : Endpoint
@@ -86,7 +80,6 @@ class EndpointTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Endpoint::callFunctionHelper
      * @depends testSetDeleteMethod
      */
     public function testCallFunctionHelperPutId(Endpoint $endpoint) : void
@@ -99,7 +92,6 @@ class EndpointTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Endpoint::callFunctionHelper
      * @depends testSetDeleteMethod
      */
     public function testCallFunctionHelperPostId(Endpoint $endpoint) : void
@@ -112,7 +104,6 @@ class EndpointTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Endpoint::callFunctionHelper
      * @depends testSetDeleteMethod
      */
     public function testCallFunctionHelperDeleteId(Endpoint $endpoint) : void
@@ -125,7 +116,6 @@ class EndpointTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Endpoint::callFunctionHelper
      * @depends testSetDeleteMethod
      */
     public function testCallFunctionHelperGetId(Endpoint $endpoint) : void
@@ -138,7 +128,6 @@ class EndpointTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Endpoint::callFunctionHelper
      * @depends testSetDeleteMethod
      */
     public function testCallFunctionHelperPutNoId(Endpoint $endpoint) : void
@@ -150,7 +139,6 @@ class EndpointTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Endpoint::callFunctionHelper
      * @depends testSetDeleteMethod
      */
     public function testCallFunctionHelperPostNoId(Endpoint $endpoint) : void
@@ -163,7 +151,6 @@ class EndpointTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Endpoint::callFunctionHelper
      * @depends testSetDeleteMethod
      */
     public function testCallFunctionHelperDeleteNoId(Endpoint $endpoint) : void
@@ -175,7 +162,6 @@ class EndpointTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Endpoint::callFunctionHelper
      * @depends testSetDeleteMethod
      */
     public function testCallFunctionHelperGetNoId(Endpoint $endpoint) : void
@@ -188,7 +174,6 @@ class EndpointTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Endpoint::handleDataHelper
      * @depends testCtor
      */
     public function testHandleDataHelperPut(Endpoint $endpoint) : void
@@ -204,7 +189,6 @@ class EndpointTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Endpoint::handleDataHelper
      * @depends testCtor
      */
     public function testHandleDataHelperPost(Endpoint $endpoint) : void
@@ -220,7 +204,6 @@ class EndpointTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Endpoint::handleDataHelper
      * @depends testCtor
      */
     public function testHandleDataHelperGet(Endpoint $endpoint) : void
@@ -236,7 +219,6 @@ class EndpointTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Endpoint::handleDataHelper
      * @depends testCtor
      */
     public function testHandleDataHelperDelete(Endpoint $endpoint) : void
@@ -252,7 +234,6 @@ class EndpointTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Endpoint::handleDataHelper
      * @depends testCtor
      */
     public function testHandleDataHelperGetIdOverride(Endpoint $endpoint) : void
@@ -266,7 +247,6 @@ class EndpointTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Endpoint::handleDataHelper
      * @depends testCtor
      */
     public function testHandleDataHelperGetIdNoOverride(Endpoint $endpoint) : void
@@ -280,7 +260,6 @@ class EndpointTest extends TestCase
     }
 
     /**
-     * @covers Skaut\HandbookAPI\v0_9\Endpoint::handleDataHelper
      * @depends testCtor
      */
     public function testHandleDataHelperNoIdOverride(Endpoint $endpoint) : void
