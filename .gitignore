@@ -114,6 +114,7 @@ api-secrets.php
 !tests/*/api-config.php
 !tests/*/api-secrets.php
 
+.phpunit.cache/
 clover.xml
 
 public/

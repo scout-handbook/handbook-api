@@ -3,15 +3,15 @@ namespace v1_0;
 
 global $CONFIG;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 
 use Skaut\HandbookAPI\v1_0\Exception\NotFoundException;
 
+#[CoversClass(NotFoundException::class)]
 class NotFoundExceptionTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Exception\NotFoundException::__construct()
-     */
     public function testCtor() : NotFoundException
     {
         $e = new NotFoundException('Rname');
@@ -19,10 +19,7 @@ class NotFoundExceptionTest extends TestCase
         return $e;
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Exception\NotFoundException::handle()
-     * @depends testCtor
-     */
+    #[Depends("testCtor")]
     public function testHandle(NotFoundException $e) : void
     {
         $this->assertSame(

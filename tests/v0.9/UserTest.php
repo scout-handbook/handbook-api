@@ -3,15 +3,15 @@ namespace v0_9;
 
 global $CONFIG;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 
 use Skaut\HandbookAPI\v0_9\User;
 
+#[CoversClass(User::class)]
 class UserTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\User::__construct()
-     */
     public function testCtor() : User
     {
         $user = new User(12345, 'uname', 'superuser');
@@ -19,10 +19,7 @@ class UserTest extends TestCase
         return $user;
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\User::jsonSerialize
-     * @depends testCtor
-     */
+    #[Depends("testCtor")]
     public function testJsonSerializeNoGroups(User $user) : void
     {
         $this->assertJsonStringEqualsJsonString(
@@ -31,9 +28,6 @@ class UserTest extends TestCase
         );
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\User::jsonSerialize
-     */
     public function testJsonSerializeGroups() : void
     {
         $user = new User(12345, 'uname', 'superuser');

@@ -3,15 +3,15 @@ namespace v1_0;
 
 global $CONFIG;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 
 use Skaut\HandbookAPI\v1_0\Exception\NotLockedException;
 
+#[CoversClass(NotLockedException::class)]
 class NotLockedExceptionTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Exception\NotLockedException::__construct()
-     */
     public function testCtor() : NotLockedException
     {
         $e = new NotLockedException();
@@ -19,10 +19,7 @@ class NotLockedExceptionTest extends TestCase
         return $e;
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Exception\NotLockedException::handle()
-     * @depends testCtor
-     */
+    #[Depends("testCtor")]
     public function testHandle(NotLockedException $e) : void
     {
         $this->assertSame(

@@ -3,15 +3,15 @@ namespace v1_0;
 
 global $CONFIG;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 
 use Skaut\HandbookAPI\v1_0\Exception\AuthenticationException;
 
+#[CoversClass(AuthenticationException::class)]
 class AuthenticationExceptionTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Exception\AuthenticationException::__construct()
-     */
     public function testCtor() : AuthenticationException
     {
         $e = new AuthenticationException();
@@ -19,10 +19,7 @@ class AuthenticationExceptionTest extends TestCase
         return $e;
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Exception\AuthenticationException::handle()
-     * @depends testCtor
-     */
+    #[Depends("testCtor")]
     public function testHandle(AuthenticationException $e) : void
     {
         $this->assertSame(

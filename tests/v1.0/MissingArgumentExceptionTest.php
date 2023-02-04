@@ -3,15 +3,15 @@ namespace v1_0;
 
 global $CONFIG;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 
 use Skaut\HandbookAPI\v1_0\Exception\MissingArgumentException;
 
+#[CoversClass(MissingArgumentException::class)]
 class MissingArgumentExceptionTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Exception\MissingArgumentException::__construct()
-     */
     public function testCtorGet() : MissingArgumentException
     {
         $e = new MissingArgumentException(MissingArgumentException::GET, 'Gname');
@@ -19,9 +19,6 @@ class MissingArgumentExceptionTest extends TestCase
         return $e;
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Exception\MissingArgumentException::__construct()
-     */
     public function testCtorPost() : MissingArgumentException
     {
         $e = new MissingArgumentException(MissingArgumentException::POST, 'Pname');
@@ -29,9 +26,6 @@ class MissingArgumentExceptionTest extends TestCase
         return $e;
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Exception\MissingArgumentException::__construct()
-     */
     public function testCtorFile() : MissingArgumentException
     {
         $e = new MissingArgumentException(MissingArgumentException::FILE, 'Fname');
@@ -39,10 +33,7 @@ class MissingArgumentExceptionTest extends TestCase
         return $e;
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Exception\MissingArgumentException::handle()
-     * @depends testCtorGet
-     */
+    #[Depends("testCtorGet")]
     public function testHandleGet(MissingArgumentException $e) : void
     {
         $this->assertSame(
@@ -55,10 +46,7 @@ class MissingArgumentExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Exception\MissingArgumentException::handle()
-     * @depends testCtorPost
-     */
+    #[Depends("testCtorPost")]
     public function testHandlePost(MissingArgumentException $e) : void
     {
         $this->assertSame(
@@ -71,10 +59,7 @@ class MissingArgumentExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Exception\MissingArgumentException::handle()
-     * @depends testCtorFile
-     */
+    #[Depends("testCtorFile")]
     public function testHandleFile(MissingArgumentException $e) : void
     {
         $this->assertSame(

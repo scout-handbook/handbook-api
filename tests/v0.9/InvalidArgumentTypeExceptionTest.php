@@ -3,15 +3,15 @@ namespace v0_9;
 
 global $CONFIG;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 
 use Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException;
 
+#[CoversClass(InvalidArgumentTypeException::class)]
 class InvalidArgumentTypeExceptionTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException::__construct()
-     */
     public function testCtor() : InvalidArgumentTypeException
     {
         $e = new InvalidArgumentTypeException('Ename', ['json', 'int']);
@@ -19,10 +19,7 @@ class InvalidArgumentTypeExceptionTest extends TestCase
         return $e;
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Exception\InvalidArgumentTypeException::handle()
-     * @depends testCtor
-     */
+    #[Depends("testCtor")]
     public function testHandle(InvalidArgumentTypeException $e) : void
     {
         $this->assertSame(

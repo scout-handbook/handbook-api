@@ -3,16 +3,15 @@ namespace v0_9;
 
 global $CONFIG;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 use Skaut\HandbookAPI\v0_9\Helper;
 use Skaut\HandbookAPI\v0_9\Exception\NotFoundException;
 
+#[CoversClass(Helper::class)]
 class HelperTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Helper::parseUuid()
-     */
     public function testParseUuid() : void
     {
         $uuid = Helper::parseUuid('6f99ef12-4815-4f5e-9ede-40d14007a3d1', '');
@@ -20,18 +19,12 @@ class HelperTest extends TestCase
         $this->assertSame('6f99ef12-4815-4f5e-9ede-40d14007a3d1', $uuid->toString());
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Helper::parseUuid()
-     */
     public function testParseUuidInvalid() : void
     {
         $this->expectException(NotFoundException::class);
         $uuid = Helper::parseUuid('6f99ef12-4815-4f5e-9ede-40d14007a3d12', '');
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Helper::xssSanitize()
-     */
     public function testXssSanitize() : void
     {
         $this->assertSame(
@@ -40,9 +33,6 @@ class HelperTest extends TestCase
         );
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Helper::urlEscape()
-     */
     public function testUrlEscape() : void
     {
         $this->assertSame('acdeeilnorstuuyz', Helper::urlEscape('áčďéěíľňóřšťúůýž'));

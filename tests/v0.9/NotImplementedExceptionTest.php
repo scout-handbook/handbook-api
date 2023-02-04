@@ -3,15 +3,15 @@ namespace v0_9;
 
 global $CONFIG;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 
 use Skaut\HandbookAPI\v0_9\Exception\NotImplementedException;
 
+#[CoversClass(NotImplementedException::class)]
 class NotImplementedExceptionTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Exception\NotImplementedException::__construct()
-     */
     public function testCtor() : NotImplementedException
     {
         $e = new NotImplementedException();
@@ -19,10 +19,7 @@ class NotImplementedExceptionTest extends TestCase
         return $e;
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Exception\NotImplementedException::handle()
-     * @depends testCtor
-     */
+    #[Depends("testCtor")]
     public function testHandle(NotImplementedException $e) : void
     {
         $this->assertSame(

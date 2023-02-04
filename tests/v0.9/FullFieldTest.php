@@ -3,15 +3,15 @@ namespace v0_9;
 
 global $CONFIG;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 
 use Skaut\HandbookAPI\v0_9\FullField;
 
+#[CoversClass(FullField::class)]
 class FullFieldTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\FullField::__construct()
-     */
     public function testCtor() : FullField
     {
         $field = new FullField(
@@ -25,10 +25,7 @@ class FullFieldTest extends TestCase
         return $field;
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\FullField::jsonSerialize()
-     * @depends testCtor
-     */
+    #[Depends("testCtor")]
     public function testJsonSerializeNoLessons(FullField $field) : void
     {
         $this->assertJsonStringEqualsJsonString(
@@ -37,9 +34,6 @@ class FullFieldTest extends TestCase
         );
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\FullField::__construct()
-     */
     public function testCtorInvalidName() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -52,9 +46,6 @@ class FullFieldTest extends TestCase
         );
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\FullField::__construct()
-     */
     public function testCtorInvalidImage() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -67,9 +58,6 @@ class FullFieldTest extends TestCase
         );
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\FullField::__construct()
-     */
     public function testCtorInvalidIcon() : void
     {
         $this->expectException(\InvalidArgumentException::class);

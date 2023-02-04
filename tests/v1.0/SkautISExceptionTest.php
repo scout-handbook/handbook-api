@@ -3,16 +3,16 @@ namespace v1_0;
 
 global $CONFIG;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 use Skautis\StaticClassException;
 
 use Skaut\HandbookAPI\v1_0\Exception\SkautISException;
 
+#[CoversClass(SkautISException::class)]
 class SkautISExceptionTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Exception\SkautISException::__construct()
-     */
     public function testCtor() : SkautISException
     {
         $e = new SkautISException(new StaticClassException('Emessage'));
@@ -20,10 +20,7 @@ class SkautISExceptionTest extends TestCase
         return $e;
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Exception\SkautISException::handle()
-     * @depends testCtor
-     */
+    #[Depends("testCtor")]
     public function testHandle(SkautISException $e) : void
     {
         $this->assertSame(
