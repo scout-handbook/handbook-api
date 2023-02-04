@@ -44,6 +44,10 @@ jobs:
       - name: "Run unit tests"
         run: |
           composer unit
+
+      - name: "Upload coverage results"
+        uses: codecov/codecov-action@v3.1.1
+
   lint:
     name: "Lint"
     runs-on: ubuntu-latest
