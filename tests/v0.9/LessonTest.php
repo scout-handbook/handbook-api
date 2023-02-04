@@ -4,6 +4,7 @@ namespace v0_9;
 global $CONFIG;
 
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 
 use Skaut\HandbookAPI\v0_9\Lesson;
@@ -19,9 +20,7 @@ class LessonTest extends TestCase
         return $lesson;
     }
 
-    /**
-     * @depends testCtor
-     */
+    #[Depends("testCtor")]
     public function testJsonSerializeNoCompetences(Lesson $lesson) : void
     {
         $this->assertJsonStringEqualsJsonString(

@@ -6,6 +6,7 @@ require_once('tests/PhpInputStream.php');
 global $CONFIG;
 
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 use TestUtils\PhpInputStream;
 
@@ -17,8 +18,6 @@ use Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException;
 #[CoversClass(Endpoint::class)]
 class EndpointTest extends TestCase
 {
-    /**
-     */
     public function testCtor() : Endpoint
     {
         $endpoint = new Endpoint();
@@ -26,9 +25,7 @@ class EndpointTest extends TestCase
         return $endpoint;
     }
 
-    /**
-     * @depends testCtor
-     */
+    #[Depends("testCtor")]
     public function testSetListMethod(Endpoint $endpoint) : Endpoint
     {
         $this->assertNull($endpoint->setListMethod(new Role('superuser'), function () {
@@ -37,9 +34,7 @@ class EndpointTest extends TestCase
         return $endpoint;
     }
 
-    /**
-     * @depends testSetListMethod
-     */
+    #[Depends("testSetListMethod")]
     public function testSetGetMethod(Endpoint $endpoint) : Endpoint
     {
         $this->assertNull($endpoint->setGetMethod(new Role('administrator'), function () {
@@ -48,9 +43,7 @@ class EndpointTest extends TestCase
         return $endpoint;
     }
 
-    /**
-     * @depends testSetGetMethod
-     */
+    #[Depends("testSetGetMethod")]
     public function testSetUpdateMethod(Endpoint $endpoint) : Endpoint
     {
         $this->assertNull($endpoint->setUpdateMethod(new Role('editor'), function () {
@@ -59,9 +52,7 @@ class EndpointTest extends TestCase
         return $endpoint;
     }
 
-    /**
-     * @depends testSetUpdateMethod
-     */
+    #[Depends("testSetUpdateMethod")]
     public function testSetAddMethod(Endpoint $endpoint) : Endpoint
     {
         $this->assertNull($endpoint->setAddMethod(new Role('user'), function () {
@@ -70,9 +61,7 @@ class EndpointTest extends TestCase
         return $endpoint;
     }
 
-    /**
-     * @depends testSetAddMethod
-     */
+    #[Depends("testSetAddMethod")]
     public function testSetDeleteMethod(Endpoint $endpoint) : Endpoint
     {
         $this->assertNull($endpoint->setDeleteMethod(new Role('guest'), function () {
@@ -81,9 +70,7 @@ class EndpointTest extends TestCase
         return $endpoint;
     }
 
-    /**
-     * @depends testSetDeleteMethod
-     */
+    #[Depends("testSetDeleteMethod")]
     public function testCallFunctionHelperPutId(Endpoint $endpoint) : void
     {
         $method = new \ReflectionMethod('\Skaut\HandbookAPI\v0_9\Endpoint', 'callFunctionHelper');
@@ -93,9 +80,7 @@ class EndpointTest extends TestCase
         $this->assertSame('update', $fn());
     }
 
-    /**
-     * @depends testSetDeleteMethod
-     */
+    #[Depends("testSetDeleteMethod")]
     public function testCallFunctionHelperPostId(Endpoint $endpoint) : void
     {
         $method = new \ReflectionMethod('\Skaut\HandbookAPI\v0_9\Endpoint', 'callFunctionHelper');
@@ -105,9 +90,7 @@ class EndpointTest extends TestCase
         $this->assertSame('add', $fn());
     }
 
-    /**
-     * @depends testSetDeleteMethod
-     */
+    #[Depends("testSetDeleteMethod")]
     public function testCallFunctionHelperDeleteId(Endpoint $endpoint) : void
     {
         $method = new \ReflectionMethod('\Skaut\HandbookAPI\v0_9\Endpoint', 'callFunctionHelper');
@@ -117,9 +100,7 @@ class EndpointTest extends TestCase
         $this->assertSame('delete', $fn());
     }
 
-    /**
-     * @depends testSetDeleteMethod
-     */
+    #[Depends("testSetDeleteMethod")]
     public function testCallFunctionHelperGetId(Endpoint $endpoint) : void
     {
         $method = new \ReflectionMethod('\Skaut\HandbookAPI\v0_9\Endpoint', 'callFunctionHelper');
@@ -129,9 +110,7 @@ class EndpointTest extends TestCase
         $this->assertSame('get', $fn());
     }
 
-    /**
-     * @depends testSetDeleteMethod
-     */
+    #[Depends("testSetDeleteMethod")]
     public function testCallFunctionHelperPutNoId(Endpoint $endpoint) : void
     {
         $this->expectException(MissingArgumentException::class);
@@ -140,9 +119,7 @@ class EndpointTest extends TestCase
         $fn = $method->invokeArgs($endpoint, ['PUT', []]);
     }
 
-    /**
-     * @depends testSetDeleteMethod
-     */
+    #[Depends("testSetDeleteMethod")]
     public function testCallFunctionHelperPostNoId(Endpoint $endpoint) : void
     {
         $method = new \ReflectionMethod('\Skaut\HandbookAPI\v0_9\Endpoint', 'callFunctionHelper');
@@ -152,9 +129,7 @@ class EndpointTest extends TestCase
         $this->assertSame('add', $fn());
     }
 
-    /**
-     * @depends testSetDeleteMethod
-     */
+    #[Depends("testSetDeleteMethod")]
     public function testCallFunctionHelperDeleteNoId(Endpoint $endpoint) : void
     {
         $this->expectException(MissingArgumentException::class);
@@ -163,9 +138,7 @@ class EndpointTest extends TestCase
         $fn = $method->invokeArgs($endpoint, ['DELETE', []]);
     }
 
-    /**
-     * @depends testSetDeleteMethod
-     */
+    #[Depends("testSetDeleteMethod")]
     public function testCallFunctionHelperGetNoId(Endpoint $endpoint) : void
     {
         $method = new \ReflectionMethod('\Skaut\HandbookAPI\v0_9\Endpoint', 'callFunctionHelper');
@@ -175,9 +148,7 @@ class EndpointTest extends TestCase
         $this->assertSame('list', $fn());
     }
 
-    /**
-     * @depends testCtor
-     */
+    #[Depends("testCtor")]
     public function testHandleDataHelperPut(Endpoint $endpoint) : void
     {
         $method = new \ReflectionMethod('\Skaut\HandbookAPI\v0_9\Endpoint', 'handleDataHelper');
@@ -190,9 +161,7 @@ class EndpointTest extends TestCase
         $this->assertSame(['key' => 'ival'], $data);
     }
 
-    /**
-     * @depends testCtor
-     */
+    #[Depends("testCtor")]
     public function testHandleDataHelperPost(Endpoint $endpoint) : void
     {
         $method = new \ReflectionMethod('\Skaut\HandbookAPI\v0_9\Endpoint', 'handleDataHelper');
@@ -205,9 +174,7 @@ class EndpointTest extends TestCase
         $this->assertSame(['key' => 'pval'], $data);
     }
 
-    /**
-     * @depends testCtor
-     */
+    #[Depends("testCtor")]
     public function testHandleDataHelperGet(Endpoint $endpoint) : void
     {
         $method = new \ReflectionMethod('\Skaut\HandbookAPI\v0_9\Endpoint', 'handleDataHelper');
@@ -220,9 +187,7 @@ class EndpointTest extends TestCase
         $this->assertSame(['key' => 'gval'], $data);
     }
 
-    /**
-     * @depends testCtor
-     */
+    #[Depends("testCtor")]
     public function testHandleDataHelperDelete(Endpoint $endpoint) : void
     {
         $method = new \ReflectionMethod('\Skaut\HandbookAPI\v0_9\Endpoint', 'handleDataHelper');
@@ -235,9 +200,7 @@ class EndpointTest extends TestCase
         $this->assertSame(['key' => 'gval'], $data);
     }
 
-    /**
-     * @depends testCtor
-     */
+    #[Depends("testCtor")]
     public function testHandleDataHelperGetIdOverride(Endpoint $endpoint) : void
     {
         $method = new \ReflectionMethod('\Skaut\HandbookAPI\v0_9\Endpoint', 'handleDataHelper');
@@ -248,9 +211,7 @@ class EndpointTest extends TestCase
         $this->assertSame(['id' => 'gval'], $data);
     }
 
-    /**
-     * @depends testCtor
-     */
+    #[Depends("testCtor")]
     public function testHandleDataHelperGetIdNoOverride(Endpoint $endpoint) : void
     {
         $method = new \ReflectionMethod('\Skaut\HandbookAPI\v0_9\Endpoint', 'handleDataHelper');
@@ -261,9 +222,7 @@ class EndpointTest extends TestCase
         $this->assertSame(['id' => 'pval'], $data);
     }
 
-    /**
-     * @depends testCtor
-     */
+    #[Depends("testCtor")]
     public function testHandleDataHelperNoIdOverride(Endpoint $endpoint) : void
     {
         $method = new \ReflectionMethod('\Skaut\HandbookAPI\v0_9\Endpoint', 'handleDataHelper');

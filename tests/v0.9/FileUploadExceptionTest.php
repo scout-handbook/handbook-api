@@ -4,6 +4,7 @@ namespace v0_9;
 global $CONFIG;
 
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 
 use Skaut\HandbookAPI\v0_9\Exception\FileUploadException;
@@ -68,9 +69,7 @@ class FileUploadExceptionTest extends TestCase
         return $e;
     }
 
-    /**
-     * @depends testCtorOk
-     */
+    #[Depends("testCtorOk")]
     public function testHandleOk(FileUploadException $e) : void
     {
         $this->assertSame(
@@ -79,9 +78,7 @@ class FileUploadExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @depends testCtorIniSize
-     */
+    #[Depends("testCtorIniSize")]
     public function testHandleIniSize(FileUploadException $e) : void
     {
         $this->assertSame(
@@ -90,9 +87,7 @@ class FileUploadExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @depends testCtorFormSize
-     */
+    #[Depends("testCtorFormSize")]
     public function testHandleFormSize(FileUploadException $e) : void
     {
         $this->assertSame(
@@ -101,9 +96,7 @@ class FileUploadExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @depends testCtorPartial
-     */
+    #[Depends("testCtorPartial")]
     public function testHandlePartial(FileUploadException $e) : void
     {
         $this->assertSame(
@@ -112,9 +105,7 @@ class FileUploadExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @depends testCtorNoFile
-     */
+    #[Depends("testCtorNoFile")]
     public function testHandleNoFile(FileUploadException $e) : void
     {
         $this->assertSame(
@@ -123,9 +114,7 @@ class FileUploadExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @depends testCtorNoTmpDir
-     */
+    #[Depends("testCtorNoTmpDir")]
     public function testHandleNoTmpDir(FileUploadException $e) : void
     {
         $this->assertSame(
@@ -134,9 +123,7 @@ class FileUploadExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @depends testCtorCantWrite
-     */
+    #[Depends("testCtorCantWrite")]
     public function testHandleCantWrite(FileUploadException $e) : void
     {
         $this->assertSame(
@@ -145,9 +132,7 @@ class FileUploadExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @depends testCtorExtension
-     */
+    #[Depends("testCtorExtension")]
     public function testHandleExtension(FileUploadException $e) : void
     {
         $this->assertSame(

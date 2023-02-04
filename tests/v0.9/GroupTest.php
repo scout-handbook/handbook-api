@@ -4,6 +4,7 @@ namespace v0_9;
 global $CONFIG;
 
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 
 use Skaut\HandbookAPI\v0_9\Group;
@@ -18,9 +19,7 @@ class GroupTest extends TestCase
         return $group;
     }
 
-    /**
-     * @depends testCtor
-     */
+    #[Depends("testCtor")]
     public function testJsonSerialize(Group $group) : void
     {
         $this->assertJsonStringEqualsJsonString(
