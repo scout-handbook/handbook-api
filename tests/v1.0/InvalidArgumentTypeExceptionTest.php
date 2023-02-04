@@ -4,6 +4,7 @@ namespace v1_0;
 global $CONFIG;
 
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 
 use Skaut\HandbookAPI\v1_0\Exception\InvalidArgumentTypeException;
@@ -18,9 +19,7 @@ class InvalidArgumentTypeExceptionTest extends TestCase
         return $e;
     }
 
-    /**
-     * @depends testCtor
-     */
+    #[Depends("testCtor")]
     public function testHandle(InvalidArgumentTypeException $e) : void
     {
         $this->assertSame(

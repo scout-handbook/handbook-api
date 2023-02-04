@@ -4,6 +4,7 @@ namespace v0_9;
 global $CONFIG;
 
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 
 use Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException;
@@ -32,9 +33,7 @@ class MissingArgumentExceptionTest extends TestCase
         return $e;
     }
 
-    /**
-     * @depends testCtorGet
-     */
+    #[Depends("testCtorGet")]
     public function testHandleGet(MissingArgumentException $e) : void
     {
         $this->assertSame(
@@ -47,9 +46,7 @@ class MissingArgumentExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @depends testCtorPost
-     */
+    #[Depends("testCtorPost")]
     public function testHandlePost(MissingArgumentException $e) : void
     {
         $this->assertSame(
@@ -62,9 +59,7 @@ class MissingArgumentExceptionTest extends TestCase
         );
     }
 
-    /**
-     * @depends testCtorFile
-     */
+    #[Depends("testCtorFile")]
     public function testHandleFile(MissingArgumentException $e) : void
     {
         $this->assertSame(
