@@ -3,15 +3,15 @@ namespace v0_9;
 
 global $CONFIG;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 
 use Skaut\HandbookAPI\v0_9\Group;
 
+#[CoversClass(Group::class)]
 class GroupTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Group::__construct()
-     */
     public function testCtor() : Group
     {
         $group = new Group(pack('H*', '1739a63aa2544a959508103b7c80bcdb'), 'gname', 123);
@@ -19,10 +19,7 @@ class GroupTest extends TestCase
         return $group;
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Group::jsonSerialize()
-     * @depends testCtor
-     */
+    #[Depends("testCtor")]
     public function testJsonSerialize(Group $group) : void
     {
         $this->assertJsonStringEqualsJsonString(
@@ -31,9 +28,6 @@ class GroupTest extends TestCase
         );
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Group::__construct()
-     */
     public function testCtorInvalid() : void
     {
         $this->expectException(\InvalidArgumentException::class);

@@ -3,15 +3,15 @@ namespace v1_0;
 
 global $CONFIG;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 
 use Skaut\HandbookAPI\v1_0\Exception\SkautISAuthorizationException;
 
+#[CoversClass(SkautISAuthorizationException::class)]
 class SkautISAuthorizationExceptionTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Exception\SkautISAuthorizationException::__construct()
-     */
     public function testCtor() : SkautISAuthorizationException
     {
         $e = new SkautISAuthorizationException();
@@ -19,10 +19,7 @@ class SkautISAuthorizationExceptionTest extends TestCase
         return $e;
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Exception\SkautISAuthorizationException::handle()
-     * @depends testCtor
-     */
+    #[Depends("testCtor")]
     public function testHandle(SkautISAuthorizationException $e) : void
     {
         $this->assertSame(

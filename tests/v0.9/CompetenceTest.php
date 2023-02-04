@@ -3,15 +3,15 @@ namespace v0_9;
 
 global $CONFIG;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 
 use Skaut\HandbookAPI\v0_9\Competence;
 
+#[CoversClass(Competence::class)]
 class CompetenceTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Competence::__construct()
-     */
     public function testCtor() : Competence
     {
         $competence = new Competence(
@@ -24,10 +24,7 @@ class CompetenceTest extends TestCase
         return $competence;
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Competence::jsonSerialize()
-     * @depends testCtor
-     */
+    #[Depends("testCtor")]
     public function testJsonSerialize(Competence $competence) : void
     {
         $this->assertJsonStringEqualsJsonString(
@@ -36,9 +33,6 @@ class CompetenceTest extends TestCase
         );
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Competence::__construct()
-     */
     public function testCtorInvalid() : void
     {
         $this->expectException(\InvalidArgumentException::class);

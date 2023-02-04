@@ -3,15 +3,15 @@ namespace v1_0;
 
 global $CONFIG;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 
 use Skaut\HandbookAPI\v1_0\Exception\LockedException;
 
+#[CoversClass(LockedException::class)]
 class LockedExceptionTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Exception\LockedException::__construct()
-     */
     public function testCtor() : LockedException
     {
         $e = new LockedException('Eholder');
@@ -19,10 +19,7 @@ class LockedExceptionTest extends TestCase
         return $e;
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Exception\LockedException::handle()
-     * @depends testCtor
-     */
+    #[Depends("testCtor")]
     public function testHandle(LockedException $e) : void
     {
         $this->assertSame(

@@ -3,17 +3,16 @@ namespace v1_0;
 
 global $CONFIG;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 
-use Skaut\HandbookAPI\v1_0\Competence;
 use Skaut\HandbookAPI\v1_0\Lesson;
 
 /** @SuppressWarnings(PHPMD.TooManyPublicMethods) */
+#[CoversClass(Lesson::class)]
 class LessonTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Lesson::__construct()
-     */
     public function testCtor() : Lesson
     {
         $lesson = new Lesson('lname', 123.4567);
@@ -21,10 +20,7 @@ class LessonTest extends TestCase
         return $lesson;
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Lesson::jsonSerialize
-     * @depends testCtor
-     */
+    #[Depends("testCtor")]
     public function testJsonSerializeNoCompetences(Lesson $lesson) : void
     {
         $this->assertJsonStringEqualsJsonString(
@@ -33,9 +29,6 @@ class LessonTest extends TestCase
         );
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v1_0\Lesson::jsonSerialize
-     */
     public function testJsonSerializeCompetences() : void
     {
         $lesson = new Lesson('lname', 123.4567);

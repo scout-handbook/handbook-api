@@ -3,15 +3,15 @@ namespace v0_9;
 
 global $CONFIG;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 
 use Skaut\HandbookAPI\v0_9\Exception\ConnectionException;
 
+#[CoversClass(ConnectionException::class)]
 class ConnectionExceptionTest extends TestCase
 {
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Exception\ConnectionException::__construct()
-     */
     public function testCtor() : ConnectionException
     {
         $e = new ConnectionException(new \PDOException());
@@ -19,10 +19,7 @@ class ConnectionExceptionTest extends TestCase
         return $e;
     }
 
-    /**
-     * @covers Skaut\HandbookAPI\v0_9\Exception\ConnectionException::handle()
-     * @depends testCtor
-     */
+    #[Depends("testCtor")]
     public function testHandle(ConnectionException $e) : void
     {
         $this->assertSame(
