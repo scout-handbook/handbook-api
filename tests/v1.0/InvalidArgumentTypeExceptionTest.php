@@ -3,10 +3,12 @@ namespace v1_0;
 
 global $CONFIG;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 use Skaut\HandbookAPI\v1_0\Exception\InvalidArgumentTypeException;
 
+#[CoversClass(InvalidArgumentTypeException::class)]
 class InvalidArgumentTypeExceptionTest extends TestCase
 {
     public function testCtor() : InvalidArgumentTypeException

@@ -3,12 +3,13 @@ namespace v1_0;
 
 global $CONFIG;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-use Skaut\HandbookAPI\v1_0\Competence;
 use Skaut\HandbookAPI\v1_0\Lesson;
 
 /** @SuppressWarnings(PHPMD.TooManyPublicMethods) */
+#[CoversClass(Lesson::class)]
 class LessonTest extends TestCase
 {
     public function testCtor() : Lesson

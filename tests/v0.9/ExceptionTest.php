@@ -3,13 +3,17 @@ namespace v0_9;
 
 global $CONFIG;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+use Skaut\HandbookAPI\v0_9\Exception\Exception as HandbookException;
+
+#[CoversClass(HandbookException::class)]
 class ExceptionTest extends TestCase
 {
     public function testHandle() : void
     {
-        $e = new \Skaut\HandbookAPI\v0_9\Exception\Exception('Emessage');
+        $e = new HandbookException('Emessage');
         $this->assertSame(['status' => 500, 'type' => 'Exception', 'message' => 'Emessage'], $e->handle());
     }
 }

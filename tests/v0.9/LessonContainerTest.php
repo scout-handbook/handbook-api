@@ -3,12 +3,14 @@ namespace v0_9;
 
 global $CONFIG;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 use Skaut\HandbookAPI\v0_9\Field;
 use Skaut\HandbookAPI\v0_9\Lesson;
 use Skaut\HandbookAPI\v0_9\LessonContainer;
 
+#[CoversClass(LessonContainer::class)]
 class LessonContainerTest extends TestCase
 {
     public function testCompareLessonContainerAndField() : void

@@ -5,6 +5,7 @@ require_once('tests/PhpInputStream.php');
 
 global $CONFIG;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use TestUtils\PhpInputStream;
 
@@ -13,6 +14,7 @@ use Skaut\HandbookAPI\v0_9\Role;
 use Skaut\HandbookAPI\v0_9\Exception\MissingArgumentException;
 
 /** @SuppressWarnings(PHPMD.TooManyPublicMethods) */
+#[CoversClass(Endpoint::class)]
 class EndpointTest extends TestCase
 {
     /**
