@@ -3,10 +3,12 @@ namespace v0_9;
 
 global $CONFIG;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 use Skaut\HandbookAPI\v0_9\User;
 
+#[CoversClass(User::class)]
 class UserTest extends TestCase
 {
     public function testCtor() : User

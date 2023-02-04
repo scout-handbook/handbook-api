@@ -3,11 +3,13 @@ namespace v0_9;
 
 global $CONFIG;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 use Skaut\HandbookAPI\v0_9\Helper;
 use Skaut\HandbookAPI\v0_9\Exception\NotFoundException;
 
+#[CoversClass(Helper::class)]
 class HelperTest extends TestCase
 {
     public function testParseUuid() : void

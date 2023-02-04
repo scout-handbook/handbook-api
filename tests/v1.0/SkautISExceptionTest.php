@@ -3,11 +3,13 @@ namespace v1_0;
 
 global $CONFIG;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Skautis\StaticClassException;
 
 use Skaut\HandbookAPI\v1_0\Exception\SkautISException;
 
+#[CoversClass(SkautISException::class)]
 class SkautISExceptionTest extends TestCase
 {
     public function testCtor() : SkautISException

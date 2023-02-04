@@ -3,10 +3,12 @@ namespace v1_0;
 
 global $CONFIG;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 use Skaut\HandbookAPI\v1_0\Exception\RefusedException;
 
+#[CoversClass(RefusedException::class)]
 class RefusedExceptionTest extends TestCase
 {
     public function testCtor() : RefusedException
