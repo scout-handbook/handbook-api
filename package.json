@@ -1,6 +1,6 @@
 {
   "name": "handbookapi",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "A back-end API for creating a course handbook connected to SkautIS",
   "repository": {
     "type": "git",
