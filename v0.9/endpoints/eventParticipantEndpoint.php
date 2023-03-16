@@ -39,8 +39,8 @@ $listEventParticipants = function (Skautis $skautis, array $data) : array {
             'ID_EventEducation' => $id,
             'IsActive' => true]);
     } catch (\Skautis\Exception $e) {
-        if (mb_ereg_match(
-            "^Server was unable to process request\. ---> Nemáte oprávnění k akci EV_ParticipantEducation_ALL_EventEducation nad záznamem ID=[\d]+!", // phpcs:ignore Generic.Files.LineLength.TooLong
+        if (mb_ereg(
+            "Nemáte oprávnění k akci EV_ParticipantEducation_ALL_EventEducation nad záznamem ID=", // phpcs:ignore Generic.Files.LineLength.TooLong
             $e->getMessage()
         )) {
             throw new SkautISAuthorizationException();
