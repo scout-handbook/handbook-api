@@ -34,15 +34,9 @@
     </report>
   </coverage>
   <php>
-    <server name="DOCUMENT_ROOT" value="tests/v0.9"/>
     <server name="DOCUMENT_ROOT" value="tests/v1.0"/>
   </php>
   <testsuites>
-    <testsuite name="v0.9">
-      <directory suffix=".php">tests/v0.9</directory>
-      <exclude>tests/v0.9/api-config.php</exclude>
-      <exclude>tests/v0.9/api-secrets.php</exclude>
-    </testsuite>
     <testsuite name="v1.0">
       <directory suffix=".php">tests/v1.0</directory>
       <exclude>tests/v1.0/api-config.php</exclude>
