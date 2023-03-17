@@ -6,12 +6,15 @@
 	<exclude-pattern>*/Skaut/OdyMarkdown/v*/styles.php</exclude-pattern>
 
 	<config name="installed_paths" value="vendor/phpcompatibility/php-compatibility"/>
-	<config name="testVersion" value="7.1-"/>
-	<config name="ignore_warnings_on_exit" value="1"/>
+	<!--config name="installed_paths" value="vendor/phpcompatibility/php-compatibilityvendor/slevomat/coding-standard"/-->
 
-	<arg name="extensions" value="php,php.sample"/>
+	<arg name="basepath" value="./"/>
 	<arg name="colors"/>
+	<arg name="extensions" value="php,php.sample"/>
 	<arg value="s"/>
+	<arg name="parallel" value="8"/>
+
+	<config name="testVersion" value="7.1-"/>
 
 	<rule ref="PHPCompatibility"/>
 	<rule ref="PSR2">
