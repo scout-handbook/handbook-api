@@ -15,7 +15,8 @@ $userRoleEndpoint = new Endpoint();
 $updateUserRole = function (Skautis $skautis, array $data) : array {
     $checkRole = function (Role $my_role, Role $role) : void {
         if ((Role::compare($my_role, new Role('administrator')) === 0) and
-            (Role::compare($role, new Role('administrator')) >= 0)) {
+            (Role::compare($role, new Role('administrator')) >= 0)
+        ) {
             throw new RoleException();
         }
     };

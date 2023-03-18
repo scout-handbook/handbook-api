@@ -17,7 +17,6 @@
 
 	<rule ref="PHPCompatibility"/>
 	<rule ref="PSR12">
-		<exclude name="PSR12.ControlStructures.ControlStructureSpacing.CloseParenthesisLine" />
 		<exclude name="PSR12.ControlStructures.ControlStructureSpacing.FirstExpressionLine" />
 		<exclude name="PSR12.ControlStructures.ControlStructureSpacing.LineIndent" />
 		<exclude name="PSR12.Files.FileHeader.SpacingAfterBlock" />
