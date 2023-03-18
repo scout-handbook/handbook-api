@@ -16,7 +16,17 @@
 	<config name="testVersion" value="7.1-"/>
 
 	<rule ref="PHPCompatibility"/>
-	<rule ref="PSR2">
+	<rule ref="PSR12">
+		<exclude name="PSR12.ControlStructures.ControlStructureSpacing.CloseParenthesisLine" />
+		<exclude name="PSR12.ControlStructures.ControlStructureSpacing.FirstExpressionLine" />
+		<exclude name="PSR12.ControlStructures.ControlStructureSpacing.LineIndent" />
+		<exclude name="PSR12.Files.FileHeader.SpacingAfterBlock" />
+		<exclude name="PSR12.Files.FileHeader.SpacingInsideBlock" />
+		<exclude name="PSR12.Files.ImportStatement.LeadingSlash" />
+		<exclude name="PSR12.Files.OpenTag.NotAlone" />
+		<exclude name="PSR12.Functions.ReturnTypeDeclaration.SpaceBeforeColon" />
+		<exclude name="PSR12.Properties.ConstantVisibility.NotFound" />
+		<exclude name="Squiz.WhiteSpace.SuperfluousWhitespace.EndLine" />
 		<exclude name="PSR1.Files.SideEffects.FoundWithSymbols" />
 	</rule>
 	<rule ref="SlevomatCodingStandard">
