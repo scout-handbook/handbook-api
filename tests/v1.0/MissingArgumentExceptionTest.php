@@ -15,21 +15,21 @@ use Skaut\HandbookAPI\v1_0\Exception\MissingArgumentException;
 #[CoversClass(MissingArgumentException::class)]
 class MissingArgumentExceptionTest extends TestCase
 {
-    public function testCtorGet() : MissingArgumentException
+    public function testCtorGet(): MissingArgumentException
     {
         $e = new MissingArgumentException(MissingArgumentException::GET, 'Gname');
         $this->assertInstanceOf('\Skaut\HandbookAPI\v1_0\Exception\MissingArgumentException', $e);
         return $e;
     }
 
-    public function testCtorPost() : MissingArgumentException
+    public function testCtorPost(): MissingArgumentException
     {
         $e = new MissingArgumentException(MissingArgumentException::POST, 'Pname');
         $this->assertInstanceOf('\Skaut\HandbookAPI\v1_0\Exception\MissingArgumentException', $e);
         return $e;
     }
 
-    public function testCtorFile() : MissingArgumentException
+    public function testCtorFile(): MissingArgumentException
     {
         $e = new MissingArgumentException(MissingArgumentException::FILE, 'Fname');
         $this->assertInstanceOf('\Skaut\HandbookAPI\v1_0\Exception\MissingArgumentException', $e);
@@ -37,7 +37,7 @@ class MissingArgumentExceptionTest extends TestCase
     }
 
     #[Depends("testCtorGet")]
-    public function testHandleGet(MissingArgumentException $e) : void
+    public function testHandleGet(MissingArgumentException $e): void
     {
         $this->assertSame(
             [
@@ -50,7 +50,7 @@ class MissingArgumentExceptionTest extends TestCase
     }
 
     #[Depends("testCtorPost")]
-    public function testHandlePost(MissingArgumentException $e) : void
+    public function testHandlePost(MissingArgumentException $e): void
     {
         $this->assertSame(
             [
@@ -63,7 +63,7 @@ class MissingArgumentExceptionTest extends TestCase
     }
 
     #[Depends("testCtorFile")]
-    public function testHandleFile(MissingArgumentException $e) : void
+    public function testHandleFile(MissingArgumentException $e): void
     {
         $this->assertSame(
             [

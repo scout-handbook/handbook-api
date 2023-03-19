@@ -14,7 +14,7 @@ use Skaut\HandbookAPI\v1_0\Role;
 
 $lessonFieldEndpoint = new Endpoint();
 
-$updateLessonField = function (Skautis $skautis, array $data) : array {
+$updateLessonField = function (Skautis $skautis, array $data): array {
     $deleteSQL = <<<SQL
 DELETE FROM `lessons_in_fields`
 WHERE `lesson_id` = :lesson_id

@@ -15,7 +15,7 @@ use Skaut\HandbookAPI\v1_0\Exception\InvalidArgumentTypeException;
 
 $lessonHistoryEndpoint = new Endpoint();
 
-$listLessonHistory = function (Skautis $skautis, array $data) : array {
+$listLessonHistory = function (Skautis $skautis, array $data): array {
     $checkSQL = <<<SQL
 SELECT 1 FROM `lessons`
 WHERE `id` = :id
@@ -50,7 +50,7 @@ SQL;
 };
 $lessonHistoryEndpoint->setListMethod(new Role('editor'), $listLessonHistory);
 
-$getLessonHistory = function (Skautis $skautis, array $data) : array {
+$getLessonHistory = function (Skautis $skautis, array $data): array {
     $checkSQL = <<<SQL
 SELECT 1 FROM `lessons`
 WHERE `id` = :id

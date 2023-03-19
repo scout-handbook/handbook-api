@@ -16,56 +16,56 @@ use Skaut\HandbookAPI\v1_0\Exception\FileUploadException;
 #[CoversClass(FileUploadException::class)]
 class FileUploadExceptionTest extends TestCase
 {
-    public function testCtorOk() : FileUploadException
+    public function testCtorOk(): FileUploadException
     {
         $e = new FileUploadException(UPLOAD_ERR_OK);
         $this->assertInstanceOf('\Skaut\HandbookAPI\v1_0\Exception\FileUploadException', $e);
         return $e;
     }
 
-    public function testCtorIniSize() : FileUploadException
+    public function testCtorIniSize(): FileUploadException
     {
         $e = new FileUploadException(UPLOAD_ERR_INI_SIZE);
         $this->assertInstanceOf('\Skaut\HandbookAPI\v1_0\Exception\FileUploadException', $e);
         return $e;
     }
 
-    public function testCtorFormSize() : FileUploadException
+    public function testCtorFormSize(): FileUploadException
     {
         $e = new FileUploadException(UPLOAD_ERR_FORM_SIZE);
         $this->assertInstanceOf('\Skaut\HandbookAPI\v1_0\Exception\FileUploadException', $e);
         return $e;
     }
 
-    public function testCtorPartial() : FileUploadException
+    public function testCtorPartial(): FileUploadException
     {
         $e = new FileUploadException(UPLOAD_ERR_PARTIAL);
         $this->assertInstanceOf('\Skaut\HandbookAPI\v1_0\Exception\FileUploadException', $e);
         return $e;
     }
 
-    public function testCtorNoFile() : FileUploadException
+    public function testCtorNoFile(): FileUploadException
     {
         $e = new FileUploadException(UPLOAD_ERR_NO_FILE);
         $this->assertInstanceOf('\Skaut\HandbookAPI\v1_0\Exception\FileUploadException', $e);
         return $e;
     }
 
-    public function testCtorNoTmpDir() : FileUploadException
+    public function testCtorNoTmpDir(): FileUploadException
     {
         $e = new FileUploadException(UPLOAD_ERR_NO_TMP_DIR);
         $this->assertInstanceOf('\Skaut\HandbookAPI\v1_0\Exception\FileUploadException', $e);
         return $e;
     }
 
-    public function testCtorCantWrite() : FileUploadException
+    public function testCtorCantWrite(): FileUploadException
     {
         $e = new FileUploadException(UPLOAD_ERR_CANT_WRITE);
         $this->assertInstanceOf('\Skaut\HandbookAPI\v1_0\Exception\FileUploadException', $e);
         return $e;
     }
 
-    public function testCtorExtension() : FileUploadException
+    public function testCtorExtension(): FileUploadException
     {
         $e = new FileUploadException(UPLOAD_ERR_EXTENSION);
         $this->assertInstanceOf('\Skaut\HandbookAPI\v1_0\Exception\FileUploadException', $e);
@@ -73,7 +73,7 @@ class FileUploadExceptionTest extends TestCase
     }
 
     #[Depends("testCtorOk")]
-    public function testHandleOk(FileUploadException $e) : void
+    public function testHandleOk(FileUploadException $e): void
     {
         $this->assertSame(
             ['status' => 500, 'type' => 'FileUploadException', 'message' => 'Unknown error.'],
@@ -82,7 +82,7 @@ class FileUploadExceptionTest extends TestCase
     }
 
     #[Depends("testCtorIniSize")]
-    public function testHandleIniSize(FileUploadException $e) : void
+    public function testHandleIniSize(FileUploadException $e): void
     {
         $this->assertSame(
             ['status' => 500, 'type' => 'FileUploadException', 'message' => 'The uploaded file is too big.'],
@@ -91,7 +91,7 @@ class FileUploadExceptionTest extends TestCase
     }
 
     #[Depends("testCtorFormSize")]
-    public function testHandleFormSize(FileUploadException $e) : void
+    public function testHandleFormSize(FileUploadException $e): void
     {
         $this->assertSame(
             ['status' => 500, 'type' => 'FileUploadException', 'message' => 'The uploaded file is too big.'],
@@ -100,7 +100,7 @@ class FileUploadExceptionTest extends TestCase
     }
 
     #[Depends("testCtorPartial")]
-    public function testHandlePartial(FileUploadException $e) : void
+    public function testHandlePartial(FileUploadException $e): void
     {
         $this->assertSame(
             ['status' => 500, 'type' => 'FileUploadException', 'message' => 'The uploaded file is corrupt.'],
@@ -109,7 +109,7 @@ class FileUploadExceptionTest extends TestCase
     }
 
     #[Depends("testCtorNoFile")]
-    public function testHandleNoFile(FileUploadException $e) : void
+    public function testHandleNoFile(FileUploadException $e): void
     {
         $this->assertSame(
             ['status' => 500, 'type' => 'FileUploadException', 'message' => 'The uploaded file is corrupt.'],
@@ -118,7 +118,7 @@ class FileUploadExceptionTest extends TestCase
     }
 
     #[Depends("testCtorNoTmpDir")]
-    public function testHandleNoTmpDir(FileUploadException $e) : void
+    public function testHandleNoTmpDir(FileUploadException $e): void
     {
         $this->assertSame(
             ['status' => 500, 'type' => 'FileUploadException', 'message' => 'The server filesystem is misconfigured.'],
@@ -127,7 +127,7 @@ class FileUploadExceptionTest extends TestCase
     }
 
     #[Depends("testCtorCantWrite")]
-    public function testHandleCantWrite(FileUploadException $e) : void
+    public function testHandleCantWrite(FileUploadException $e): void
     {
         $this->assertSame(
             ['status' => 500, 'type' => 'FileUploadException', 'message' => 'The server filesystem is misconfigured.'],
@@ -136,7 +136,7 @@ class FileUploadExceptionTest extends TestCase
     }
 
     #[Depends("testCtorExtension")]
-    public function testHandleExtension(FileUploadException $e) : void
+    public function testHandleExtension(FileUploadException $e): void
     {
         $this->assertSame(
             ['status' => 500, 'type' => 'FileUploadException', 'message' => 'Unknown error.'],

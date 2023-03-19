@@ -15,7 +15,7 @@ use Skaut\HandbookAPI\v1_0\Group;
 #[CoversClass(Group::class)]
 class GroupTest extends TestCase
 {
-    public function testCtor() : Group
+    public function testCtor(): Group
     {
         $group = new Group('gname', 123);
         $this->assertInstanceOf('\Skaut\HandbookAPI\v1_0\Group', $group);
@@ -23,7 +23,7 @@ class GroupTest extends TestCase
     }
 
     #[Depends("testCtor")]
-    public function testJsonSerialize(Group $group) : void
+    public function testJsonSerialize(Group $group): void
     {
         $this->assertJsonStringEqualsJsonString(
             '{"name":"gname","count":123}',

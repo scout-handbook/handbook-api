@@ -14,7 +14,7 @@ use Skaut\HandbookAPI\v1_0\Role;
 
 $lessonCompetenceEndpoint = new Endpoint();
 
-$updateLessonCompetence = function (Skautis $skautis, array $data) : array {
+$updateLessonCompetence = function (Skautis $skautis, array $data): array {
     $deleteSQL = <<<SQL
 DELETE FROM `competences_for_lessons`
 WHERE `lesson_id` = :lesson_id;

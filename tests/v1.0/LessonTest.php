@@ -16,7 +16,7 @@ use Skaut\HandbookAPI\v1_0\Lesson;
 #[CoversClass(Lesson::class)]
 class LessonTest extends TestCase
 {
-    public function testCtor() : Lesson
+    public function testCtor(): Lesson
     {
         $lesson = new Lesson('lname', 123.4567);
         $this->assertInstanceOf('\Skaut\HandbookAPI\v1_0\Lesson', $lesson);
@@ -24,7 +24,7 @@ class LessonTest extends TestCase
     }
 
     #[Depends("testCtor")]
-    public function testJsonSerializeNoCompetences(Lesson $lesson) : void
+    public function testJsonSerializeNoCompetences(Lesson $lesson): void
     {
         $this->assertJsonStringEqualsJsonString(
             '{"name":"lname","version":123457,"competences":[]}',
@@ -32,7 +32,7 @@ class LessonTest extends TestCase
         );
     }
 
-    public function testJsonSerializeCompetences() : void
+    public function testJsonSerializeCompetences(): void
     {
         $lesson = new Lesson('lname', 123.4567);
         $lesson->addCompetence(pack('H*', '1739a63ab2544a959508103b7c80bcdb'));

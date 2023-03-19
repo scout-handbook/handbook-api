@@ -17,7 +17,7 @@ class DeletedLesson implements \JsonSerializable
         $this->name = Helper::xssSanitize($name);
     }
 
-    public function jsonSerialize() : array
+    public function jsonSerialize(): array
     {
         return ['name' => $this->name];
     }

@@ -15,7 +15,7 @@ use Skaut\HandbookAPI\v1_0\Exception\SkautISAuthorizationException;
 #[CoversClass(SkautISAuthorizationException::class)]
 class SkautISAuthorizationExceptionTest extends TestCase
 {
-    public function testCtor() : SkautISAuthorizationException
+    public function testCtor(): SkautISAuthorizationException
     {
         $e = new SkautISAuthorizationException();
         $this->assertInstanceOf('\Skaut\HandbookAPI\v1_0\Exception\SkautISAuthorizationException', $e);
@@ -23,7 +23,7 @@ class SkautISAuthorizationExceptionTest extends TestCase
     }
 
     #[Depends("testCtor")]
-    public function testHandle(SkautISAuthorizationException $e) : void
+    public function testHandle(SkautISAuthorizationException $e): void
     {
         $this->assertSame(
             [

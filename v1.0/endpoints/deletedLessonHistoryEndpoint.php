@@ -16,7 +16,7 @@ use Skaut\HandbookAPI\v1_0\Exception\NotFoundException;
 
 $deletedLessonHistoryEndpoint = new Endpoint();
 
-$listDeletedLessonHistory = function (Skautis $skautis, array $data) : array {
+$listDeletedLessonHistory = function (Skautis $skautis, array $data): array {
     $checkSQL = <<<SQL
 SELECT 1 FROM `lessons`
 WHERE `id` = :id
@@ -56,7 +56,7 @@ SQL;
 };
 $deletedLessonHistoryEndpoint->setListMethod(new Role('administrator'), $listDeletedLessonHistory);
 
-$getDeletedLessonHistory = function (Skautis $skautis, array $data) : array {
+$getDeletedLessonHistory = function (Skautis $skautis, array $data): array {
     $checkSQL = <<<SQL
 SELECT 1 FROM `lessons`
 WHERE `id` = :id

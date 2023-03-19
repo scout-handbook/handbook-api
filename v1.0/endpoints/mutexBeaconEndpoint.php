@@ -13,7 +13,7 @@ use Skaut\HandbookAPI\v1_0\Role;
 
 $mutexBeaconEndpoint = new Endpoint();
 
-$releaseBeaconMutex = function (Skautis $skautis, array $data) : void {
+$releaseBeaconMutex = function (Skautis $skautis, array $data): void {
     $selectSQL = <<<SQL
 SELECT 1
 FROM `mutexes`

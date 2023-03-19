@@ -23,12 +23,12 @@ class User implements \JsonSerializable
         $this->groups = [];
     }
 
-    public function addGroup(string $group) : void
+    public function addGroup(string $group): void
     {
         $this->groups[] = Uuid::fromBytes($group);
     }
 
-    public function jsonSerialize() : array
+    public function jsonSerialize(): array
     {
         return ['id' => $this->id, 'name' => $this->name, 'role' => $this->role, 'groups' => $this->groups];
     }

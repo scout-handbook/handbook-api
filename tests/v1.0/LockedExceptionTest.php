@@ -15,7 +15,7 @@ use Skaut\HandbookAPI\v1_0\Exception\LockedException;
 #[CoversClass(LockedException::class)]
 class LockedExceptionTest extends TestCase
 {
-    public function testCtor() : LockedException
+    public function testCtor(): LockedException
     {
         $e = new LockedException('Eholder');
         $this->assertInstanceOf('\Skaut\HandbookAPI\v1_0\Exception\LockedException', $e);
@@ -23,7 +23,7 @@ class LockedExceptionTest extends TestCase
     }
 
     #[Depends("testCtor")]
-    public function testHandle(LockedException $e) : void
+    public function testHandle(LockedException $e): void
     {
         $this->assertSame(
             [

@@ -15,7 +15,7 @@ use Skaut\HandbookAPI\v1_0\Exception\NotImplementedException;
 #[CoversClass(NotImplementedException::class)]
 class NotImplementedExceptionTest extends TestCase
 {
-    public function testCtor() : NotImplementedException
+    public function testCtor(): NotImplementedException
     {
         $e = new NotImplementedException();
         $this->assertInstanceOf('\Skaut\HandbookAPI\v1_0\Exception\NotImplementedException', $e);
@@ -23,7 +23,7 @@ class NotImplementedExceptionTest extends TestCase
     }
 
     #[Depends("testCtor")]
-    public function testHandle(NotImplementedException $e) : void
+    public function testHandle(NotImplementedException $e): void
     {
         $this->assertSame(
             [

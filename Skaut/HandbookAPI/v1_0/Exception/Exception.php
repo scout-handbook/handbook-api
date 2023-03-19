@@ -12,7 +12,7 @@ class Exception extends \Exception
     const TYPE = 'Exception';
     const STATUS = 500;
 
-    public function handle() : array
+    public function handle(): array
     {
         return ['status' => static::STATUS, 'type' => static::TYPE, 'message' => $this->getMessage()];
     }

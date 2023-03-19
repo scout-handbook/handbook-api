@@ -23,12 +23,12 @@ class Lesson implements \JsonSerializable
         $this->competences = [];
     }
 
-    public function addCompetence(string $competence) : void
+    public function addCompetence(string $competence): void
     {
         $this->competences[] = Uuid::fromBytes($competence);
     }
 
-    public function jsonSerialize() : array
+    public function jsonSerialize(): array
     {
         return [
             'name' => $this->name,

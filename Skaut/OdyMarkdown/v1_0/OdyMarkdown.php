@@ -9,7 +9,7 @@ use cebe\markdown\GithubMarkdown;
 class OdyMarkdown extends GithubMarkdown
 {
     // Link rendering as text with address in parentheses
-    protected function renderLink($block) : string
+    protected function renderLink($block): string
     {
         if (isset($block['refkey'])) {
             if (($ref = $this->lookupReference($block['refkey'])) !== false) {
@@ -26,7 +26,7 @@ class OdyMarkdown extends GithubMarkdown
     }
 
     // Image rendering in original quality
-    protected function renderImage($block) : string
+    protected function renderImage($block): string
     {
         global $CONFIG;
         if (isset($block['refkey'])) {
@@ -50,7 +50,7 @@ class OdyMarkdown extends GithubMarkdown
     }
 
     // Generic functions for command parsing
-    private function identifyCommand(string $line, string $command) : bool
+    private function identifyCommand(string $line, string $command): bool
     {
         if (strncmp(trim($line), '!' . $command, mb_strlen($command) + 1) === 0) {
             return true;
@@ -58,7 +58,7 @@ class OdyMarkdown extends GithubMarkdown
         return false;
     }
 
-    private function consumeCommand(array $lines, int $current, string $command) : array
+    private function consumeCommand(array $lines, int $current, string $command): array
     {
         $block = [$command, 'lastPage' => ($current + 1 == count($lines))];
         [$argumentString, $next] = self::getArgumentString($lines, $current, $command);
@@ -80,7 +80,7 @@ class OdyMarkdown extends GithubMarkdown
     }
 
 
-    private static function getArgumentString(array $lines, int $current, string $command) : array
+    private static function getArgumentString(array $lines, int $current, string $command): array
     {
         $line = rtrim($lines[$current]);
         $next = $current;
@@ -111,17 +111,17 @@ class OdyMarkdown extends GithubMarkdown
     }
 
     // Notes extension
-    protected function identifyNotes(string $line) : bool
+    protected function identifyNotes(string $line): bool
     {
         return $this->identifyCommand($line, 'linky');
     }
 
-    protected function consumeNotes(array $lines, int $current) : array
+    protected function consumeNotes(array $lines, int $current): array
     {
         return $this->consumeCommand($lines, $current, 'linky');
     }
 
-    protected function renderLinky(array $block) : string
+    protected function renderLinky(array $block): string
     {
         $dotted = (isset($block['teckovane']) and $block['teckovane'] === true);
         $height = 1;
@@ -144,17 +144,17 @@ class OdyMarkdown extends GithubMarkdown
     }
 
     // Pagebreak extension
-    protected function identifyPagebreak(string $line) : bool
+    protected function identifyPagebreak(string $line): bool
     {
         return $this->identifyCommand($line, 'novastrana');
     }
 
-    protected function consumePagebreak(array $lines, int $current) : array
+    protected function consumePagebreak(array $lines, int $current): array
     {
         return $this->consumeCommand($lines, $current, 'novastrana');
     }
 
-    protected function renderNovastrana(array $block) : string
+    protected function renderNovastrana(array $block): string
     {
         return $block['lastPage'] ? '' : '<pagebreak>';
     }
