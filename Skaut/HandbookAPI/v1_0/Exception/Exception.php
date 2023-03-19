@@ -14,6 +14,6 @@ class Exception extends \Exception
 
     public function handle(): array
     {
-        return ['status' => self::STATUS, 'type' => self::TYPE, 'message' => $this->getMessage()];
+        return ['status' => static::STATUS, 'type' => static::TYPE, 'message' => $this->getMessage()];
     }
 }
