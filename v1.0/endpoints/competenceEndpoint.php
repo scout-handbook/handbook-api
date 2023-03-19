@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 @_API_EXEC === 1 or die('Restricted access.');
 
 use Ramsey\Uuid\Uuid;
@@ -15,7 +18,7 @@ use Skaut\HandbookAPI\v1_0\Exception\NotFoundException;
 
 $competenceEndpoint = new Endpoint();
 
-$listCompetences = function () : array {
+$listCompetences = function (): array {
     $SQL = <<<SQL
 SELECT `id`, `number`, `name`, `description`
 FROM `competences`
@@ -41,7 +44,7 @@ SQL;
 };
 $competenceEndpoint->setListMethod(new Role('guest'), $listCompetences);
 
-$addCompetence = function (Skautis $skautis, array $data) : array {
+$addCompetence = function (Skautis $skautis, array $data): array {
     $SQL = <<<SQL
 INSERT INTO `competences` (`id`, `number`, `name`, `description`)
 VALUES (:id, :number, :name, :description);
@@ -75,7 +78,7 @@ SQL;
 };
 $competenceEndpoint->setAddMethod(new Role('administrator'), $addCompetence);
 
-$updateCompetence = function (Skautis $skautis, array $data) : array {
+$updateCompetence = function (Skautis $skautis, array $data): array {
     $selectSQL = <<<SQL
 SELECT `number`, `name`, `description`
 FROM `competences`
@@ -140,7 +143,7 @@ SQL;
 };
 $competenceEndpoint->setUpdateMethod(new Role('administrator'), $updateCompetence);
 
-$deleteCompetence = function (Skautis $skautis, array $data) : array {
+$deleteCompetence = function (Skautis $skautis, array $data): array {
     $deleteLessonsSQL = <<<SQL
 DELETE FROM `competences_for_lessons`
 WHERE `competence_id` = :competence_id;

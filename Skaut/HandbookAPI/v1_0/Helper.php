@@ -1,11 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 namespace Skaut\HandbookAPI\v1_0;
 
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Ramsey\Uuid\Exception\InvalidUuidStringException;
 use Skautis\Skautis;
-
 use Skaut\HandbookAPI\v1_0\Exception\AuthenticationException;
 use Skaut\HandbookAPI\v1_0\Exception\NotFoundException;
 use Skaut\HandbookAPI\v1_0\Exception\RoleException;
@@ -16,7 +18,7 @@ use Skaut\HandbookAPI\v1_0\Exception\SkautISException;
 /** @SuppressWarnings(PHPMD.CouplingBetweenObjects) */
 class Helper // Helper functions
 {
-    public static function parseUuid(string $id, string $resourceName) : UuidInterface
+    public static function parseUuid(string $id, string $resourceName): UuidInterface
     {
         try {
             return Uuid::fromString($id);
@@ -25,7 +27,7 @@ class Helper // Helper functions
         }
     }
 
-    public static function xssSanitize(string $input) : string
+    public static function xssSanitize(string $input): string
     {
         return htmlspecialchars($input, ENT_QUOTES | ENT_HTML5, 'UTF-8');
     }
@@ -80,7 +82,7 @@ class Helper // Helper functions
         return self::skautisTry($safeCallback, $hardCheck);
     }
 
-    public static function checkLessonGroup(UuidInterface $lessonId, bool $overrideGroup = false) : bool
+    public static function checkLessonGroup(UuidInterface $lessonId, bool $overrideGroup = false): bool
     {
         require($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
         // @phpstan-ignore-next-line
@@ -95,10 +97,13 @@ SQL;
         $loginState = $accountEndpoint->call('GET', new Role('guest'), ['no-avatar' => 'true']);
 
         if ($loginState['status'] == '200') {
-            if ($overrideGroup and in_array(
-                $loginState['response']['role'],
-                ['editor', 'administrator', 'superuser']
-            )) {
+            if (
+                $overrideGroup and
+                in_array(
+                    $loginState['response']['role'],
+                    ['editor', 'administrator', 'superuser']
+                )
+            ) {
                 return true;
             }
             $groups = $loginState['response']['groups'];
@@ -124,7 +129,7 @@ SQL;
     }
 
     /** @SuppressWarnings(PHPMD.ExcessiveMethodLength) */
-    public static function urlEscape(string $str) : string
+    public static function urlEscape(string $str): string
     {
         $lookupTable = [
             // phpcs:disable Generic.Files.LineLength.TooLong

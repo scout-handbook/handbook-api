@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 namespace Skaut\HandbookAPI\v1_0;
 
 @_API_EXEC === 1 or die('Restricted access.');
@@ -20,12 +23,12 @@ class Lesson implements \JsonSerializable
         $this->competences = [];
     }
 
-    public function addCompetence(string $competence) : void
+    public function addCompetence(string $competence): void
     {
         $this->competences[] = Uuid::fromBytes($competence);
     }
 
-    public function jsonSerialize() : array
+    public function jsonSerialize(): array
     {
         return [
             'name' => $this->name,

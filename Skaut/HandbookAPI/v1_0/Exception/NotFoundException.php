@@ -1,12 +1,15 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 namespace Skaut\HandbookAPI\v1_0\Exception;
 
 @_API_EXEC === 1 or die('Restricted access.');
 
 class NotFoundException extends Exception
 {
-    const TYPE = 'NotFoundException';
-    const STATUS = 404;
+    protected const TYPE = 'NotFoundException';
+    protected const STATUS = 404;
 
     public function __construct(string $resourceName)
     {

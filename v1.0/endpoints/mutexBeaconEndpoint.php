@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 @_API_EXEC === 1 or die('Restricted access.');
 
 use Skautis\Skautis;
@@ -10,7 +13,7 @@ use Skaut\HandbookAPI\v1_0\Role;
 
 $mutexBeaconEndpoint = new Endpoint();
 
-$releaseBeaconMutex = function (Skautis $skautis, array $data) : void {
+$releaseBeaconMutex = function (Skautis $skautis, array $data): void {
     $selectSQL = <<<SQL
 SELECT 1
 FROM `mutexes`

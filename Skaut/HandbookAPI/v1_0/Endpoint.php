@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 namespace Skaut\HandbookAPI\v1_0;
 
 @_API_EXEC === 1 or die('Restricted access.');
@@ -29,19 +32,19 @@ class Endpoint
     {
         $this->subEndpoints = [];
 
-        $this->listFunction = function () : void {
+        $this->listFunction = function (): void {
             throw new NotImplementedException();
         };
-        $this->getFunction = function () : void {
+        $this->getFunction = function (): void {
             throw new NotImplementedException();
         };
-        $this->updateFunction = function () : void {
+        $this->updateFunction = function (): void {
             throw new NotImplementedException();
         };
-        $this->addFunction = function () : void {
+        $this->addFunction = function (): void {
             throw new NotImplementedException();
         };
-        $this->deleteFunction = function () : void {
+        $this->deleteFunction = function (): void {
             throw new NotImplementedException();
         };
 
@@ -52,52 +55,52 @@ class Endpoint
         $this->deleteRole = new Role('guest');
     }
 
-    public function addSubEndpoint(string $name, Endpoint $endpoint) : void
+    public function addSubEndpoint(string $name, Endpoint $endpoint): void
     {
         $this->subEndpoints[$name] = $endpoint;
         $this->subEndpoints[$name]->parentEndpoint = $this;
     }
 
-    public function getParent() : Endpoint
+    public function getParent(): Endpoint
     {
         return $this->parentEndpoint;
     }
 
-    public function setListMethod(Role $minimalRole, callable $callback) : void
+    public function setListMethod(Role $minimalRole, callable $callback): void
     {
         $this->listRole = $minimalRole;
         $this->listFunction = $callback;
     }
 
-    public function setGetMethod(Role $minimalRole, callable $callback) : void
+    public function setGetMethod(Role $minimalRole, callable $callback): void
     {
         $this->getRole = $minimalRole;
         $this->getFunction = $callback;
     }
 
-    public function setUpdateMethod(Role $minimalRole, callable $callback) : void
+    public function setUpdateMethod(Role $minimalRole, callable $callback): void
     {
         $this->updateRole = $minimalRole;
         $this->updateFunction = $callback;
     }
 
-    public function setAddMethod(Role $minimalRole, callable $callback) : void
+    public function setAddMethod(Role $minimalRole, callable $callback): void
     {
         $this->addRole = $minimalRole;
         $this->addFunction = $callback;
     }
 
-    public function setDeleteMethod(Role $minimalRole, callable $callback) : void
+    public function setDeleteMethod(Role $minimalRole, callable $callback): void
     {
         $this->deleteRole = $minimalRole;
         $this->deleteFunction = $callback;
     }
 
-    public function call(string $method, Role $role, array $data) : array
+    public function call(string $method, Role $role, array $data): array
     {
         $func = $this->callFunctionHelper($method, $data);
         $self = $this;
-        $wrapper = function (Skautis $skautis) use ($data, $func, $self) : array {
+        $wrapper = function (Skautis $skautis) use ($data, $func, $self): array {
             return $func($skautis, $data, $self);
         };
         $hardCheck = (Role::compare($role, new Role('user')) > 0);
@@ -109,7 +112,7 @@ class Endpoint
     }
 
     /** @SuppressWarnings(PHPMD.CyclomaticComplexity) */
-    private function callFunctionHelper(string $method, array $data) : callable
+    private function callFunctionHelper(string $method, array $data): callable
     {
         switch ($method) {
             case 'PUT':
@@ -136,7 +139,7 @@ class Endpoint
         }
     }
 
-    public function handleSelf(string $method, array $data) : void
+    public function handleSelf(string $method, array $data): void
     {
         unset($data['sub-id']);
         unset($data['sub-resource']);
@@ -170,7 +173,7 @@ class Endpoint
         echo(json_encode($ret, JSON_UNESCAPED_UNICODE));
     }
 
-    public function handle() : void
+    public function handle(): void
     {
         $method = $_SERVER['REQUEST_METHOD'];
         $data = $this->handleDataHelper($method);
@@ -193,7 +196,7 @@ class Endpoint
         }
     }
 
-    private function handleDataHelper(string $method) : array
+    private function handleDataHelper(string $method): array
     {
         $data = [];
         switch ($method) {

@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 @_API_EXEC === 1 or die('Restricted access.');
 
 use Skautis\Skautis;
@@ -12,10 +15,12 @@ use Skaut\HandbookAPI\v1_0\Exception\RoleException;
 
 $userGroupEndpoint = new Endpoint();
 
-$updateUserRole = function (Skautis $skautis, array $data) : array {
-    $checkRole = function (Role $my_role, Role $role) : void {
-        if ((Role::compare($my_role, new Role('administrator')) === 0) and
-            (Role::compare($role, new Role('administrator')) >= 0)) {
+$updateUserRole = function (Skautis $skautis, array $data): array {
+    $checkRole = function (Role $my_role, Role $role): void {
+        if (
+            (Role::compare($my_role, new Role('administrator')) === 0) and
+            (Role::compare($role, new Role('administrator')) >= 0)
+        ) {
             throw new RoleException();
         }
     };
