@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Skaut\OdyMarkdown\v1_0;
 
-use \cebe\markdown\GithubMarkdown;
+use cebe\markdown\GithubMarkdown;
 
 class OdyMarkdown extends GithubMarkdown
 {

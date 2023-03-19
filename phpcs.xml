@@ -17,7 +17,6 @@
 
 	<rule ref="PHPCompatibility"/>
 	<rule ref="PSR12">
-		<exclude name="PSR12.Files.ImportStatement.LeadingSlash" />
 		<exclude name="PSR12.Files.OpenTag.NotAlone" />
 		<exclude name="PSR12.Functions.ReturnTypeDeclaration.SpaceBeforeColon" />
 		<exclude name="PSR12.Properties.ConstantVisibility.NotFound" />
