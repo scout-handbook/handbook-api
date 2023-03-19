@@ -1,12 +1,15 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 namespace Skaut\HandbookAPI\v1_0\Exception;
 
 @_API_EXEC === 1 or die('Restricted access.');
 
 class NotImplementedException extends Exception
 {
-    const TYPE = 'NotImplementedException';
-    const STATUS = 501;
+    protected const TYPE = 'NotImplementedException';
+    protected const STATUS = 501;
 
     public function __construct()
     {

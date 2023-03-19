@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 namespace Skaut\HandbookAPI\v1_0;
 
 @_API_EXEC === 1 or die('Restricted access.');
@@ -34,7 +37,7 @@ class Role implements \JsonSerializable
         }
     }
 
-    public function __toString() : string
+    public function __toString(): string
     {
         switch ($this->role) {
             case self::SUPERUSER:
@@ -50,12 +53,12 @@ class Role implements \JsonSerializable
         }
     }
 
-    public function jsonSerialize() : string
+    public function jsonSerialize(): string
     {
         return $this->__toString();
     }
 
-    public static function get(int $idPerson) : Role
+    public static function get(int $idPerson): Role
     {
         $SQL = <<<SQL
 SELECT `role`
@@ -73,7 +76,7 @@ SQL;
         return new Role(strval($role));
     }
 
-    public static function compare(Role $first, Role $second) : int
+    public static function compare(Role $first, Role $second): int
     {
         return $first->role <=> $second->role;
     }

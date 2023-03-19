@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 @_API_EXEC === 1 or die('Restricted access.');
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
@@ -24,7 +27,7 @@ require_once($CONFIG->basepath . '/v1.0/endpoints/fieldEndpoint.php');
 
 $lessonPDFEndpoint = new Endpoint();
 
-$getLessonPDF = function (Skautis $skautis, array $data, Endpoint $endpoint) use ($CONFIG, $fieldEndpoint) : void {
+$getLessonPDF = function (Skautis $skautis, array $data, Endpoint $endpoint) use ($CONFIG, $fieldEndpoint): void {
     $id = Helper::parseUuid($data['parent-id'], 'lesson');
 
     $name = '';

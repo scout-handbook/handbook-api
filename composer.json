@@ -28,7 +28,8 @@
 		"phpmd/phpmd": "^2.6",
 		"phpunit/phpunit": "^10.0",
 		"phpstan/phpstan": "^1.8.2",
-		"phpcompatibility/php-compatibility": "^9.0"
+		"phpcompatibility/php-compatibility": "^9.0",
+		"slevomat/coding-standard": "^8.8"
 	},
 	"autoload": {
 		"psr-4": {

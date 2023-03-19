@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 @_API_EXEC === 1 or die('Restricted access.');
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
@@ -16,8 +19,8 @@ use Skaut\HandbookAPI\v1_0\Exception\AuthenticationException;
 
 $accountEndpoint = new Endpoint();
 
-$listAccount = function (Skautis $skautis, array $data) : array {
-    $getAccount = function (Skautis $skautis) use ($data) : array {
+$listAccount = function (Skautis $skautis, array $data): array {
+    $getAccount = function (Skautis $skautis) use ($data): array {
         $SQL = <<<SQL
 SELECT `group_id`
 FROM `users_in_groups`
@@ -60,7 +63,7 @@ SQL;
 };
 $accountEndpoint->setListMethod(new Role('guest'), $listAccount);
 
-$addAccount = function (Skautis $skautis) : array {
+$addAccount = function (Skautis $skautis): array {
     global $userEndpoint;
     $loginDetail = $skautis->UserManagement->LoginDetail();
     $userData = ['id' => $loginDetail->ID_Person, 'name' => $loginDetail->Person];

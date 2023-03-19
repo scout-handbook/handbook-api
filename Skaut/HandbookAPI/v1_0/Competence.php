@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 namespace Skaut\HandbookAPI\v1_0;
 
 @_API_EXEC === 1 or die('Restricted access.');
@@ -18,7 +21,7 @@ class Competence implements \JsonSerializable
         $this->description = Helper::xssSanitize($description);
     }
 
-    public function jsonSerialize() : array
+    public function jsonSerialize(): array
     {
         return [
             'number' => $this->number,

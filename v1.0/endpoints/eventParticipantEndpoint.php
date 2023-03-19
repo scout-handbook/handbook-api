@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 @_API_EXEC === 1 or die('Restricted access.');
 
 use Skautis\Skautis;
@@ -10,7 +13,7 @@ use Skaut\HandbookAPI\v1_0\Exception\SkautISAuthorizationException;
 
 $eventParticipantEndpoint = new Endpoint();
 
-$listEventParticipants = function (Skautis $skautis, array $data) : array {
+$listEventParticipants = function (Skautis $skautis, array $data): array {
     $id = ctype_digit($data['parent-id']) ? intval($data['parent-id']) : null;
     if ($id === null) {
         throw new InvalidArgumentTypeException('id', ['Integer']);
@@ -39,10 +42,12 @@ $listEventParticipants = function (Skautis $skautis, array $data) : array {
             'ID_EventEducation' => $id,
             'IsActive' => true]);
     } catch (\Skautis\Exception $e) {
-        if (mb_ereg(
-            "Nemáte oprávnění k akci EV_ParticipantEducation_ALL_EventEducation nad záznamem ID=", // phpcs:ignore Generic.Files.LineLength.TooLong
-            $e->getMessage()
-        )) {
+        if (
+            mb_ereg(
+                "Nemáte oprávnění k akci EV_ParticipantEducation_ALL_EventEducation nad záznamem ID=", // phpcs:ignore Generic.Files.LineLength.TooLong
+                $e->getMessage()
+            )
+        ) {
             throw new SkautISAuthorizationException();
         }
         throw $e;

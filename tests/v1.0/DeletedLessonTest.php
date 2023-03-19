@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 namespace v1_0;
 
 global $CONFIG;
@@ -20,7 +23,7 @@ class DeletedLessonTest extends TestCase
     }
 
     #[Depends("testCtor")]
-    public function testJsonSerialize(DeletedLesson $deletedLesson) : void
+    public function testJsonSerialize(DeletedLesson $deletedLesson): void
     {
         $this->assertJsonStringEqualsJsonString(
             '{"name":"dlname"}',

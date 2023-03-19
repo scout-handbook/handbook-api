@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 namespace Skaut\HandbookAPI\v1_0\Exception;
 
 @_API_EXEC === 1 or die('Restricted access.');
@@ -6,10 +9,10 @@ namespace Skaut\HandbookAPI\v1_0\Exception;
 /** @SuppressWarnings(PHPMD.NumberOfChildren) */
 class Exception extends \Exception
 {
-    const TYPE = 'Exception';
-    const STATUS = 500;
+    protected const TYPE = 'Exception';
+    protected const STATUS = 500;
 
-    public function handle() : array
+    public function handle(): array
     {
         return ['status' => static::STATUS, 'type' => static::TYPE, 'message' => $this->getMessage()];
     }

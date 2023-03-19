@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 namespace v1_0;
 
 global $CONFIG;
@@ -12,7 +15,7 @@ use Skaut\HandbookAPI\v1_0\Exception\NotLockedException;
 #[CoversClass(NotLockedException::class)]
 class NotLockedExceptionTest extends TestCase
 {
-    public function testCtor() : NotLockedException
+    public function testCtor(): NotLockedException
     {
         $e = new NotLockedException();
         $this->assertInstanceOf('\Skaut\HandbookAPI\v1_0\Exception\NotLockedException', $e);
@@ -20,7 +23,7 @@ class NotLockedExceptionTest extends TestCase
     }
 
     #[Depends("testCtor")]
-    public function testHandle(NotLockedException $e) : void
+    public function testHandle(NotLockedException $e): void
     {
         $this->assertSame(
             [

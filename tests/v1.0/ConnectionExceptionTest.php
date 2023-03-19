@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 namespace v1_0;
 
 global $CONFIG;
@@ -12,7 +15,7 @@ use Skaut\HandbookAPI\v1_0\Exception\ConnectionException;
 #[CoversClass(ConnectionException::class)]
 class ConnectionExceptionTest extends TestCase
 {
-    public function testCtor() : ConnectionException
+    public function testCtor(): ConnectionException
     {
         $e = new ConnectionException(new \PDOException());
         $this->assertInstanceOf('\Skaut\HandbookAPI\v1_0\Exception\ConnectionException', $e);
@@ -20,7 +23,7 @@ class ConnectionExceptionTest extends TestCase
     }
 
     #[Depends("testCtor")]
-    public function testHandle(ConnectionException $e) : void
+    public function testHandle(ConnectionException $e): void
     {
         $this->assertSame(
             [

@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 @_API_EXEC === 1 or die('Restricted access.');
 
 use Ramsey\Uuid\Uuid;
@@ -15,7 +18,7 @@ use Skaut\HandbookAPI\v1_0\Exception\NotFoundException;
 
 $imageEndpoint = new Endpoint();
 
-function applyRotation(Imagick $image) : void
+function applyRotation(Imagick $image): void
 {
     switch ($image->getImageOrientation()) {
         case Imagick::ORIENTATION_TOPRIGHT:
@@ -48,7 +51,7 @@ function applyRotation(Imagick $image) : void
     $image->setImageOrientation(Imagick::ORIENTATION_TOPLEFT);
 }
 
-$listImages = function () : array {
+$listImages = function (): array {
     $SQL = <<<SQL
 SELECT `id`
 FROM `images`
@@ -68,7 +71,7 @@ SQL;
 };
 $imageEndpoint->setListMethod(new Role('editor'), $listImages);
 
-$getImage = function (Skautis $skautis, array $data) use ($CONFIG) : array {
+$getImage = function (Skautis $skautis, array $data) use ($CONFIG): array {
     $id = Helper::parseUuid($data['id'], 'image')->toString();
     $quality = "web";
     if (isset($data['quality']) and in_array($data['quality'], ['original', 'web', 'thumbnail'])) {
@@ -102,7 +105,7 @@ $getImage = function (Skautis $skautis, array $data) use ($CONFIG) : array {
 };
 $imageEndpoint->setGetMethod(new Role('guest'), $getImage);
 
-$addImage = function () use ($CONFIG) : array {
+$addImage = function () use ($CONFIG): array {
     $SQL = <<<SQL
 INSERT INTO `images` (`id`)
 VALUES (:id);
@@ -172,7 +175,7 @@ SQL;
 };
 $imageEndpoint->setAddMethod(new Role('editor'), $addImage);
 
-$deleteImage = function (Skautis $skautis, array $data) use ($CONFIG) : array {
+$deleteImage = function (Skautis $skautis, array $data) use ($CONFIG): array {
     $SQL = <<<SQL
 DELETE FROM `images`
 WHERE `id` = :id

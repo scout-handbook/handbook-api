@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 namespace v1_0;
 
 global $CONFIG;
@@ -12,7 +15,7 @@ use Skaut\HandbookAPI\v1_0\Competence;
 #[CoversClass(Competence::class)]
 class CompetenceTest extends TestCase
 {
-    public function testCtor() : Competence
+    public function testCtor(): Competence
     {
         $competence = new Competence(42, 'cname', 'cdescription');
         $this->assertInstanceOf('\Skaut\HandbookAPI\v1_0\Competence', $competence);
@@ -20,7 +23,7 @@ class CompetenceTest extends TestCase
     }
 
     #[Depends("testCtor")]
-    public function testJsonSerialize(Competence $competence) : void
+    public function testJsonSerialize(Competence $competence): void
     {
         $this->assertJsonStringEqualsJsonString(
             '{"number":42,"name":"cname","description":"cdescription"}',

@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 namespace Skaut\HandbookAPI\v1_0;
 
 @_API_EXEC === 1 or die('Restricted access.');
@@ -20,12 +23,12 @@ class User implements \JsonSerializable
         $this->groups = [];
     }
 
-    public function addGroup(string $group) : void
+    public function addGroup(string $group): void
     {
         $this->groups[] = Uuid::fromBytes($group);
     }
 
-    public function jsonSerialize() : array
+    public function jsonSerialize(): array
     {
         return ['id' => $this->id, 'name' => $this->name, 'role' => $this->role, 'groups' => $this->groups];
     }

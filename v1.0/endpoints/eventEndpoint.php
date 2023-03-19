@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 @_API_EXEC === 1 or die('Restricted access.');
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
@@ -13,7 +16,7 @@ use Skaut\HandbookAPI\v1_0\Role;
 $eventEndpoint = new Endpoint();
 $eventEndpoint->addSubEndpoint('participant', $eventParticipantEndpoint);
 
-$listUsers = function (Skautis $skautis) : array {
+$listUsers = function (Skautis $skautis): array {
     $ISevents = $skautis->Events->EventEducationAllMyActions();
     $events = [];
     foreach ($ISevents as $event) {

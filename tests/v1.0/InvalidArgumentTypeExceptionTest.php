@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 namespace v1_0;
 
 global $CONFIG;
@@ -12,7 +15,7 @@ use Skaut\HandbookAPI\v1_0\Exception\InvalidArgumentTypeException;
 #[CoversClass(InvalidArgumentTypeException::class)]
 class InvalidArgumentTypeExceptionTest extends TestCase
 {
-    public function testCtor() : InvalidArgumentTypeException
+    public function testCtor(): InvalidArgumentTypeException
     {
         $e = new InvalidArgumentTypeException('Ename', ['json', 'int']);
         $this->assertInstanceOf('\Skaut\HandbookAPI\v1_0\Exception\InvalidArgumentTypeException', $e);
@@ -20,7 +23,7 @@ class InvalidArgumentTypeExceptionTest extends TestCase
     }
 
     #[Depends("testCtor")]
-    public function testHandle(InvalidArgumentTypeException $e) : void
+    public function testHandle(InvalidArgumentTypeException $e): void
     {
         $this->assertSame(
             [

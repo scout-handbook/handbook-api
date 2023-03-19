@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 @_API_EXEC === 1 or die('Restricted access.');
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
@@ -31,7 +34,7 @@ $lessonEndpoint->addSubEndpoint('group', $lessonGroupEndpoint);
 $lessonEndpoint->addSubEndpoint('history', $lessonHistoryEndpoint);
 $lessonEndpoint->addSubEndpoint('pdf', $lessonPDFEndpoint);
 
-$listLessons = function (Skautis $skautis, array $data) : array {
+$listLessons = function (Skautis $skautis, array $data): array {
     $lessonSQL = <<<SQL
 SELECT `id`, `name`, UNIX_TIMESTAMP(`version`)
 FROM `lessons`;
@@ -78,7 +81,7 @@ SQL;
 };
 $lessonEndpoint->setListMethod(new Role('guest'), $listLessons);
 
-$getLesson = function (Skautis $skautis, array $data) : array {
+$getLesson = function (Skautis $skautis, array $data): array {
     $SQL = <<<SQL
 SELECT `body`
 FROM `lessons`
@@ -104,7 +107,7 @@ SQL;
 };
 $lessonEndpoint->setGetMethod(new Role('guest'), $getLesson);
 
-$addLesson = function (Skautis $skautis, array $data) : array {
+$addLesson = function (Skautis $skautis, array $data): array {
     $SQL = <<<SQL
 INSERT INTO `lessons` (`id`, `name`, `body`)
 VALUES (:id, :name, :body);
@@ -131,7 +134,7 @@ SQL;
 };
 $lessonEndpoint->setAddMethod(new Role('editor'), $addLesson);
 
-$updateLesson = function (Skautis $skautis, array $data) : array {
+$updateLesson = function (Skautis $skautis, array $data): array {
     $selectSQL = <<<SQL
 SELECT `name`, `body`
 FROM `lessons`
@@ -207,7 +210,7 @@ SQL;
 };
 $lessonEndpoint->setUpdateMethod(new Role('editor'), $updateLesson);
 
-$deleteLesson = function (Skautis $skautis, array $data) : array {
+$deleteLesson = function (Skautis $skautis, array $data): array {
     $copySQL = <<<SQL
 INSERT INTO `lesson_history` (`id`, `name`, `version`, `body`)
 SELECT `id`, `name`, `version`, `body`

@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 @_API_EXEC === 1 or die('Restricted access.');
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
@@ -22,7 +25,7 @@ $userEndpoint->addSubEndpoint('role', $userRoleEndpoint);
 $userEndpoint->addSubEndpoint('group', $userGroupEndpoint);
 
 
-function constructSelectSQL(Skautis $skautis, bool $roleSelect, bool $groupSelect) : string
+function constructSelectSQL(Skautis $skautis, bool $roleSelect, bool $groupSelect): string
 {
     $role = Role::get($skautis->UserManagement->LoginDetail()->ID_Person);
 
@@ -53,7 +56,7 @@ SQL;
     return $selectSQL;
 }
 
-$listUsers = function (Skautis $skautis, array $data) : array {
+$listUsers = function (Skautis $skautis, array $data): array {
     $selectSQL = constructSelectSQL($skautis, isset($data['role']), isset($data['group']));
     $countSQL = <<<SQL
 SELECT FOUND_ROWS();
@@ -141,7 +144,7 @@ SQL;
 };
 $userEndpoint->setListMethod(new Role('editor'), $listUsers);
 
-$addUser = function (Skautis $skautis, array $data) : array {
+$addUser = function (Skautis $skautis, array $data): array {
     if (!isset($data['id'])) {
         throw new MissingArgumentException(MissingArgumentException::POST, 'id');
     }

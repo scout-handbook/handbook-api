@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 namespace v1_0;
 
 global $CONFIG;
@@ -13,7 +16,7 @@ use Skaut\HandbookAPI\v1_0\Exception\SkautISException;
 #[CoversClass(SkautISException::class)]
 class SkautISExceptionTest extends TestCase
 {
-    public function testCtor() : SkautISException
+    public function testCtor(): SkautISException
     {
         $e = new SkautISException(new StaticClassException('Emessage'));
         $this->assertInstanceOf('\Skaut\HandbookAPI\v1_0\Exception\SkautISException', $e);
@@ -21,7 +24,7 @@ class SkautISExceptionTest extends TestCase
     }
 
     #[Depends("testCtor")]
-    public function testHandle(SkautISException $e) : void
+    public function testHandle(SkautISException $e): void
     {
         $this->assertSame(
             ['status' => 403, 'type' => 'SkautISException', 'message' => 'SkautIS error: Emessage'],

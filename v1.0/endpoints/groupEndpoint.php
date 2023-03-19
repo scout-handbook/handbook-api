@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 @_API_EXEC === 1 or die('Restricted access.');
 
 use Ramsey\Uuid\Uuid;
@@ -15,7 +18,7 @@ use Skaut\HandbookAPI\v1_0\Exception\RefusedException;
 
 $groupEndpoint = new Endpoint();
 
-$listGroups = function () : array {
+$listGroups = function (): array {
     $selectSQL = <<<SQL
 SELECT `id`, `name`
 FROM `groups`;
@@ -47,7 +50,7 @@ SQL;
 };
 $groupEndpoint->setListMethod(new Role('editor'), $listGroups);
 
-$addGroup = function (Skautis $skautis, array $data) : array {
+$addGroup = function (Skautis $skautis, array $data): array {
     $SQL = <<<SQL
 INSERT INTO `groups` (`id`, `name`)
 VALUES (:id, :name);
@@ -68,7 +71,7 @@ SQL;
 };
 $groupEndpoint->setAddMethod(new Role('administrator'), $addGroup);
 
-$updateGroup = function (Skautis $skautis, array $data) : array {
+$updateGroup = function (Skautis $skautis, array $data): array {
     $updateSQL = <<<SQL
 UPDATE `groups`
 SET `name` = :name
@@ -81,7 +84,7 @@ SQL;
         throw new MissingArgumentException(MissingArgumentException::POST, 'name');
     }
     $name = $data['name'];
-    
+
     $db = new Database();
     $db->beginTransaction();
 
@@ -95,7 +98,7 @@ SQL;
 };
 $groupEndpoint->setUpdateMethod(new Role('administrator'), $updateGroup);
 
-$deleteGroup = function (Skautis $skautis, array $data) : array {
+$deleteGroup = function (Skautis $skautis, array $data): array {
     $deleteLessonsSQL = <<<SQL
 DELETE FROM `groups_for_lessons`
 WHERE `group_id` = :group_id;
@@ -109,7 +112,7 @@ DELETE FROM `groups`
 WHERE `id` = :id
 LIMIT 1;
 SQL;
-    
+
     $id = Helper::parseUuid($data['id'], 'group');
     if ($id == Uuid::fromString('00000000-0000-0000-0000-000000000000')) {
         throw new RefusedException();

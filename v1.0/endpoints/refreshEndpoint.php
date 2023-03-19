@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 @_API_EXEC === 1 or die('Restricted access.');
 
 use Skautis\Skautis;
@@ -8,7 +11,7 @@ use Skaut\HandbookAPI\v1_0\Role;
 
 $refreshEndpoint = new Endpoint();
 
-$refreshLogin = function (Skautis $skautis) use ($CONFIG) : array {
+$refreshLogin = function (Skautis $skautis) use ($CONFIG): array {
     $dateLogout = $skautis->UserManagement->LoginUpdateRefresh(['ID' => $_COOKIE['skautis_token']])->DateLogout;
     $timeout = DateTime::createFromFormat(
         'Y-m-d\TH:i:s.u',

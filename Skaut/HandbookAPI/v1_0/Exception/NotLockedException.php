@@ -1,12 +1,15 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 namespace Skaut\HandbookAPI\v1_0\Exception;
 
 @_API_EXEC === 1 or die('Restricted access.');
 
 class NotLockedException extends Exception
 {
-    const TYPE = 'NotLockedException';
-    const STATUS = 412;
+    protected const TYPE = 'NotLockedException';
+    protected const STATUS = 412;
 
     public function __construct()
     {
