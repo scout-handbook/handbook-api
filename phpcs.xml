@@ -17,7 +17,6 @@
 
 	<rule ref="PHPCompatibility"/>
 	<rule ref="PSR12">
-		<exclude name="PSR12.Properties.ConstantVisibility.NotFound" />
 		<exclude name="PSR1.Files.SideEffects.FoundWithSymbols" />
 	</rule>
 	<rule ref="SlevomatCodingStandard">

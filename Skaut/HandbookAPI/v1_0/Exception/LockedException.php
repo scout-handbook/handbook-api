@@ -8,8 +8,8 @@ namespace Skaut\HandbookAPI\v1_0\Exception;
 
 class LockedException extends Exception
 {
-    const TYPE = 'LockedException';
-    const STATUS = 409;
+    protected const TYPE = 'LockedException';
+    protected const STATUS = 409;
     private $holder;
 
     public function __construct(string $holder)
@@ -21,8 +21,8 @@ class LockedException extends Exception
     public function handle(): array
     {
         return [
-            'status' => static::STATUS,
-            'type' => static::TYPE,
+            'status' => self::STATUS,
+            'type' => self::TYPE,
             'message' => $this->getMessage(),
             'holder' => $this->holder
         ];

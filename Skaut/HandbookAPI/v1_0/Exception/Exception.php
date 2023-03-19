@@ -9,11 +9,11 @@ namespace Skaut\HandbookAPI\v1_0\Exception;
 /** @SuppressWarnings(PHPMD.NumberOfChildren) */
 class Exception extends \Exception
 {
-    const TYPE = 'Exception';
-    const STATUS = 500;
+    protected const TYPE = 'Exception';
+    protected const STATUS = 500;
 
     public function handle(): array
     {
-        return ['status' => static::STATUS, 'type' => static::TYPE, 'message' => $this->getMessage()];
+        return ['status' => self::STATUS, 'type' => self::TYPE, 'message' => $this->getMessage()];
     }
 }

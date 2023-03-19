@@ -8,8 +8,8 @@ namespace Skaut\HandbookAPI\v1_0\Exception;
 
 class NotFoundException extends Exception
 {
-    const TYPE = 'NotFoundException';
-    const STATUS = 404;
+    protected const TYPE = 'NotFoundException';
+    protected const STATUS = 404;
 
     public function __construct(string $resourceName)
     {

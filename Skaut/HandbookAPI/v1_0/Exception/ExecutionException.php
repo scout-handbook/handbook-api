@@ -8,8 +8,8 @@ namespace Skaut\HandbookAPI\v1_0\Exception;
 
 class ExecutionException extends Exception
 {
-    const TYPE = 'ExecutionException';
-    const STATUS = 500;
+    protected const TYPE = 'ExecutionException';
+    protected const STATUS = 500;
 
     public function __construct(string $query, $statement)
     {
