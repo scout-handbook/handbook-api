@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 namespace Skaut\OdyMarkdown\v1_0;
 
 use \cebe\markdown\GithubMarkdown;
