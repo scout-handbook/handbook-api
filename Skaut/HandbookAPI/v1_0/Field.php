@@ -26,7 +26,7 @@ class Field implements \JsonSerializable
         $this->lessons = [];
     }
 
-    public function addLesson(string $lesson) : void
+    public function addLesson(string $lesson): void
     {
         $this->lessons[] = Uuid::fromBytes($lesson);
     }
@@ -46,7 +46,7 @@ class Field implements \JsonSerializable
         return $this->icon;
     }
 
-    public function jsonSerialize() : array
+    public function jsonSerialize(): array
     {
         return [
             'name' => $this->name,

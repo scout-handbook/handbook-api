@@ -15,8 +15,8 @@ use Skaut\HandbookAPI\v1_0\Exception\RoleException;
 
 $userRoleEndpoint = new Endpoint();
 
-$updateUserRole = function (Skautis $skautis, array $data) : array {
-    $checkRole = function (Role $my_role, Role $role) : void {
+$updateUserRole = function (Skautis $skautis, array $data): array {
+    $checkRole = function (Role $my_role, Role $role): void {
         if (
             (Role::compare($my_role, new Role('administrator')) === 0) and
             (Role::compare($role, new Role('administrator')) >= 0)

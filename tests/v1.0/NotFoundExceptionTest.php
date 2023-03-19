@@ -15,7 +15,7 @@ use Skaut\HandbookAPI\v1_0\Exception\NotFoundException;
 #[CoversClass(NotFoundException::class)]
 class NotFoundExceptionTest extends TestCase
 {
-    public function testCtor() : NotFoundException
+    public function testCtor(): NotFoundException
     {
         $e = new NotFoundException('Rname');
         $this->assertInstanceOf('\Skaut\HandbookAPI\v1_0\Exception\NotFoundException', $e);
@@ -23,7 +23,7 @@ class NotFoundExceptionTest extends TestCase
     }
 
     #[Depends("testCtor")]
-    public function testHandle(NotFoundException $e) : void
+    public function testHandle(NotFoundException $e): void
     {
         $this->assertSame(
             ['status' => 404, 'type' => 'NotFoundException', 'message' => 'No such Rname has been found.'],

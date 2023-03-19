@@ -23,7 +23,7 @@ class DeletedLessonTest extends TestCase
     }
 
     #[Depends("testCtor")]
-    public function testJsonSerialize(DeletedLesson $deletedLesson) : void
+    public function testJsonSerialize(DeletedLesson $deletedLesson): void
     {
         $this->assertJsonStringEqualsJsonString(
             '{"name":"dlname"}',

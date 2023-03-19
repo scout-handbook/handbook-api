@@ -18,7 +18,7 @@ class LockedException extends Exception
         $this->holder = $holder;
     }
 
-    public function handle() : array
+    public function handle(): array
     {
         return [
             'status' => static::STATUS,

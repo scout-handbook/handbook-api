@@ -11,8 +11,8 @@ use Skaut\HandbookAPI\v1_0\Role;
 
 $logoutEndpoint = new Endpoint();
 
-$logoutUser = function (Skautis $skautis, array $data) use ($CONFIG) : void {
-    $startsWith = function (string $haystack, string $needle) : bool {
+$logoutUser = function (Skautis $skautis, array $data) use ($CONFIG): void {
+    $startsWith = function (string $haystack, string $needle): bool {
         return (mb_substr($haystack, 0, mb_strlen($needle)) === $needle);
     };
     $_API_SECRETS_EXEC = 1;

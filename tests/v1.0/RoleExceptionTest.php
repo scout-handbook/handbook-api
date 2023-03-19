@@ -15,7 +15,7 @@ use Skaut\HandbookAPI\v1_0\Exception\RoleException;
 #[CoversClass(RoleException::class)]
 class RoleExceptionTest extends TestCase
 {
-    public function testCtor() : RoleException
+    public function testCtor(): RoleException
     {
         $e = new RoleException();
         $this->assertInstanceOf('\Skaut\HandbookAPI\v1_0\Exception\RoleException', $e);
@@ -23,7 +23,7 @@ class RoleExceptionTest extends TestCase
     }
 
     #[Depends("testCtor")]
-    public function testHandle(RoleException $e) : void
+    public function testHandle(RoleException $e): void
     {
         $this->assertSame(
             ['status' => 403, 'type' => 'RoleException', 'message' => 'You don\'t have permission for this action.'],

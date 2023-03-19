@@ -19,7 +19,7 @@ class Group implements \JsonSerializable
         $this->count = $count;
     }
 
-    public function jsonSerialize() : array
+    public function jsonSerialize(): array
     {
         return ['name' => $this->name, 'count' => $this->count];
     }

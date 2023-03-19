@@ -13,7 +13,7 @@ use Skaut\HandbookAPI\v1_0\Exception\SkautISAuthorizationException;
 
 $eventParticipantEndpoint = new Endpoint();
 
-$listEventParticipants = function (Skautis $skautis, array $data) : array {
+$listEventParticipants = function (Skautis $skautis, array $data): array {
     $id = ctype_digit($data['parent-id']) ? intval($data['parent-id']) : null;
     if ($id === null) {
         throw new InvalidArgumentTypeException('id', ['Integer']);

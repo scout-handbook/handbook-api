@@ -38,7 +38,7 @@ class Database
     }
 
     /** @SuppressWarnings(PHPMD.CamelCaseParameterName) */
-    public function prepare(string $SQL) : void
+    public function prepare(string $SQL): void
     {
         $this->SQL = $SQL;
         $this->statement = self::$db->prepare($this->SQL);
@@ -47,12 +47,12 @@ class Database
         }
     }
 
-    public function bindParam(string $name, &$value, int $dataType) : void
+    public function bindParam(string $name, &$value, int $dataType): void
     {
         $this->statement->bindParam($name, $value, $dataType);
     }
 
-    public function execute(string $resourceName = "") : void
+    public function execute(string $resourceName = ""): void
     {
         if (!$this->statement->execute()) {
             if ($this->statement->errorCode() == 23000) {
@@ -63,39 +63,39 @@ class Database
         }
     }
 
-    public function rowCount() : int
+    public function rowCount(): int
     {
         return $this->statement->rowCount();
     }
 
-    public function bindColumn($name, &$value) : void
+    public function bindColumn($name, &$value): void
     {
         $this->statement->bindColumn($name, $value);
     }
 
-    public function fetch() : bool
+    public function fetch(): bool
     {
         return $this->statement->fetch(\PDO::FETCH_BOUND);
     }
 
-    public function fetchRequire(string $resourceName) : void
+    public function fetchRequire(string $resourceName): void
     {
         if (!$this->fetch()) {
             throw new NotFoundException($resourceName);
         }
     }
 
-    public function fetchAll() : array
+    public function fetchAll(): array
     {
         return $this->statement->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function beginTransaction() : void
+    public function beginTransaction(): void
     {
         self::$db->beginTransaction();
     }
 
-    public function endTransaction() : void
+    public function endTransaction(): void
     {
         try {
             self::$db->commit();

@@ -17,7 +17,7 @@ use Skaut\HandbookAPI\v1_0\Exception\NotFoundException;
 
 $fieldEndpoint = new Endpoint();
 
-$listFields = function (Skautis $skautis, array $data) : array {
+$listFields = function (Skautis $skautis, array $data): array {
     $fieldSQL = <<<SQL
 SELECT `id`, `name`, `description`, `image`, `icon`
 FROM `fields`;
@@ -65,7 +65,7 @@ SQL;
 };
 $fieldEndpoint->setListMethod(new Role('guest'), $listFields);
 
-$addField = function (Skautis $skautis, array $data) : array {
+$addField = function (Skautis $skautis, array $data): array {
     $SQL = <<<SQL
 INSERT INTO `fields` (`id`, `name`, `description`, `image`, `icon`)
 VALUES (:id, :name, :description, :image, :icon);
@@ -101,7 +101,7 @@ SQL;
 };
 $fieldEndpoint->setAddMethod(new Role('administrator'), $addField);
 
-$updateField = function (Skautis $skautis, array $data) : array {
+$updateField = function (Skautis $skautis, array $data): array {
     $SQL = <<<SQL
 UPDATE `fields`
 SET `name` = :name, `description` = :description, `image` = :image, `icon` = :icon
@@ -143,7 +143,7 @@ SQL;
 };
 $fieldEndpoint->setUpdateMethod(new Role('administrator'), $updateField);
 
-$deleteField = function (Skautis $skautis, array $data) : array {
+$deleteField = function (Skautis $skautis, array $data): array {
     $deleteLessonsSQL = <<<SQL
 DELETE FROM `lessons_in_fields`
 WHERE `field_id` = :field_id;

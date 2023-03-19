@@ -18,7 +18,7 @@ use Skaut\HandbookAPI\v1_0\Exception\SkautISException;
 /** @SuppressWarnings(PHPMD.CouplingBetweenObjects) */
 class Helper // Helper functions
 {
-    public static function parseUuid(string $id, string $resourceName) : UuidInterface
+    public static function parseUuid(string $id, string $resourceName): UuidInterface
     {
         try {
             return Uuid::fromString($id);
@@ -27,7 +27,7 @@ class Helper // Helper functions
         }
     }
 
-    public static function xssSanitize(string $input) : string
+    public static function xssSanitize(string $input): string
     {
         return htmlspecialchars($input, ENT_QUOTES | ENT_HTML5, 'UTF-8');
     }
@@ -82,7 +82,7 @@ class Helper // Helper functions
         return self::skautisTry($safeCallback, $hardCheck);
     }
 
-    public static function checkLessonGroup(UuidInterface $lessonId, bool $overrideGroup = false) : bool
+    public static function checkLessonGroup(UuidInterface $lessonId, bool $overrideGroup = false): bool
     {
         require($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
         // @phpstan-ignore-next-line
@@ -129,7 +129,7 @@ SQL;
     }
 
     /** @SuppressWarnings(PHPMD.ExcessiveMethodLength) */
-    public static function urlEscape(string $str) : string
+    public static function urlEscape(string $str): string
     {
         $lookupTable = [
             // phpcs:disable Generic.Files.LineLength.TooLong

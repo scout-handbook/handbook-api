@@ -17,7 +17,6 @@
 
 	<rule ref="PHPCompatibility"/>
 	<rule ref="PSR12">
-		<exclude name="PSR12.Functions.ReturnTypeDeclaration.SpaceBeforeColon" />
 		<exclude name="PSR12.Properties.ConstantVisibility.NotFound" />
 		<exclude name="Squiz.WhiteSpace.SuperfluousWhitespace.EndLine" />
 		<exclude name="PSR1.Files.SideEffects.FoundWithSymbols" />

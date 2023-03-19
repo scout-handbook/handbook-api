@@ -18,7 +18,7 @@ use Skaut\HandbookAPI\v1_0\Exception\RefusedException;
 
 $groupEndpoint = new Endpoint();
 
-$listGroups = function () : array {
+$listGroups = function (): array {
     $selectSQL = <<<SQL
 SELECT `id`, `name`
 FROM `groups`;
@@ -50,7 +50,7 @@ SQL;
 };
 $groupEndpoint->setListMethod(new Role('editor'), $listGroups);
 
-$addGroup = function (Skautis $skautis, array $data) : array {
+$addGroup = function (Skautis $skautis, array $data): array {
     $SQL = <<<SQL
 INSERT INTO `groups` (`id`, `name`)
 VALUES (:id, :name);
@@ -71,7 +71,7 @@ SQL;
 };
 $groupEndpoint->setAddMethod(new Role('administrator'), $addGroup);
 
-$updateGroup = function (Skautis $skautis, array $data) : array {
+$updateGroup = function (Skautis $skautis, array $data): array {
     $updateSQL = <<<SQL
 UPDATE `groups`
 SET `name` = :name
@@ -98,7 +98,7 @@ SQL;
 };
 $groupEndpoint->setUpdateMethod(new Role('administrator'), $updateGroup);
 
-$deleteGroup = function (Skautis $skautis, array $data) : array {
+$deleteGroup = function (Skautis $skautis, array $data): array {
     $deleteLessonsSQL = <<<SQL
 DELETE FROM `groups_for_lessons`
 WHERE `group_id` = :group_id;

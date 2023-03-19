@@ -18,7 +18,7 @@ use Skaut\HandbookAPI\v1_0\Role;
 $deletedLessonEndpoint = new Endpoint();
 $deletedLessonEndpoint->addSubEndpoint('history', $deletedLessonHistoryEndpoint);
 
-$listDeletedLessons = function () : array {
+$listDeletedLessons = function (): array {
     $SQL = <<<SQL
 SELECT `a`.`id`, `a`.`name`
 FROM `lesson_history` `a`

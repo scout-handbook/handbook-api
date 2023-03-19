@@ -15,7 +15,7 @@ use Skaut\HandbookAPI\v1_0\Exception\LockedException;
 
 $mutexEndpoint = new Endpoint();
 
-$addMutex = function (Skautis $skautis, array $data) : array {
+$addMutex = function (Skautis $skautis, array $data): array {
     $selectSQL = <<<SQL
 SELECT DISTINCT UNIX_TIMESTAMP(`mutexes`.`timeout`), `mutexes`.`holder`, `users`.`name`
 FROM `mutexes`
@@ -72,7 +72,7 @@ SQL;
 };
 $mutexEndpoint->setAddMethod(new Role('editor'), $addMutex);
 
-$extendMutex = function (Skautis $skautis, array $data) : array {
+$extendMutex = function (Skautis $skautis, array $data): array {
     $selectSQL = <<<SQL
 SELECT 1
 FROM `mutexes`
@@ -115,7 +115,7 @@ SQL;
 };
 $mutexEndpoint->setUpdateMethod(new Role('editor'), $extendMutex);
 
-$releaseMutex = function (Skautis $skautis, array $data) : array {
+$releaseMutex = function (Skautis $skautis, array $data): array {
     $selectSQL = <<<SQL
 SELECT 1
 FROM `mutexes`

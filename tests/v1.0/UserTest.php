@@ -15,7 +15,7 @@ use Skaut\HandbookAPI\v1_0\User;
 #[CoversClass(User::class)]
 class UserTest extends TestCase
 {
-    public function testCtor() : User
+    public function testCtor(): User
     {
         $user = new User(12345, 'uname', 'superuser');
         $this->assertInstanceOf('\Skaut\HandbookAPI\v1_0\User', $user);
@@ -23,7 +23,7 @@ class UserTest extends TestCase
     }
 
     #[Depends("testCtor")]
-    public function testJsonSerializeNoGroups(User $user) : void
+    public function testJsonSerializeNoGroups(User $user): void
     {
         $this->assertJsonStringEqualsJsonString(
             '{"id":12345,"name":"uname","role":"superuser","groups":[]}',
@@ -31,7 +31,7 @@ class UserTest extends TestCase
         );
     }
 
-    public function testJsonSerializeGroups() : void
+    public function testJsonSerializeGroups(): void
     {
         $user = new User(12345, 'uname', 'superuser');
         $user->addGroup(pack('H*', '1739a63aa2544a959508103b7c80bcdb'));
