@@ -21,6 +21,7 @@
 		<exclude name="PSR1.Files.SideEffects.FoundWithSymbols" />
 	</rule>
 	<rule ref="SlevomatCodingStandard">
+		<!-- TODO: Go through these and re-enable them -->
 		<exclude name="SlevomatCodingStandard.Arrays.TrailingArrayComma.MissingTrailingComma" />
 		<exclude name="SlevomatCodingStandard.Attributes.AttributesOrder" />
 		<exclude name="SlevomatCodingStandard.Classes.ClassConstantVisibility.MissingConstantVisibility" />
