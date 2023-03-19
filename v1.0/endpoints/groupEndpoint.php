@@ -84,7 +84,7 @@ SQL;
         throw new MissingArgumentException(MissingArgumentException::POST, 'name');
     }
     $name = $data['name'];
-    
+
     $db = new Database();
     $db->beginTransaction();
 
@@ -112,7 +112,7 @@ DELETE FROM `groups`
 WHERE `id` = :id
 LIMIT 1;
 SQL;
-    
+
     $id = Helper::parseUuid($data['id'], 'group');
     if ($id == Uuid::fromString('00000000-0000-0000-0000-000000000000')) {
         throw new RefusedException();

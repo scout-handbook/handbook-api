@@ -142,7 +142,7 @@ SQL;
     $db->bindParam(':id', $id, PDO::PARAM_STR);
     $db->bindParam(':holder', $userId, PDO::PARAM_INT);
     $db->execute();
-    
+
     $db->endTransaction();
     return ['status' => 200];
 };
