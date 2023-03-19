@@ -8,12 +8,12 @@ namespace Skaut\HandbookAPI\v1_0\Exception;
 
 class MissingArgumentException extends Exception
 {
-    const TYPE = 'MissingArgumentException';
-    const STATUS = 400;
+    protected const TYPE = 'MissingArgumentException';
+    protected const STATUS = 400;
 
-    const GET = "GET";
-    const POST = "POST";
-    const FILE = "FILE";
+    public const GET = "GET";
+    public const POST = "POST";
+    public const FILE = "FILE";
 
     public function __construct(string $type, string $name)
     {

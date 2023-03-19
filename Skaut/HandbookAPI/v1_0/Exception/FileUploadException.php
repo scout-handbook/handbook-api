@@ -8,8 +8,8 @@ namespace Skaut\HandbookAPI\v1_0\Exception;
 
 class FileUploadException extends Exception
 {
-    const TYPE = 'FileUploadException';
-    const STATUS = 500;
+    protected const TYPE = 'FileUploadException';
+    protected const STATUS = 500;
 
     public function __construct(int $errorCode)
     {

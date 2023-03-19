@@ -8,8 +8,8 @@ namespace Skaut\HandbookAPI\v1_0\Exception;
 
 class SkautISException extends Exception
 {
-    const TYPE = 'SkautISException';
-    const STATUS = 403;
+    protected const TYPE = 'SkautISException';
+    protected const STATUS = 403;
 
     public function __construct(\Skautis\Exception $e)
     {

@@ -8,8 +8,8 @@ namespace Skaut\HandbookAPI\v1_0\Exception;
 
 class NotLockedException extends Exception
 {
-    const TYPE = 'NotLockedException';
-    const STATUS = 412;
+    protected const TYPE = 'NotLockedException';
+    protected const STATUS = 412;
 
     public function __construct()
     {

@@ -8,8 +8,8 @@ namespace Skaut\HandbookAPI\v1_0\Exception;
 
 class ConnectionException extends Exception
 {
-    const TYPE = 'ConnectionException';
-    const STATUS = 500;
+    protected const TYPE = 'ConnectionException';
+    protected const STATUS = 500;
 
     /** @SuppressWarnings(PHPMD.CamelCaseParameterName) */
     public function __construct($PDOexception)

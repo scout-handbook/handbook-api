@@ -8,8 +8,8 @@ namespace Skaut\HandbookAPI\v1_0\Exception;
 
 class QueryException extends Exception
 {
-    const TYPE = 'QueryException';
-    const STATUS = 500;
+    protected const TYPE = 'QueryException';
+    protected const STATUS = 500;
 
     public function __construct(string $query, $db)
     {

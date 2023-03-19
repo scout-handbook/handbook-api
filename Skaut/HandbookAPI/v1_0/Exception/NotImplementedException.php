@@ -8,8 +8,8 @@ namespace Skaut\HandbookAPI\v1_0\Exception;
 
 class NotImplementedException extends Exception
 {
-    const TYPE = 'NotImplementedException';
-    const STATUS = 501;
+    protected const TYPE = 'NotImplementedException';
+    protected const STATUS = 501;
 
     public function __construct()
     {

@@ -8,8 +8,8 @@ namespace Skaut\HandbookAPI\v1_0\Exception;
 
 class RefusedException extends Exception
 {
-    const TYPE = 'RefusedException';
-    const STATUS = 403;
+    protected const TYPE = 'RefusedException';
+    protected const STATUS = 403;
 
     public function __construct()
     {

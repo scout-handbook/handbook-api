@@ -8,8 +8,8 @@ namespace Skaut\HandbookAPI\v1_0\Exception;
 
 class InvalidArgumentTypeException extends Exception
 {
-    const TYPE = 'InvalidArgumentTypeException';
-    const STATUS = 415;
+    protected const TYPE = 'InvalidArgumentTypeException';
+    protected const STATUS = 415;
 
     public function __construct(string $name, array $types)
     {
