@@ -1,46 +1,31 @@
-<?xml version="1.0"?>
-<phpunit
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.0/phpunit.xsd"
-  backupGlobals="true"
-  bootstrap="tests/bootstrap.php"
-  cacheResult="false"
-  colors="true"
-  processIsolation="false"
-  stopOnError="false"
-  stopOnFailure="false"
-  stopOnIncomplete="false"
-  stopOnSkipped="false"
-  stopOnRisky="false"
-  timeoutForSmallTests="1"
-  timeoutForMediumTests="10"
-  timeoutForLargeTests="60"
-  cacheDirectory=".phpunit.cache"
-  backupStaticProperties="false"
-  requireCoverageMetadata="true"
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         colors="true"
 >
-  <coverage>
-    <include>
-      <directory suffix=".php">./</directory>
-    </include>
-    <exclude>
-      <directory>node_modules/</directory>
-      <directory>tests/</directory>
-      <directory>vendor/</directory>
-    </exclude>
-    <report>
-      <clover outputFile="clover.xml"/>
-      <text outputFile="php://stdout" showUncoveredFiles="false"/>
-    </report>
-  </coverage>
-  <php>
-    <server name="DOCUMENT_ROOT" value="tests/v1.0"/>
-  </php>
-  <testsuites>
-    <testsuite name="v1.0">
-      <directory suffix=".php">tests/v1.0</directory>
-      <exclude>tests/v1.0/api-config.php</exclude>
-      <exclude>tests/v1.0/api-secrets.php</exclude>
-    </testsuite>
-  </testsuites>
+    <testsuites>
+        <testsuite name="Unit">
+            <directory suffix="Test.php">./tests/Unit</directory>
+        </testsuite>
+        <testsuite name="Feature">
+            <directory suffix="Test.php">./tests/Feature</directory>
+        </testsuite>
+    </testsuites>
+    <coverage>
+        <include>
+            <directory suffix=".php">./app</directory>
+        </include>
+    </coverage>
+    <php>
+        <env name="APP_ENV" value="testing"/>
+        <env name="BCRYPT_ROUNDS" value="4"/>
+        <env name="CACHE_DRIVER" value="array"/>
+        <!-- <env name="DB_CONNECTION" value="sqlite"/> -->
+        <!-- <env name="DB_DATABASE" value=":memory:"/> -->
+        <env name="MAIL_MAILER" value="array"/>
+        <env name="QUEUE_CONNECTION" value="sync"/>
+        <env name="SESSION_DRIVER" value="array"/>
+        <env name="TELESCOPE_ENABLED" value="false"/>
+    </php>
 </phpunit>
