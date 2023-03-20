@@ -116,5 +116,3 @@ api-secrets.php
 
 .phpunit.cache/
 clover.xml
-
-public/
