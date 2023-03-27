@@ -20,6 +20,7 @@
 	</rule>
 	<rule ref="SlevomatCodingStandard">
 		<!-- TODO: Go through these and re-enable them -->
+		<exclude name="SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder" />
 		<exclude name="SlevomatCodingStandard.Arrays.TrailingArrayComma.MissingTrailingComma" />
 		<exclude name="SlevomatCodingStandard.Attributes.AttributesOrder" />
 		<exclude name="SlevomatCodingStandard.Classes.ClassConstantVisibility.MissingConstantVisibility" />
@@ -32,6 +33,7 @@
 		<exclude name="SlevomatCodingStandard.Classes.ParentCallSpacing.IncorrectLinesCountAfterControlStructure" />
 		<exclude name="SlevomatCodingStandard.Classes.ParentCallSpacing.IncorrectLinesCountBeforeControlStructure" />
 		<exclude name="SlevomatCodingStandard.Classes.RequireAbstractOrFinal.ClassNeitherAbstractNorFinal" />
+		<exclude name="SlevomatCodingStandard.Classes.RequireSelfReference.RequiredSelfReference" />
 		<exclude name="SlevomatCodingStandard.Classes.SuperfluousExceptionNaming.SuperfluousSuffix" />
 		<exclude name="SlevomatCodingStandard.Commenting.DisallowCommentAfterCode.DisallowedCommentAfterCode" />
 		<exclude name="SlevomatCodingStandard.Complexity.Cognitive.ComplexityTooHigh" />
