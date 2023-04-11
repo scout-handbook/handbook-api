@@ -60,7 +60,7 @@ class OdyMarkdown extends GithubMarkdown
 
     private function consumeCommand(array $lines, int $current, string $command): array
     {
-        $block = [$command, 'lastPage' => ($current + 1 == count($lines))];
+        $block = [0 => $command, 'lastPage' => ($current + 1 == count($lines))];
         [$argumentString, $next] = self::getArgumentString($lines, $current, $command);
         $argumentArray = explode(',', strval($argumentString));
         foreach ($argumentArray as $arg) {
