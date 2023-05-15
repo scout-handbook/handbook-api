@@ -43,7 +43,7 @@ class PhpInputStream
     {
         $length = min($count, mb_strlen(self::$data) - $this->position);
         $data = mb_substr(self::$data, $this->position, $length);
-        $this->position = $this->position + $length;
+        $this->position += $length;
         return $data;
     }
 
