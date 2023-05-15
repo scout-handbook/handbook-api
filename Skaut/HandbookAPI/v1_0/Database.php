@@ -34,7 +34,7 @@ class Database
                 throw new ConnectionException($e);
             }
         }
-        self::$instanceCount = self::$instanceCount + 1;
+        self::$instanceCount += 1;
     }
 
     /** @SuppressWarnings(PHPMD.CamelCaseParameterName) */
@@ -109,7 +109,7 @@ class Database
         if (isset($this->statement)) {
             $this->statement = null;
         }
-        self::$instanceCount = self::$instanceCount - 1;
+        self::$instanceCount -= 1;
         if (self::$instanceCount === 0) {
             self::$db = null;
         }
