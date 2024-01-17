@@ -28,7 +28,7 @@ jobs:
           coverage: pcov
 
       - name: "Cache Composer dependencies"
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: "~/.composer/cache"
           key: composer-dependencies-${{ runner.os }}-${{ env.cache-version }}-${{ hashFiles('composer.json') }}
@@ -61,7 +61,7 @@ jobs:
           coverage: none
 
       - name: "Cache Composer dependencies"
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: "~/.composer/cache"
           key: composer-dependencies-${{ runner.os }}-${{ env.cache-version }}-${{ hashFiles('composer.json') }}
