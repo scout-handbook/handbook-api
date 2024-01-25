@@ -45,7 +45,7 @@ jobs:
           composer unit
 
       - name: "Upload coverage results"
-        uses: codecov/codecov-action@v3.1.4
+        uses: codecov/codecov-action@v3.1.5
 
   lint:
     name: "Lint"
