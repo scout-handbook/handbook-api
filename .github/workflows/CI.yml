@@ -46,6 +46,8 @@ jobs:
 
       - name: "Upload coverage results"
         uses: codecov/codecov-action@v4.0.0
+        with:
+          fail_ci_if_error: true
 
   lint:
     name: "Lint"
