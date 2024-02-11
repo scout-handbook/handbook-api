@@ -12,7 +12,6 @@ use Skaut\HandbookAPI\v1_0\Database;
 use Skaut\HandbookAPI\v1_0\Endpoint;
 use Skaut\HandbookAPI\v1_0\Helper;
 use Skaut\HandbookAPI\v1_0\Role;
-use Skaut\HandbookAPI\v1_0\Exception\InvalidArgumentTypeException;
 use Skaut\HandbookAPI\v1_0\Exception\MissingArgumentException;
 use Skaut\HandbookAPI\v1_0\Exception\NotFoundException;
 
@@ -90,10 +89,7 @@ SQL;
 
     $id = Helper::parseUuid($data['id'], 'competence')->getBytes();
     if (isset($data['number'])) {
-        $number = ctype_digit($data['number']) ? intval($data['number']) : null;
-        if ($number === null) {
-            throw new InvalidArgumentTypeException('number', ['Integer']);
-        }
+        $number = $data['number'];
     }
     if (isset($data['name'])) {
         $name = $data['name'];
@@ -129,7 +125,7 @@ SQL;
     $db->beginTransaction();
 
     $db->prepare($updateSQL);
-    $db->bindParam(':number', $number, PDO::PARAM_INT);
+    $db->bindParam(':number', $number, PDO::PARAM_STR);
     $db->bindParam(':name', $name, PDO::PARAM_STR);
     $db->bindParam(':description', $description, PDO::PARAM_STR);
     $db->bindParam(':id', $id, PDO::PARAM_STR);
