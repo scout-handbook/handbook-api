@@ -6,17 +6,15 @@ namespace Skaut\HandbookAPI\v1_0;
 
 @_API_EXEC === 1 or die('Restricted access.');
 
-use Ramsey\Uuid\Uuid;
-
 class Competence implements \JsonSerializable
 {
     private $number;
     private $name;
     private $description;
 
-    public function __construct(int $number, string $name, string $description)
+    public function __construct(string $number, string $name, string $description)
     {
-        $this->number = $number;
+        $this->number = Helper::xssSanitize($number);
         $this->name = Helper::xssSanitize($name);
         $this->description = Helper::xssSanitize($description);
     }
