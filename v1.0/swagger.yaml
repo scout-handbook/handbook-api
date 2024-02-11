@@ -698,8 +698,8 @@ paths:
                       type: object
                       properties:
                         number:
-                          type: integer
-                          example: 1
+                          type: string
+                          example: 17a
                         name:
                           type: string
                           example: A competence
@@ -730,8 +730,8 @@ paths:
               type: object
               properties:
                 number:
-                  type: integer
-                  example: 1
+                  type: string
+                  example: 17a
                 name:
                   type: string
                   example: A competence
@@ -776,8 +776,8 @@ paths:
               type: object
               properties:
                 number:
-                  type: integer
-                  example: 1
+                  type: string
+                  example: 17a
                 name:
                   type: string
                   example: A competence
