@@ -12,7 +12,6 @@ use Skaut\HandbookAPI\v1_0\Database;
 use Skaut\HandbookAPI\v1_0\Endpoint;
 use Skaut\HandbookAPI\v1_0\Helper;
 use Skaut\HandbookAPI\v1_0\Role;
-use Skaut\HandbookAPI\v1_0\Exception\InvalidArgumentTypeException;
 use Skaut\HandbookAPI\v1_0\Exception\MissingArgumentException;
 use Skaut\HandbookAPI\v1_0\Exception\NotFoundException;
 
@@ -38,7 +37,7 @@ SQL;
     $competences = [];
     while ($db->fetch()) {
         $competences[Uuid::fromBytes($id)->toString()] =
-            new Competence(intval($number), strval($name), strval($description));
+            new Competence(strval($number), strval($name), strval($description));
     }
     return ['status' => 200, 'response' => $competences];
 };
@@ -56,10 +55,7 @@ SQL;
     if (!isset($data['name'])) {
         throw new MissingArgumentException(MissingArgumentException::POST, 'name');
     }
-    $number = ctype_digit($data['number']) ? intval($data['number']) : null;
-    if ($number === null) {
-        throw new InvalidArgumentTypeException('number', ['Integer']);
-    }
+    $number = $data['number'];
     $name = $data['name'];
     $description = '';
     if (isset($data['description'])) {
@@ -70,7 +66,7 @@ SQL;
     $db = new Database();
     $db->prepare($SQL);
     $db->bindParam(':id', $uuid, PDO::PARAM_STR);
-    $db->bindParam(':number', $number, PDO::PARAM_INT);
+    $db->bindParam(':number', $number, PDO::PARAM_STR);
     $db->bindParam(':name', $name, PDO::PARAM_STR);
     $db->bindParam(':description', $description, PDO::PARAM_STR);
     $db->execute();
@@ -93,10 +89,7 @@ SQL;
 
     $id = Helper::parseUuid($data['id'], 'competence')->getBytes();
     if (isset($data['number'])) {
-        $number = ctype_digit($data['number']) ? intval($data['number']) : null;
-        if ($number === null) {
-            throw new InvalidArgumentTypeException('number', ['Integer']);
-        }
+        $number = $data['number'];
     }
     if (isset($data['name'])) {
         $name = $data['name'];
@@ -132,7 +125,7 @@ SQL;
     $db->beginTransaction();
 
     $db->prepare($updateSQL);
-    $db->bindParam(':number', $number, PDO::PARAM_INT);
+    $db->bindParam(':number', $number, PDO::PARAM_STR);
     $db->bindParam(':name', $name, PDO::PARAM_STR);
     $db->bindParam(':description', $description, PDO::PARAM_STR);
     $db->bindParam(':id', $id, PDO::PARAM_STR);

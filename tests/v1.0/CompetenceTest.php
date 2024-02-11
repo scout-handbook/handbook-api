@@ -17,7 +17,7 @@ class CompetenceTest extends TestCase
 {
     public function testCtor(): Competence
     {
-        $competence = new Competence(42, 'cname', 'cdescription');
+        $competence = new Competence('42', 'cname', 'cdescription');
         $this->assertInstanceOf('\Skaut\HandbookAPI\v1_0\Competence', $competence);
         return $competence;
     }
@@ -26,7 +26,7 @@ class CompetenceTest extends TestCase
     public function testJsonSerialize(Competence $competence): void
     {
         $this->assertJsonStringEqualsJsonString(
-            '{"number":42,"name":"cname","description":"cdescription"}',
+            '{"number":"42","name":"cname","description":"cdescription"}',
             json_encode($competence)
         );
     }
