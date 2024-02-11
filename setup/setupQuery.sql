@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `competences` (
   `id` binary(16) NOT NULL,
-  `number` int(11) UNSIGNED NOT NULL,
+  `number` int UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_czech_ci NOT NULL,
   `description` text COLLATE utf8mb4_czech_ci NOT NULL,
   PRIMARY KEY (`id`),
@@ -255,7 +255,7 @@ TRUNCATE TABLE `lesson_history`;
 CREATE TABLE IF NOT EXISTS `mutexes` (
   `id` binary(16) NOT NULL,
   `timeout` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `holder` int(11) NOT NULL,
+  `holder` int NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
 
@@ -271,7 +271,7 @@ TRUNCATE TABLE `mutexes`;
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(11) UNSIGNED NOT NULL,
+  `id` int UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_czech_ci NOT NULL,
   `role` enum('user','editor','administrator','superuser') COLLATE utf8mb4_czech_ci NOT NULL DEFAULT 'user',
   PRIMARY KEY (`id`),
@@ -290,7 +290,7 @@ TRUNCATE TABLE `users`;
 --
 
 CREATE TABLE IF NOT EXISTS `users_in_groups` (
-  `user_id` int(11) UNSIGNED NOT NULL,
+  `user_id` int UNSIGNED NOT NULL,
   `group_id` binary(16) NOT NULL,
   KEY `user_id` (`user_id`),
   KEY `group_id` (`group_id`)
