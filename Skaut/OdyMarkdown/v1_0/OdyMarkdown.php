@@ -8,6 +8,16 @@ use cebe\markdown\GithubMarkdown;
 
 class OdyMarkdown extends GithubMarkdown
 {
+    private static function trimUrl(string $url): string
+    {
+        $url = trim($url);
+        if (mb_substr($url, mb_strlen($url) - 1) === "/") {
+            $url = mb_substr($url, 0, mb_strlen($url) - 1);
+        }
+        $url = mb_ereg_replace("(^https?://)", "", $url);
+        return $url;
+    }
+
     // Link rendering as text with address in parentheses
     protected function renderLink($block): string
     {
@@ -18,11 +28,13 @@ class OdyMarkdown extends GithubMarkdown
                 return $block['orig'];
             }
         }
-        $ret = $this->renderAbsy($block['text']);
-        if (trim($this->renderAbsy($block['text'])) !== trim($block['url'])) {
-            $ret .= ' (' . $block['url'] . ') ';
+        $text = $this->renderAbsy($block['text']);
+        $trimmedText = self::trimUrl($this->renderAbsy($block['text']));
+        $trimmedUrl = self::trimUrl($block['url']);
+        if ($trimmedText !== $trimmedUrl) {
+            $text .= ' (' . $block['url'] . ') ';
         }
-        return $ret;
+        return $text;
     }
 
     // Image rendering in original quality
