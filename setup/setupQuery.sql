@@ -1,5 +1,6 @@
 SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -313,6 +314,7 @@ ALTER TABLE `lessons` ADD FULLTEXT KEY `body` (`body`);
 -- Indexes for table `lesson_history`
 --
 ALTER TABLE `lesson_history` ADD FULLTEXT KEY `body` (`body`);
+COMMIT;
 SET FOREIGN_KEY_CHECKS=1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
