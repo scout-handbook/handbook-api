@@ -38,7 +38,7 @@ SQL;
     $competences = [];
     while ($db->fetch()) {
         $competences[Uuid::fromBytes($id)->toString()] =
-            new Competence(intval($number), strval($name), strval($description));
+            new Competence(strval($number), strval($name), strval($description));
     }
     return ['status' => 200, 'response' => $competences];
 };
