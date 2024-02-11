@@ -56,10 +56,7 @@ SQL;
     if (!isset($data['name'])) {
         throw new MissingArgumentException(MissingArgumentException::POST, 'name');
     }
-    $number = ctype_digit($data['number']) ? intval($data['number']) : null;
-    if ($number === null) {
-        throw new InvalidArgumentTypeException('number', ['Integer']);
-    }
+    $number = $data['number'];
     $name = $data['name'];
     $description = '';
     if (isset($data['description'])) {
@@ -70,7 +67,7 @@ SQL;
     $db = new Database();
     $db->prepare($SQL);
     $db->bindParam(':id', $uuid, PDO::PARAM_STR);
-    $db->bindParam(':number', $number, PDO::PARAM_INT);
+    $db->bindParam(':number', $number, PDO::PARAM_STR);
     $db->bindParam(':name', $name, PDO::PARAM_STR);
     $db->bindParam(':description', $description, PDO::PARAM_STR);
     $db->execute();
