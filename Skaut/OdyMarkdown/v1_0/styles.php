@@ -40,10 +40,11 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 
 .dottedpage
 {
-	background-image: url('<?php echo($CONFIG->apiuri); ?>/Skaut/OdyMarkdown/v1_0/dottedlines.png');
-	background-repeat: no-repeat;
-	background-size: cover;
-	height: 1000px;
+	position: absolute;
+	left: 19.5mm;
+	right: 12.25mm;
+	overflow: hidden;
+	page-break-inside: avoid;
 }
 
 h1
