@@ -38,16 +38,11 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 	padding-right: -250px;
 }
 
-.dottedlineh
-{
-	border-top: 10px solid red;
-	margin-top: 30px;
-}
-
 .dottedpage
 {
-	height: 300px;
 	position: absolute;
+	left: 19.5mm;
+	right: 12.25mm;
 	overflow: hidden;
 	page-break-inside: avoid;
 }
