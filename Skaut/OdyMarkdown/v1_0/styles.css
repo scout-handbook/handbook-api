@@ -24,11 +24,11 @@
 	background: white;
 }
 
-.footer-inner {
-	float: right;
-	text-align: right;
-	margin-top: 2mm;
-	margin-right: 12mm;
+.footer-item {
+	position: absolute;
+	height: 25px;
+	width: 25px;
+	bottom: 7mm;
 }
 
 .footer-icon {
