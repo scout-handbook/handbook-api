@@ -27,7 +27,7 @@ require_once($CONFIG->basepath . '/v1.0/endpoints/fieldEndpoint.php');
 
 $lessonPDFEndpoint = new Endpoint();
 
-$getLessonPDF = function (Skautis $skautis, array $data, Endpoint $endpoint) use ($CONFIG, $fieldEndpoint): void {
+$getLessonPDF = function (Skautis $skautis, array $data, Endpoint $endpoint) use ($CONFIG, $fieldEndpoint): array {
     $id = Helper::parseUuid($data['parent-id'], 'lesson');
 
     $name = '';
@@ -128,5 +128,6 @@ SQL;
         $id->toString() . '_' . Helper::urlEscape($name) . '.pdf',
         Destination::INLINE
     );
+    return ['status' => 200];
 };
 $lessonPDFEndpoint->setListMethod(new Role('editor'), $getLessonPDF);
