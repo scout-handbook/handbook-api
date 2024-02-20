@@ -49,7 +49,7 @@ $getLessonPDF = function (Skautis $skautis, array $data, Endpoint $endpoint) use
     $lessonMetadata = $endpoint->getParent()->call('GET', new Role('editor'), ['override-group' => true])['response'][$data['parent-id']];
 
     $md = $endpoint->getParent()->call('GET', new Role('guest'), ['id' => $data['parent-id']])['response'];
-    $html = '<body><h1 class="lesson-name">' . $name . '</h1>';
+    $html = '<body><h1 class="lesson-name">' . $lessonMetadata->getName() . '</h1>';
     $parser = new OdyMarkdown();
     $html .= $parser->parse($md);
     $html .= '</body>';
@@ -89,7 +89,7 @@ $getLessonPDF = function (Skautis $skautis, array $data, Endpoint $endpoint) use
         // Substr removes <?xml tag
         '<div class="first-page-qr-code-header">' . mb_substr($qrOutput->output($qrCode, 50), 21) . '</div>'
     );
-    $mpdf->DefHTMLHeaderByName('OddPageLessonNameHeader', '<div class="odd-page-lesson-name-header">' . $name . '</div>');
+    $mpdf->DefHTMLHeaderByName('OddPageLessonNameHeader', '<div class="odd-page-lesson-name-header">' . $lessonMetadata->getName() . '</div>');
     $mpdf->DefHTMLFooterByName(
         'EvenPageFooter',
         '<div class="footer">' .
@@ -120,7 +120,7 @@ $getLessonPDF = function (Skautis $skautis, array $data, Endpoint $endpoint) use
 
     header('content-type:application/pdf; charset=utf-8');
     $mpdf->Output(
-        $id->toString() . '_' . Helper::urlEscape($name) . '.pdf',
+        Helper::urlEscape($lessonMetadata->getName()) . '_' . $id->toString() . '.pdf',
         Destination::INLINE
     );
     return ['status' => 200];
