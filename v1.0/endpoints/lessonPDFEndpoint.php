@@ -120,7 +120,7 @@ SQL;
     $mpdf->WriteHTML('', 2);
     $mpdf->SetHTMLHeaderByName('OddHeader', 'O');
 
-    $mpdf->WriteHTML(file_get_contents($CONFIG->apiuri . '/Skaut/OdyMarkdown/v1_0/styles.php') ?: '', 1);
+    $mpdf->WriteHTML(file_get_contents($CONFIG->basepath . '/Skaut/OdyMarkdown/v1_0/styles.css') ?: '', 1);
     $mpdf->WriteHTML($html, 2);
 
     header('content-type:application/pdf; charset=utf-8');
