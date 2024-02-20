@@ -24,10 +24,14 @@
 	background: white;
 }
 
-.footer-icon {
+.footer-inner {
 	float: right;
+	text-align: right;
 	margin-top: 2mm;
 	margin-right: 12mm;
+}
+
+.footer-icon {
 	max-height: 25px;
 }
 
