@@ -24,7 +24,27 @@ require_once($CONFIG->basepath . '/v1.0/endpoints/fieldEndpoint.php');
 
 $lessonPDFEndpoint = new Endpoint();
 
-$getLessonPDF = function (Skautis $skautis, array $data, Endpoint $endpoint) use ($CONFIG, $fieldEndpoint): array {
+$iconFooter = function ($lessonId) use ($CONFIG, $fieldEndpoint) {
+    $icon = '00000000-0000-0000-0000-000000000000';
+    $fields = $fieldEndpoint->call('GET', new Role('editor'), ['override-group' => true])['response'];
+    foreach ($fields as $field) {
+        if ($field->containsLesson($lessonId)) {
+            $icon = $field->getIcon()->toString();
+        }
+    }
+
+    $ret = '';
+
+    if ($icon !== '00000000-0000-0000-0000-000000000000') {
+        $ret .= '<img class="footer-icon" src="' . $CONFIG->imagepath . '/original/' . $icon . '.jpg">';
+    } else {
+        $ret .= '&nbsp;';
+    }
+
+    return $ret;
+};
+
+$getLessonPDF = function (Skautis $skautis, array $data, Endpoint $endpoint) use ($CONFIG, $iconFooter): array {
     $id = Helper::parseUuid($data['parent-id'], 'lesson');
 
     $name = '';
@@ -46,16 +66,7 @@ SQL;
         $name = strval($name);
     }
 
-
     $md = $endpoint->getParent()->call('GET', new Role('guest'), ['id' => $data['parent-id']])['response'];
-    $icon = '00000000-0000-0000-0000-000000000000';
-    $fields = $fieldEndpoint->call('GET', new Role('editor'), ['override-group' => true])['response'];
-    foreach ($fields as $field) {
-        if ($field->containsLesson($id)) {
-            $icon = $field->getIcon()->toString();
-        }
-    }
-
     $html = '<body><h1 class="lesson-name">' . $name . '</h1>';
     $parser = new OdyMarkdown();
     $html .= $parser->parse($md);
@@ -106,7 +117,7 @@ SQL;
     $mpdf->DefHTMLFooterByName(
         'OddPageFooter',
         '<div class="footer">' .
-        ($icon !== '00000000-0000-0000-0000-000000000000' ? '<img class="footer-icon" src="' . $CONFIG->imagepath . '/original/' . $icon . '.jpg">' : '&nbsp;') .
+        $iconFooter($id) .
         '</div>'
     );
 
