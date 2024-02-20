@@ -56,7 +56,7 @@ SQL;
         }
     }
 
-    $html = '<body><h1>' . $name . '</h1>';
+    $html = '<body><h1 class="lesson-name">' . $name . '</h1>';
     $parser = new OdyMarkdown();
     $html .= $parser->parse($md);
 
