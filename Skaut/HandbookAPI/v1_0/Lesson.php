@@ -32,6 +32,10 @@ class Lesson implements \JsonSerializable
         return $this->name;
     }
 
+    public function getCompetences(): array {
+        return $this->competences;
+    }
+
     public function jsonSerialize(): array
     {
         return [

@@ -19,6 +19,10 @@ class Competence implements \JsonSerializable
         $this->description = Helper::xssSanitize($description);
     }
 
+    public function getNumber(): string {
+        return $this->number;
+    }
+
     public function jsonSerialize(): array
     {
         return [

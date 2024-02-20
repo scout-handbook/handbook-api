@@ -27,12 +27,16 @@
 .footer-item {
 	position: absolute;
 	height: 25px;
-	width: 25px;
+	width: 10mm;
 	bottom: 7mm;
 }
 
-.footer-icon {
-	max-height: 25px;
+.footer-competence {
+	font-weight: bold;
+	color: #BFBFBF;
+	font-size: 2em;
+	text-align: center;
+	padding-bottom: -0.5em;
 }
 
 .dottedline

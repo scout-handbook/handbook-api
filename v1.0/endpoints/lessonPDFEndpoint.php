@@ -11,6 +11,7 @@ use Mpdf\HTMLParserMode;
 use Mpdf\Output\Destination;
 use Mpdf\QrCode\QrCode;
 use Mpdf\QrCode\Output;
+use Ramsey\Uuid\UuidInterface;
 use Skautis\Skautis;
 
 use Skaut\HandbookAPI\v1_0\Endpoint;
@@ -19,11 +20,12 @@ use Skaut\HandbookAPI\v1_0\Role;
 
 use Skaut\OdyMarkdown\v1_0\OdyMarkdown;
 
+require_once($CONFIG->basepath . '/v1.0/endpoints/competenceEndpoint.php');
 require_once($CONFIG->basepath . '/v1.0/endpoints/fieldEndpoint.php');
 
 $lessonPDFEndpoint = new Endpoint();
 
-$iconFooter = function ($lessonId) use ($CONFIG, $fieldEndpoint) {
+$iconFooter = function (UuidInterface $lessonId, array $lessonCompetences) use ($CONFIG, $competenceEndpoint, $fieldEndpoint) {
     $icon = '00000000-0000-0000-0000-000000000000';
     $fields = $fieldEndpoint->call('GET', new Role('editor'), ['override-group' => true])['response'];
     foreach ($fields as $field) {
@@ -32,11 +34,26 @@ $iconFooter = function ($lessonId) use ($CONFIG, $fieldEndpoint) {
         }
     }
 
+    $allCompetences = $competenceEndpoint->call('GET', new Role('guest'), [])['response'];
+    $competenceNumbers = array_map(
+        function (UuidInterface $competence) use ($allCompetences) {
+            return $allCompetences[$competence->toString()]->getNumber();
+        },
+        $lessonCompetences
+    );
+    // TODO: Sort
 
     $ret = '';
+    $rightOffset = 8;
 
     if ($icon !== '00000000-0000-0000-0000-000000000000') {
-        $ret .= '<div class="footer-item" style="right: 12mm"><img src="' . $CONFIG->imagepath . '/original/' . $icon . '.jpg"></div>';
+        $ret .= '<div class="footer-item" style="right: ' . $rightOffset . 'mm"><img src="' . $CONFIG->imagepath . '/original/' . $icon . '.jpg"></div>';
+        $rightOffset += 14;
+    }
+
+    foreach($competenceNumbers as $competence) {
+        $ret .= '<div class="footer-item footer-competence" style="right: ' . $rightOffset . 'mm">' . $competence . '</div>';
+        $rightOffset += 14;
     }
 
     return $ret;
