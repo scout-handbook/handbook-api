@@ -9,11 +9,9 @@
 
 .QRheader
 {
-	float: right;
-	height: 60px;
-	margin-right: -1em;
-	margin-top: -2em;
-	width: 60px;
+	position: absolute;
+	right: 10mm;
+	top: 5mm;
 }
 
 .oddFooterRight

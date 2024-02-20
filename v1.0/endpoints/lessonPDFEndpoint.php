@@ -6,13 +6,11 @@ declare(strict_types=1);
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 
-use BaconQrCode\Renderer\Image\ImagickImageBackEnd;
-use BaconQrCode\Renderer\ImageRenderer;
-use BaconQrCode\Renderer\RendererStyle\RendererStyle;
-use BaconQrCode\Writer;
 use Mpdf\Mpdf;
 use Mpdf\HTMLParserMode;
 use Mpdf\Output\Destination;
+use Mpdf\QrCode\QrCode;
+use Mpdf\QrCode\Output;
 use Skautis\Skautis;
 
 use Skaut\HandbookAPI\v1_0\Database;
@@ -90,17 +88,14 @@ SQL;
         'use_kwt' => true
     ]);
 
-    $qrRenderer = new ImageRenderer(
-        new RendererStyle(90),
-        new ImagickImageBackEnd()
-    );
-    $qrWriter = new Writer($qrRenderer);
+    $qrCode = new QrCode($CONFIG->baseuri . '/lesson/' . $id->toString());
+    $qrCode->disableBorder();
+    $qrOutput = new Output\Svg();
 
     $mpdf->DefHTMLHeaderByName(
         'OddHeaderFirst',
-        '<img class="QRheader" src="data:image/png;base64,' . base64_encode(
-            $qrWriter->writeString($CONFIG->baseuri . '/lesson/' . $id->toString())
-        ) . '">'
+        // Substr removes <?xml tag
+        '<div class="QRheader">' . mb_substr($qrOutput->output($qrCode, 50), 21) . '</div>'
     );
     $mpdf->DefHTMLHeaderByName('OddHeader', '<div class="oddHeaderRight">' . $name . '</div>');
     if ($icon !== '00000000-0000-0000-0000-000000000000') {
