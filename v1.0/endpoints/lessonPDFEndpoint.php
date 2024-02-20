@@ -97,17 +97,24 @@ SQL;
         '<div class="first-page-qr-code-header">' . mb_substr($qrOutput->output($qrCode, 50), 21) . '</div>'
     );
     $mpdf->DefHTMLHeaderByName('OddPageLessonNameHeader', '<div class="odd-page-lesson-name-header">' . $name . '</div>');
-    if ($icon !== '00000000-0000-0000-0000-000000000000') {
-        $mpdf->DefHTMLFooterByName(
-            'OddPageFieldIconFooter',
-            '<div class="odd-page-field-icon-footer"><img class="odd-page-field-icon-footer-icon" src="' . $CONFIG->imagepath . '/original/' . $icon . '.jpg"></div>'
-        );
-    }
+    $mpdf->DefHTMLFooterByName(
+        'EvenPageFooter',
+        '<div class="footer">' .
+        '&nbsp;' .
+        '</div>'
+    );
+    $mpdf->DefHTMLFooterByName(
+        'OddPageFooter',
+        '<div class="footer">' .
+        ($icon !== '00000000-0000-0000-0000-000000000000' ? '<img class="footer-icon" src="' . $CONFIG->imagepath . '/original/' . $icon . '.jpg">' : '&nbsp;') .
+        '</div>'
+    );
 
     if (!isset($data['qr']) || $data['qr'] === 'true') {
         $mpdf->SetHTMLHeaderByName('FirstPageQRCodeHeader', 'O');
     }
-    $mpdf->SetHTMLFooterByName('OddPageFieldIconFooter', 'O');
+    $mpdf->SetHTMLFooterByName('EvenPageFooter', 'E');
+    $mpdf->SetHTMLFooterByName('OddPageFooter', 'O');
 
     $mpdf->WriteHTML('', HTMLParserMode::HTML_BODY);
     $mpdf->SetHTMLHeaderByName('OddPageLessonNameHeader', 'O');

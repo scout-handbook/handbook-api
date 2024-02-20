@@ -14,7 +14,7 @@
 	text-align: right;
 }
 
-.odd-page-field-icon-footer
+.footer
 {
 	position: absolute;
 	left: 0;
@@ -24,7 +24,7 @@
 	background: white;
 }
 
-.odd-page-field-icon-footer-icon {
+.footer-icon {
 	float: right;
 	margin-top: 2mm;
 	margin-right: 12mm;
