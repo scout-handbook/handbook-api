@@ -1,4 +1,11 @@
-.oddHeaderRight
+.first-page-qr-code-header
+{
+	position: absolute;
+	right: 10mm;
+	top: 5mm;
+}
+
+.odd-page-lesson-name-header
 {
 	color: #7F7F7F;
 	font-style: italic;
@@ -7,14 +14,7 @@
 	text-align: right;
 }
 
-.QRheader
-{
-	position: absolute;
-	right: 10mm;
-	top: 5mm;
-}
-
-.oddFooterRight
+.odd-page-field-icon-footer
 {
 	float: right;
 	height: 25px;

@@ -94,13 +94,13 @@ SQL;
     $mpdf->DefHTMLHeaderByName(
         'FirstPageQRCodeHeader',
         // Substr removes <?xml tag
-        '<div class="QRheader">' . mb_substr($qrOutput->output($qrCode, 50), 21) . '</div>'
+        '<div class="first-page-qr-code-header">' . mb_substr($qrOutput->output($qrCode, 50), 21) . '</div>'
     );
-    $mpdf->DefHTMLHeaderByName('OddPageLessonNameHeader', '<div class="oddHeaderRight">' . $name . '</div>');
+    $mpdf->DefHTMLHeaderByName('OddPageLessonNameHeader', '<div class="odd-page-lesson-name-header">' . $name . '</div>');
     if ($icon !== '00000000-0000-0000-0000-000000000000') {
         $mpdf->DefHTMLFooterByName(
             'OddPageFieldIconFooter',
-            '<img class="oddFooterRight" src="' . $CONFIG->imagepath . '/original/' . $icon . '.jpg">'
+            '<img class="odd-page-field-icon-footer" src="' . $CONFIG->imagepath . '/original/' . $icon . '.jpg">'
         );
     }
 
