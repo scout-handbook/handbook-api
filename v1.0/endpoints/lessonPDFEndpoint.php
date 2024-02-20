@@ -32,14 +32,17 @@ $iconFooter = function ($lessonId) use ($CONFIG, $fieldEndpoint) {
         }
     }
 
-    $ret = '';
+    if ($icon === '00000000-0000-0000-0000-000000000000') {
+        return '&nbsp;';
+    }
+
+    $ret = '<div class="footer-inner">';
 
     if ($icon !== '00000000-0000-0000-0000-000000000000') {
         $ret .= '<img class="footer-icon" src="' . $CONFIG->imagepath . '/original/' . $icon . '.jpg">';
-    } else {
-        $ret .= '&nbsp;';
     }
 
+    $ret .= '</div>';
     return $ret;
 };
 
