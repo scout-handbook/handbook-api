@@ -25,6 +25,11 @@ require_once($CONFIG->basepath . '/v1.0/endpoints/fieldEndpoint.php');
 
 $lessonPDFEndpoint = new Endpoint();
 
+function competenceCompare(string $a, string $b): int {
+    $numberComparison = (int) $a - (int) $b;
+    return ($numberComparison !== 0 ? $numberComparison : strcmp($a, $b));
+}
+
 $iconFooter = function (UuidInterface $lessonId, array $lessonCompetences) use ($CONFIG, $competenceEndpoint, $fieldEndpoint) {
     $icon = '00000000-0000-0000-0000-000000000000';
     $fields = $fieldEndpoint->call('GET', new Role('editor'), ['override-group' => true])['response'];
@@ -41,7 +46,7 @@ $iconFooter = function (UuidInterface $lessonId, array $lessonCompetences) use (
         },
         $lessonCompetences
     );
-    // TODO: Sort
+    usort($lessonCompetences, "competenceCompare");
 
     $ret = '';
     $rightOffset = 8;
@@ -51,7 +56,7 @@ $iconFooter = function (UuidInterface $lessonId, array $lessonCompetences) use (
         $rightOffset += 14;
     }
 
-    foreach($competenceNumbers as $competence) {
+    foreach(array_reverse($competenceNumbers) as $competence) {
         $ret .= '<div class="footer-item footer-competence" style="right: ' . $rightOffset . 'mm">' . $competence . '</div>';
         $rightOffset += 14;
     }
