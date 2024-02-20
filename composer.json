@@ -17,11 +17,11 @@
     },
     "require": {
         "php": "^8.0",
-        "bacon/bacon-qr-code": "^2.0",
         "cebe/markdown": "^1.2",
         "mpdf/mpdf": "^8.0",
         "ramsey/uuid": "^4.1",
-        "skautis/skautis": "^2.1"
+        "skautis/skautis": "^2.1",
+        "mpdf/qrcode": "^1.2"
     },
     "require-dev": {
         "phpcompatibility/php-compatibility": "^9.0",

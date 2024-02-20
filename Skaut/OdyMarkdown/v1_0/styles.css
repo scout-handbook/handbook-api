@@ -1,10 +1,3 @@
-<?php declare(strict_types=1);
-const _API_EXEC = 1;
-
-require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
-
-?>
-
 .oddHeaderRight
 {
 	color: #7F7F7F;
@@ -16,11 +9,9 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 
 .QRheader
 {
-	float: right;
-	height: 60px;
-	margin-right: -1em;
-	margin-top: -2em;
-	width: 60px;
+	position: absolute;
+	right: 10mm;
+	top: 5mm;
 }
 
 .oddFooterRight
