@@ -6,18 +6,15 @@ declare(strict_types=1);
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
 
-use BaconQrCode\Renderer\Image\ImagickImageBackEnd;
-use BaconQrCode\Renderer\ImageRenderer;
-use BaconQrCode\Renderer\RendererStyle\RendererStyle;
-use BaconQrCode\Writer;
 use Mpdf\Mpdf;
+use Mpdf\HTMLParserMode;
 use Mpdf\Output\Destination;
-use Ramsey\Uuid\Uuid;
+use Mpdf\QrCode\QrCode;
+use Mpdf\QrCode\Output;
 use Skautis\Skautis;
 
 use Skaut\HandbookAPI\v1_0\Database;
 use Skaut\HandbookAPI\v1_0\Endpoint;
-use Skaut\HandbookAPI\v1_0\Field;
 use Skaut\HandbookAPI\v1_0\Helper;
 use Skaut\HandbookAPI\v1_0\Role;
 
@@ -27,7 +24,7 @@ require_once($CONFIG->basepath . '/v1.0/endpoints/fieldEndpoint.php');
 
 $lessonPDFEndpoint = new Endpoint();
 
-$getLessonPDF = function (Skautis $skautis, array $data, Endpoint $endpoint) use ($CONFIG, $fieldEndpoint): void {
+$getLessonPDF = function (Skautis $skautis, array $data, Endpoint $endpoint) use ($CONFIG, $fieldEndpoint): array {
     $id = Helper::parseUuid($data['parent-id'], 'lesson');
 
     $name = '';
@@ -91,17 +88,14 @@ SQL;
         'use_kwt' => true
     ]);
 
-    $qrRenderer = new ImageRenderer(
-        new RendererStyle(90),
-        new ImagickImageBackEnd()
-    );
-    $qrWriter = new Writer($qrRenderer);
+    $qrCode = new QrCode($CONFIG->baseuri . '/lesson/' . $id->toString());
+    $qrCode->disableBorder();
+    $qrOutput = new Output\Svg();
 
     $mpdf->DefHTMLHeaderByName(
         'OddHeaderFirst',
-        '<img class="QRheader" src="data:image/png;base64,' . base64_encode(
-            $qrWriter->writeString($CONFIG->baseuri . '/lesson/' . $id->toString())
-        ) . '">'
+        // Substr removes <?xml tag
+        '<div class="QRheader">' . mb_substr($qrOutput->output($qrCode, 50), 21) . '</div>'
     );
     $mpdf->DefHTMLHeaderByName('OddHeader', '<div class="oddHeaderRight">' . $name . '</div>');
     if ($icon !== '00000000-0000-0000-0000-000000000000') {
@@ -117,16 +111,20 @@ SQL;
     $mpdf->SetHTMLFooterByName('OddFooter', 'O');
     $mpdf->SetHTMLFooterByName('EvenFooter', 'E');
 
-    $mpdf->WriteHTML('', 2);
+    $mpdf->WriteHTML('', HTMLParserMode::HTML_BODY);
     $mpdf->SetHTMLHeaderByName('OddHeader', 'O');
 
-    $mpdf->WriteHTML(file_get_contents($CONFIG->apiuri . '/Skaut/OdyMarkdown/v1_0/styles.php') ?: '', 1);
-    $mpdf->WriteHTML($html, 2);
+    $mpdf->WriteHTML(
+        file_get_contents($CONFIG->basepath . '/Skaut/OdyMarkdown/v1_0/styles.css') ?: '',
+        HTMLParserMode::HEADER_CSS
+    );
+    $mpdf->WriteHTML($html, HTMLParserMode::HTML_BODY);
 
     header('content-type:application/pdf; charset=utf-8');
     $mpdf->Output(
         $id->toString() . '_' . Helper::urlEscape($name) . '.pdf',
         Destination::INLINE
     );
+    return ['status' => 200];
 };
 $lessonPDFEndpoint->setListMethod(new Role('editor'), $getLessonPDF);
