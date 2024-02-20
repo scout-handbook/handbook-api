@@ -16,10 +16,19 @@
 
 .odd-page-field-icon-footer
 {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 16mm;
+	background: white;
+}
+
+.odd-page-field-icon-footer-icon {
 	float: right;
-	height: 25px;
-	margin-bottom: 1.95em;
-	margin-top: -1.95em;
+	margin-top: 2mm;
+	margin-right: 12mm;
+	max-height: 25px;
 }
 
 .dottedline
