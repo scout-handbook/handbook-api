@@ -13,7 +13,6 @@ use Mpdf\QrCode\QrCode;
 use Mpdf\QrCode\Output;
 use Skautis\Skautis;
 
-use Skaut\HandbookAPI\v1_0\Database;
 use Skaut\HandbookAPI\v1_0\Endpoint;
 use Skaut\HandbookAPI\v1_0\Helper;
 use Skaut\HandbookAPI\v1_0\Role;
@@ -47,24 +46,7 @@ $iconFooter = function ($lessonId) use ($CONFIG, $fieldEndpoint) {
 $getLessonPDF = function (Skautis $skautis, array $data, Endpoint $endpoint) use ($CONFIG, $iconFooter): array {
     $id = Helper::parseUuid($data['parent-id'], 'lesson');
 
-    $name = '';
-    if (!isset($data['caption']) || $data['caption'] === 'true') {
-        $SQL = <<<SQL
-SELECT `name`
-FROM `lessons`
-WHERE `id` = :id;
-SQL;
-
-        $db = new Database();
-        $db->prepare($SQL);
-        $idbytes = $id->getBytes();
-        $db->bindParam(':id', $idbytes, PDO::PARAM_STR);
-        $db->execute();
-        $db->bindColumn('name', $name);
-        $db->fetchRequire('lesson');
-        unset($db);
-        $name = strval($name);
-    }
+    $lessonMetadata = $endpoint->getParent()->call('GET', new Role('editor'), ['override-group' => true])['response'][$data['parent-id']];
 
     $md = $endpoint->getParent()->call('GET', new Role('guest'), ['id' => $data['parent-id']])['response'];
     $html = '<body><h1 class="lesson-name">' . $name . '</h1>';

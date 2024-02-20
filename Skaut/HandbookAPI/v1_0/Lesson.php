@@ -28,6 +28,10 @@ class Lesson implements \JsonSerializable
         $this->competences[] = Uuid::fromBytes($competence);
     }
 
+    public function getName(): string {
+        return $this->name;
+    }
+
     public function jsonSerialize(): array
     {
         return [
