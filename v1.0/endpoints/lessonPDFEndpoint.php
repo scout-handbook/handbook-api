@@ -100,7 +100,7 @@ SQL;
     if ($icon !== '00000000-0000-0000-0000-000000000000') {
         $mpdf->DefHTMLFooterByName(
             'OddPageFieldIconFooter',
-            '<img class="odd-page-field-icon-footer" src="' . $CONFIG->imagepath . '/original/' . $icon . '.jpg">'
+            '<div class="odd-page-field-icon-footer"><img class="odd-page-field-icon-footer-icon" src="' . $CONFIG->imagepath . '/original/' . $icon . '.jpg"></div>'
         );
     }
 
