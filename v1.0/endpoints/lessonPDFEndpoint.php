@@ -59,8 +59,11 @@ SQL;
     $html = '<body><h1 class="lesson-name">' . $name . '</h1>';
     $parser = new OdyMarkdown();
     $html .= $parser->parse($md);
-
     $html .= '</body>';
+
+    $qrCode = new QrCode($CONFIG->baseuri . '/lesson/' . $id->toString());
+    $qrCode->disableBorder();
+    $qrOutput = new Output\Svg();
 
     $mpdf = new Mpdf([
         'fontDir' => [$CONFIG->basepath . '/Skaut/OdyMarkdown/v1_0/fonts/'],
@@ -87,10 +90,6 @@ SQL;
         'shrink_tables_to_fit' => 1,
         'use_kwt' => true
     ]);
-
-    $qrCode = new QrCode($CONFIG->baseuri . '/lesson/' . $id->toString());
-    $qrCode->disableBorder();
-    $qrOutput = new Output\Svg();
 
     $mpdf->DefHTMLHeaderByName(
         'OddHeaderFirst',
