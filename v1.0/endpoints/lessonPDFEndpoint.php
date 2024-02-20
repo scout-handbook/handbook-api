@@ -25,12 +25,20 @@ require_once($CONFIG->basepath . '/v1.0/endpoints/fieldEndpoint.php');
 
 $lessonPDFEndpoint = new Endpoint();
 
-function competenceCompare(string $a, string $b): int {
+function competenceCompare(string $a, string $b): int
+{
     $numberComparison = (int) $a - (int) $b;
     return ($numberComparison !== 0 ? $numberComparison : strcmp($a, $b));
 }
 
-$iconFooter = function (UuidInterface $lessonId, array $lessonCompetences) use ($CONFIG, $competenceEndpoint, $fieldEndpoint) {
+$iconFooter = function (
+    UuidInterface $lessonId,
+    array $lessonCompetences,
+) use (
+    $CONFIG,
+    $competenceEndpoint,
+    $fieldEndpoint,
+) {
     $icon = '00000000-0000-0000-0000-000000000000';
     $fields = $fieldEndpoint->call('GET', new Role('editor'), ['override-group' => true])['response'];
     foreach ($fields as $field) {
@@ -52,12 +60,22 @@ $iconFooter = function (UuidInterface $lessonId, array $lessonCompetences) use (
     $rightOffset = 8;
 
     if ($icon !== '00000000-0000-0000-0000-000000000000') {
-        $ret .= '<div class="footer-item" style="right: ' . $rightOffset . 'mm"><img src="' . $CONFIG->imagepath . '/original/' . $icon . '.jpg"></div>';
+        $ret .= '<div class="footer-item" style="right: ' .
+            $rightOffset .
+            'mm"><img src="' .
+            $CONFIG->imagepath .
+            '/original/' .
+            $icon .
+            '.jpg"></div>';
         $rightOffset += 14;
     }
 
-    foreach(array_reverse($competenceNumbers) as $competence) {
-        $ret .= '<div class="footer-item footer-competence" style="right: ' . $rightOffset . 'mm">' . $competence . '</div>';
+    foreach (array_reverse($competenceNumbers) as $competence) {
+        $ret .= '<div class="footer-item footer-competence" style="right: ' .
+            $rightOffset .
+            'mm">' .
+            $competence .
+            '</div>';
         $rightOffset += 14;
     }
 
@@ -67,7 +85,11 @@ $iconFooter = function (UuidInterface $lessonId, array $lessonCompetences) use (
 $getLessonPDF = function (Skautis $skautis, array $data, Endpoint $endpoint) use ($CONFIG, $iconFooter): array {
     $id = Helper::parseUuid($data['parent-id'], 'lesson');
 
-    $lessonMetadata = $endpoint->getParent()->call('GET', new Role('editor'), ['override-group' => true])['response'][$data['parent-id']];
+    $lessonMetadata = $endpoint->getParent()->call(
+        'GET',
+        new Role('editor'),
+        ['override-group' => true]
+    )['response'][$data['parent-id']];
 
     $md = $endpoint->getParent()->call('GET', new Role('guest'), ['id' => $data['parent-id']])['response'];
     $html = '<body><h1 class="lesson-name">' . $lessonMetadata->getName() . '</h1>';
@@ -110,11 +132,11 @@ $getLessonPDF = function (Skautis $skautis, array $data, Endpoint $endpoint) use
         // Substr removes <?xml tag
         '<div class="first-page-qr-code-header">' . mb_substr($qrOutput->output($qrCode, 50), 21) . '</div>'
     );
-    $mpdf->DefHTMLHeaderByName('OddPageLessonNameHeader', '<div class="odd-page-lesson-name-header">' . $lessonMetadata->getName() . '</div>');
-    $mpdf->DefHTMLFooterByName(
-        'EvenPageFooter',
-        '<div class="footer-clear">&nbsp;</div>'
+    $mpdf->DefHTMLHeaderByName(
+        'OddPageLessonNameHeader',
+        '<div class="odd-page-lesson-name-header">' . $lessonMetadata->getName() . '</div>'
     );
+    $mpdf->DefHTMLFooterByName('EvenPageFooter', '<div class="footer-clear">&nbsp;</div>');
     $mpdf->DefHTMLFooterByName(
         'OddPageFooter',
         '<div class="footer-clear">&nbsp;</div>' .
