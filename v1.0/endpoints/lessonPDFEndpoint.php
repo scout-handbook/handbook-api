@@ -11,56 +11,95 @@ use Mpdf\HTMLParserMode;
 use Mpdf\Output\Destination;
 use Mpdf\QrCode\QrCode;
 use Mpdf\QrCode\Output;
+use Ramsey\Uuid\UuidInterface;
 use Skautis\Skautis;
 
-use Skaut\HandbookAPI\v1_0\Database;
 use Skaut\HandbookAPI\v1_0\Endpoint;
 use Skaut\HandbookAPI\v1_0\Helper;
 use Skaut\HandbookAPI\v1_0\Role;
 
 use Skaut\OdyMarkdown\v1_0\OdyMarkdown;
 
+require_once($CONFIG->basepath . '/v1.0/endpoints/competenceEndpoint.php');
 require_once($CONFIG->basepath . '/v1.0/endpoints/fieldEndpoint.php');
 
 $lessonPDFEndpoint = new Endpoint();
 
-$getLessonPDF = function (Skautis $skautis, array $data, Endpoint $endpoint) use ($CONFIG, $fieldEndpoint): array {
-    $id = Helper::parseUuid($data['parent-id'], 'lesson');
+function competenceCompare(string $a, string $b): int
+{
+    $numberComparison = (int) $a - (int) $b;
+    return ($numberComparison !== 0 ? $numberComparison : strcmp($a, $b));
+}
 
-    $name = '';
-    if (!isset($data['caption']) || $data['caption'] === 'true') {
-        $SQL = <<<SQL
-SELECT `name`
-FROM `lessons`
-WHERE `id` = :id;
-SQL;
-
-        $db = new Database();
-        $db->prepare($SQL);
-        $idbytes = $id->getBytes();
-        $db->bindParam(':id', $idbytes, PDO::PARAM_STR);
-        $db->execute();
-        $db->bindColumn('name', $name);
-        $db->fetchRequire('lesson');
-        unset($db);
-        $name = strval($name);
-    }
-
-
-    $md = $endpoint->getParent()->call('GET', new Role('guest'), ['id' => $data['parent-id']])['response'];
+$iconFooter = function (
+    UuidInterface $lessonId,
+    array $lessonCompetences,
+) use (
+    $CONFIG,
+    $competenceEndpoint,
+    $fieldEndpoint,
+) {
     $icon = '00000000-0000-0000-0000-000000000000';
     $fields = $fieldEndpoint->call('GET', new Role('editor'), ['override-group' => true])['response'];
     foreach ($fields as $field) {
-        if ($field->containsLesson($id)) {
+        if ($field->containsLesson($lessonId)) {
             $icon = $field->getIcon()->toString();
         }
     }
 
-    $html = '<body><h1>' . $name . '</h1>';
+    $allCompetences = $competenceEndpoint->call('GET', new Role('guest'), [])['response'];
+    $competenceNumbers = array_map(
+        function (UuidInterface $competence) use ($allCompetences) {
+            return $allCompetences[$competence->toString()]->getNumber();
+        },
+        $lessonCompetences
+    );
+    usort($lessonCompetences, "competenceCompare");
+
+    $ret = '';
+    $rightOffset = 8;
+
+    if ($icon !== '00000000-0000-0000-0000-000000000000') {
+        $ret .= '<div class="footer-item" style="right: ' .
+            $rightOffset .
+            'mm"><img src="' .
+            $CONFIG->imagepath .
+            '/original/' .
+            $icon .
+            '.jpg"></div>';
+        $rightOffset += 14;
+    }
+
+    foreach (array_reverse($competenceNumbers) as $competence) {
+        $ret .= '<div class="footer-item footer-competence" style="right: ' .
+            $rightOffset .
+            'mm">' .
+            $competence .
+            '</div>';
+        $rightOffset += 14;
+    }
+
+    return $ret;
+};
+
+$getLessonPDF = function (Skautis $skautis, array $data, Endpoint $endpoint) use ($CONFIG, $iconFooter): array {
+    $id = Helper::parseUuid($data['parent-id'], 'lesson');
+
+    $lessonMetadata = $endpoint->getParent()->call(
+        'GET',
+        new Role('editor'),
+        ['override-group' => true]
+    )['response'][$data['parent-id']];
+
+    $md = $endpoint->getParent()->call('GET', new Role('guest'), ['id' => $data['parent-id']])['response'];
+    $html = '<body><h1 class="lesson-name">' . $lessonMetadata->getName() . '</h1>';
     $parser = new OdyMarkdown();
     $html .= $parser->parse($md);
-
     $html .= '</body>';
+
+    $qrCode = new QrCode($CONFIG->baseuri . '/lesson/' . $id->toString());
+    $qrCode->disableBorder();
+    $qrOutput = new Output\Svg();
 
     $mpdf = new Mpdf([
         'fontDir' => [$CONFIG->basepath . '/Skaut/OdyMarkdown/v1_0/fonts/'],
@@ -88,31 +127,30 @@ SQL;
         'use_kwt' => true
     ]);
 
-    $qrCode = new QrCode($CONFIG->baseuri . '/lesson/' . $id->toString());
-    $qrCode->disableBorder();
-    $qrOutput = new Output\Svg();
-
     $mpdf->DefHTMLHeaderByName(
-        'OddHeaderFirst',
+        'FirstPageQRCodeHeader',
         // Substr removes <?xml tag
-        '<div class="QRheader">' . mb_substr($qrOutput->output($qrCode, 50), 21) . '</div>'
+        '<div class="first-page-qr-code-header">' . mb_substr($qrOutput->output($qrCode, 50), 21) . '</div>'
     );
-    $mpdf->DefHTMLHeaderByName('OddHeader', '<div class="oddHeaderRight">' . $name . '</div>');
-    if ($icon !== '00000000-0000-0000-0000-000000000000') {
-        $mpdf->DefHTMLFooterByName(
-            'OddFooter',
-            '<img class="oddFooterRight" src="' . $CONFIG->imagepath . '/original/' . $icon . '.jpg">'
-        );
-    }
+    $mpdf->DefHTMLHeaderByName(
+        'OddPageLessonNameHeader',
+        '<div class="odd-page-lesson-name-header">' . $lessonMetadata->getName() . '</div>'
+    );
+    $mpdf->DefHTMLFooterByName('EvenPageFooter', '<div class="footer-clear">&nbsp;</div>');
+    $mpdf->DefHTMLFooterByName(
+        'OddPageFooter',
+        '<div class="footer-clear">&nbsp;</div>' .
+        $iconFooter($id, $lessonMetadata->getCompetences())
+    );
 
     if (!isset($data['qr']) || $data['qr'] === 'true') {
-        $mpdf->SetHTMLHeaderByName('OddHeaderFirst', 'O');
+        $mpdf->SetHTMLHeaderByName('FirstPageQRCodeHeader', 'O');
     }
-    $mpdf->SetHTMLFooterByName('OddFooter', 'O');
-    $mpdf->SetHTMLFooterByName('EvenFooter', 'E');
+    $mpdf->SetHTMLFooterByName('EvenPageFooter', 'E');
+    $mpdf->SetHTMLFooterByName('OddPageFooter', 'O');
 
     $mpdf->WriteHTML('', HTMLParserMode::HTML_BODY);
-    $mpdf->SetHTMLHeaderByName('OddHeader', 'O');
+    $mpdf->SetHTMLHeaderByName('OddPageLessonNameHeader', 'O');
 
     $mpdf->WriteHTML(
         file_get_contents($CONFIG->basepath . '/Skaut/OdyMarkdown/v1_0/styles.css') ?: '',
@@ -122,7 +160,7 @@ SQL;
 
     header('content-type:application/pdf; charset=utf-8');
     $mpdf->Output(
-        $id->toString() . '_' . Helper::urlEscape($name) . '.pdf',
+        Helper::urlEscape($lessonMetadata->getName()) . '_' . $id->toString() . '.pdf',
         Destination::INLINE
     );
     return ['status' => 200];

@@ -1,4 +1,11 @@
-.oddHeaderRight
+.first-page-qr-code-header
+{
+	position: absolute;
+	right: 10mm;
+	top: 5mm;
+}
+
+.odd-page-lesson-name-header
 {
 	color: #7F7F7F;
 	font-style: italic;
@@ -7,19 +14,29 @@
 	text-align: right;
 }
 
-.QRheader
+.footer-clear
 {
 	position: absolute;
-	right: 10mm;
-	top: 5mm;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 16mm;
+	background: white;
 }
 
-.oddFooterRight
-{
-	float: right;
+.footer-item {
+	position: absolute;
 	height: 25px;
-	margin-bottom: 1.95em;
-	margin-top: -1.95em;
+	width: 10mm;
+	bottom: 7mm;
+}
+
+.footer-competence {
+	font-weight: bold;
+	color: #BFBFBF;
+	font-size: 2em;
+	text-align: center;
+	padding-bottom: -0.5em;
 }
 
 .dottedline
@@ -36,6 +53,10 @@
 	right: 12.25mm;
 	overflow: hidden;
 	page-break-inside: avoid;
+}
+
+.lesson-name {
+	margin-right: 12mm;
 }
 
 h1
