@@ -32,9 +32,6 @@ $iconFooter = function ($lessonId) use ($CONFIG, $fieldEndpoint) {
         }
     }
 
-    if ($icon === '00000000-0000-0000-0000-000000000000') {
-        return '&nbsp;';
-    }
 
     $ret = '<div class="footer-inner">';
 
@@ -95,15 +92,12 @@ $getLessonPDF = function (Skautis $skautis, array $data, Endpoint $endpoint) use
     $mpdf->DefHTMLHeaderByName('OddPageLessonNameHeader', '<div class="odd-page-lesson-name-header">' . $lessonMetadata->getName() . '</div>');
     $mpdf->DefHTMLFooterByName(
         'EvenPageFooter',
-        '<div class="footer">' .
-        '&nbsp;' .
-        '</div>'
+        '<div class="footer-clear">&nbsp;</div>'
     );
     $mpdf->DefHTMLFooterByName(
         'OddPageFooter',
-        '<div class="footer">' .
-        $iconFooter($id) .
-        '</div>'
+        '<div class="footer-clear">&nbsp;</div>' .
+        $iconFooter($id, $lessonMetadata->getCompetences())
     );
 
     if (!isset($data['qr']) || $data['qr'] === 'true') {
