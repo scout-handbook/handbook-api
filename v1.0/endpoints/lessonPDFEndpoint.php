@@ -11,6 +11,7 @@ use BaconQrCode\Renderer\ImageRenderer;
 use BaconQrCode\Renderer\RendererStyle\RendererStyle;
 use BaconQrCode\Writer;
 use Mpdf\Mpdf;
+use Mpdf\HTMLParserMode;
 use Mpdf\Output\Destination;
 use Ramsey\Uuid\Uuid;
 use Skautis\Skautis;
@@ -117,11 +118,14 @@ SQL;
     $mpdf->SetHTMLFooterByName('OddFooter', 'O');
     $mpdf->SetHTMLFooterByName('EvenFooter', 'E');
 
-    $mpdf->WriteHTML('', 2);
+    $mpdf->WriteHTML('', HTMLParserMode::HTML_BODY);
     $mpdf->SetHTMLHeaderByName('OddHeader', 'O');
 
-    $mpdf->WriteHTML(file_get_contents($CONFIG->basepath . '/Skaut/OdyMarkdown/v1_0/styles.css') ?: '', 1);
-    $mpdf->WriteHTML($html, 2);
+    $mpdf->WriteHTML(
+        file_get_contents($CONFIG->basepath . '/Skaut/OdyMarkdown/v1_0/styles.css') ?: '',
+        HTMLParserMode::HEADER_CSS
+    );
+    $mpdf->WriteHTML($html, HTMLParserMode::HTML_BODY);
 
     header('content-type:application/pdf; charset=utf-8');
     $mpdf->Output(
