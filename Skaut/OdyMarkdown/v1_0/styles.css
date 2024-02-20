@@ -38,6 +38,10 @@
 	page-break-inside: avoid;
 }
 
+.lesson-name {
+	margin-right: 12mm;
+}
+
 h1
 {
 	font-size: 1.7em;
