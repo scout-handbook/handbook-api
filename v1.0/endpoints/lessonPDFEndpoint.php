@@ -92,26 +92,25 @@ SQL;
     ]);
 
     $mpdf->DefHTMLHeaderByName(
-        'OddHeaderFirst',
+        'FirstPageQRCodeHeader',
         // Substr removes <?xml tag
         '<div class="QRheader">' . mb_substr($qrOutput->output($qrCode, 50), 21) . '</div>'
     );
-    $mpdf->DefHTMLHeaderByName('OddHeader', '<div class="oddHeaderRight">' . $name . '</div>');
+    $mpdf->DefHTMLHeaderByName('OddPageLessonNameHeader', '<div class="oddHeaderRight">' . $name . '</div>');
     if ($icon !== '00000000-0000-0000-0000-000000000000') {
         $mpdf->DefHTMLFooterByName(
-            'OddFooter',
+            'OddPageFieldIconFooter',
             '<img class="oddFooterRight" src="' . $CONFIG->imagepath . '/original/' . $icon . '.jpg">'
         );
     }
 
     if (!isset($data['qr']) || $data['qr'] === 'true') {
-        $mpdf->SetHTMLHeaderByName('OddHeaderFirst', 'O');
+        $mpdf->SetHTMLHeaderByName('FirstPageQRCodeHeader', 'O');
     }
-    $mpdf->SetHTMLFooterByName('OddFooter', 'O');
-    $mpdf->SetHTMLFooterByName('EvenFooter', 'E');
+    $mpdf->SetHTMLFooterByName('OddPageFieldIconFooter', 'O');
 
     $mpdf->WriteHTML('', HTMLParserMode::HTML_BODY);
-    $mpdf->SetHTMLHeaderByName('OddHeader', 'O');
+    $mpdf->SetHTMLHeaderByName('OddPageLessonNameHeader', 'O');
 
     $mpdf->WriteHTML(
         file_get_contents($CONFIG->basepath . '/Skaut/OdyMarkdown/v1_0/styles.css') ?: '',
