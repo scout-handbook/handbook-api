@@ -58,6 +58,7 @@ $iconFooter = function (
 
     $ret = '';
     $rightOffset = 11;
+    $iconSpacing = 10;
 
     if ($icon !== '00000000-0000-0000-0000-000000000000') {
         $ret .= '<div class="footer-item" style="right: ' .
@@ -67,7 +68,7 @@ $iconFooter = function (
             '/original/' .
             $icon .
             '.jpg"></div>';
-        $rightOffset += 14;
+        $rightOffset += $iconSpacing;
     }
 
     foreach (array_reverse($competenceNumbers) as $competence) {
@@ -76,7 +77,7 @@ $iconFooter = function (
             'mm">' .
             $competence .
             '</div>';
-        $rightOffset += 14;
+        $rightOffset += $iconSpacing;
     }
 
     return $ret;
