@@ -57,7 +57,7 @@ $iconFooter = function (
     usort($lessonCompetences, "competenceCompare");
 
     $ret = '';
-    $rightOffset = 8;
+    $rightOffset = 11;
 
     if ($icon !== '00000000-0000-0000-0000-000000000000') {
         $ret .= '<div class="footer-item" style="right: ' .
