@@ -26,17 +26,22 @@
 
 .footer-item {
 	position: absolute;
-	height: 25px;
-	width: 10mm;
+	height: 7mm;
+	width: 7mm;
 	bottom: 7mm;
 }
 
 .footer-competence {
+	border: 1px solid #BFBFBF;
+	border-radius: 7mm;
 	font-weight: bold;
 	color: #BFBFBF;
-	font-size: 2em;
+	font-size: 1.3em;
 	text-align: center;
-	padding-bottom: -0.5em;
+	padding-top: 0.4em;
+	padding-bottom: -0.4em;
+	margin-top: -1mm;
+	margin-bottom: -1mm;
 }
 
 .dottedline
