@@ -13,6 +13,6 @@
     "url": "https://github.com/scout-handbook/handbook-api/issues"
   },
   "devDependencies": {
-    "swagger-ui-dist": "^5.17.1"
+    "swagger-ui-dist": "^5.17.2"
   }
 }
