@@ -12,6 +12,7 @@
   "bugs": {
     "url": "https://github.com/scout-handbook/handbook-api/issues"
   },
+  "type": "module",
   "devDependencies": {
     "swagger-ui-dist": "^5.17.2"
   }
