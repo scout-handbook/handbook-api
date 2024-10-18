@@ -36,7 +36,7 @@ jobs:
 
       - name: "Copy over API definitions"
         run: |
-          for dir in $(ls -d */ | grep -E "v.*\\..*" | sed 's/\/$//'); do cp $dir/swagger.yaml docs-dist/definitions/$dir.yaml; done;
+          for dir in $(ls -d */ | grep -E "v.*\\..*" | sed 's/\/$//'); do cp $dir/open-api-spec.yaml docs-dist/definitions/$dir.yaml; done;
 
       - name: "Change docs title"
         run: |
