@@ -15,7 +15,7 @@ use Skaut\HandbookAPI\v1_0\Exception\RoleException;
 
 $userGroupEndpoint = new Endpoint();
 
-$updateUserRole = function (Skautis $skautis, array $data): array {
+$updateUserGroup = function (Skautis $skautis, array $data): array {
     $checkRole = function (Role $my_role, Role $role): void {
         if (
             (Role::compare($my_role, new Role('administrator')) === 0) and
@@ -81,4 +81,4 @@ SQL;
     $db->endTransaction();
     return ['status' => 200];
 };
-$userGroupEndpoint->setUpdateMethod(new Role('administrator'), $updateUserRole);
+$userGroupEndpoint->setUpdateMethod(new Role('administrator'), $updateUserGroup);
