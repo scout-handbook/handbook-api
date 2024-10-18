@@ -16,7 +16,7 @@ use Skaut\HandbookAPI\v1_0\Role;
 $eventEndpoint = new Endpoint();
 $eventEndpoint->addSubEndpoint('participant', $eventParticipantEndpoint);
 
-$listUsers = function (Skautis $skautis): array {
+$listEvents = function (Skautis $skautis): array {
     $ISevents = $skautis->Events->EventEducationAllMyActions();
     $events = [];
     foreach ($ISevents as $event) {
@@ -24,4 +24,4 @@ $listUsers = function (Skautis $skautis): array {
     }
     return ['status' => 200, 'response' => $events];
 };
-$eventEndpoint->setListMethod(new Role('editor'), $listUsers);
+$eventEndpoint->setListMethod(new Role('editor'), $listEvents);
