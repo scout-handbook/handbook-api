@@ -92,7 +92,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
     post:
@@ -154,6 +153,7 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
                   - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
         '500':
           description: Internal server error
           content:
@@ -161,7 +161,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
   /lesson/{id}:
@@ -210,7 +209,6 @@ paths:
             application/json:
               schema:
                 oneOf:
-                  - $ref: '#/components/schemas/AuthenticationException'
                   - $ref: '#/components/schemas/RoleException'
         '404':
           description: Resource not found
@@ -225,7 +223,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
     put:
@@ -266,6 +263,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Response200'
+        '400':
+          description: A required argument is missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissingArgumentException'
         '403':
           description: >-
             Authentication failed. This may be caused by login timeout or
@@ -276,6 +279,7 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
                   - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
         '404':
           description: Resource not found
           content:
@@ -295,7 +299,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
     delete:
@@ -322,6 +325,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Response200'
+        '400':
+          description: A required argument is missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissingArgumentException'
         '403':
           description: >-
             Authentication failed. This may be caused by login timeout or
@@ -332,6 +341,7 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
                   - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
         '404':
           description: Resource not found
           content:
@@ -351,7 +361,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
   /lesson/{id}/competence:
@@ -402,6 +411,7 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
                   - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
         '404':
           description: Resource not found
           content:
@@ -415,7 +425,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
   /lesson/{id}/field:
@@ -464,6 +473,7 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
                   - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
         '404':
           description: Resource not found
           content:
@@ -477,7 +487,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
   /lesson/{id}/group:
@@ -529,6 +538,7 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
                   - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
         '404':
           description: Resource not found
           content:
@@ -542,7 +552,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
     put:
@@ -594,6 +603,7 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
                   - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
         '404':
           description: Resource not found
           content:
@@ -607,7 +617,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
   /lesson/{id}/history:
@@ -665,6 +674,7 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
                   - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
         '404':
           description: Resource not found
           content:
@@ -678,7 +688,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
   /lesson/{id}/history/{version}:
@@ -738,12 +747,19 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
                   - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
         '404':
           description: Resource not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundException'
+        '415':
+          description: An argument with wrong type has been passed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidArgumentTypeException'
         '500':
           description: Internal server error
           content:
@@ -751,7 +767,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
   /lesson/{id}/pdf:
@@ -796,6 +811,17 @@ paths:
               schema:
                 type: string
                 format: binary
+        '403':
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
         '404':
           description: Resource not found
           content:
@@ -809,7 +835,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
   /deleted-lesson:
@@ -857,6 +882,7 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
                   - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
         '500':
           description: Internal server error
           content:
@@ -864,7 +890,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
   /deleted-lesson/{id}/history/:
@@ -922,6 +947,7 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
                   - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
         '404':
           description: Resource not found
           content:
@@ -935,7 +961,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
   /deleted-lesson/{id}/history/{version}:
@@ -996,12 +1021,19 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
                   - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
         '404':
           description: Resource not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundException'
+        '415':
+          description: An argument with wrong type has been passed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidArgumentTypeException'
         '500':
           description: Internal server error
           content:
@@ -1009,7 +1041,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
   /competence:
@@ -1057,7 +1088,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
     post:
@@ -1109,12 +1139,7 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
                   - $ref: '#/components/schemas/RoleException'
-        '415':
-          description: An argument with wrong type has been passed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InvalidArgumentTypeException'
+                  - $ref: '#/components/schemas/SkautISException'
         '500':
           description: Internal server error
           content:
@@ -1122,7 +1147,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
   /competence/{id}:
@@ -1164,6 +1188,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Response200'
+        '400':
+          description: A required argument is missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissingArgumentException'
         '403':
           description: >-
             Authentication failed. This may be caused by login timeout or
@@ -1174,18 +1204,13 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
                   - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
         '404':
           description: Resource not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotFoundException'
-        '415':
-          description: An argument with wrong type has been passed
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InvalidArgumentTypeException'
         '500':
           description: Internal server error
           content:
@@ -1193,7 +1218,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
     delete:
@@ -1218,6 +1242,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Response200'
+        '400':
+          description: A required argument is missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissingArgumentException'
         '403':
           description: >-
             Authentication failed. This may be caused by login timeout or
@@ -1228,6 +1258,7 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
                   - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
         '404':
           description: Resource not found
           content:
@@ -1241,7 +1272,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
   /login:
@@ -1275,6 +1305,11 @@ paths:
         '302':
           description: Redirect back to the desired page
           headers:
+            location:
+              description: Redirect location
+              schema:
+                type: string
+                examples: ["https://example.com"]
             set-cookie:
               description: Setting the auth cookies
               schema:
@@ -1306,7 +1341,7 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
-                  - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
   /logout:
     get:
       summary: Logout of the API
@@ -1328,6 +1363,12 @@ paths:
       responses:
         '302':
           description: Redirect back to the desired page
+          headers:
+            location:
+              description: Redirect location
+              schema:
+                type: string
+                examples: ["https://example.com"]
   /account:
     get:
       summary: Get login state and account information
@@ -1386,29 +1427,12 @@ paths:
                   - response
         '401':
           description: No user logged in.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: integer
-                    enum:
-                      - 401
-                required:
-                  - status
           headers:
             www-authenticate:
               description: Authentication method
               schema:
                 type: string
                 examples: ['SkautIS']
-        '404':
-          description: Resource not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NotFoundException'
         '500':
           description: Internal server error
           content:
@@ -1416,7 +1440,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
     post:
@@ -1441,7 +1464,7 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
-                  - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
         '500':
           description: Internal server error
           content:
@@ -1449,7 +1472,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
   /image:
@@ -1491,6 +1513,7 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
                   - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
         '500':
           description: Internal server error
           content:
@@ -1498,7 +1521,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
     post:
@@ -1543,6 +1565,7 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
                   - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
         '415':
           description: An argument with wrong type has been passed
           content:
@@ -1558,6 +1581,7 @@ paths:
                   - $ref: '#/components/schemas/ConnectionException'
                   - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/FileUploadException'
                   - $ref: '#/components/schemas/QueryException'
   /image/{id}:
     get:
@@ -1657,6 +1681,7 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
                   - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
         '404':
           description: Resource not found
           content:
@@ -1670,7 +1695,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
   /field:
@@ -1744,7 +1768,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
     post:
@@ -1803,6 +1826,13 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
                   - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundException'
         '500':
           description: Internal server error
           content:
@@ -1810,7 +1840,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
   /field/{id}:
@@ -1862,6 +1891,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Response200'
+        '400':
+          description: A required argument is missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissingArgumentException'
         '403':
           description: >-
             Authentication failed. This may be caused by login timeout or
@@ -1872,6 +1907,7 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
                   - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
         '404':
           description: Resource not found
           content:
@@ -1885,7 +1921,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
     delete:
@@ -1910,6 +1945,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Response200'
+        '400':
+          description: A required argument is missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissingArgumentException'
         '403':
           description: >-
             Authentication failed. This may be caused by login timeout or
@@ -1920,6 +1961,7 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
                   - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
         '404':
           description: Resource not found
           content:
@@ -1933,7 +1975,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
   /user:
@@ -2055,6 +2096,7 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
                   - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
         '404':
           description: Resource not found
           content:
@@ -2074,7 +2116,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
     post:
@@ -2107,6 +2148,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Response200'
+        '400':
+          description: A required argument is missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissingArgumentException'
         '403':
           description: >-
             Authentication failed. This may be caused by login timeout or
@@ -2117,6 +2164,7 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
                   - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
         '415':
           description: An argument with wrong type has been passed
           content:
@@ -2130,7 +2178,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
   /user/{id}/role:
@@ -2189,6 +2236,7 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
                   - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
         '404':
           description: Resource not found
           content:
@@ -2208,7 +2256,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
   /user/{id}/group:
@@ -2257,6 +2304,7 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
                   - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
         '404':
           description: Resource not found
           content:
@@ -2276,7 +2324,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
   /group:
@@ -2327,6 +2374,7 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
                   - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
         '404':
           description: Resource not found
           content:
@@ -2340,7 +2388,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
     post:
@@ -2369,6 +2416,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Response201'
+        '400':
+          description: A required argument is missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissingArgumentException'
         '403':
           description: >-
             Authentication failed. This may be caused by login timeout or
@@ -2379,6 +2432,7 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
                   - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
         '500':
           description: Internal server error
           content:
@@ -2386,7 +2440,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
   /group/{id}:
@@ -2424,6 +2477,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Response200'
+        '400':
+          description: A required argument is missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissingArgumentException'
         '403':
           description: >-
             Authentication failed. This may be caused by login timeout or
@@ -2434,6 +2493,7 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
                   - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
         '404':
           description: Resource not found
           content:
@@ -2447,7 +2507,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
     delete:
@@ -2472,6 +2531,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Response200'
+        '400':
+          description: A required argument is missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissingArgumentException'
         '403':
           description: >-
             Authentication failed. This may be caused by login timeout or
@@ -2481,7 +2546,9 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RefusedException'
                   - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
         '404':
           description: Resource not found
           content:
@@ -2495,7 +2562,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
   /event:
@@ -2545,6 +2611,7 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
                   - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
         '500':
           description: Internal server error
           content:
@@ -2552,7 +2619,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
   /event/{id}/participant:
@@ -2609,12 +2675,8 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
                   - $ref: '#/components/schemas/RoleException'
-        '404':
-          description: Resource not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NotFoundException'
+                  - $ref: '#/components/schemas/SkautISException'
+                  - $ref: '#/components/schemas/SkautISAuthorizationException'
         '415':
           description: An argument with wrong type has been passed
           content:
@@ -2628,7 +2690,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
   /mutex/{id}:
@@ -2682,6 +2743,13 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
                   - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundException'
         '409':
           description: Locked by someone else
           content:
@@ -2721,7 +2789,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
     put:
@@ -2764,6 +2831,12 @@ paths:
                       - 200
                 required:
                   - status
+        '400':
+          description: A required argument is missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissingArgumentException'
         '403':
           description: >-
             Authentication failed. This may be caused by login timeout or
@@ -2774,6 +2847,7 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
                   - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
         '404':
           description: Resource not found
           content:
@@ -2793,7 +2867,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
     delete:
@@ -2828,6 +2901,12 @@ paths:
                       - 200
                 required:
                   - status
+        '400':
+          description: A required argument is missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissingArgumentException'
         '403':
           description: >-
             Authentication failed. This may be caused by login timeout or
@@ -2838,6 +2917,7 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/AuthenticationException'
                   - $ref: '#/components/schemas/RoleException'
+                  - $ref: '#/components/schemas/SkautISException'
         '404':
           description: Resource not found
           content:
@@ -2851,7 +2931,6 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/ConnectionException'
-                  - $ref: '#/components/schemas/Exception'
                   - $ref: '#/components/schemas/ExecutionException'
                   - $ref: '#/components/schemas/QueryException'
   /mutex-beacon/{id}:
@@ -2933,6 +3012,24 @@ components:
         - status
         - type
         - message
+    RefusedException:
+      type: object
+      properties:
+        status:
+          type: integer
+          enum:
+            - 403
+        type:
+          type: string
+          enum:
+            - RefusedException
+        message:
+          type: string
+          examples: ['An error message.']
+      required:
+        - status
+        - type
+        - message
     RoleException:
       type: object
       properties:
@@ -2944,6 +3041,42 @@ components:
           type: string
           enum:
             - RoleException
+        message:
+          type: string
+          examples: ['An error message.']
+      required:
+        - status
+        - type
+        - message
+    SkautISAuthorizationException:
+      type: object
+      properties:
+        status:
+          type: integer
+          enum:
+            - 403
+        type:
+          type: string
+          enum:
+            - SkautISAuthorizationException
+        message:
+          type: string
+          examples: ['An error message.']
+      required:
+        - status
+        - type
+        - message
+    SkautISException:
+      type: object
+      properties:
+        status:
+          type: integer
+          enum:
+            - 403
+        type:
+          type: string
+          enum:
+            - SkautISException
         message:
           type: string
           examples: ['An error message.']
@@ -3052,6 +3185,24 @@ components:
           type: string
           enum:
             - ExecutionException
+        message:
+          type: string
+          examples: ['An error message.']
+      required:
+        - status
+        - type
+        - message
+    FileUploadException:
+      type: object
+      properties:
+        status:
+          type: integer
+          enum:
+            - 500
+        type:
+          type: string
+          enum:
+            - FileUploadException
         message:
           type: string
           examples: ['An error message.']
