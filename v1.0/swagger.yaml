@@ -86,7 +86,15 @@ paths:
                   - status
                   - response
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
     post:
       summary: Add a lesson
       description: User role must be **editor** or higher!
@@ -131,11 +139,31 @@ paths:
                   - status
                   - response
         '400':
-          $ref: '#/components/responses/400'
+          description: A required argument is missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissingArgumentException'
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
   /lesson/{id}:
     get:
       summary: Get the body of a lesson
@@ -175,11 +203,31 @@ paths:
                   - status
                   - response
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '404':
-          $ref: '#/components/responses/404'
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
     put:
       summary: Update name and/or body of a lesson
       description: >-
@@ -213,15 +261,43 @@ paths:
                   examples: ['New body of the lesson']
       responses:
         '200':
-          $ref: '#/components/responses/200'
+          description: Operation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response200'
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '404':
-          $ref: '#/components/responses/404'
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundException'
         '412':
-          $ref: '#/components/responses/412'
+          description: Resource not locked by a mutex
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotLockedException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
     delete:
       summary: Remove a lesson
       description: >-
@@ -241,15 +317,43 @@ paths:
           description: The id of the lesson
       responses:
         '200':
-          $ref: '#/components/responses/200'
+          description: Operation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response200'
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '404':
-          $ref: '#/components/responses/404'
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundException'
         '412':
-          $ref: '#/components/responses/412'
+          description: Resource not locked by a mutex
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotLockedException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
   /lesson/{id}/competence:
     put:
       summary: Update the competences fulfilled by this lesson
@@ -283,13 +387,37 @@ paths:
                 - competence
       responses:
         '200':
-          $ref: '#/components/responses/200'
+          description: Operation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response200'
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '404':
-          $ref: '#/components/responses/404'
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
   /lesson/{id}/field:
     put:
       summary: Update the field the lesson is in
@@ -321,13 +449,37 @@ paths:
                 - field
       responses:
         '200':
-          $ref: '#/components/responses/200'
+          description: Operation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response200'
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '404':
-          $ref: '#/components/responses/404'
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
   /lesson/{id}/group:
     get:
       summary: List all groups the lesson is published in.
@@ -368,11 +520,31 @@ paths:
                   - status
                   - response
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '404':
-          $ref: '#/components/responses/404'
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
     put:
       summary: Set which groups the lesson is published in.
       description: >-
@@ -407,13 +579,37 @@ paths:
                 - group
       responses:
         '200':
-          $ref: '#/components/responses/200'
+          description: Operation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response200'
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '404':
-          $ref: '#/components/responses/404'
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
   /lesson/{id}/history:
     get:
       summary: Get a list of all past versions of a lesson
@@ -460,11 +656,31 @@ paths:
                   - status
                   - response
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '404':
-          $ref: '#/components/responses/404'
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
   /lesson/{id}/history/{version}:
     get:
       summary: Get the body of a past version of a lesson
@@ -513,11 +729,31 @@ paths:
                   - status
                   - response
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '404':
-          $ref: '#/components/responses/404'
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
   /lesson/{id}/pdf:
     get:
       summary: Get the lesson in PDF
@@ -561,9 +797,21 @@ paths:
                 type: string
                 format: binary
         '404':
-          $ref: '#/components/responses/404'
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
   /deleted-lesson:
     get:
       summary: Get a list of all deleted lessons
@@ -600,9 +848,25 @@ paths:
                   - status
                   - response
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
   /deleted-lesson/{id}/history/:
     get:
       summary: Get a list of all past versions of a deleted lesson
@@ -649,11 +913,31 @@ paths:
                   - status
                   - response
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '404':
-          $ref: '#/components/responses/404'
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
   /deleted-lesson/{id}/history/{version}:
     get:
       summary: Get the body of a particular version of a deleted lesson
@@ -703,11 +987,31 @@ paths:
                   - status
                   - response
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '404':
-          $ref: '#/components/responses/404'
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
   /competence:
     get:
       summary: Get a list of all competences
@@ -747,7 +1051,15 @@ paths:
                   - status
                   - response
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
     post:
       summary: Add a competence
       description: User role must be **administrator** or higher!
@@ -776,15 +1088,43 @@ paths:
                 - name
       responses:
         '201':
-          $ref: '#/components/responses/201'
+          description: Added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response201'
         '400':
-          $ref: '#/components/responses/400'
+          description: A required argument is missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissingArgumentException'
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '415':
-          $ref: '#/components/responses/415'
+          description: An argument with wrong type has been passed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidArgumentTypeException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
   /competence/{id}:
     put:
       summary: Update a competence
@@ -819,15 +1159,43 @@ paths:
                   examples: ['Competence description']
       responses:
         '200':
-          $ref: '#/components/responses/200'
+          description: Operation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response200'
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '404':
-          $ref: '#/components/responses/404'
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundException'
         '415':
-          $ref: '#/components/responses/415'
+          description: An argument with wrong type has been passed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidArgumentTypeException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
     delete:
       summary: Remove a competence
       description: User role must be **administrator** or higher!
@@ -845,13 +1213,37 @@ paths:
           description: The id of the competence
       responses:
         '200':
-          $ref: '#/components/responses/200'
+          description: Operation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response200'
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '404':
-          $ref: '#/components/responses/404'
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
   /login:
     get:
       summary: Login to the API
@@ -900,9 +1292,21 @@ paths:
         - apiKey: []
       responses:
         '200':
-          $ref: '#/components/responses/200'
+          description: Operation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response200'
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
   /logout:
     get:
       summary: Logout of the API
@@ -1000,9 +1404,21 @@ paths:
                 type: string
                 examples: ['SkautIS']
         '404':
-          $ref: '#/components/responses/404'
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
     post:
       summary: Add current user to registered users / update account details
       tags:
@@ -1011,11 +1427,31 @@ paths:
         - apiKey: []
       responses:
         '200':
-          $ref: '#/components/responses/200'
+          description: Operation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response200'
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
   /image:
     get:
       summary: Get a list of all images
@@ -1046,9 +1482,25 @@ paths:
                   - status
                   - response
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
     post:
       summary: Upload an image
       description: User role must be **editor** or higher!
@@ -1070,15 +1522,43 @@ paths:
                 contentType: image/jpeg, image/png
       responses:
         '201':
-          $ref: '#/components/responses/201'
+          description: Added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response201'
         '400':
-          $ref: '#/components/responses/400'
+          description: A required argument is missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissingArgumentException'
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '415':
-          $ref: '#/components/responses/415'
+          description: An argument with wrong type has been passed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidArgumentTypeException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
   /image/{id}:
     get:
       summary: Get an image
@@ -1140,7 +1620,11 @@ paths:
         '304':
           description: Not modified since `if-modified-since`.
         '404':
-          $ref: '#/components/responses/404'
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundException'
     delete:
       summary: Remove an image
       description: User role must be **administrator** or higher!
@@ -1158,13 +1642,37 @@ paths:
           description: The id of the image
       responses:
         '200':
-          $ref: '#/components/responses/200'
+          description: Operation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response200'
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '404':
-          $ref: '#/components/responses/404'
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
   /field:
     get:
       summary: Get a list of all fields
@@ -1230,7 +1738,15 @@ paths:
                   - status
                   - response
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
     post:
       summary: Add a field
       description: User role must be **administrator** or higher!
@@ -1266,13 +1782,37 @@ paths:
                 - icon
       responses:
         '201':
-          $ref: '#/components/responses/201'
+          description: Added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response201'
         '400':
-          $ref: '#/components/responses/400'
+          description: A required argument is missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissingArgumentException'
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
   /field/{id}:
     put:
       summary: Update a field
@@ -1317,13 +1857,37 @@ paths:
                 - icon
       responses:
         '200':
-          $ref: '#/components/responses/200'
+          description: Operation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response200'
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '404':
-          $ref: '#/components/responses/404'
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
     delete:
       summary: Remove a field
       description: User role must be **administrator** or higher!
@@ -1341,13 +1905,37 @@ paths:
           description: The id of the field
       responses:
         '200':
-          $ref: '#/components/responses/200'
+          description: Operation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response200'
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '404':
-          $ref: '#/components/responses/404'
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
   /user:
     get:
       summary: Get a list of users.
@@ -1458,13 +2046,37 @@ paths:
                   - status
                   - response
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '404':
-          $ref: '#/components/responses/404'
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundException'
         '415':
-          $ref: '#/components/responses/415'
+          description: An argument with wrong type has been passed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidArgumentTypeException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
     post:
       summary: Add user to registered users/ update account details
       description: User role must be **editor** or higher!
@@ -1490,13 +2102,37 @@ paths:
                 - name
       responses:
         '200':
-          $ref: '#/components/responses/200'
+          description: Operation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response200'
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '415':
-          $ref: '#/components/responses/415'
+          description: An argument with wrong type has been passed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidArgumentTypeException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
   /user/{id}/role:
     put:
       summary: Update user's role
@@ -1532,17 +2168,49 @@ paths:
                 - role
       responses:
         '200':
-          $ref: '#/components/responses/200'
+          description: Operation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response200'
         '400':
-          $ref: '#/components/responses/400'
+          description: A required argument is missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissingArgumentException'
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '404':
-          $ref: '#/components/responses/404'
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundException'
         '415':
-          $ref: '#/components/responses/415'
+          description: An argument with wrong type has been passed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidArgumentTypeException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
   /user/{id}/group:
     put:
       summary: Update user's group membership
@@ -1574,15 +2242,43 @@ paths:
                 - group
       responses:
         '200':
-          $ref: '#/components/responses/200'
+          description: Operation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response200'
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '404':
-          $ref: '#/components/responses/404'
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundException'
         '415':
-          $ref: '#/components/responses/415'
+          description: An argument with wrong type has been passed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidArgumentTypeException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
   /group:
     get:
       summary: Get a list of all groups
@@ -1622,11 +2318,31 @@ paths:
                   - status
                   - response
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '404':
-          $ref: '#/components/responses/404'
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
     post:
       summary: Add a group
       description: User role must be **administrator** or higher!
@@ -1648,11 +2364,31 @@ paths:
                 - name
       responses:
         '201':
-          $ref: '#/components/responses/201'
+          description: Added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response201'
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
   /group/{id}:
     put:
       summary: Update a group
@@ -1683,13 +2419,37 @@ paths:
                 - name
       responses:
         '200':
-          $ref: '#/components/responses/200'
+          description: Operation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response200'
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '404':
-          $ref: '#/components/responses/404'
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
     delete:
       summary: Remove a group
       description: User role must be **administrator** or higher!
@@ -1707,13 +2467,37 @@ paths:
           description: The id of the group
       responses:
         '200':
-          $ref: '#/components/responses/200'
+          description: Operation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response200'
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '404':
-          $ref: '#/components/responses/404'
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
   /event:
     get:
       summary: Get a list of all user events
@@ -1752,9 +2536,25 @@ paths:
                   - status
                   - response
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
   /event/{id}/participant:
     get:
       summary: Get a list of event participants.
@@ -1800,13 +2600,37 @@ paths:
                   - status
                   - response
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '404':
-          $ref: '#/components/responses/404'
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundException'
         '415':
-          $ref: '#/components/responses/415'
+          description: An argument with wrong type has been passed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidArgumentTypeException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
   /mutex/{id}:
     post:
       summary: Acquire a mutex
@@ -1849,7 +2673,15 @@ paths:
                 required:
                   - status
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '409':
           description: Locked by someone else
           content:
@@ -1877,9 +2709,21 @@ paths:
                   - message
                   - holder
         '415':
-          $ref: '#/components/responses/415'
+          description: An argument with wrong type has been passed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidArgumentTypeException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
     put:
       summary: Extend a mutex
       description: >-
@@ -1921,13 +2765,37 @@ paths:
                 required:
                   - status
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '404':
-          $ref: '#/components/responses/404'
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundException'
         '415':
-          $ref: '#/components/responses/415'
+          description: An argument with wrong type has been passed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidArgumentTypeException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
     delete:
       summary: Release a mutex
       description: >-
@@ -1961,11 +2829,31 @@ paths:
                 required:
                   - status
         '403':
-          $ref: '#/components/responses/403'
+          description: >-
+            Authentication failed. This may be caused by login timeout or
+            insufficient role.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/AuthenticationException'
+                  - $ref: '#/components/schemas/RoleException'
         '404':
-          $ref: '#/components/responses/404'
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundException'
         '500':
-          $ref: '#/components/responses/500'
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ConnectionException'
+                  - $ref: '#/components/schemas/Exception'
+                  - $ref: '#/components/schemas/ExecutionException'
+                  - $ref: '#/components/schemas/QueryException'
   /mutex-beacon/{id}:
     post:
       summary: Release a mutex
@@ -2189,63 +3077,6 @@ components:
         - status
         - type
         - message
-  responses:
-    '200':
-      description: Operation successful
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/Response200"
-    '201':
-      description: Added successfully
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/Response201"
-    '400':
-      description: A required argument is missing
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/MissingArgumentException"
-    '403':
-      description: >-
-        Authentication failed. This may be caused by login timeout or
-        insufficient role.
-      content:
-        application/json:
-          schema:
-            oneOf:
-              - $ref: "#/components/schemas/AuthenticationException"
-              - $ref: "#/components/schemas/RoleException"
-    '404':
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/NotFoundException"
-    '412':
-      description: Resource not locked by a mutex
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/NotLockedException"
-    '415':
-      description: An argument with wrong type has been passed
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/InvalidArgumentTypeException"
-    '500':
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            oneOf:
-              - $ref: "#/components/schemas/ConnectionException"
-              - $ref: "#/components/schemas/Exception"
-              - $ref: "#/components/schemas/ExecutionException"
-              - $ref: "#/components/schemas/QueryException"
   securitySchemes:
     apiKey:
       type: apiKey
