@@ -1,14 +1,15 @@
-openapi: 3.0.2
+openapi: 3.1.0
 info:
   title: Handbook API
-  description:
-    See [GitHub](https://github.com/scout-handbook/handbook-api) or [OdyMateriály](https://odymaterialy.skauting.cz/) for more.
-  version: "1.0"
+  description: >-
+    See [GitHub](https://github.com/scout-handbook/handbook-api) or
+    [OdyMateriály](https://odymaterialy.skauting.cz/) for more.
+  version: '1.0'
   contact:
     email: genabitu@gmail.com
   license:
     name: MIT License
-    url: 'https://github.com/scout-handbook/handbook-api/blob/master/LICENSE.md'
+    url: https://github.com/scout-handbook/handbook-api/blob/master/LICENSE.md
 tags:
   - name: lesson
     description: Lessons, their fields and competences
@@ -41,16 +42,22 @@ paths:
           schema:
             type: string
           required: false
-          description: If present and set to true and user role is editor, administrator or superuser, then all lessons will be returned. Otherwise, only lessons published in the groups the current user is in (or public lessons) will be returned.
+          description: >-
+            If present and set to true and user role is editor, administrator or
+            superuser, then all lessons will be returned. Otherwise, only
+            lessons published in the groups the current user is in (or public
+            lessons) will be returned.
       responses:
         '200':
-          description: A list of all fields, their lessons and their competences. The response keys are lesson uuids.
+          description: >-
+            A list of all fields, their lessons and their competences. The
+            response keys are lesson uuids.
           content:
-            'aplication/json':
+            aplication/json:
               schema:
                 type: object
                 properties:
-                  status: 
+                  status:
                     type: integer
                     enum:
                       - 200
@@ -61,16 +68,16 @@ paths:
                       properties:
                         name:
                           type: string
-                          example: Lesson 1
+                          examples: ['Lesson 1']
                         version:
                           type: integer
-                          example: 1
+                          examples: [1]
                         competences:
                           type: array
                           items:
                             type: string
                             format: uuid
-                            example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
+                            examples: ['1eb2adec-b262-491c-8f1b-0fc722dd7b2c']
                       required:
                         - name
                         - version
@@ -96,18 +103,18 @@ paths:
               properties:
                 name:
                   type: string
-                  example: 'A new lesson'
+                  examples: ['A new lesson']
                 body:
                   type: string
                   format: markdown
-                  example: 'Body of the new lesson'
+                  examples: ['Body of the new lesson']
               required:
                 - name
       responses:
         '201':
           description: Added successfully
           content:
-            'aplication/json':
+            aplication/json:
               schema:
                 type: object
                 properties:
@@ -118,7 +125,7 @@ paths:
                   response:
                     type: string
                     format: uuid
-                    example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
+                    examples: ['1eb2adec-b262-491c-8f1b-0fc722dd7b2c']
                     description: ID of the newly added lesson
                 required:
                   - status
@@ -132,7 +139,11 @@ paths:
   /lesson/{id}:
     get:
       summary: Get the body of a lesson
-      description: '**Warning:** Lesson body is **not** XSS sanitized. You need to do your own sanitization - see [here](https://github.com/showdownjs/showdown/wiki/Markdown%27s-XSS-Vulnerability-(and-how-to-mitigate-it)) for more details on how to do that.'
+      description: >-
+        **Warning:** Lesson body is **not** XSS sanitized. You need to do your
+        own sanitization - see
+        [here](https://github.com/showdownjs/showdown/wiki/Markdown%27s-XSS-Vulnerability-(and-how-to-mitigate-it))
+        for more details on how to do that.
       tags:
         - lesson
       parameters:
@@ -147,7 +158,7 @@ paths:
         '200':
           description: The body of the lesson
           content:
-            'application/json':
+            application/json:
               schema:
                 type: object
                 properties:
@@ -155,23 +166,25 @@ paths:
                     type: integer
                     enum:
                       - 200
-                    example: 200
+                    examples: [200]
                   response:
                     type: string
                     format: markdown
-                    example: 'The body of Lesson 1'
+                    examples: ['The body of Lesson 1']
                 required:
                   - status
                   - response
-        '404':
-          $ref: '#/components/responses/404'
         '403':
           $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
         '500':
           $ref: '#/components/responses/500'
     put:
       summary: Update name and/or body of a lesson
-      description: User role must be **editor** or higher! The lesson must be locked with a mutex prior to this operation, which releases such a mutex.
+      description: >-
+        User role must be **editor** or higher! The lesson must be locked with a
+        mutex prior to this operation, which releases such a mutex.
       tags:
         - lesson
       security:
@@ -193,11 +206,11 @@ paths:
               properties:
                 name:
                   type: string
-                  example: A changed lesson
+                  examples: ['A changed lesson']
                 body:
                   type: string
                   format: markdown
-                  example: New body of the lesson
+                  examples: ['New body of the lesson']
       responses:
         '200':
           $ref: '#/components/responses/200'
@@ -211,7 +224,9 @@ paths:
           $ref: '#/components/responses/500'
     delete:
       summary: Remove a lesson
-      description: User role must be **administrator** or higher! The lesson must be locked with a mutex prior to this operation, which releases such a mutex.
+      description: >-
+        User role must be **administrator** or higher! The lesson must be locked
+        with a mutex prior to this operation, which releases such a mutex.
       tags:
         - lesson
       security:
@@ -263,7 +278,7 @@ paths:
                   items:
                     type: string
                     format: uuid
-                    example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
+                    examples: ['1eb2adec-b262-491c-8f1b-0fc722dd7b2c']
               required:
                 - competence
       responses:
@@ -301,7 +316,7 @@ paths:
                 field:
                   type: string
                   format: uuid
-                  example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
+                  examples: ['1eb2adec-b262-491c-8f1b-0fc722dd7b2c']
               required:
                 - field
       responses:
@@ -316,7 +331,9 @@ paths:
   /lesson/{id}/group:
     get:
       summary: List all groups the lesson is published in.
-      description: Group "00000000-0000-0000-0000-000000000000" means the lesson will be publicly accessible.
+      description: >-
+        Group "00000000-0000-0000-0000-000000000000" means the lesson will be
+        publicly accessible.
       tags:
         - lesson
       security:
@@ -333,7 +350,7 @@ paths:
         '200':
           description: A list of groups
           content:
-            'application/json':
+            application/json:
               schema:
                 type: object
                 properties:
@@ -346,7 +363,7 @@ paths:
                     items:
                       type: string
                       format: uuid
-                      example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
+                      examples: ['1eb2adec-b262-491c-8f1b-0fc722dd7b2c']
                 required:
                   - status
                   - response
@@ -358,7 +375,9 @@ paths:
           $ref: '#/components/responses/500'
     put:
       summary: Set which groups the lesson is published in.
-      description: Group "00000000-0000-0000-0000-000000000000" means the lesson will be publicly accessible.
+      description: >-
+        Group "00000000-0000-0000-0000-000000000000" means the lesson will be
+        publicly accessible.
       tags:
         - lesson
       security:
@@ -383,7 +402,7 @@ paths:
                   items:
                     type: string
                     format: uuid
-                    example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
+                    examples: ['1eb2adec-b262-491c-8f1b-0fc722dd7b2c']
               required:
                 - group
       responses:
@@ -415,7 +434,7 @@ paths:
         '200':
           description: A list of all versions of the lesson
           content:
-            'application/json':
+            application/json:
               schema:
                 type: object
                 properties:
@@ -430,10 +449,10 @@ paths:
                       properties:
                         name:
                           type: string
-                          example: Lesson 1
+                          examples: ['Lesson 1']
                         version:
                           type: integer
-                          example: 1
+                          examples: [1]
                       required:
                         - name
                         - version
@@ -449,7 +468,11 @@ paths:
   /lesson/{id}/history/{version}:
     get:
       summary: Get the body of a past version of a lesson
-      description: 'User role must be **editor** or higher!<br>**Warning:** Lesson body is **not** XSS sanitized. You need to do your own sanitization - see [here](https://github.com/showdownjs/showdown/wiki/Markdown%27s-XSS-Vulnerability-(and-how-to-mitigate-it)) for more details on how to do that.'
+      description: >-
+        User role must be **editor** or higher!<br>**Warning:** Lesson body is
+        **not** XSS sanitized. You need to do your own sanitization - see
+        [here](https://github.com/showdownjs/showdown/wiki/Markdown%27s-XSS-Vulnerability-(and-how-to-mitigate-it))
+        for more details on how to do that.
       tags:
         - lesson
       security:
@@ -466,14 +489,14 @@ paths:
           name: version
           schema:
             type: integer
-            example: 1
+            examples: [1]
           required: true
           description: The version to be returned
       responses:
         '200':
           description: The body of the lesson
           content:
-            'application/json':
+            application/json:
               schema:
                 type: object
                 properties:
@@ -481,11 +504,11 @@ paths:
                     type: integer
                     enum:
                       - 200
-                    example: 200
+                    examples: [200]
                   response:
                     type: string
                     format: markdown
-                    example: 'The body of Lesson 1'
+                    examples: ['The body of Lesson 1']
                 required:
                   - status
                   - response
@@ -517,19 +540,23 @@ paths:
             type: string
             default: true
           required: false
-          description: If present and not set to "true", then the lesson will be printed without the caption.
+          description: >-
+            If present and not set to "true", then the lesson will be printed
+            without the caption.
         - in: query
           name: qr
           schema:
             type: string
             default: true
           required: false
-          description: If present and not set to "true", then the lesson will be printed without the QR code.
+          description: >-
+            If present and not set to "true", then the lesson will be printed
+            without the QR code.
       responses:
         '200':
           description: The lesson as a PDF file
           content:
-            'application/pdf':
+            application/pdf:
               schema:
                 type: string
                 format: binary
@@ -547,13 +574,15 @@ paths:
         - apiKey: []
       responses:
         '200':
-          description: A list of all deleted lessons, with their most recent names. The response keys are lesson uuids.
+          description: >-
+            A list of all deleted lessons, with their most recent names. The
+            response keys are lesson uuids.
           content:
-            'aplication/json':
+            aplication/json:
               schema:
                 type: object
                 properties:
-                  status: 
+                  status:
                     type: integer
                     enum:
                       - 200
@@ -564,9 +593,8 @@ paths:
                       properties:
                         name:
                           type: string
-                          example: Lesson 1
+                          examples: ['Lesson 1']
                       required:
-
                         - name
                 required:
                   - status
@@ -595,7 +623,7 @@ paths:
         '200':
           description: A list of all versions of the lesson
           content:
-            'application/json':
+            application/json:
               schema:
                 type: object
                 properties:
@@ -610,10 +638,10 @@ paths:
                       properties:
                         name:
                           type: string
-                          example: Lesson 1
+                          examples: ['Lesson 1']
                         version:
                           type: integer
-                          example: 1
+                          examples: [1]
                       required:
                         - name
                         - version
@@ -629,7 +657,12 @@ paths:
   /deleted-lesson/{id}/history/{version}:
     get:
       summary: Get the body of a particular version of a deleted lesson
-      description: 'User role must be **administrator** or higher!<br>**Warning:** Lesson body is **not** XSS sanitized. You need to do your own sanitization - see [here](https://github.com/showdownjs/showdown/wiki/Markdown%27s-XSS-Vulnerability-(and-how-to-mitigate-it)) for more details on how to do that.'
+      description: >-
+        User role must be **administrator** or higher!<br>**Warning:** Lesson
+        body is **not** XSS sanitized. You need to do your own sanitization -
+        see
+        [here](https://github.com/showdownjs/showdown/wiki/Markdown%27s-XSS-Vulnerability-(and-how-to-mitigate-it))
+        for more details on how to do that.
       tags:
         - deleted-lesson
       security:
@@ -646,14 +679,14 @@ paths:
           name: version
           schema:
             type: integer
-            example: 1
+            examples: [1]
           required: true
           description: The version to be returned
       responses:
         '200':
           description: The body of the lesson
           content:
-            'application/json':
+            application/json:
               schema:
                 type: object
                 properties:
@@ -661,11 +694,11 @@ paths:
                     type: integer
                     enum:
                       - 200
-                    example: 200
+                    examples: [200]
                   response:
                     type: string
                     format: markdown
-                    example: 'The body of Lesson 1'
+                    examples: ['The body of Lesson 1']
                 required:
                   - status
                   - response
@@ -684,7 +717,7 @@ paths:
         '200':
           description: A list of all competences. The response keys are competence uuids.
           content:
-            'application/json':
+            application/json:
               schema:
                 type: object
                 properties:
@@ -699,13 +732,13 @@ paths:
                       properties:
                         number:
                           type: string
-                          example: 17a
+                          examples: ['17a']
                         name:
                           type: string
-                          example: A competence
+                          examples: ['A competence']
                         description:
                           type: string
-                          example: Competence description
+                          examples: ['Competence description']
                       required:
                         - number
                         - name
@@ -731,13 +764,13 @@ paths:
               properties:
                 number:
                   type: string
-                  example: 17a
+                  examples: ['17a']
                 name:
                   type: string
-                  example: A competence
+                  examples: ['A competence']
                 description:
                   type: string
-                  example: Competence description
+                  examples: ['Competence description']
               required:
                 - number
                 - name
@@ -777,13 +810,13 @@ paths:
               properties:
                 number:
                   type: string
-                  example: 17a
+                  examples: ['17a']
                 name:
                   type: string
-                  example: A competence
+                  examples: ['A competence']
                 description:
                   type: string
-                  example: Competence description
+                  examples: ['Competence description']
       responses:
         '200':
           $ref: '#/components/responses/200'
@@ -822,7 +855,11 @@ paths:
   /login:
     get:
       summary: Login to the API
-      description: This page redirects to login via [SkautIS](https://is.skaut.cz). After login, `POST /account` is called and the page redirects to a specified URL. If no URL is specified (by neither `return-uri` nor `referer`), the base URL is used.
+      description: >-
+        This page redirects to login via [SkautIS](https://is.skaut.cz). After
+        login, `POST /account` is called and the page redirects to a specified
+        URL. If no URL is specified (by neither `return-uri` nor `referer`), the
+        base URL is used.
       tags:
         - authentication
       parameters:
@@ -839,7 +876,9 @@ paths:
             type: string
             format: uri
           required: false
-          description: If (and only if) `return-uri` isn't present, the page is redirected to this URL after login.
+          description: >-
+            If (and only if) `return-uri` isn't present, the page is redirected
+            to this URL after login.
       responses:
         '302':
           description: Redirect back to the desired page
@@ -848,11 +887,13 @@ paths:
               description: Setting the auth cookies
               schema:
                 type: string
-                example: skautis_timeout=1234567890; skautis_token=1eb2adec-b262-491c-8f1b-0fc722dd7b2c; Path=/; Secure; HttpOnly
+                examples: ['skautis_timeout=1234567890; skautis_token=1eb2adec-b262-491c-8f1b-0fc722dd7b2c; Path=/; Secure; HttpOnly']
   /refresh:
     get:
       summary: Refresh the current session
-      description: Normally, the login session expires after 30 minutes. Calling this endpoint within this timeframe resets the timeout.
+      description: >-
+        Normally, the login session expires after 30 minutes. Calling this
+        endpoint within this timeframe resets the timeout.
       tags:
         - authentication
       security:
@@ -865,7 +906,11 @@ paths:
   /logout:
     get:
       summary: Logout of the API
-      description: Delete all login information. A round-trip to [SkautIS](https://is.skaut.cz) may occur. After logout, the page redirects to a specified URL. If no URL is specified by `return-uri`, the base URL is used.
+      description: >-
+        Delete all login information. A round-trip to
+        [SkautIS](https://is.skaut.cz) may occur. After logout, the page
+        redirects to a specified URL. If no URL is specified by `return-uri`,
+        the base URL is used.
       tags:
         - authentication
       parameters:
@@ -891,12 +936,14 @@ paths:
             type: string
             default: false
           required: false
-          description: If present and not set to "false", then the response won't contain the avatar field.
+          description: >-
+            If present and not set to "false", then the response won't contain
+            the avatar field.
       responses:
         '200':
           description: Account information
           content:
-            'application/json':
+            application/json:
               schema:
                 type: object
                 properties:
@@ -909,7 +956,7 @@ paths:
                     properties:
                       name:
                         type: string
-                        example: "Alice"
+                        examples: ['Alice']
                       role:
                         type: string
                         enum:
@@ -922,7 +969,7 @@ paths:
                         items:
                           type: string
                           format: uuid
-                          example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
+                          examples: ['1eb2adec-b262-491c-8f1b-0fc722dd7b2c']
                       avatar:
                         type: string
                         format: byte
@@ -936,7 +983,7 @@ paths:
         '401':
           description: No user logged in.
           content:
-            'application/json':
+            application/json:
               schema:
                 type: object
                 properties:
@@ -951,7 +998,7 @@ paths:
               description: Authentication method
               schema:
                 type: string
-                example: SkautIS
+                examples: ['SkautIS']
         '404':
           $ref: '#/components/responses/404'
         '500':
@@ -981,7 +1028,7 @@ paths:
         '200':
           description: A list of all images
           content:
-            'application/json':
+            application/json:
               schema:
                 type: object
                 properties:
@@ -994,7 +1041,7 @@ paths:
                     items:
                       type: string
                       format: uuid
-                      example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
+                      examples: ['1eb2adec-b262-491c-8f1b-0fc722dd7b2c']
                 required:
                   - status
                   - response
@@ -1018,7 +1065,6 @@ paths:
                 image:
                   type: string
                   format: binary
-                  example:
             encoding:
               image:
                 contentType: image/jpeg, image/png
@@ -1036,7 +1082,10 @@ paths:
   /image/{id}:
     get:
       summary: Get an image
-      description: Get an image in the desired quality. `original` returns the image as it was uploaded, `web` is ≤ 770×1440px, `thumbnail` is ≤ 256×256px. Both `web` and `thumbnail` return 60% quality JPEG.
+      description: >-
+        Get an image in the desired quality. `original` returns the image as it
+        was uploaded, `web` is ≤ 770×1440px, `thumbnail` is ≤ 256×256px. Both
+        `web` and `thumbnail` return 60% quality JPEG.
       tags:
         - image
       parameters:
@@ -1045,7 +1094,7 @@ paths:
           schema:
             type: string
             format: uuid
-            example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
+            examples: ['1eb2adec-b262-491c-8f1b-0fc722dd7b2c']
           required: true
           description: The id of the image
         - in: query
@@ -1058,14 +1107,18 @@ paths:
               - thumbnail
             default: web
           required: false
-          description: The desired quality. Must be one of `original`, `web` (default) or `thumbnail`.
+          description: >-
+            The desired quality. Must be one of `original`, `web` (default) or
+            `thumbnail`.
         - in: header
           name: if-modified-since
           schema:
             type: string
-            example: Mon, 07 Aug 2017 20:24:52 GMT
+            examples: ['Mon, 07 Aug 2017 20:24:52 GMT']
           required: false
-          description: If provided, `304` will be returned if the image hasn't been changed since
+          description: >-
+            If provided, `304` will be returned if the image hasn't been changed
+            since
       responses:
         '200':
           description: The desired image
@@ -1073,19 +1126,17 @@ paths:
             last-modified:
               schema:
                 type: string
-                example: Mon, 07 Aug 2017 20:24:52 GMT
+                examples: ['Mon, 07 Aug 2017 20:24:52 GMT']
               description: Date of the last modification of the image
           content:
             image/jpeg:
               schema:
                 type: string
                 format: binary
-                example:
             image/png:
               schema:
                 type: string
                 format: binary
-                example:
         '304':
           description: Not modified since `if-modified-since`.
         '404':
@@ -1125,12 +1176,18 @@ paths:
           schema:
             type: string
           required: false
-          description: If present and set to true and user role is editor, administrator or superuser, then all lessons will be returned. Otherwise, only lessons published in the groups the current user is in (or public lessons) will be returned.
+          description: >-
+            If present and set to true and user role is editor, administrator or
+            superuser, then all lessons will be returned. Otherwise, only
+            lessons published in the groups the current user is in (or public
+            lessons) will be returned.
       responses:
         '200':
-          description: A list of all fields, their names and cover images. The response keys are fields uuids.
+          description: >-
+            A list of all fields, their names and cover images. The response
+            keys are fields uuids.
           content:
-            'application/json':
+            application/json:
               schema:
                 type: object
                 properties:
@@ -1145,24 +1202,24 @@ paths:
                       properties:
                         name:
                           type: string
-                          example: Field 1
+                          examples: ['Field 1']
                         description:
                           type: string
-                          example: Description of field 1
+                          examples: ['Description of field 1']
                         image:
                           type: string
                           format: uuid
-                          example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
+                          examples: ['1eb2adec-b262-491c-8f1b-0fc722dd7b2c']
                         icon:
                           type: string
                           format: uuid
-                          example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2
+                          examples: ['1eb2adec-b262-491c-8f1b-0fc722dd7b2']
                         lessons:
                           type: array
                           items:
                             type: string
                             format: uuid
-                            example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
+                            examples: ['1eb2adec-b262-491c-8f1b-0fc722dd7b2c']
                       required:
                         - name
                         - description
@@ -1190,18 +1247,18 @@ paths:
               properties:
                 name:
                   type: string
-                  example: Field 1
+                  examples: ['Field 1']
                 description:
                   type: string
-                  example: Description of field 1
+                  examples: ['Description of field 1']
                 image:
                   type: string
                   format: uuid
-                  example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
+                  examples: ['1eb2adec-b262-491c-8f1b-0fc722dd7b2c']
                 icon:
                   type: string
                   format: uuid
-                  example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
+                  examples: ['1eb2adec-b262-491c-8f1b-0fc722dd7b2c']
               required:
                 - name
                 - description
@@ -1241,18 +1298,18 @@ paths:
               properties:
                 name:
                   type: string
-                  example: Field 1
+                  examples: ['Field 1']
                 description:
                   type: string
-                  example: Description of field 1
+                  examples: ['Description of field 1']
                 image:
                   type: string
                   format: uuid
-                  example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
+                  examples: ['1eb2adec-b262-491c-8f1b-0fc722dd7b2c']
                 icon:
                   type: string
                   format: uuid
-                  example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
+                  examples: ['1eb2adec-b262-491c-8f1b-0fc722dd7b2c']
               required:
                 - name
                 - description
@@ -1294,7 +1351,12 @@ paths:
   /user:
     get:
       summary: Get a list of users.
-      description: User role must be **editor** or higher! The list will be different depending on the role of the logged in user. Superuser will see all users. Administrator will see users and editors. Editor will see only users. This command also supports paging with the `per-page` and `page` parameters.
+      description: >-
+        User role must be **editor** or higher! The list will be different
+        depending on the role of the logged in user. Superuser will see all
+        users. Administrator will see users and editors. Editor will see only
+        users. This command also supports paging with the `per-page` and `page`
+        parameters.
       tags:
         - user
       security:
@@ -1304,9 +1366,11 @@ paths:
           name: name
           schema:
             type: string
-            example: Alice
+            examples: ['Alice']
           required: false
-          description: If present, only users with names matching this (even partialy) will be returned.
+          description: >-
+            If present, only users with names matching this (even partialy) will
+            be returned.
         - in: query
           name: per-page
           schema:
@@ -1326,10 +1390,10 @@ paths:
           schema:
             type: string
             enum:
-                - user
-                - editor
-                - administrator
-                - superuser
+              - user
+              - editor
+              - administrator
+              - superuser
           required: false
           description: If present, only users with such role will be returned
         - in: query
@@ -1343,7 +1407,7 @@ paths:
         '200':
           description: A list of users
           content:
-            'application/json':
+            application/json:
               schema:
                 type: object
                 properties:
@@ -1356,7 +1420,7 @@ paths:
                     properties:
                       count:
                         type: integer
-                        example: 3
+                        examples: [3]
                         description: Total number of entries
                       users:
                         type: array
@@ -1365,10 +1429,10 @@ paths:
                           properties:
                             id:
                               type: integer
-                              example: 150000
+                              examples: [150000]
                             name:
                               type: string
-                              example: Alice
+                              examples: ['Alice']
                             role:
                               type: string
                               enum:
@@ -1381,7 +1445,7 @@ paths:
                               items:
                                 type: string
                                 format: uuid
-                                example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
+                                examples: ['1eb2adec-b262-491c-8f1b-0fc722dd7b2c']
                           required:
                             - id
                             - name
@@ -1417,10 +1481,10 @@ paths:
               properties:
                 id:
                   type: integer
-                  example: 150000
+                  examples: [150000]
                 name:
                   type: string
-                  example: Alice
+                  examples: ['Alice']
               required:
                 - id
                 - name
@@ -1436,7 +1500,9 @@ paths:
   /user/{id}/role:
     put:
       summary: Update user's role
-      description: User role must be **administrator** or higher! Superuser can change any user, administrator may change only between editor and user.
+      description: >-
+        User role must be **administrator** or higher! Superuser can change any
+        user, administrator may change only between editor and user.
       tags:
         - user
       security:
@@ -1503,7 +1569,7 @@ paths:
                   items:
                     type: string
                     format: uuid
-                    example: 1eb2adec-b262-491c-8f1b-0fc722dd7b2c
+                    examples: ['1eb2adec-b262-491c-8f1b-0fc722dd7b2c']
               required:
                 - group
       responses:
@@ -1529,7 +1595,7 @@ paths:
         '200':
           description: A list of groups. The response keys are group uuids.
           content:
-            'application/json':
+            application/json:
               schema:
                 type: object
                 properties:
@@ -1544,10 +1610,10 @@ paths:
                       properties:
                         name:
                           type: string
-                          example: All users
+                          examples: ['All users']
                         count:
                           type: integer
-                          example: 0
+                          examples: [0]
                           description: Number of users in this group
                       required:
                         - name
@@ -1577,7 +1643,7 @@ paths:
               properties:
                 name:
                   type: string
-                  example: A group
+                  examples: ['A group']
               required:
                 - name
       responses:
@@ -1612,7 +1678,7 @@ paths:
               properties:
                 name:
                   type: string
-                  example: A group
+                  examples: ['A group']
               required:
                 - name
       responses:
@@ -1660,7 +1726,7 @@ paths:
         '200':
           description: A list of events
           content:
-            'application/json':
+            application/json:
               schema:
                 type: object
                 properties:
@@ -1675,10 +1741,10 @@ paths:
                       properties:
                         id:
                           type: integer
-                          example: 123
+                          examples: [123]
                         name:
                           type: string
-                          example: ČLK Test
+                          examples: ['ČLK Test']
                       required:
                         - id
                         - name
@@ -1708,7 +1774,7 @@ paths:
         '200':
           description: A list of participants
           content:
-            'application/json':
+            application/json:
               schema:
                 type: object
                 properties:
@@ -1723,10 +1789,10 @@ paths:
                       properties:
                         id:
                           type: integer
-                          example: 150000
+                          examples: [150000]
                         name:
                           type: string
-                          example: Alice
+                          examples: ['Alice']
                       required:
                         - id
                         - name
@@ -1744,7 +1810,11 @@ paths:
   /mutex/{id}:
     post:
       summary: Acquire a mutex
-      description: User role must be **editor** or higher! The mutex is acquired until SkautIS timeout or for 30 minutes. This operation may fail with response code **409** if somebody else has a valid (not timed-out) mutex for the same resource.
+      description: >-
+        User role must be **editor** or higher! The mutex is acquired until
+        SkautIS timeout or for 30 minutes. This operation may fail with response
+        code **409** if somebody else has a valid (not timed-out) mutex for the
+        same resource.
       tags:
         - mutex
       security:
@@ -1761,14 +1831,14 @@ paths:
           name: skautis_timeout
           schema:
             type: integer
-            example: 1234567890
+            examples: [1234567890]
           required: false
           description: SkautIS login session timeout
       responses:
         '201':
           description: Lock succesfully acquired.
           content:
-            'application/json':
+            application/json:
               schema:
                 type: object
                 properties:
@@ -1783,7 +1853,7 @@ paths:
         '409':
           description: Locked by someone else
           content:
-            'application/json':
+            application/json:
               schema:
                 type: object
                 properties:
@@ -1797,10 +1867,10 @@ paths:
                       - LockedException
                   message:
                     type: string
-                    example: An error message.
+                    examples: ['An error message.']
                   holder:
                     type: string
-                    example: Alice
+                    examples: ['Alice']
                 required:
                   - status
                   - type
@@ -1812,7 +1882,11 @@ paths:
           $ref: '#/components/responses/500'
     put:
       summary: Extend a mutex
-      description: User role must be **editor** or higher! Extend a mutex until SkautIS timeout or for 30 minutes. This operation may fail with response code **404** if the mutex has timed-out **and** somebody else has acquired it since.
+      description: >-
+        User role must be **editor** or higher! Extend a mutex until SkautIS
+        timeout or for 30 minutes. This operation may fail with response code
+        **404** if the mutex has timed-out **and** somebody else has acquired it
+        since.
       tags:
         - mutex
       security:
@@ -1829,14 +1903,14 @@ paths:
           name: skautis_timeout
           schema:
             type: integer
-            example: 1234567890
+            examples: [1234567890]
           required: false
           description: SkautIS login session timeout
       responses:
         '200':
           description: Lock succesfully extended.
           content:
-            'application/json':
+            application/json:
               schema:
                 type: object
                 properties:
@@ -1856,7 +1930,10 @@ paths:
           $ref: '#/components/responses/500'
     delete:
       summary: Release a mutex
-      description: User role must be **editor** or higher! This operation may fail with response code **404** if the mutex has timed-out **and** somebody else has acquired it since.
+      description: >-
+        User role must be **editor** or higher! This operation may fail with
+        response code **404** if the mutex has timed-out **and** somebody else
+        has acquired it since.
       tags:
         - mutex
       security:
@@ -1873,7 +1950,7 @@ paths:
         '200':
           description: Lock succesfully released.
           content:
-            'application/json':
+            application/json:
               schema:
                 type: object
                 properties:
@@ -1892,7 +1969,11 @@ paths:
   /mutex-beacon/{id}:
     post:
       summary: Release a mutex
-      description: User role must be **editor** or higher! This endpoind is intended to be used as a target for [Beacon API](https://developer.mozilla.org/en-US/docs/Web/API/Beacon_API). This operation will fail silently if anything goes wrong.
+      description: >-
+        User role must be **editor** or higher! This endpoind is intended to be
+        used as a target for [Beacon
+        API](https://developer.mozilla.org/en-US/docs/Web/API/Beacon_API). This
+        operation will fail silently if anything goes wrong.
       tags:
         - mutex
       security:
@@ -1910,10 +1991,10 @@ paths:
           description: Unknown result.
 components:
   responses:
-    200:
+    '200':
       description: Operation successful
       content:
-        'application/json':
+        application/json:
           schema:
             type: object
             properties:
@@ -1923,10 +2004,10 @@ components:
                   - 200
             required:
               - status
-    201:
+    '201':
       description: Added successfully
       content:
-        'application/json':
+        application/json:
           schema:
             type: object
             properties:
@@ -1936,10 +2017,10 @@ components:
                   - 201
             required:
               - status
-    400:
+    '400':
       description: A required argument is missing
       content:
-        'application/json':
+        application/json:
           schema:
             type: object
             properties:
@@ -1953,15 +2034,17 @@ components:
                   - MissingArgumentException
               message:
                 type: string
-                example: An error message.
+                examples: ['An error message.']
             required:
               - status
               - type
               - message
-    403:
-      description: Authentication failed. This may be caused by login timeout or insufficient role.
+    '403':
+      description: >-
+        Authentication failed. This may be caused by login timeout or
+        insufficient role.
       content:
-        'application/json':
+        application/json:
           schema:
             type: object
             properties:
@@ -1976,15 +2059,15 @@ components:
                   - RoleException
               message:
                 type: string
-                example: An error message.
+                examples: ['An error message.']
             required:
               - status
               - type
               - message
-    404:
+    '404':
       description: Resource not found
       content:
-        'application/json':
+        application/json:
           schema:
             type: object
             properties:
@@ -1998,15 +2081,15 @@ components:
                   - NotFoundException
               message:
                 type: string
-                example: An error message.
+                examples: ['An error message.']
             required:
               - status
               - type
               - message
-    412:
+    '412':
       description: Resource not locked by a mutex
       content:
-        'application/json':
+        application/json:
           schema:
             type: object
             properties:
@@ -2020,15 +2103,15 @@ components:
                   - NotLockedException
               message:
                 type: string
-                example: An error message.
+                examples: ['An error message.']
             required:
               - status
               - type
               - message
-    415:
+    '415':
       description: An argument with wrong type has been passed
       content:
-        'application/json':
+        application/json:
           schema:
             type: object
             properties:
@@ -2042,15 +2125,15 @@ components:
                   - InvalidArgumentTypeException
               message:
                 type: string
-                example: An error message.
+                examples: ['An error message.']
             required:
               - status
               - type
               - message
-    500:
+    '500':
       description: Internal server error
       content:
-        'application/json':
+        application/json:
           schema:
             type: object
             properties:
@@ -2067,7 +2150,7 @@ components:
                   - QueryException
               message:
                 type: string
-                example: An error message.
+                examples: ['An error message.']
             required:
               - status
               - type
