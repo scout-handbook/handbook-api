@@ -1990,55 +1990,224 @@ paths:
         '200':
           description: Unknown result.
 components:
+  schemas:
+    Response200:
+      type: object
+      properties:
+        status:
+          type: integer
+          enum:
+            - 200
+      required:
+        - status
+    Response201:
+      type: object
+      properties:
+        status:
+          type: integer
+          enum:
+            - 201
+      required:
+        - status
+    MissingArgumentException:
+      type: object
+      properties:
+        status:
+          type: integer
+          enum:
+            - 400
+        type:
+          type: string
+          enum:
+            - MissingArgumentException
+        message:
+          type: string
+          examples: ['An error message.']
+      required:
+        - status
+        - type
+        - message
+    AuthenticationException:
+      type: object
+      properties:
+        status:
+          type: integer
+          enum:
+            - 403
+        type:
+          type: string
+          enum:
+            - AuthenticationException
+        message:
+          type: string
+          examples: ['An error message.']
+      required:
+        - status
+        - type
+        - message
+    RoleException:
+      type: object
+      properties:
+        status:
+          type: integer
+          enum:
+            - 403
+        type:
+          type: string
+          enum:
+            - RoleException
+        message:
+          type: string
+          examples: ['An error message.']
+      required:
+        - status
+        - type
+        - message
+    NotFoundException:
+      type: object
+      properties:
+        status:
+          type: integer
+          enum:
+            - 404
+        type:
+          type: string
+          enum:
+            - NotFoundException
+        message:
+          type: string
+          examples: ['An error message.']
+      required:
+        - status
+        - type
+        - message
+    NotLockedException:
+      type: object
+      properties:
+        status:
+          type: integer
+          enum:
+            - 412
+        type:
+          type: string
+          enum:
+            - NotLockedException
+        message:
+          type: string
+          examples: ['An error message.']
+      required:
+        - status
+        - type
+        - message
+    InvalidArgumentTypeException:
+      type: object
+      properties:
+        status:
+          type: integer
+          enum:
+            - 415
+        type:
+          type: string
+          enum:
+            - InvalidArgumentTypeException
+        message:
+          type: string
+          examples: ['An error message.']
+      required:
+        - status
+        - type
+        - message
+    ConnectionException:
+      type: object
+      properties:
+        status:
+          type: integer
+          enum:
+            - 500
+        type:
+          type: string
+          enum:
+            - ConnectionException
+        message:
+          type: string
+          examples: ['An error message.']
+      required:
+        - status
+        - type
+        - message
+    Exception:
+      type: object
+      properties:
+        status:
+          type: integer
+          enum:
+            - 500
+        type:
+          type: string
+          enum:
+            - Exception
+        message:
+          type: string
+          examples: ['An error message.']
+      required:
+        - status
+        - type
+        - message
+    ExecutionException:
+      type: object
+      properties:
+        status:
+          type: integer
+          enum:
+            - 500
+        type:
+          type: string
+          enum:
+            - ExecutionException
+        message:
+          type: string
+          examples: ['An error message.']
+      required:
+        - status
+        - type
+        - message
+    QueryException:
+      type: object
+      properties:
+        status:
+          type: integer
+          enum:
+            - 500
+        type:
+          type: string
+          enum:
+            - QueryException
+        message:
+          type: string
+          examples: ['An error message.']
+      required:
+        - status
+        - type
+        - message
   responses:
     '200':
       description: Operation successful
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              status:
-                type: integer
-                enum:
-                  - 200
-            required:
-              - status
+            $ref: "#/components/schemas/Response200"
     '201':
       description: Added successfully
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              status:
-                type: integer
-                enum:
-                  - 201
-            required:
-              - status
+            $ref: "#/components/schemas/Response201"
     '400':
       description: A required argument is missing
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              status:
-                type: integer
-                enum:
-                  - 400
-              type:
-                type: string
-                enum:
-                  - MissingArgumentException
-              message:
-                type: string
-                examples: ['An error message.']
-            required:
-              - status
-              - type
-              - message
+            $ref: "#/components/schemas/MissingArgumentException"
     '403':
       description: >-
         Authentication failed. This may be caused by login timeout or
@@ -2046,115 +2215,37 @@ components:
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              status:
-                type: integer
-                enum:
-                  - 403
-              type:
-                type: string
-                enum:
-                  - AuthenticationException
-                  - RoleException
-              message:
-                type: string
-                examples: ['An error message.']
-            required:
-              - status
-              - type
-              - message
+            oneOf:
+              - $ref: "#/components/schemas/AuthenticationException"
+              - $ref: "#/components/schemas/RoleException"
     '404':
       description: Resource not found
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              status:
-                type: integer
-                enum:
-                  - 404
-              type:
-                type: string
-                enum:
-                  - NotFoundException
-              message:
-                type: string
-                examples: ['An error message.']
-            required:
-              - status
-              - type
-              - message
+            $ref: "#/components/schemas/NotFoundException"
     '412':
       description: Resource not locked by a mutex
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              status:
-                type: integer
-                enum:
-                  - 412
-              type:
-                type: string
-                enum:
-                  - NotLockedException
-              message:
-                type: string
-                examples: ['An error message.']
-            required:
-              - status
-              - type
-              - message
+            $ref: "#/components/schemas/NotLockedException"
     '415':
       description: An argument with wrong type has been passed
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              status:
-                type: integer
-                enum:
-                  - 415
-              type:
-                type: string
-                enum:
-                  - InvalidArgumentTypeException
-              message:
-                type: string
-                examples: ['An error message.']
-            required:
-              - status
-              - type
-              - message
+            $ref: "#/components/schemas/InvalidArgumentTypeException"
     '500':
       description: Internal server error
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              status:
-                type: integer
-                enum:
-                  - 500
-              type:
-                type: string
-                enum:
-                  - ConnectionException
-                  - Exception
-                  - ExecutionException
-                  - QueryException
-              message:
-                type: string
-                examples: ['An error message.']
-            required:
-              - status
-              - type
-              - message
+            oneOf:
+              - $ref: "#/components/schemas/ConnectionException"
+              - $ref: "#/components/schemas/Exception"
+              - $ref: "#/components/schemas/ExecutionException"
+              - $ref: "#/components/schemas/QueryException"
   securitySchemes:
     apiKey:
       type: apiKey
