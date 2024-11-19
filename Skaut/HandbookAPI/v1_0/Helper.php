@@ -15,7 +15,7 @@ use Skaut\HandbookAPI\v1_0\Exception\SkautISException;
 
 @_API_EXEC === 1 or die('Restricted access.');
 
-/** @SuppressWarnings(PHPMD.CouplingBetweenObjects) */
+/** @SuppressWarnings("PHPMD.CouplingBetweenObjects") */
 class Helper // Helper functions
 {
     public static function parseUuid(string $id, string $resourceName): UuidInterface
@@ -128,7 +128,7 @@ SQL;
         return false;
     }
 
-    /** @SuppressWarnings(PHPMD.ExcessiveMethodLength) */
+    /** @SuppressWarnings("PHPMD.ExcessiveMethodLength") */
     public static function urlEscape(string $str): string
     {
         $lookupTable = [
