@@ -11,7 +11,7 @@ class ConnectionException extends Exception
     protected const TYPE = 'ConnectionException';
     protected const STATUS = 500;
 
-    /** @SuppressWarnings(PHPMD.CamelCaseParameterName) */
+    /** @SuppressWarnings("PHPMD.CamelCaseParameterName") */
     public function __construct($PDOexception)
     {
         parent::__construct(

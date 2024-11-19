@@ -12,8 +12,8 @@ use Skaut\HandbookAPI\v1_0\Exception\NotFoundException;
 use Skaut\HandbookAPI\v1_0\Exception\QueryException;
 
 /**
- * @SuppressWarnings(PHPMD.TooManyPublicMethods)
- * @SuppressWarnings(PHPMD.CamelCasePropertyName)
+ * @SuppressWarnings("PHPMD.TooManyPublicMethods")
+ * @SuppressWarnings("PHPMD.CamelCasePropertyName")
  */
 class Database
 {
@@ -37,7 +37,7 @@ class Database
         self::$instanceCount += 1;
     }
 
-    /** @SuppressWarnings(PHPMD.CamelCaseParameterName) */
+    /** @SuppressWarnings("PHPMD.CamelCaseParameterName") */
     public function prepare(string $SQL): void
     {
         $this->SQL = $SQL;
