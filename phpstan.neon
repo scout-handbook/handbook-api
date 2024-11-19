@@ -10,6 +10,8 @@ parameters:
     - tests
   bootstrapFiles:
     - bootstrap.php.lint
+  dynamicConstantNames:
+    - _API_EXEC
   ignoreErrors:
     - '#Variable \$CONFIG might not be defined.#'
     - '#Variable \$_API_SECRETS_EXEC might not be defined.#'
