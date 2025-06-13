@@ -86,6 +86,7 @@
 		<exclude name="SlevomatCodingStandard.PHP.DisallowReference.DisallowedPassingByReference" />
 		<exclude name="SlevomatCodingStandard.PHP.RequireNowdoc.RequiredNowdoc" />
 		<exclude name="SlevomatCodingStandard.PHP.UselessParentheses.UselessParentheses" />
+		<exclude name="SlevomatCodingStandard.TypeHints.ClassConstantTypeHint.MissingNativeTypeHint" />
 		<exclude name="SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing" />
 		<exclude name="SlevomatCodingStandard.TypeHints.DeclareStrictTypes.IncorrectStrictTypesFormat" />
 		<exclude name="SlevomatCodingStandard.TypeHints.DeclareStrictTypes.IncorrectWhitespaceAfterDeclare" />
