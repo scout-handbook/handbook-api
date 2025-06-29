@@ -24,7 +24,7 @@ jobs:
 
       - name: "Install Composer dependencies"
         run: |
-          composer -n install
+          composer -n install --no-dev --optimize-autoloader
 
       - name: "Copy deployed files"
         run: |
