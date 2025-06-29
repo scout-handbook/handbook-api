@@ -1,0 +1,76 @@
+name: "Deploy docs"
+on:
+  push:
+    branches:
+      - master
+permissions:
+  contents: write
+env:
+  cache-version: 1
+
+jobs:
+  build:
+    name: "Build API docs"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+
+      - name: "Cache NPM dependencies"
+        uses: actions/cache@v4
+        with:
+          path: "~/.npm"
+          key: npm-dependencies-${{ runner.os }}-${{ env.cache-version }}-${{ hashFiles('package.json') }}
+          restore-keys: |
+            npm-dependencies-${{ runner.os }}-${{ env.cache-version }}-${{ hashFiles('package.json') }}
+            npm-dependencies-${{ runner.os }}-${{ env.cache-version }}-
+
+      - name: "Install NPM dependencies"
+        run: |
+          npm ci
+
+      - name: "Create build directory"
+        run: |
+          cp -r node_modules/swagger-ui-dist docs-dist
+          mkdir docs-dist/definitions
+
+      - name: "Copy over API definitions"
+        run: |
+          for dir in $(ls -d */ | grep -E "v.*\\..*" | sed 's/\/$//'); do cp $dir/open-api-spec.yaml docs-dist/definitions/$dir.yaml; done;
+
+      - name: "Change docs title"
+        run: |
+          sed -i -e "/<title>Swagger UI<\/title>/c <title>Handbook API</title>" docs-dist/index.html
+
+      - name: "Change API definitions list"
+        run: |
+          URLS=$(echo "    urls: [$(ls -d */ | grep -E "v.*\\..*" | sed 's/.$//' | awk -v ORS= '{print "{url: \"https://scout-handbook.github.io/handbook-api/definitions/" $1 ".yaml\", name: \"Version " substr($1, 2) "\"}, "}' | sed 's/..$//')],")
+          sed -i -e "/url: \"https:\/\/petstore\.swagger\.io\/v2\/swagger\.json\",/c \\${URLS}" docs-dist/swagger-initializer.js
+
+      - name: "Upload artifact"
+        uses: actions/upload-artifact@v4
+        with:
+          name: "docs-dist"
+          path: docs-dist
+
+  deploy:
+    name: "Deploy API docs"
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+
+      - name: "Download artifact"
+        uses: actions/download-artifact@v4
+        with:
+          name: "docs-dist"
+          path: docs-dist
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4.7.3
+        with:
+          branch: gh-pages
+          folder: docs-dist
+          clean: true
+          single-commit: true
