@@ -13,6 +13,7 @@ use Skaut\HandbookAPI\v1_0\Role;
 use Skaut\HandbookAPI\v1_0\Exception\InvalidArgumentTypeException;
 use Skaut\HandbookAPI\v1_0\Exception\LockedException;
 
+global $mutexEndpoint;
 $mutexEndpoint = new Endpoint();
 
 $addMutex = function (Skautis $skautis, array $data): array {
