@@ -12,7 +12,6 @@ use PHPUnit\Framework\TestCase;
 
 use Skaut\HandbookAPI\v1_0\Lesson;
 
-/** @SuppressWarnings(PHPMD.TooManyPublicMethods) */
 #[CoversClass(Lesson::class)]
 class LessonTest extends TestCase
 {

@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 use Skaut\HandbookAPI\v1_0\Exception\FileUploadException;
 
-/** @SuppressWarnings(PHPMD.TooManyPublicMethods) */
+/** @SuppressWarnings("PHPMD.TooManyPublicMethods") */
 #[CoversClass(FileUploadException::class)]
 class FileUploadExceptionTest extends TestCase
 {
