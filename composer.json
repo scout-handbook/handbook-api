@@ -55,7 +55,7 @@
             "@phpmd",
             "@phpstan"
         ],
-        "unit": [
+        "test": [
             "@phpunit"
         ],
         "post-autoload-dump": [
