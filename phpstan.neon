@@ -8,6 +8,7 @@ parameters:
   excludePaths:
     - vendor
     - tests
+    - storage/framework/views
   bootstrapFiles:
     - bootstrap.php.lint
   dynamicConstantNames:
