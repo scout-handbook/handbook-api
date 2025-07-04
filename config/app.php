@@ -183,7 +183,5 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\RouteServiceProvider::class,
-
     ],
 ];
