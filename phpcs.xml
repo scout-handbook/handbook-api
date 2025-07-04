@@ -61,6 +61,7 @@
 		<exclude name="SlevomatCodingStandard.Files.FunctionLength.FunctionLength" />
 		<exclude name="SlevomatCodingStandard.Files.LineLength.LineTooLong" />
 		<exclude name="SlevomatCodingStandard.Files.TypeNameMatchesFileName.NoMatchBetweenTypeNameAndFileName" />
+		<exclude name="SlevomatCodingStandard.Functions.DisallowNamedArguments.DisallowedNamedArgument" />
 		<exclude name="SlevomatCodingStandard.Functions.DisallowTrailingCommaInClosureUse.DisallowedTrailingComma" />
 		<exclude name="SlevomatCodingStandard.Functions.DisallowTrailingCommaInDeclaration.DisallowedTrailingComma" />
 		<exclude name="SlevomatCodingStandard.Functions.FunctionLength.FunctionLength" />
