@@ -40,7 +40,8 @@ class OdyMarkdown extends GithubMarkdown
     // Image rendering in original quality
     protected function renderImage($block): string
     {
-        global $CONFIG;
+        require($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
+
         if (isset($block['refkey'])) {
             if (($ref = $this->lookupReference($block['refkey'])) !== false) {
                 $block = array_merge($block, $ref);
