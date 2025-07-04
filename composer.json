@@ -18,24 +18,33 @@
     "require": {
         "php": "^8.0",
         "cebe/markdown": "^1.2",
+        "laravel/framework": "^10.0",
         "mpdf/mpdf": "^8.0",
         "ramsey/uuid": "^4.1",
         "skautis/skautis": "^2.1",
         "mpdf/qrcode": "^1.2"
     },
     "require-dev": {
+        "mockery/mockery": "^1.4.4",
         "phpcompatibility/php-compatibility": "^9.0",
         "phpmd/phpmd": "^2.6",
         "phpstan/phpstan": "^2.0.2",
         "phpunit/phpunit": "^10.0",
         "slevomat/coding-standard": "^8.8",
+        "spatie/laravel-ignition": "^2.0",
         "squizlabs/php_codesniffer": "^3.3"
     },
-        "autoload": {
-            "psr-4": {
-                "Skaut\\": "Skaut/"
-            }
-        },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Skaut\\": "legacy/Skaut/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
     "scripts": {
         "phpcs": "vendor/bin/phpcs",
         "phpmd": "vendor/bin/phpmd ./ text phpmd.xml --exclude vendor",
@@ -46,8 +55,21 @@
             "@phpmd",
             "@phpstan"
         ],
-        "unit": [
+        "test": [
             "@phpunit"
+        ],
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "post-update-cmd": [
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi"
         ]
     },
     "config": {
