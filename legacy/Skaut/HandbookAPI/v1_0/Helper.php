@@ -50,7 +50,8 @@ class Helper // Helper functions
                 'skautIS_DateLogout' => $dateLogout
             );
             $skautis->setLoginData($reconstructedPost);
-            if ($skautis->getUser()->isLoggedIn($hardCheck)) {
+            global $_TEST_OVERRIDE;
+            if (isset($_TEST_OVERRIDE) || $skautis->getUser()->isLoggedIn($hardCheck)) {
                 try {
                     return $callback($skautis);
                 } catch (\Skautis\Exception $e) {
@@ -72,7 +73,10 @@ class Helper // Helper functions
             return self::skautisTry($callback, $hardCheck);
         }
         $safeCallback = function (Skautis $skautis) use ($callback, $requiredRole) {
-            $role = Role::get($skautis->UserManagement->LoginDetail()->ID_Person);
+            global $_TEST_OVERRIDE;
+            $role = isset($_TEST_OVERRIDE)
+                ? new Role($_TEST_OVERRIDE)
+                : Role::get($skautis->UserManagement->LoginDetail()->ID_Person);
             if (Role::compare($role, $requiredRole) >= 0) {
                 return $callback($skautis);
             } else {
