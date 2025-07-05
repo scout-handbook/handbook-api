@@ -8,6 +8,7 @@
   <coverage>
     <report>
       <clover outputFile="clover.xml"/>
+      <html outputDirectory="coverage" />
       <text outputFile="php://stdout" showUncoveredFiles="false"/>
     </report>
   </coverage>
