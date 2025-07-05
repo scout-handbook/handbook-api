@@ -49,6 +49,7 @@
         "phpcs": "vendor/bin/phpcs",
         "phpmd": "vendor/bin/phpmd ./ text phpmd.xml --exclude vendor",
         "phpstan": "php -d memory_limit=-1 vendor/bin/phpstan analyse",
+        "phpunit:clean": "rm -f tests/db.sqlite*",
         "phpunit": "vendor/bin/phpunit",
         "lint": [
             "@phpcs",
@@ -56,6 +57,7 @@
             "@phpstan"
         ],
         "test": [
+            "@phpunit:clean",
             "@phpunit"
         ],
         "post-autoload-dump": [
