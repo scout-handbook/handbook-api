@@ -37,6 +37,6 @@ class LegacyController extends Controller
         require __DIR__ . '/../../../legacy/' . $url_base . '.php';
         $output = ob_get_clean();
 
-        return new Response($output);
+        return new Response($output, http_response_code());
     }
 }
