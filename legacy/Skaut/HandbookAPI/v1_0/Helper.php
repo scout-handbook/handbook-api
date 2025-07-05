@@ -40,7 +40,7 @@ class Helper // Helper functions
         if (isset($_COOKIE['skautis_token']) and isset($_COOKIE['skautis_timeout'])) {
             $dateLogout = \DateTime::createFromFormat('U', $_COOKIE['skautis_timeout']);
             if (!$dateLogout) {
-                $dateLogout = (new \DateTime('now', new \DateTimeZone('UTC')))->add(new \DateInterval('10M'));
+                $dateLogout = (new \DateTime('now', new \DateTimeZone('UTC')))->add(new \DateInterval('P10M'));
             }
             $dateLogout = $dateLogout->setTimezone(new \DateTimeZone('Europe/Prague'))->format('j. n. Y H:i:s');
             $reconstructedPost = array(
