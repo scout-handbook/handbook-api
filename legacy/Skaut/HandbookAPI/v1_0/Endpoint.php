@@ -201,7 +201,12 @@ class Endpoint
         $data = [];
         switch ($method) {
             case 'PUT':
-                mb_parse_str(file_get_contents("php://input") ?: '', $data);
+                $input = file_get_contents("php://input");
+                if ($input) {
+                    mb_parse_str($input, $data);
+                } else {
+                    $data = $_POST;
+                }
                 break;
             case 'POST':
                 $data = $_POST;

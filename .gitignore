@@ -194,11 +194,9 @@ tags
 
 # End of https://www.toptal.com/developers/gitignore/api/vim,node,composer,laravel
 
-api-config.php
-api-secrets.php
+/api-config.php
+/api-secrets.php
 
-!tests/*/api-config.php
-!tests/*/api-secrets.php
-
+tests/db.sqlite*
 .phpunit.cache/
 clover.xml
