@@ -50,7 +50,7 @@ class LegacyEndpointTestCase extends TestCase
             $_COOKIE['skautis_token'] = 'TOKEN';
             $_COOKIE['skautis_timeout'] =
                 (new \DateTime('now', new \DateTimeZone('UTC')))
-                ->add(new \DateInterval('P10M'))
+                ->add(new \DateInterval('PT10M'))
                 ->format('U');
         }
         $_SERVER['REQUEST_METHOD'] = 'POST';
