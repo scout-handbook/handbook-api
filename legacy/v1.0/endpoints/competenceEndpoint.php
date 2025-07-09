@@ -2,28 +2,27 @@
 
 declare(strict_types=1);
 
-@_API_EXEC === 1 or die('Restricted access.');
+@_API_EXEC === 1 or exit('Restricted access.');
 
 use Ramsey\Uuid\Uuid;
-use Skautis\Skautis;
-
 use Skaut\HandbookAPI\v1_0\Competence;
 use Skaut\HandbookAPI\v1_0\Database;
 use Skaut\HandbookAPI\v1_0\Endpoint;
-use Skaut\HandbookAPI\v1_0\Helper;
-use Skaut\HandbookAPI\v1_0\Role;
 use Skaut\HandbookAPI\v1_0\Exception\MissingArgumentException;
 use Skaut\HandbookAPI\v1_0\Exception\NotFoundException;
+use Skaut\HandbookAPI\v1_0\Helper;
+use Skaut\HandbookAPI\v1_0\Role;
+use Skautis\Skautis;
 
-$competenceEndpoint = new Endpoint();
+$competenceEndpoint = new Endpoint;
 
 $listCompetences = function (): array {
-    $SQL = <<<SQL
+    $SQL = <<<'SQL'
 SELECT `id`, `number`, `name`, `description`
 FROM `competences`
 SQL;
 
-    $db = new Database();
+    $db = new Database;
     $db->prepare($SQL);
     $db->execute();
     $id = '';
@@ -39,20 +38,21 @@ SQL;
         $competences[Uuid::fromBytes($id)->toString()] =
             new Competence(strval($number), strval($name), strval($description));
     }
+
     return ['status' => 200, 'response' => $competences];
 };
 $competenceEndpoint->setListMethod(new Role('guest'), $listCompetences);
 
 $addCompetence = function (Skautis $skautis, array $data): array {
-    $SQL = <<<SQL
+    $SQL = <<<'SQL'
 INSERT INTO `competences` (`id`, `number`, `name`, `description`)
 VALUES (:id, :number, :name, :description);
 SQL;
 
-    if (!isset($data['number'])) {
+    if (! isset($data['number'])) {
         throw new MissingArgumentException(MissingArgumentException::POST, 'number');
     }
-    if (!isset($data['name'])) {
+    if (! isset($data['name'])) {
         throw new MissingArgumentException(MissingArgumentException::POST, 'name');
     }
     $number = $data['number'];
@@ -63,24 +63,25 @@ SQL;
     }
     $uuid = Uuid::uuid4()->getBytes();
 
-    $db = new Database();
+    $db = new Database;
     $db->prepare($SQL);
     $db->bindParam(':id', $uuid, PDO::PARAM_STR);
     $db->bindParam(':number', $number, PDO::PARAM_STR);
     $db->bindParam(':name', $name, PDO::PARAM_STR);
     $db->bindParam(':description', $description, PDO::PARAM_STR);
     $db->execute();
+
     return ['status' => 201];
 };
 $competenceEndpoint->setAddMethod(new Role('administrator'), $addCompetence);
 
 $updateCompetence = function (Skautis $skautis, array $data): array {
-    $selectSQL = <<<SQL
+    $selectSQL = <<<'SQL'
 SELECT `number`, `name`, `description`
 FROM `competences`
 WHERE `id` = :id;
 SQL;
-    $updateSQL = <<<SQL
+    $updateSQL = <<<'SQL'
 UPDATE `competences`
 SET `number` = :number, `name` = :name, `description` = :description
 WHERE `id` = :id
@@ -98,9 +99,9 @@ SQL;
         $description = $data['description'];
     }
 
-    $db = new Database();
+    $db = new Database;
 
-    if (!isset($number) or !isset($name) or !isset($description)) {
+    if (! isset($number) or ! isset($name) or ! isset($description)) {
         $db->prepare($selectSQL);
         $db->bindParam(':id', $id, PDO::PARAM_STR);
         $db->execute();
@@ -111,13 +112,13 @@ SQL;
         $db->bindColumn('name', $origName);
         $db->bindColumn('description', $origDescription);
         $db->fetchRequire('competence');
-        if (!isset($number)) {
+        if (! isset($number)) {
             $number = $origNumber;
         }
-        if (!isset($name)) {
+        if (! isset($name)) {
             $name = $origName;
         }
-        if (!isset($description)) {
+        if (! isset($description)) {
             $description = $origDescription;
         }
     }
@@ -132,16 +133,17 @@ SQL;
     $db->execute();
 
     $db->endTransaction();
+
     return ['status' => 200];
 };
 $competenceEndpoint->setUpdateMethod(new Role('administrator'), $updateCompetence);
 
 $deleteCompetence = function (Skautis $skautis, array $data): array {
-    $deleteLessonsSQL = <<<SQL
+    $deleteLessonsSQL = <<<'SQL'
 DELETE FROM `competences_for_lessons`
 WHERE `competence_id` = :competence_id;
 SQL;
-    $deleteSQL = <<<SQL
+    $deleteSQL = <<<'SQL'
 DELETE FROM `competences`
 WHERE `id` = :id
 LIMIT 1;
@@ -149,7 +151,7 @@ SQL;
 
     $id = Helper::parseUuid($data['id'], 'competence')->getBytes();
 
-    $db = new Database();
+    $db = new Database;
     $db->beginTransaction();
 
     $db->prepare($deleteLessonsSQL);
@@ -161,10 +163,11 @@ SQL;
     $db->execute();
 
     if ($db->rowCount() != 1) {
-        throw new NotFoundException("competence");
+        throw new NotFoundException('competence');
     }
 
     $db->endTransaction();
+
     return ['status' => 200];
 };
 $competenceEndpoint->setDeleteMethod(new Role('administrator'), $deleteCompetence);

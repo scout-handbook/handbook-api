@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Skaut\HandbookAPI\v1_0;
 
-@_API_EXEC === 1 or die('Restricted access.');
+@_API_EXEC === 1 or exit('Restricted access.');
 
 use Ramsey\Uuid\Uuid;
-
-use Skaut\HandbookAPI\v1_0\Helper;
 
 class Lesson implements \JsonSerializable
 {
     private $name;
+
     private $version;
+
     private $competences;
 
     public function __construct(string $name, float $version)
@@ -43,7 +43,7 @@ class Lesson implements \JsonSerializable
         return [
             'name' => $this->name,
             'version' => $this->version,
-            'competences' => $this->competences
+            'competences' => $this->competences,
         ];
     }
 }

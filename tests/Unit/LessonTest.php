@@ -9,21 +9,21 @@ global $CONFIG;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
-
 use Skaut\HandbookAPI\v1_0\Lesson;
 
 #[CoversClass(Lesson::class)]
 class LessonTest extends TestCase
 {
-    public function testCtor(): Lesson
+    public function test_ctor(): Lesson
     {
         $lesson = new Lesson('lname', 123.4567);
         $this->assertInstanceOf('\Skaut\HandbookAPI\v1_0\Lesson', $lesson);
+
         return $lesson;
     }
 
-    #[Depends("testCtor")]
-    public function testJsonSerializeNoCompetences(Lesson $lesson): void
+    #[Depends('test_ctor')]
+    public function test_json_serialize_no_competences(Lesson $lesson): void
     {
         $this->assertJsonStringEqualsJsonString(
             '{"name":"lname","version":123457,"competences":[]}',
@@ -31,7 +31,7 @@ class LessonTest extends TestCase
         );
     }
 
-    public function testJsonSerializeCompetences(): void
+    public function test_json_serialize_competences(): void
     {
         $lesson = new Lesson('lname', 123.4567);
         $lesson->addCompetence(pack('H*', '1739a63ab2544a959508103b7c80bcdb'));

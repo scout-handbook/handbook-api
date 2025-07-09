@@ -2,25 +2,24 @@
 
 declare(strict_types=1);
 
-@_API_EXEC === 1 or die('Restricted access.');
+@_API_EXEC === 1 or exit('Restricted access.');
 
 use Ramsey\Uuid\Uuid;
-use Skautis\Skautis;
-
 use Skaut\HandbookAPI\v1_0\Database;
 use Skaut\HandbookAPI\v1_0\Endpoint;
 use Skaut\HandbookAPI\v1_0\Helper;
 use Skaut\HandbookAPI\v1_0\Role;
+use Skautis\Skautis;
 
-$lessonGroupEndpoint = new Endpoint();
+$lessonGroupEndpoint = new Endpoint;
 
 $listLessonGroups = function (Skautis $skautis, array $data): array {
-    $SQL = <<<SQL
+    $SQL = <<<'SQL'
 SELECT `group_id` FROM `groups_for_lessons`
 WHERE `lesson_id` = :lesson_id;
 SQL;
 
-    $db = new Database();
+    $db = new Database;
     $db->prepare($SQL);
     $id = Helper::parseUuid($data['parent-id'], 'lesson')->getBytes();
     $db->bindParam(':lesson_id', $id, PDO::PARAM_STR);
@@ -31,16 +30,17 @@ SQL;
     while ($db->fetch()) {
         $groups[] = Uuid::fromBytes(strval($group_id));
     }
+
     return ['status' => 200, 'response' => $groups];
 };
 $lessonGroupEndpoint->setListMethod(new Role('editor'), $listLessonGroups);
 
 $updateLessonGroups = function (Skautis $skautis, array $data): array {
-    $deleteSQL = <<<SQL
+    $deleteSQL = <<<'SQL'
 DELETE FROM `groups_for_lessons`
 WHERE `lesson_id` = :lesson_id;
 SQL;
-    $insertSQL = <<<SQL
+    $insertSQL = <<<'SQL'
 INSERT INTO `groups_for_lessons` (`lesson_id`, `group_id`)
 VALUES (:lesson_id, :group_id);
 SQL;
@@ -53,7 +53,7 @@ SQL;
         }
     }
 
-    $db = new Database();
+    $db = new Database;
     $db->beginTransaction();
 
     $db->prepare($deleteSQL);
@@ -64,9 +64,10 @@ SQL;
     foreach ($groups as $group) {
         $db->bindParam(':lesson_id', $id, PDO::PARAM_STR);
         $db->bindParam(':group_id', $group, PDO::PARAM_STR);
-        $db->execute("lesson or group");
+        $db->execute('lesson or group');
     }
     $db->endTransaction();
+
     return ['status' => 200];
 };
 $lessonGroupEndpoint->setUpdateMethod(new Role('editor'), $updateLessonGroups);

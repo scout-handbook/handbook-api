@@ -12,7 +12,7 @@ class CompetenceEndpointTest extends LegacyEndpointTestCase
     {
         parent::setUp();
 
-        $SQL1 = <<<SQL
+        $SQL1 = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `competences` (
   `id` binary(16) NOT NULL,
   `number` varchar(15) NOT NULL,
@@ -21,13 +21,13 @@ CREATE TABLE IF NOT EXISTS `competences` (
   PRIMARY KEY (`id`)
 );
 SQL;
-        $SQL2 = <<<SQL
+        $SQL2 = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `competences_for_lessons` (
   `lesson_id` binary(16) NOT NULL,
   `competence_id` binary(16) NOT NULL
 );
 SQL;
-        $db = new Database();
+        $db = new Database;
         $db->prepare($SQL1);
         $db->execute();
         $db->prepare($SQL2);
@@ -38,20 +38,20 @@ SQL;
     {
         parent::tearDownAfterClass();
 
-        $SQL1 = <<<SQL
+        $SQL1 = <<<'SQL'
 DROP TABLE `competences`;
 SQL;
-        $SQL2 = <<<SQL
+        $SQL2 = <<<'SQL'
 DROP TABLE `competences_for_lessons`;
 SQL;
-        $db = new Database();
+        $db = new Database;
         $db->prepare($SQL1);
         $db->execute();
         $db->prepare($SQL2);
         $db->execute();
     }
 
-    public function testEmptyList(): void
+    public function test_empty_list(): void
     {
         $response = $this->get('v1.0/competence');
 
@@ -59,7 +59,7 @@ SQL;
         $response->assertExactJson(['status' => 200, 'response' => []]);
     }
 
-    public function testAddCompetence(): void
+    public function test_add_competence(): void
     {
         $response = $this->post('v1.0/competence', ['name' => 'Nová kompetence', 'number' => 42], [], 'administrator');
 
@@ -67,7 +67,7 @@ SQL;
         $response->assertExactJson(['status' => 201]);
     }
 
-    public function testList(): void
+    public function test_list(): void
     {
         $response = $this->get('v1.0/competence');
 
@@ -76,7 +76,7 @@ SQL;
         $response->assertJsonFragment(['number' => '42', 'name' => 'Nová kompetence', 'description' => '']);
     }
 
-    public function testAddCompetenceWithoutAuth(): void
+    public function test_add_competence_without_auth(): void
     {
         $response = $this->post('v1.0/competence', ['number' => 42], []);
 
@@ -85,12 +85,12 @@ SQL;
             [
                 'status' => 403,
                 'type' => 'AuthenticationException',
-                'message' => 'Authentication failed.'
+                'message' => 'Authentication failed.',
             ]
         );
     }
 
-    public function testAddCompetenceWithoutName(): void
+    public function test_add_competence_without_name(): void
     {
         $response = $this->post('v1.0/competence', ['number' => 42], [], 'administrator');
 
@@ -99,12 +99,12 @@ SQL;
             [
                 'status' => 400,
                 'type' => 'MissingArgumentException',
-                'message' => 'POST argument "name" must be provided.'
+                'message' => 'POST argument "name" must be provided.',
             ]
         );
     }
 
-    public function testAddCompetenceWithoutNumber(): void
+    public function test_add_competence_without_number(): void
     {
         $response = $this->post('v1.0/competence', ['name' => 'Nová kompetence'], [], 'administrator');
 
@@ -113,12 +113,12 @@ SQL;
             [
                 'status' => 400,
                 'type' => 'MissingArgumentException',
-                'message' => 'POST argument "number" must be provided.'
+                'message' => 'POST argument "number" must be provided.',
             ]
         );
     }
 
-    public function testAddCompetenceWithDescription(): void
+    public function test_add_competence_with_description(): void
     {
         $response = $this->post(
             'v1.0/competence',
@@ -131,7 +131,7 @@ SQL;
         $response->assertExactJson(['status' => 201]);
     }
 
-    public function testList2(): void
+    public function test_list2(): void
     {
         $response = $this->get('v1.0/competence');
 
@@ -141,7 +141,7 @@ SQL;
         $response->assertJsonFragment(['number' => '43', 'name' => 'Nová kompetence 2', 'description' => 'Popis']);
     }
 
-    public function testUpdateCompetence(): void
+    public function test_update_competence(): void
     {
         $response = $this->get('v1.0/competence', [], []);
 
@@ -156,7 +156,7 @@ SQL;
         );
 
         $response = $this->put(
-            'v1.0/competence/' . $competenceId,
+            'v1.0/competence/'.$competenceId,
             ['description' => 'Nový popis'],
             [],
             'administrator'
@@ -171,7 +171,7 @@ SQL;
         $response->assertJsonFragment(['number' => '42', 'name' => 'Nová kompetence', 'description' => 'Nový popis']);
     }
 
-    public function testUpdateCompetenceWithoutAuth(): void
+    public function test_update_competence_without_auth(): void
     {
         $response = $this->get('v1.0/competence', [], []);
 
@@ -179,7 +179,7 @@ SQL;
         $competenceId = key($response['response']);
 
         $response = $this->put(
-            'v1.0/competence/' . $competenceId,
+            'v1.0/competence/'.$competenceId,
             ['description' => 'Nový popis'],
             []
         );
@@ -189,12 +189,12 @@ SQL;
             [
                 'status' => 403,
                 'type' => 'AuthenticationException',
-                'message' => 'Authentication failed.'
+                'message' => 'Authentication failed.',
             ]
         );
     }
 
-    public function testUpdateNonexistentCompetence(): void
+    public function test_update_nonexistent_competence(): void
     {
         $response = $this->put(
             'v1.0/competence/missing',
@@ -208,12 +208,12 @@ SQL;
             [
                 'status' => 404,
                 'type' => 'NotFoundException',
-                'message' => 'No such competence has been found.'
+                'message' => 'No such competence has been found.',
             ]
         );
     }
 
-    public function testDeleteCompetence(): void
+    public function test_delete_competence(): void
     {
         $response = $this->get('v1.0/competence', [], []);
 
@@ -227,7 +227,7 @@ SQL;
             )
         );
 
-        $response = $this->delete('v1.0/competence/' . $competenceId, [], [], 'administrator');
+        $response = $this->delete('v1.0/competence/'.$competenceId, [], [], 'administrator');
 
         $response->assertStatus(200);
         $response->assertExactJson(['status' => 200]);
@@ -238,26 +238,26 @@ SQL;
         $response->assertJsonMissing(['number' => '42', 'name' => 'Nová kompetence', 'description' => '']);
     }
 
-    public function testDeleteCompetenceWithoutAuthentication(): void
+    public function test_delete_competence_without_authentication(): void
     {
         $response = $this->get('v1.0/competence', [], []);
 
         $response->assertStatus(200);
         $competenceId = key($response['response']);
 
-        $response = $this->delete('v1.0/competence/' . $competenceId, [], []);
+        $response = $this->delete('v1.0/competence/'.$competenceId, [], []);
 
         $response->assertStatus(403);
         $response->assertExactJson(
             [
                 'status' => 403,
                 'type' => 'AuthenticationException',
-                'message' => 'Authentication failed.'
+                'message' => 'Authentication failed.',
             ]
         );
     }
 
-    public function testDeleteNonexistentCompetence(): void
+    public function test_delete_nonexistent_competence(): void
     {
         $response = $this->delete('v1.0/competence/nonexistent', [], [], 'administrator');
 
@@ -266,7 +266,7 @@ SQL;
             [
                 'status' => 404,
                 'type' => 'NotFoundException',
-                'message' => 'No such competence has been found.'
+                'message' => 'No such competence has been found.',
             ]
         );
     }
