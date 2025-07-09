@@ -108,7 +108,7 @@ final class CompetenceEndpointTest extends LegacyEndpointTestCase
         $competenceId = key(
             array_filter(
                 $response['response'],
-                fn ($competence) => $competence['number'] === '42',
+                static fn ($competence) => $competence['number'] === '42',
             ),
         );
 
@@ -178,7 +178,7 @@ final class CompetenceEndpointTest extends LegacyEndpointTestCase
         $competenceId = key(
             array_filter(
                 $response['response'],
-                fn ($competence) => $competence['number'] === '42',
+                static fn ($competence) => $competence['number'] === '42',
             ),
         );
 
