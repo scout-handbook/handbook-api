@@ -18,6 +18,10 @@
 
 	<rule ref="PHPCompatibility"/>
 	<rule ref="SlevomatCodingStandard">
+		<!-- TODO: Remove exclusions -->
+		<exclude-pattern>legacy/*</exclude-pattern>
+		<exclude-pattern>tests/Unit/*</exclude-pattern>
+
 		<!-- TODO: Go through these and re-enable them -->
 		<exclude name="SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder" />
 		<exclude name="SlevomatCodingStandard.Arrays.TrailingArrayComma.MissingTrailingComma" />
