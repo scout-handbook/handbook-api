@@ -145,7 +145,7 @@ SQL;
 
     public function test_update_competence(): void
     {
-        $response = $this->get('v1.0/competence', [], []);
+        $response = $this->get('v1.0/competence', []);
 
         $response->assertStatus(200);
         $competenceId = key(
@@ -175,7 +175,7 @@ SQL;
 
     public function test_update_competence_without_auth(): void
     {
-        $response = $this->get('v1.0/competence', [], []);
+        $response = $this->get('v1.0/competence', []);
 
         $response->assertStatus(200);
         $competenceId = key($response['response']);
@@ -217,7 +217,7 @@ SQL;
 
     public function test_delete_competence(): void
     {
-        $response = $this->get('v1.0/competence', [], []);
+        $response = $this->get('v1.0/competence', []);
 
         $response->assertStatus(200);
         $competenceId = key(
@@ -242,7 +242,7 @@ SQL;
 
     public function test_delete_competence_without_authentication(): void
     {
-        $response = $this->get('v1.0/competence', [], []);
+        $response = $this->get('v1.0/competence', []);
 
         $response->assertStatus(200);
         $competenceId = key($response['response']);

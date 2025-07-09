@@ -8,12 +8,13 @@ use Illuminate\Testing\TestResponse;
 
 class LegacyEndpointTestCase extends TestCase
 {
-    /*
+    /**
      * @param  \Illuminate\Support\Uri|string  $uri
-     * @param  array  $headers
-     * @param  string|null $overrideRole
+     * @param  array<string, string>  $headers
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
-    public function get($uri, array $headers = [], $overrideRole = null): TestResponse
+    public function get($uri, array $headers = [], ?string $overrideRole = null): TestResponse
     {
         global $_TEST_OVERRIDE;
         if ($overrideRole !== null) {
@@ -36,13 +37,14 @@ class LegacyEndpointTestCase extends TestCase
         return $response;
     }
 
-    /*
+    /**
      * @param  \Illuminate\Support\Uri|string  $uri
-     * @param  array  $data
-     * @param  array  $headers
-     * @param  string|null $overrideRole
+     * @param  array<string, string>  $data
+     * @param  array<string, string>  $headers
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
-    public function post($uri, array $data = [], array $headers = [], $overrideRole = null): TestResponse
+    public function post($uri, array $data = [], array $headers = [], ?string $overrideRole = null): TestResponse
     {
         global $_TEST_OVERRIDE;
         if ($overrideRole !== null) {
@@ -67,13 +69,14 @@ class LegacyEndpointTestCase extends TestCase
         return $response;
     }
 
-    /*
+    /**
      * @param  \Illuminate\Support\Uri|string  $uri
-     * @param  array  $data
-     * @param  array  $headers
-     * @param  string|null $overrideRole
+     * @param  array<string, string>  $data
+     * @param  array<string, string>  $headers
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
-    public function put($uri, array $data = [], array $headers = [], $overrideRole = null): TestResponse
+    public function put($uri, array $data = [], array $headers = [], ?string $overrideRole = null): TestResponse
     {
         global $_TEST_OVERRIDE;
         if ($overrideRole !== null) {
@@ -98,13 +101,14 @@ class LegacyEndpointTestCase extends TestCase
         return $response;
     }
 
-    /*
+    /**
      * @param  \Illuminate\Support\Uri|string  $uri
-     * @param  array  $data
-     * @param  array  $headers
-     * @param  string|null $overrideRole
+     * @param  array<string, string>  $data
+     * @param  array<string, string>  $headers
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
-    public function delete($uri, array $data = [], array $headers = [], $overrideRole = null): TestResponse
+    public function delete($uri, array $data = [], array $headers = [], ?string $overrideRole = null): TestResponse
     {
         global $_TEST_OVERRIDE;
         if ($overrideRole !== null) {
