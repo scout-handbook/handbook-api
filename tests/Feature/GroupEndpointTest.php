@@ -45,7 +45,7 @@ final class GroupEndpointTest extends LegacyEndpointTestCase
                 'message' => 'Authentication failed.',
                 'status' => 403,
                 'type' => 'AuthenticationException',
-            ]
+            ],
         );
     }
 
@@ -59,7 +59,7 @@ final class GroupEndpointTest extends LegacyEndpointTestCase
                 'message' => 'Authentication failed.',
                 'status' => 403,
                 'type' => 'AuthenticationException',
-            ]
+            ],
         );
     }
 
@@ -73,7 +73,7 @@ final class GroupEndpointTest extends LegacyEndpointTestCase
                 'message' => 'POST argument "name" must be provided.',
                 'status' => 400,
                 'type' => 'MissingArgumentException',
-            ]
+            ],
         );
     }
 
@@ -88,7 +88,7 @@ final class GroupEndpointTest extends LegacyEndpointTestCase
             'v1.0/group/'.$groupId,
             ['name' => 'Změněná skupina'],
             [],
-            'administrator'
+            'administrator',
         );
 
         $response->assertStatus(200);
@@ -109,7 +109,7 @@ final class GroupEndpointTest extends LegacyEndpointTestCase
             'v1.0/group/'.$groupId,
             [],
             [],
-            'administrator'
+            'administrator',
         );
 
         $response->assertStatus(400);
@@ -118,7 +118,7 @@ final class GroupEndpointTest extends LegacyEndpointTestCase
                 'message' => 'POST argument "name" must be provided.',
                 'status' => 400,
                 'type' => 'MissingArgumentException',
-            ]
+            ],
         );
     }
 
@@ -137,7 +137,7 @@ final class GroupEndpointTest extends LegacyEndpointTestCase
                 'message' => 'Authentication failed.',
                 'status' => 403,
                 'type' => 'AuthenticationException',
-            ]
+            ],
         );
     }
 
@@ -147,7 +147,7 @@ final class GroupEndpointTest extends LegacyEndpointTestCase
             'v1.0/group/nonexistent',
             ['name' => 'Nová skupina'],
             [],
-            'administrator'
+            'administrator',
         );
 
         $response->assertStatus(404);
@@ -156,7 +156,7 @@ final class GroupEndpointTest extends LegacyEndpointTestCase
                 'message' => 'No such group has been found.',
                 'status' => 404,
                 'type' => 'NotFoundException',
-            ]
+            ],
         );
     }
 
@@ -173,7 +173,7 @@ final class GroupEndpointTest extends LegacyEndpointTestCase
                 'message' => 'Authentication failed.',
                 'status' => 403,
                 'type' => 'AuthenticationException',
-            ]
+            ],
         );
     }
 
@@ -200,7 +200,7 @@ final class GroupEndpointTest extends LegacyEndpointTestCase
                 'message' => 'No such group has been found.',
                 'status' => 404,
                 'type' => 'NotFoundException',
-            ]
+            ],
         );
     }
 

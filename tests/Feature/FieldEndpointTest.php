@@ -29,7 +29,7 @@ final class FieldEndpointTest extends LegacyEndpointTestCase
                 'name' => 'Testovací oblast',
             ],
             [],
-            'administrator'
+            'administrator',
         );
 
         $response->assertStatus(201);
@@ -82,7 +82,7 @@ final class FieldEndpointTest extends LegacyEndpointTestCase
                 'name' => 'Změněná oblast',
             ],
             [],
-            'administrator'
+            'administrator',
         );
 
         $response->assertStatus(200);
@@ -95,7 +95,7 @@ final class FieldEndpointTest extends LegacyEndpointTestCase
                 'icon' => '00000000-0000-0000-0000-000000000001',
                 'image' => '00000000-0000-0000-0000-000000000001',
                 'name' => 'Změněná oblast',
-            ]
+            ],
         );
     }
 
@@ -110,7 +110,7 @@ final class FieldEndpointTest extends LegacyEndpointTestCase
             'v1.0/field/'.$fieldId,
             [],
             [],
-            'administrator'
+            'administrator',
         );
 
         $response->assertStatus(400);
@@ -144,7 +144,7 @@ final class FieldEndpointTest extends LegacyEndpointTestCase
             'v1.0/field/nonexistent',
             ['name' => 'Nová oblast'],
             [],
-            'administrator'
+            'administrator',
         );
 
         $response->assertStatus(404);

@@ -25,7 +25,6 @@
 		<!-- TODO: Go through these and re-enable them -->
 		<exclude name="SlevomatCodingStandard.Complexity.Cognitive.ComplexityTooHigh" />
 		<exclude name="SlevomatCodingStandard.Functions.DisallowNamedArguments.DisallowedNamedArgument" />
-		<exclude name="SlevomatCodingStandard.Functions.RequireTrailingCommaInCall.MissingTrailingComma" />
 		<exclude name="SlevomatCodingStandard.Functions.StaticClosure.ClosureNotStatic" />
 		<exclude name="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly.ReferenceViaFullyQualifiedName" />
 		<exclude name="SlevomatCodingStandard.Variables.UnusedVariable.UnusedVariable" />
