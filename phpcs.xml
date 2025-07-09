@@ -17,9 +17,6 @@
 	<config name="testVersion" value="7.1-"/>
 
 	<rule ref="PHPCompatibility"/>
-	<rule ref="PSR12">
-		<exclude name="PSR1.Files.SideEffects.FoundWithSymbols" />
-	</rule>
 	<rule ref="SlevomatCodingStandard">
 		<!-- TODO: Go through these and re-enable them -->
 		<exclude name="SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder" />
@@ -29,6 +26,8 @@
 		<exclude name="SlevomatCodingStandard.Classes.ClassMemberSpacing.IncorrectCountOfBlankLinesBetweenMembers" />
 		<exclude name="SlevomatCodingStandard.Classes.ClassStructure.IncorrectGroupOrder" />
 		<exclude name="SlevomatCodingStandard.Classes.DisallowLateStaticBindingForConstants.DisallowedLateStaticBindingForConstant" />
+		<exclude name="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces.MultipleEmptyLinesAfterOpeningBrace" />
+		<exclude name="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces.MultipleEmptyLinesBeforeClosingBrace" />
 		<exclude name="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces.NoEmptyLineAfterOpeningBrace" />
 		<exclude name="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces.NoEmptyLineBeforeClosingBrace" />
 		<exclude name="SlevomatCodingStandard.Classes.MethodSpacing.IncorrectLinesCountBetweenMethods" />
@@ -52,6 +51,7 @@
 		<exclude name="SlevomatCodingStandard.ControlStructures.JumpStatementsSpacing.IncorrectLinesCountBeforeControlStructure" />
 		<exclude name="SlevomatCodingStandard.ControlStructures.LanguageConstructWithParentheses.UsedWithParentheses" />
 		<exclude name="SlevomatCodingStandard.ControlStructures.NewWithoutParentheses.UselessParentheses" />
+		<exclude name="SlevomatCodingStandard.ControlStructures.NewWithParentheses.MissingParentheses" />
 		<exclude name="SlevomatCodingStandard.ControlStructures.RequireMultiLineTernaryOperator.MultiLineTernaryOperatorNotUsed" />
 		<exclude name="SlevomatCodingStandard.ControlStructures.RequireTernaryOperator.TernaryOperatorNotUsed" />
 		<exclude name="SlevomatCodingStandard.ControlStructures.RequireYodaComparison.RequiredYodaComparison" />
@@ -67,6 +67,7 @@
 		<exclude name="SlevomatCodingStandard.Functions.FunctionLength.FunctionLength" />
 		<exclude name="SlevomatCodingStandard.Functions.RequireArrowFunction.RequiredArrowFunction" />
 		<exclude name="SlevomatCodingStandard.Functions.RequireMultiLineCall.RequiredMultiLineCall" />
+		<exclude name="SlevomatCodingStandard.Functions.RequireSingleLineCall.RequiredSingleLineCall" />
 		<exclude name="SlevomatCodingStandard.Functions.RequireTrailingCommaInCall.MissingTrailingComma" />
 		<exclude name="SlevomatCodingStandard.Functions.StaticClosure.ClosureNotStatic" />
 		<exclude name="SlevomatCodingStandard.Functions.StrictCall.StrictParameterMissing" />
@@ -86,6 +87,7 @@
 		<exclude name="SlevomatCodingStandard.Numbers.RequireNumericLiteralSeparator.RequiredNumericLiteralSeparator" />
 		<exclude name="SlevomatCodingStandard.Operators.DisallowEqualOperators.DisallowedEqualOperator" />
 		<exclude name="SlevomatCodingStandard.Operators.DisallowEqualOperators.DisallowedNotEqualOperator" />
+		<exclude name="SlevomatCodingStandard.Operators.DisallowIncrementAndDecrementOperators.DisallowedPostIncrementOperator" />
 		<exclude name="SlevomatCodingStandard.Operators.DisallowIncrementAndDecrementOperators.DisallowedPreIncrementOperator" />
 		<exclude name="SlevomatCodingStandard.Operators.RequireCombinedAssignmentOperator.RequiredCombinedAssigmentOperator" />
 		<exclude name="SlevomatCodingStandard.PHP.DisallowReference.DisallowedPassingByReference" />
