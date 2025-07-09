@@ -7,7 +7,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class LegacyController extends Controller
+final class LegacyController extends Controller
 {
     public function __invoke(Request $request): Response
     {
