@@ -20,12 +20,12 @@
 	<rule ref="SlevomatCodingStandard">
 		<!-- TODO: Remove exclusions -->
 		<exclude-pattern>legacy/*</exclude-pattern>
+		<exclude-pattern>tests/api-config.php</exclude-pattern>
 		<exclude-pattern>tests/Unit/*</exclude-pattern>
 
 		<!-- TODO: Go through these and re-enable them -->
 		<exclude name="SlevomatCodingStandard.Complexity.Cognitive.ComplexityTooHigh" />
 		<exclude name="SlevomatCodingStandard.Functions.DisallowNamedArguments.DisallowedNamedArgument" />
-		<exclude name="SlevomatCodingStandard.Variables.UnusedVariable.UnusedVariable" />
 
 		<!-- Deprecated sniffs -->
 		<exclude name="SlevomatCodingStandard.TypeHints.UnionTypeHintFormat" />
