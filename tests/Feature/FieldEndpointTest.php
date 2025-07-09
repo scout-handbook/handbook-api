@@ -10,46 +10,6 @@ use Tests\LegacyEndpointTestCase;
 /** @SuppressWarnings("PHPMD.TooManyPublicMethods") */
 class FieldEndpointTest extends LegacyEndpointTestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $SQL1 = <<<'SQL'
-CREATE TABLE IF NOT EXISTS `fields` (
-  `id` binary(16) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `description` text NOT NULL,
-  `image` binary(16) NOT NULL,
-  `icon` binary(16) NOT NULL,
-  PRIMARY KEY (`id`)
-);
-SQL;
-        $SQL2 = <<<'SQL'
-CREATE TABLE IF NOT EXISTS `lessons_in_fields` (
-  `field_id` binary(16) NOT NULL,
-  `lesson_id` binary(16) NOT NULL
-);
-SQL;
-        $db = new Database;
-        $db->prepare($SQL1);
-        $db->execute();
-        $db->prepare($SQL2);
-        $db->execute();
-    }
-
-    public static function tearDownAfterClass(): void
-    {
-        parent::tearDownAfterClass();
-
-        $SQL1 = 'DROP TABLE `fields`;';
-        $SQL2 = 'DROP TABLE `lessons_in_fields`;';
-        $db = new Database;
-        $db->prepare($SQL1);
-        $db->execute();
-        $db->prepare($SQL2);
-        $db->execute();
-    }
-
     public function test_empty_list(): void
     {
         $response = $this->get('v1.0/field');
@@ -233,5 +193,45 @@ SQL;
             'status' => 404,
             'type' => 'NotFoundException',
         ]);
+    }
+
+    public static function tearDownAfterClass(): void
+    {
+        parent::tearDownAfterClass();
+
+        $SQL1 = 'DROP TABLE `fields`;';
+        $SQL2 = 'DROP TABLE `lessons_in_fields`;';
+        $db = new Database;
+        $db->prepare($SQL1);
+        $db->execute();
+        $db->prepare($SQL2);
+        $db->execute();
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $SQL1 = <<<'SQL'
+CREATE TABLE IF NOT EXISTS `fields` (
+  `id` binary(16) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `image` binary(16) NOT NULL,
+  `icon` binary(16) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+SQL;
+        $SQL2 = <<<'SQL'
+CREATE TABLE IF NOT EXISTS `lessons_in_fields` (
+  `field_id` binary(16) NOT NULL,
+  `lesson_id` binary(16) NOT NULL
+);
+SQL;
+        $db = new Database;
+        $db->prepare($SQL1);
+        $db->execute();
+        $db->prepare($SQL2);
+        $db->execute();
     }
 }

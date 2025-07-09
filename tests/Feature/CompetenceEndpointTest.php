@@ -10,49 +10,6 @@ use Tests\LegacyEndpointTestCase;
 /** @SuppressWarnings("PHPMD.TooManyPublicMethods") */
 class CompetenceEndpointTest extends LegacyEndpointTestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $SQL1 = <<<'SQL'
-CREATE TABLE IF NOT EXISTS `competences` (
-  `id` binary(16) NOT NULL,
-  `number` varchar(15) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `description` text NOT NULL,
-  PRIMARY KEY (`id`)
-);
-SQL;
-        $SQL2 = <<<'SQL'
-CREATE TABLE IF NOT EXISTS `competences_for_lessons` (
-  `lesson_id` binary(16) NOT NULL,
-  `competence_id` binary(16) NOT NULL
-);
-SQL;
-        $db = new Database;
-        $db->prepare($SQL1);
-        $db->execute();
-        $db->prepare($SQL2);
-        $db->execute();
-    }
-
-    public static function tearDownAfterClass(): void
-    {
-        parent::tearDownAfterClass();
-
-        $SQL1 = <<<'SQL'
-DROP TABLE `competences`;
-SQL;
-        $SQL2 = <<<'SQL'
-DROP TABLE `competences_for_lessons`;
-SQL;
-        $db = new Database;
-        $db->prepare($SQL1);
-        $db->execute();
-        $db->prepare($SQL2);
-        $db->execute();
-    }
-
     public function test_empty_list(): void
     {
         $response = $this->get('v1.0/competence');
@@ -271,5 +228,48 @@ SQL;
                 'type' => 'NotFoundException',
             ]
         );
+    }
+
+    public static function tearDownAfterClass(): void
+    {
+        parent::tearDownAfterClass();
+
+        $SQL1 = <<<'SQL'
+DROP TABLE `competences`;
+SQL;
+        $SQL2 = <<<'SQL'
+DROP TABLE `competences_for_lessons`;
+SQL;
+        $db = new Database;
+        $db->prepare($SQL1);
+        $db->execute();
+        $db->prepare($SQL2);
+        $db->execute();
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $SQL1 = <<<'SQL'
+CREATE TABLE IF NOT EXISTS `competences` (
+  `id` binary(16) NOT NULL,
+  `number` varchar(15) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  PRIMARY KEY (`id`)
+);
+SQL;
+        $SQL2 = <<<'SQL'
+CREATE TABLE IF NOT EXISTS `competences_for_lessons` (
+  `lesson_id` binary(16) NOT NULL,
+  `competence_id` binary(16) NOT NULL
+);
+SQL;
+        $db = new Database;
+        $db->prepare($SQL1);
+        $db->execute();
+        $db->prepare($SQL2);
+        $db->execute();
     }
 }
