@@ -2,29 +2,27 @@
 
 declare(strict_types=1);
 
-@_API_EXEC === 1 or die('Restricted access.');
+@_API_EXEC === 1 or exit('Restricted access.');
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
+require_once $_SERVER['DOCUMENT_ROOT'].'/api-config.php';
 
-require_once($CONFIG->basepath . '/v1.0/endpoints/userRoleEndpoint.php');
-require_once($CONFIG->basepath . '/v1.0/endpoints/userGroupEndpoint.php');
-
-use Skautis\Skautis;
+require_once $CONFIG->basepath.'/v1.0/endpoints/userRoleEndpoint.php';
+require_once $CONFIG->basepath.'/v1.0/endpoints/userGroupEndpoint.php';
 
 use Skaut\HandbookAPI\v1_0\Database;
 use Skaut\HandbookAPI\v1_0\Endpoint;
-use Skaut\HandbookAPI\v1_0\Helper;
-use Skaut\HandbookAPI\v1_0\Role;
-use Skaut\HandbookAPI\v1_0\User;
 use Skaut\HandbookAPI\v1_0\Exception\InvalidArgumentTypeException;
 use Skaut\HandbookAPI\v1_0\Exception\MissingArgumentException;
 use Skaut\HandbookAPI\v1_0\Exception\NotFoundException;
+use Skaut\HandbookAPI\v1_0\Helper;
+use Skaut\HandbookAPI\v1_0\Role;
+use Skaut\HandbookAPI\v1_0\User;
+use Skautis\Skautis;
 
 global $userEndpoint;
-$userEndpoint = new Endpoint();
+$userEndpoint = new Endpoint;
 $userEndpoint->addSubEndpoint('role', $userRoleEndpoint);
 $userEndpoint->addSubEndpoint('group', $userGroupEndpoint);
-
 
 function constructSelectSQL(Skautis $skautis, bool $roleSelect, bool $groupSelect): string
 {
@@ -41,33 +39,34 @@ function constructSelectSQL(Skautis $skautis, bool $roleSelect, bool $groupSelec
     $roleSQL = $roleSelect ? ' AND users.role = :role ' : '';
     $groupSQL = $groupSelect ? 'AND users_in_groups.group_id = :group_id ' : '';
 
-    $selectSQL = <<<SQL
+    $selectSQL = <<<'SQL'
 SELECT DISTINCT SQL_CALC_FOUND_ROWS `users`.`id`, `users`.`name`, `users`.`role`
 FROM `users`
 LEFT JOIN `users_in_groups` ON `users`.`id` = `users_in_groups`.`user_id`
 WHERE `users`.`name` LIKE CONCAT('%', :name, '%') AND `users`.`role` IN ('guest', 'user'
 SQL
-    . $innerSQL . <<<SQL
+    .$innerSQL.<<<'SQL'
 )
 SQL
-    . $roleSQL . $groupSQL . <<<SQL
+    .$roleSQL.$groupSQL.<<<'SQL'
 ORDER BY `users`.`name`
 LIMIT :start, :per_page;
 SQL;
+
     return $selectSQL;
 }
 
 $listUsers = function (Skautis $skautis, array $data): array {
     $selectSQL = constructSelectSQL($skautis, isset($data['role']), isset($data['group']));
-    $countSQL = <<<SQL
+    $countSQL = <<<'SQL'
 SELECT FOUND_ROWS();
 SQL;
-    $groupSQL = <<<SQL
+    $groupSQL = <<<'SQL'
 SELECT `group_id`
 FROM `users_in_groups`
 WHERE `user_id` = :user_id;
 SQL;
-    $groupCheckSQL = <<<SQL
+    $groupCheckSQL = <<<'SQL'
 SELECT 1
 FROM `groups`
 WHERE `id` = :id
@@ -93,7 +92,7 @@ SQL;
         }
     }
 
-    $db = new Database();
+    $db = new Database;
     if (isset($data['group'])) {
         $group_id = Helper::parseUuid($data['group'], 'group')->getBytes();
         $db->prepare($groupCheckSQL);
@@ -105,7 +104,7 @@ SQL;
     $db->prepare($selectSQL);
     $db->bindParam(':name', $searchName, PDO::PARAM_STR);
     if (isset($data['role'])) {
-        if (!in_array($data['role'], ['user', 'editor', 'administrator', 'superuser'])) {
+        if (! in_array($data['role'], ['user', 'editor', 'administrator', 'superuser'])) {
             throw new NotFoundException('role');
         }
         $role = (new Role($data['role']))->__toString();
@@ -130,7 +129,7 @@ SQL;
         $newUser = new User(intval($row['id']), $row['name'], $row['role']);
         $users[] = $newUser;
 
-        $db2 = new Database();
+        $db2 = new Database;
         $db2->prepare($groupSQL);
         $db2->bindParam(':user_id', $row['id'], PDO::PARAM_STR);
         $db2->execute();
@@ -146,29 +145,30 @@ SQL;
 $userEndpoint->setListMethod(new Role('editor'), $listUsers);
 
 $addUser = function (Skautis $skautis, array $data): array {
-    if (!isset($data['id'])) {
+    if (! isset($data['id'])) {
         throw new MissingArgumentException(MissingArgumentException::POST, 'id');
     }
     $id = ctype_digit($data['id']) ? intval($data['id']) : null;
     if ($id === null) {
         throw new InvalidArgumentTypeException('id', ['Integer']);
     }
-    if (!isset($data['name'])) {
+    if (! isset($data['name'])) {
         throw new MissingArgumentException(MissingArgumentException::POST, 'name');
     }
     $name = $data['name'];
 
-    $SQL = <<<SQL
+    $SQL = <<<'SQL'
 INSERT INTO `users` (`id`, `name`)
 VALUES (:id, :name)
 ON DUPLICATE KEY UPDATE `name` = VALUES(`name`);
 SQL;
 
-    $db = new Database();
+    $db = new Database;
     $db->prepare($SQL);
     $db->bindParam(':id', $id, PDO::PARAM_INT);
     $db->bindParam(':name', $name, PDO::PARAM_STR);
     $db->execute();
+
     return ['status' => 200];
 };
 $userEndpoint->setAddMethod(new Role('editor'), $addUser);

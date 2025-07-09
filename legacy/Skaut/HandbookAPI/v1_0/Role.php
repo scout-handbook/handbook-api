@@ -4,14 +4,18 @@ declare(strict_types=1);
 
 namespace Skaut\HandbookAPI\v1_0;
 
-@_API_EXEC === 1 or die('Restricted access.');
+@_API_EXEC === 1 or exit('Restricted access.');
 
 class Role implements \JsonSerializable
 {
     private const GUEST = 0;
+
     private const USER = 1;
+
     private const EDITOR = 2;
+
     private const ADMINISTRATOR = 3;
+
     private const SUPERUSER = 4;
 
     private $role;
@@ -60,19 +64,20 @@ class Role implements \JsonSerializable
 
     public static function get(int $idPerson): Role
     {
-        $SQL = <<<SQL
+        $SQL = <<<'SQL'
 SELECT `role`
 FROM `users`
 WHERE `id` = :id;
 SQL;
 
-        $db = new Database();
+        $db = new Database;
         $db->prepare($SQL);
         $db->bindParam(':id', $idPerson, \PDO::PARAM_INT);
         $db->execute();
         $role = '';
         $db->bindColumn('role', $role);
         $db->fetchRequire('user');
+
         return new Role(strval($role));
     }
 

@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Skaut\HandbookAPI\v1_0\Exception;
 
-@_API_EXEC === 1 or die('Restricted access.');
+@_API_EXEC === 1 or exit('Restricted access.');
 
 class LockedException extends Exception
 {
     protected const TYPE = 'LockedException';
+
     protected const STATUS = 409;
+
     private $holder;
 
     public function __construct(string $holder)
@@ -24,7 +26,7 @@ class LockedException extends Exception
             'status' => self::STATUS,
             'type' => self::TYPE,
             'message' => $this->getMessage(),
-            'holder' => $this->holder
+            'holder' => $this->holder,
         ];
     }
 }

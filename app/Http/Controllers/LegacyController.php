@@ -11,17 +11,17 @@ class LegacyController extends Controller
     {
         $url = $request->path();
 
-        if (substr($url, 0, 4) === "API/") {
+        if (substr($url, 0, 4) === 'API/') {
             $url = substr($url, 4);
         }
-        if ($url === "login") {
-            $url = "v1.0/login";
+        if ($url === 'login') {
+            $url = 'v1.0/login';
         }
-        if ($url === "logout") {
-            $url = "v1.0/logout";
+        if ($url === 'logout') {
+            $url = 'v1.0/logout';
         }
         $parts = explode('/', $url);
-        $url_base = implode("/", array_slice($parts, 0, 2));
+        $url_base = implode('/', array_slice($parts, 0, 2));
 
         if (count($parts) >= 3) {
             $_GET['id'] = $parts[2];
@@ -34,7 +34,7 @@ class LegacyController extends Controller
         }
 
         ob_start();
-        require __DIR__ . '/../../../legacy/' . $url_base . '.php';
+        require __DIR__.'/../../../legacy/'.$url_base.'.php';
         $output = ob_get_clean();
 
         return new Response($output, http_response_code());

@@ -9,22 +9,22 @@ global $CONFIG;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
-use Skautis\StaticClassException;
-
 use Skaut\HandbookAPI\v1_0\Exception\SkautISException;
+use Skautis\StaticClassException;
 
 #[CoversClass(SkautISException::class)]
 class SkautISExceptionTest extends TestCase
 {
-    public function testCtor(): SkautISException
+    public function test_ctor(): SkautISException
     {
         $e = new SkautISException(new StaticClassException('Emessage'));
         $this->assertInstanceOf('\Skaut\HandbookAPI\v1_0\Exception\SkautISException', $e);
+
         return $e;
     }
 
-    #[Depends("testCtor")]
-    public function testHandle(SkautISException $e): void
+    #[Depends('test_ctor')]
+    public function test_handle(SkautISException $e): void
     {
         $this->assertSame(
             ['status' => 403, 'type' => 'SkautISException', 'message' => 'SkautIS error: Emessage'],

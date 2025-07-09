@@ -12,26 +12,26 @@ class GroupEndpointTest extends LegacyEndpointTestCase
     {
         parent::setUp();
 
-        $SQL1 = <<<SQL
+        $SQL1 = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `groups` (
   `id` binary(16) NOT NULL,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 );
 SQL;
-        $SQL2 = <<<SQL
+        $SQL2 = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `users_in_groups` (
   `user_id` int UNSIGNED NOT NULL,
   `group_id` binary(16) NOT NULL
 );
 SQL;
-        $SQL3 = <<<SQL
+        $SQL3 = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `groups_for_lessons` (
   `lesson_id` binary(16) NOT NULL,
   `group_id` binary(16) NOT NULL
 );
 SQL;
-        $db = new Database();
+        $db = new Database;
         $db->prepare($SQL1);
         $db->execute();
         $db->prepare($SQL2);
@@ -44,10 +44,10 @@ SQL;
     {
         parent::tearDownAfterClass();
 
-        $SQL1 = "DROP TABLE `groups`;";
-        $SQL2 = "DROP TABLE `users_in_groups`;";
-        $SQL3 = "DROP TABLE `groups_for_lessons`;";
-        $db = new Database();
+        $SQL1 = 'DROP TABLE `groups`;';
+        $SQL2 = 'DROP TABLE `users_in_groups`;';
+        $SQL3 = 'DROP TABLE `groups_for_lessons`;';
+        $db = new Database;
         $db->prepare($SQL1);
         $db->execute();
         $db->prepare($SQL2);
@@ -56,7 +56,7 @@ SQL;
         $db->execute();
     }
 
-    public function testEmptyList(): void
+    public function test_empty_list(): void
     {
         $response = $this->get('v1.0/group', [], 'editor');
 
@@ -64,7 +64,7 @@ SQL;
         $response->assertExactJson(['status' => 200, 'response' => []]);
     }
 
-    public function testAddGroup(): void
+    public function test_add_group(): void
     {
         $response = $this->post('v1.0/group', ['name' => 'Testovací skupina'], [], 'administrator');
 
@@ -72,7 +72,7 @@ SQL;
         $response->assertJson(['status' => 201]);
     }
 
-    public function testListGroups(): void
+    public function test_list_groups(): void
     {
         $response = $this->get('v1.0/group', [], 'editor');
 
@@ -81,7 +81,7 @@ SQL;
         $response->assertJsonFragment(['name' => 'Testovací skupina']);
     }
 
-    public function testListGroupsWithoutAuthentication(): void
+    public function test_list_groups_without_authentication(): void
     {
         $response = $this->get('v1.0/group');
 
@@ -90,12 +90,12 @@ SQL;
             [
                 'status' => 403,
                 'type' => 'AuthenticationException',
-                'message' => 'Authentication failed.'
+                'message' => 'Authentication failed.',
             ]
         );
     }
 
-    public function testAddGroupWithoutAuth(): void
+    public function test_add_group_without_auth(): void
     {
         $response = $this->post('v1.0/group', ['name' => 'Nepovolená skupina'], []);
 
@@ -104,12 +104,12 @@ SQL;
             [
                 'status' => 403,
                 'type' => 'AuthenticationException',
-                'message' => 'Authentication failed.'
+                'message' => 'Authentication failed.',
             ]
         );
     }
 
-    public function testAddGroupWithoutName(): void
+    public function test_add_group_without_name(): void
     {
         $response = $this->post('v1.0/group', [], [], 'administrator');
 
@@ -118,12 +118,12 @@ SQL;
             [
                 'status' => 400,
                 'type' => 'MissingArgumentException',
-                'message' => 'POST argument "name" must be provided.'
+                'message' => 'POST argument "name" must be provided.',
             ]
         );
     }
 
-    public function testUpdateGroup(): void
+    public function test_update_group(): void
     {
         $response = $this->get('v1.0/group', [], 'editor');
         $response->assertStatus(200);
@@ -131,7 +131,7 @@ SQL;
         $groupId = key($response['response']);
 
         $response = $this->put(
-            'v1.0/group/' . $groupId,
+            'v1.0/group/'.$groupId,
             ['name' => 'Změněná skupina'],
             [],
             'administrator'
@@ -144,7 +144,7 @@ SQL;
         $response->assertJsonFragment(['name' => 'Změněná skupina']);
     }
 
-    public function testUpdateGroupWithoutName(): void
+    public function test_update_group_without_name(): void
     {
         $response = $this->get('v1.0/group', [], 'editor');
         $response->assertStatus(200);
@@ -152,7 +152,7 @@ SQL;
         $groupId = key($response['response']);
 
         $response = $this->put(
-            'v1.0/group/' . $groupId,
+            'v1.0/group/'.$groupId,
             [],
             [],
             'administrator'
@@ -163,31 +163,31 @@ SQL;
             [
                 'status' => 400,
                 'type' => 'MissingArgumentException',
-                'message' => 'POST argument "name" must be provided.'
+                'message' => 'POST argument "name" must be provided.',
             ]
         );
     }
 
-    public function testUpdateGroupWithoutAuth(): void
+    public function test_update_group_without_auth(): void
     {
         $response = $this->get('v1.0/group', [], 'editor');
         $response->assertStatus(200);
 
         $groupId = key($response['response']);
 
-        $response = $this->put('v1.0/group/' . $groupId, ['name' => 'Neoprávněná změna'], []);
+        $response = $this->put('v1.0/group/'.$groupId, ['name' => 'Neoprávněná změna'], []);
 
         $response->assertStatus(403);
         $response->assertExactJson(
             [
                 'status' => 403,
                 'type' => 'AuthenticationException',
-                'message' => 'Authentication failed.'
+                'message' => 'Authentication failed.',
             ]
         );
     }
 
-    public function testUpdateNonexistentGroup(): void
+    public function test_update_nonexistent_group(): void
     {
         $response = $this->put(
             'v1.0/group/nonexistent',
@@ -201,34 +201,34 @@ SQL;
             [
                 'status' => 404,
                 'type' => 'NotFoundException',
-                'message' => 'No such group has been found.'
+                'message' => 'No such group has been found.',
             ]
         );
     }
 
-    public function testDeleteGroupWithoutAuth(): void
+    public function test_delete_group_without_auth(): void
     {
         $response = $this->get('v1.0/group', [], 'editor');
         $groupId = key($response['response']);
 
-        $response = $this->delete('v1.0/group/' . $groupId, [], []);
+        $response = $this->delete('v1.0/group/'.$groupId, [], []);
 
         $response->assertStatus(403);
         $response->assertExactJson(
             [
                 'status' => 403,
                 'type' => 'AuthenticationException',
-                'message' => 'Authentication failed.'
+                'message' => 'Authentication failed.',
             ]
         );
     }
 
-    public function testDeleteGroup(): void
+    public function test_delete_group(): void
     {
         $response = $this->get('v1.0/group', [], 'editor');
         $groupId = key($response['response']);
 
-        $response = $this->delete('v1.0/group/' . $groupId, [], [], 'administrator');
+        $response = $this->delete('v1.0/group/'.$groupId, [], [], 'administrator');
         $response->assertStatus(200);
         $response->assertExactJson(['status' => 200]);
 
@@ -236,7 +236,7 @@ SQL;
         $response->assertJsonMissing(['name' => 'Změněná skupina']);
     }
 
-    public function testDeleteNonexistentGroup(): void
+    public function test_delete_nonexistent_group(): void
     {
         $response = $this->delete('v1.0/group/nonexistent', [], [], 'administrator');
 
@@ -245,7 +245,7 @@ SQL;
             [
                 'status' => 404,
                 'type' => 'NotFoundException',
-                'message' => 'No such group has been found.'
+                'message' => 'No such group has been found.',
             ]
         );
     }
