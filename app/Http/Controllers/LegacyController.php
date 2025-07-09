@@ -9,7 +9,7 @@ use Illuminate\Http\Response;
 
 class LegacyController extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): Response
     {
         $url = $request->path();
 
