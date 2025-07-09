@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use DateInterval;
+use DateTime;
+use DateTimeZone;
 use Illuminate\Testing\TestResponse;
 
 abstract class LegacyEndpointTestCase extends TestCase
@@ -22,8 +25,8 @@ abstract class LegacyEndpointTestCase extends TestCase
             $_TEST_OVERRIDE = $overrideRole;
             $_COOKIE['skautis_token'] = 'TOKEN';
             $_COOKIE['skautis_timeout'] =
-                (new \DateTime('now', new \DateTimeZone('UTC')))
-                    ->add(new \DateInterval('P10M'))
+                (new DateTime('now', new DateTimeZone('UTC')))
+                    ->add(new DateInterval('P10M'))
                     ->format('U');
         }
 
@@ -54,8 +57,8 @@ abstract class LegacyEndpointTestCase extends TestCase
             $_TEST_OVERRIDE = $overrideRole;
             $_COOKIE['skautis_token'] = 'TOKEN';
             $_COOKIE['skautis_timeout'] =
-                (new \DateTime('now', new \DateTimeZone('UTC')))
-                    ->add(new \DateInterval('PT10M'))
+                (new DateTime('now', new DateTimeZone('UTC')))
+                    ->add(new DateInterval('PT10M'))
                     ->format('U');
         }
 
@@ -88,8 +91,8 @@ abstract class LegacyEndpointTestCase extends TestCase
             $_TEST_OVERRIDE = $overrideRole;
             $_COOKIE['skautis_token'] = 'TOKEN';
             $_COOKIE['skautis_timeout'] =
-                (new \DateTime('now', new \DateTimeZone('UTC')))
-                    ->add(new \DateInterval('P10M'))
+                (new DateTime('now', new DateTimeZone('UTC')))
+                    ->add(new DateInterval('P10M'))
                     ->format('U');
         }
 
@@ -122,8 +125,8 @@ abstract class LegacyEndpointTestCase extends TestCase
             $_TEST_OVERRIDE = $overrideRole;
             $_COOKIE['skautis_token'] = 'TOKEN';
             $_COOKIE['skautis_timeout'] =
-                (new \DateTime('now', new \DateTimeZone('UTC')))
-                    ->add(new \DateInterval('P10M'))
+                (new DateTime('now', new DateTimeZone('UTC')))
+                    ->add(new DateInterval('P10M'))
                     ->format('U');
         }
 
