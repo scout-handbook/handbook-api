@@ -17,6 +17,7 @@ abstract class LegacyEndpointTestCase extends TestCase
     public function get($uri, array $headers = [], ?string $overrideRole = null): TestResponse
     {
         global $_TEST_OVERRIDE;
+
         if ($overrideRole !== null) {
             $_TEST_OVERRIDE = $overrideRole;
             $_COOKIE['skautis_token'] = 'TOKEN';
@@ -25,6 +26,7 @@ abstract class LegacyEndpointTestCase extends TestCase
                     ->add(new \DateInterval('P10M'))
                     ->format('U');
         }
+
         $_SERVER['REQUEST_METHOD'] = 'GET';
 
         $response = parent::get($uri, $headers);
@@ -47,6 +49,7 @@ abstract class LegacyEndpointTestCase extends TestCase
     public function post($uri, array $data = [], array $headers = [], ?string $overrideRole = null): TestResponse
     {
         global $_TEST_OVERRIDE;
+
         if ($overrideRole !== null) {
             $_TEST_OVERRIDE = $overrideRole;
             $_COOKIE['skautis_token'] = 'TOKEN';
@@ -55,6 +58,7 @@ abstract class LegacyEndpointTestCase extends TestCase
                     ->add(new \DateInterval('PT10M'))
                     ->format('U');
         }
+
         $_SERVER['REQUEST_METHOD'] = 'POST';
         $_POST = $data;
 
@@ -79,6 +83,7 @@ abstract class LegacyEndpointTestCase extends TestCase
     public function put($uri, array $data = [], array $headers = [], ?string $overrideRole = null): TestResponse
     {
         global $_TEST_OVERRIDE;
+
         if ($overrideRole !== null) {
             $_TEST_OVERRIDE = $overrideRole;
             $_COOKIE['skautis_token'] = 'TOKEN';
@@ -87,6 +92,7 @@ abstract class LegacyEndpointTestCase extends TestCase
                     ->add(new \DateInterval('P10M'))
                     ->format('U');
         }
+
         $_SERVER['REQUEST_METHOD'] = 'PUT';
         $_POST = $data;
 
@@ -111,6 +117,7 @@ abstract class LegacyEndpointTestCase extends TestCase
     public function delete($uri, array $data = [], array $headers = [], ?string $overrideRole = null): TestResponse
     {
         global $_TEST_OVERRIDE;
+
         if ($overrideRole !== null) {
             $_TEST_OVERRIDE = $overrideRole;
             $_COOKIE['skautis_token'] = 'TOKEN';
@@ -119,6 +126,7 @@ abstract class LegacyEndpointTestCase extends TestCase
                     ->add(new \DateInterval('P10M'))
                     ->format('U');
         }
+
         $_SERVER['REQUEST_METHOD'] = 'DELETE';
         $_POST = $data;
 
