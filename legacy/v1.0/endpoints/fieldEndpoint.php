@@ -2,27 +2,26 @@
 
 declare(strict_types=1);
 
-@_API_EXEC === 1 or die('Restricted access.');
+@_API_EXEC === 1 or exit('Restricted access.');
 
 use Ramsey\Uuid\Uuid;
-use Skautis\Skautis;
-
 use Skaut\HandbookAPI\v1_0\Database;
 use Skaut\HandbookAPI\v1_0\Endpoint;
+use Skaut\HandbookAPI\v1_0\Exception\MissingArgumentException;
+use Skaut\HandbookAPI\v1_0\Exception\NotFoundException;
 use Skaut\HandbookAPI\v1_0\Field;
 use Skaut\HandbookAPI\v1_0\Helper;
 use Skaut\HandbookAPI\v1_0\Role;
-use Skaut\HandbookAPI\v1_0\Exception\MissingArgumentException;
-use Skaut\HandbookAPI\v1_0\Exception\NotFoundException;
+use Skautis\Skautis;
 
-$fieldEndpoint = new Endpoint();
+$fieldEndpoint = new Endpoint;
 
 $listFields = function (Skautis $skautis, array $data): array {
-    $fieldSQL = <<<SQL
+    $fieldSQL = <<<'SQL'
 SELECT `id`, `name`, `description`, `image`, `icon`
 FROM `fields`;
 SQL;
-    $lessonSQL = <<<SQL
+    $lessonSQL = <<<'SQL'
 SELECT `lesson_id`
 FROM `lessons_in_fields`
 WHERE `field_id` = :field_id;
@@ -30,7 +29,7 @@ SQL;
 
     $overrideGroup = (isset($data['override-group']) and $data['override-group'] == 'true');
 
-    $db = new Database();
+    $db = new Database;
     $db->prepare($fieldSQL);
     $db->execute();
     $field_id = '';
@@ -47,7 +46,7 @@ SQL;
     while ($db->fetch()) {
         $newField = new Field($field_name, $field_description, $field_image, $field_icon);
 
-        $db2 = new Database();
+        $db2 = new Database;
         $db2->prepare($lessonSQL);
         $db2->bindParam(':field_id', $field_id, PDO::PARAM_STR);
         $db2->execute();
@@ -61,35 +60,36 @@ SQL;
 
         $fields[Uuid::fromBytes($field_id)->toString()] = $newField;
     }
+
     return ['status' => 200, 'response' => $fields];
 };
 $fieldEndpoint->setListMethod(new Role('guest'), $listFields);
 
 $addField = function (Skautis $skautis, array $data): array {
-    $SQL = <<<SQL
+    $SQL = <<<'SQL'
 INSERT INTO `fields` (`id`, `name`, `description`, `image`, `icon`)
 VALUES (:id, :name, :description, :image, :icon);
 SQL;
 
     $uuid = Uuid::uuid4()->getBytes();
-    if (!isset($data['name'])) {
+    if (! isset($data['name'])) {
         throw new MissingArgumentException(MissingArgumentException::POST, 'name');
     }
     $name = $data['name'];
-    if (!isset($data['description'])) {
+    if (! isset($data['description'])) {
         throw new MissingArgumentException(MissingArgumentException::POST, 'description');
     }
     $description = $data['description'];
-    if (!isset($data['image'])) {
+    if (! isset($data['image'])) {
         throw new MissingArgumentException(MissingArgumentException::POST, 'image');
     }
     $image = Helper::parseUuid($data['image'], 'image')->getBytes();
-    if (!isset($data['icon'])) {
+    if (! isset($data['icon'])) {
         throw new MissingArgumentException(MissingArgumentException::POST, 'icon');
     }
     $icon = Helper::parseUuid($data['icon'], 'icon')->getBytes();
 
-    $db = new Database();
+    $db = new Database;
     $db->prepare($SQL);
     $db->bindParam(':id', $uuid, PDO::PARAM_STR);
     $db->bindParam(':name', $name, PDO::PARAM_STR);
@@ -97,12 +97,13 @@ SQL;
     $db->bindParam(':image', $image, PDO::PARAM_STR);
     $db->bindParam(':icon', $icon, PDO::PARAM_STR);
     $db->execute();
+
     return ['status' => 201];
 };
 $fieldEndpoint->setAddMethod(new Role('administrator'), $addField);
 
 $updateField = function (Skautis $skautis, array $data): array {
-    $SQL = <<<SQL
+    $SQL = <<<'SQL'
 UPDATE `fields`
 SET `name` = :name, `description` = :description, `image` = :image, `icon` = :icon
 WHERE `id` = :id
@@ -110,24 +111,24 @@ LIMIT 1;
 SQL;
 
     $id = Helper::parseUuid($data['id'], 'field')->getBytes();
-    if (!isset($data['name'])) {
+    if (! isset($data['name'])) {
         throw new MissingArgumentException(MissingArgumentException::POST, 'name');
     }
     $name = $data['name'];
-    if (!isset($data['description'])) {
+    if (! isset($data['description'])) {
         throw new MissingArgumentException(MissingArgumentException::POST, 'description');
     }
     $description = $data['description'];
-    if (!isset($data['image'])) {
+    if (! isset($data['image'])) {
         throw new MissingArgumentException(MissingArgumentException::POST, 'image');
     }
     $image = Helper::parseUuid($data['image'], 'image')->getBytes();
-    if (!isset($data['icon'])) {
+    if (! isset($data['icon'])) {
         throw new MissingArgumentException(MissingArgumentException::POST, 'icon');
     }
     $icon = Helper::parseUuid($data['icon'], 'icon')->getBytes();
 
-    $db = new Database();
+    $db = new Database;
     $db->beginTransaction();
 
     $db->prepare($SQL);
@@ -139,16 +140,17 @@ SQL;
     $db->execute();
 
     $db->endTransaction();
+
     return ['status' => 200];
 };
 $fieldEndpoint->setUpdateMethod(new Role('administrator'), $updateField);
 
 $deleteField = function (Skautis $skautis, array $data): array {
-    $deleteLessonsSQL = <<<SQL
+    $deleteLessonsSQL = <<<'SQL'
 DELETE FROM `lessons_in_fields`
 WHERE `field_id` = :field_id;
 SQL;
-    $deleteSQL = <<<SQL
+    $deleteSQL = <<<'SQL'
 DELETE FROM `fields`
 WHERE `id` = :id
 LIMIT 1;
@@ -156,7 +158,7 @@ SQL;
 
     $id = Helper::parseUuid($data['id'], 'field')->getBytes();
 
-    $db = new Database();
+    $db = new Database;
     $db->beginTransaction();
 
     $db->prepare($deleteLessonsSQL);
@@ -168,10 +170,11 @@ SQL;
     $db->execute();
 
     if ($db->rowCount() != 1) {
-        throw new NotFoundException("field");
+        throw new NotFoundException('field');
     }
 
     $db->endTransaction();
+
     return ['status' => 200];
 };
 $fieldEndpoint->setDeleteMethod(new Role('administrator'), $deleteField);

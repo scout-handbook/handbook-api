@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Skaut\HandbookAPI\v1_0;
 
+use Ramsey\Uuid\Exception\InvalidUuidStringException;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
-use Ramsey\Uuid\Exception\InvalidUuidStringException;
-use Skautis\Skautis;
 use Skaut\HandbookAPI\v1_0\Exception\AuthenticationException;
 use Skaut\HandbookAPI\v1_0\Exception\NotFoundException;
 use Skaut\HandbookAPI\v1_0\Exception\RoleException;
 use Skaut\HandbookAPI\v1_0\Exception\SkautISException;
+use Skautis\Skautis;
 
-@_API_EXEC === 1 or die('Restricted access.');
+@_API_EXEC === 1 or exit('Restricted access.');
 
 /** @SuppressWarnings("PHPMD.CouplingBetweenObjects") */
 class Helper // Helper functions
@@ -35,20 +35,20 @@ class Helper // Helper functions
     public static function skautisTry(callable $callback, bool $hardCheck = true)
     {
         $_API_SECRETS_EXEC = 1;
-        $SECRETS = require($_SERVER['DOCUMENT_ROOT'] . '/api-secrets.php');
+        $SECRETS = require $_SERVER['DOCUMENT_ROOT'].'/api-secrets.php';
         $skautis = Skautis::getInstance($SECRETS->skautis_app_id, $SECRETS->skautis_test_mode);
         if (isset($_COOKIE['skautis_token']) and isset($_COOKIE['skautis_timeout'])) {
             $dateLogout = \DateTime::createFromFormat('U', $_COOKIE['skautis_timeout']);
-            if (!$dateLogout) {
+            if (! $dateLogout) {
                 $dateLogout = (new \DateTime('now', new \DateTimeZone('UTC')))->add(new \DateInterval('PT10M'));
             }
             $dateLogout = $dateLogout->setTimezone(new \DateTimeZone('Europe/Prague'))->format('j. n. Y H:i:s');
-            $reconstructedPost = array(
+            $reconstructedPost = [
                 'skautIS_Token' => $_COOKIE['skautis_token'],
                 'skautIS_IDRole' => '',
                 'skautIS_IDUnit' => '',
-                'skautIS_DateLogout' => $dateLogout
-            );
+                'skautIS_DateLogout' => $dateLogout,
+            ];
             $skautis->setLoginData($reconstructedPost);
             global $_TEST_OVERRIDE;
             if (isset($_TEST_OVERRIDE) || $skautis->getUser()->isLoggedIn($hardCheck)) {
@@ -59,13 +59,13 @@ class Helper // Helper functions
                 }
             }
         }
-        throw new AuthenticationException();
+        throw new AuthenticationException;
     }
 
     public static function roleTry(callable $callback, bool $hardCheck, Role $requiredRole)
     {
         $_API_SECRETS_EXEC = 1;
-        $SECRETS = require($_SERVER['DOCUMENT_ROOT'] . '/api-secrets.php');
+        $SECRETS = require $_SERVER['DOCUMENT_ROOT'].'/api-secrets.php';
         if (Role::compare($requiredRole, new Role('guest')) === 0) {
             return $callback(Skautis::getInstance($SECRETS->skautis_app_id, $SECRETS->skautis_test_mode));
         }
@@ -80,19 +80,20 @@ class Helper // Helper functions
             if (Role::compare($role, $requiredRole) >= 0) {
                 return $callback($skautis);
             } else {
-                throw new RoleException();
+                throw new RoleException;
             }
         };
+
         return self::skautisTry($safeCallback, $hardCheck);
     }
 
     public static function checkLessonGroup(UuidInterface $lessonId, bool $overrideGroup = false): bool
     {
-        require($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
+        require $_SERVER['DOCUMENT_ROOT'].'/api-config.php';
         // @phpstan-ignore-next-line
-        require($CONFIG->basepath . '/v1.0/endpoints/accountEndpoint.php');
+        require $CONFIG->basepath.'/v1.0/endpoints/accountEndpoint.php';
 
-        $groupSQL = <<<SQL
+        $groupSQL = <<<'SQL'
 SELECT `group_id` FROM `groups_for_lessons`
 WHERE `lesson_id` = :lesson_id;
 SQL;
@@ -117,7 +118,7 @@ SQL;
         }
         array_walk($groups, '\Ramsey\Uuid\Uuid::fromString');
 
-        $db = new Database();
+        $db = new Database;
         $db->prepare($groupSQL);
         $lessonId = $lessonId->getBytes();
         $db->bindParam(':lesson_id', $lessonId, \PDO::PARAM_STR);
@@ -129,6 +130,7 @@ SQL;
                 return true;
             }
         }
+
         return false;
     }
 
@@ -178,7 +180,7 @@ SQL;
             ['base' => 'w', 'letters' => '[\x{0077}\x{24E6}\x{FF57}\x{1E81}\x{1E83}\x{0175}\x{1E87}\x{1E85}\x{1E98}\x{1E89}\x{2C73}]'],
             ['base' => 'x', 'letters' => '[\x{0078}\x{24E7}\x{FF58}\x{1E8B}\x{1E8D}]'],
             ['base' => 'y', 'letters' => '[\x{0079}\x{24E8}\x{FF59}\x{1EF3}\x{00FD}\x{0177}\x{1EF9}\x{0233}\x{1E8F}\x{00FF}\x{1EF7}\x{1E99}\x{1EF5}\x{01B4}\x{024F}\x{1EFF}]'],
-            ['base' => 'z', 'letters' => '[\x{007A}\x{24E9}\x{FF5A}\x{017A}\x{1E91}\x{017C}\x{017E}\x{1E93}\x{1E95}\x{01B6}\x{0225}\x{0240}\x{2C6C}\x{A763}]']
+            ['base' => 'z', 'letters' => '[\x{007A}\x{24E9}\x{FF5A}\x{017A}\x{1E91}\x{017C}\x{017E}\x{1E93}\x{1E95}\x{01B6}\x{0225}\x{0240}\x{2C6C}\x{A763}]'],
             // phpcs:enable Generic.Files.LineLength.TooLong
         ];
 

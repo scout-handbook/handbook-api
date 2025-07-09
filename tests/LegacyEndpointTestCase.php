@@ -2,8 +2,6 @@
 
 namespace Tests;
 
-use Tests\TestCase;
-
 class LegacyEndpointTestCase extends TestCase
 {
     /*
@@ -20,8 +18,8 @@ class LegacyEndpointTestCase extends TestCase
             $_COOKIE['skautis_token'] = 'TOKEN';
             $_COOKIE['skautis_timeout'] =
                 (new \DateTime('now', new \DateTimeZone('UTC')))
-                ->add(new \DateInterval('P10M'))
-                ->format('U');
+                    ->add(new \DateInterval('P10M'))
+                    ->format('U');
         }
         $_SERVER['REQUEST_METHOD'] = 'GET';
 
@@ -50,8 +48,8 @@ class LegacyEndpointTestCase extends TestCase
             $_COOKIE['skautis_token'] = 'TOKEN';
             $_COOKIE['skautis_timeout'] =
                 (new \DateTime('now', new \DateTimeZone('UTC')))
-                ->add(new \DateInterval('PT10M'))
-                ->format('U');
+                    ->add(new \DateInterval('PT10M'))
+                    ->format('U');
         }
         $_SERVER['REQUEST_METHOD'] = 'POST';
         $_POST = $data;
@@ -82,8 +80,8 @@ class LegacyEndpointTestCase extends TestCase
             $_COOKIE['skautis_token'] = 'TOKEN';
             $_COOKIE['skautis_timeout'] =
                 (new \DateTime('now', new \DateTimeZone('UTC')))
-                ->add(new \DateInterval('P10M'))
-                ->format('U');
+                    ->add(new \DateInterval('P10M'))
+                    ->format('U');
         }
         $_SERVER['REQUEST_METHOD'] = 'PUT';
         $_POST = $data;
@@ -114,8 +112,8 @@ class LegacyEndpointTestCase extends TestCase
             $_COOKIE['skautis_token'] = 'TOKEN';
             $_COOKIE['skautis_timeout'] =
                 (new \DateTime('now', new \DateTimeZone('UTC')))
-                ->add(new \DateInterval('P10M'))
-                ->format('U');
+                    ->add(new \DateInterval('P10M'))
+                    ->format('U');
         }
         $_SERVER['REQUEST_METHOD'] = 'DELETE';
         $_POST = $data;

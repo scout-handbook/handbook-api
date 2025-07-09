@@ -20,11 +20,12 @@
         "cebe/markdown": "^1.2",
         "laravel/framework": "^12.0",
         "mpdf/mpdf": "^8.0",
+        "mpdf/qrcode": "^1.2",
         "ramsey/uuid": "^4.1",
-        "skautis/skautis": "^2.1",
-        "mpdf/qrcode": "^1.2"
+        "skautis/skautis": "^2.1"
     },
     "require-dev": {
+        "laravel/pint": "^1.23",
         "mockery/mockery": "^1.4.4",
         "phpcompatibility/php-compatibility": "^9.0",
         "phpmd/phpmd": "^2.6",
@@ -49,12 +50,14 @@
         "phpcs": "vendor/bin/phpcs",
         "phpmd": "vendor/bin/phpmd ./ text phpmd.xml --exclude vendor",
         "phpstan": "php -d memory_limit=-1 vendor/bin/phpstan analyse",
+        "pint": "vendor/bin/pint --test",
         "phpunit:clean": "rm -f tests/db.sqlite*",
         "phpunit": "vendor/bin/phpunit",
         "lint": [
             "@phpcs",
             "@phpmd",
-            "@phpstan"
+            "@phpstan",
+            "@pint"
         ],
         "test": [
             "@phpunit:clean",

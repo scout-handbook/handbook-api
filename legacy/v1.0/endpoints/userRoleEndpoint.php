@@ -2,18 +2,17 @@
 
 declare(strict_types=1);
 
-@_API_EXEC === 1 or die('Restricted access.');
-
-use Skautis\Skautis;
+@_API_EXEC === 1 or exit('Restricted access.');
 
 use Skaut\HandbookAPI\v1_0\Database;
 use Skaut\HandbookAPI\v1_0\Endpoint;
-use Skaut\HandbookAPI\v1_0\Role;
 use Skaut\HandbookAPI\v1_0\Exception\InvalidArgumentTypeException;
 use Skaut\HandbookAPI\v1_0\Exception\MissingArgumentException;
 use Skaut\HandbookAPI\v1_0\Exception\RoleException;
+use Skaut\HandbookAPI\v1_0\Role;
+use Skautis\Skautis;
 
-$userRoleEndpoint = new Endpoint();
+$userRoleEndpoint = new Endpoint;
 
 $updateUserRole = function (Skautis $skautis, array $data): array {
     $checkRole = function (Role $my_role, Role $role): void {
@@ -21,16 +20,16 @@ $updateUserRole = function (Skautis $skautis, array $data): array {
             (Role::compare($my_role, new Role('administrator')) === 0) and
             (Role::compare($role, new Role('administrator')) >= 0)
         ) {
-            throw new RoleException();
+            throw new RoleException;
         }
     };
 
-    $selectSQL = <<<SQL
+    $selectSQL = <<<'SQL'
 SELECT `role`
 FROM `users`
 WHERE `id` = :id;
 SQL;
-    $updateSQL = <<<SQL
+    $updateSQL = <<<'SQL'
 UPDATE `users`
 SET `role` = :role
 WHERE `id` = :id
@@ -41,7 +40,7 @@ SQL;
     if ($id === null) {
         throw new InvalidArgumentTypeException('id', ['Integer']);
     }
-    if (!isset($data['role'])) {
+    if (! isset($data['role'])) {
         throw new MissingArgumentException(MissingArgumentException::POST, 'role');
     }
     $new_role = new Role($data['role']);
@@ -49,7 +48,7 @@ SQL;
     $my_role = Role::get($skautis->UserManagement->LoginDetail()->ID_Person);
     $checkRole($my_role, $new_role);
 
-    $db = new Database();
+    $db = new Database;
     $db->prepare($selectSQL);
     $db->bindParam(':id', $id, PDO::PARAM_INT);
     $db->execute();
@@ -63,6 +62,7 @@ SQL;
     $db->bindParam(':role', $new_role_str, PDO::PARAM_STR);
     $db->bindParam(':id', $id, PDO::PARAM_INT);
     $db->execute();
+
     return ['status' => 200];
 };
 $userRoleEndpoint->setUpdateMethod(new Role('administrator'), $updateUserRole);

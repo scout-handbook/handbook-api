@@ -4,28 +4,36 @@ declare(strict_types=1);
 
 namespace Skaut\HandbookAPI\v1_0;
 
-@_API_EXEC === 1 or die('Restricted access.');
-
-use Skautis\Skautis;
+@_API_EXEC === 1 or exit('Restricted access.');
 
 use Skaut\HandbookAPI\v1_0\Exception\MissingArgumentException;
 use Skaut\HandbookAPI\v1_0\Exception\NotImplementedException;
+use Skautis\Skautis;
 
 class Endpoint
 {
     private $parentEndpoint;
+
     private $subEndpoints;
 
     private $listFunction;
+
     private $getFunction;
+
     private $updateFunction;
+
     private $addFunction;
+
     private $deleteFunction;
 
     private $listRole;
+
     private $getRole;
+
     private $updateRole;
+
     private $addRole;
+
     private $deleteRole;
 
     public function __construct()
@@ -33,19 +41,19 @@ class Endpoint
         $this->subEndpoints = [];
 
         $this->listFunction = function (): void {
-            throw new NotImplementedException();
+            throw new NotImplementedException;
         };
         $this->getFunction = function (): void {
-            throw new NotImplementedException();
+            throw new NotImplementedException;
         };
         $this->updateFunction = function (): void {
-            throw new NotImplementedException();
+            throw new NotImplementedException;
         };
         $this->addFunction = function (): void {
-            throw new NotImplementedException();
+            throw new NotImplementedException;
         };
         $this->deleteFunction = function (): void {
-            throw new NotImplementedException();
+            throw new NotImplementedException;
         };
 
         $this->listRole = new Role('guest');
@@ -108,6 +116,7 @@ class Endpoint
         if (isset($ret)) {
             return $ret;
         }
+
         return [];
     }
 
@@ -170,7 +179,7 @@ class Endpoint
             $ret = $e->handle();
         }
         http_response_code($ret['status']);
-        echo(json_encode($ret, JSON_UNESCAPED_UNICODE));
+        echo json_encode($ret, JSON_UNESCAPED_UNICODE);
     }
 
     public function handle(): void
@@ -189,7 +198,7 @@ class Endpoint
             } else {
                 http_response_code(404);
                 header('content-type:application/json; charset=utf-8');
-                echo(json_encode(['status' => 404], JSON_UNESCAPED_UNICODE));
+                echo json_encode(['status' => 404], JSON_UNESCAPED_UNICODE);
             }
         } else {
             $this->handleSelf($method, $data);
@@ -201,7 +210,7 @@ class Endpoint
         $data = [];
         switch ($method) {
             case 'PUT':
-                $input = file_get_contents("php://input");
+                $input = file_get_contents('php://input');
                 if ($input) {
                     mb_parse_str($input, $data);
                 } else {
@@ -219,9 +228,10 @@ class Endpoint
         }
         if (isset($_GET['id']) and $_GET['id'] !== '') {
             $data['id'] = $_GET['id'];
-        } elseif (!isset($_POST['id'])) {
+        } elseif (! isset($_POST['id'])) {
             unset($data['id']);
         }
+
         return $data;
     }
 }

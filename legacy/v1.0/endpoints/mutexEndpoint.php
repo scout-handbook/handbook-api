@@ -2,32 +2,31 @@
 
 declare(strict_types=1);
 
-@_API_EXEC === 1 or die('Restricted access.');
-
-use Skautis\Skautis;
+@_API_EXEC === 1 or exit('Restricted access.');
 
 use Skaut\HandbookAPI\v1_0\Database;
 use Skaut\HandbookAPI\v1_0\Endpoint;
-use Skaut\HandbookAPI\v1_0\Helper;
-use Skaut\HandbookAPI\v1_0\Role;
 use Skaut\HandbookAPI\v1_0\Exception\InvalidArgumentTypeException;
 use Skaut\HandbookAPI\v1_0\Exception\LockedException;
+use Skaut\HandbookAPI\v1_0\Helper;
+use Skaut\HandbookAPI\v1_0\Role;
+use Skautis\Skautis;
 
 global $mutexEndpoint;
-$mutexEndpoint = new Endpoint();
+$mutexEndpoint = new Endpoint;
 
 $addMutex = function (Skautis $skautis, array $data): array {
-    $selectSQL = <<<SQL
+    $selectSQL = <<<'SQL'
 SELECT DISTINCT UNIX_TIMESTAMP(`mutexes`.`timeout`), `mutexes`.`holder`, `users`.`name`
 FROM `mutexes`
 LEFT JOIN `users` ON `mutexes`.`holder` = `users`.`id`
 WHERE `mutexes`.`id` = :id;
 SQL;
-    $deleteSQL = <<<SQL
+    $deleteSQL = <<<'SQL'
 DELETE FROM `mutexes`
 WHERE `id` = :id;
 SQL;
-    $insertSQL = <<<SQL
+    $insertSQL = <<<'SQL'
 INSERT INTO `mutexes` (`id`, `timeout`, `holder`)
 VALUES (:id, FROM_UNIXTIME(:timeout), :holder);
 SQL;
@@ -42,7 +41,7 @@ SQL;
     }
     $userId = $skautis->UserManagement->LoginDetail()->ID_Person;
 
-    $db = new Database();
+    $db = new Database;
     $db->beginTransaction();
 
     $db->prepare($selectSQL);
@@ -69,17 +68,18 @@ SQL;
     $db->execute();
 
     $db->endTransaction();
+
     return ['status' => 201];
 };
 $mutexEndpoint->setAddMethod(new Role('editor'), $addMutex);
 
 $extendMutex = function (Skautis $skautis, array $data): array {
-    $selectSQL = <<<SQL
+    $selectSQL = <<<'SQL'
 SELECT 1
 FROM `mutexes`
 WHERE `id` = :id AND `holder` = :holder;
 SQL;
-    $updateSQL = <<<SQL
+    $updateSQL = <<<'SQL'
 UPDATE `mutexes`
 SET `timeout` = FROM_UNIXTIME(:timeout)
 WHERE `id` = :id AND `holder` = :holder
@@ -96,7 +96,7 @@ SQL;
     }
     $userId = $skautis->UserManagement->LoginDetail()->ID_Person;
 
-    $db = new Database();
+    $db = new Database;
     $db->beginTransaction();
 
     $db->prepare($selectSQL);
@@ -112,17 +112,18 @@ SQL;
     $db->execute();
 
     $db->endTransaction();
+
     return ['status' => 200];
 };
 $mutexEndpoint->setUpdateMethod(new Role('editor'), $extendMutex);
 
 $releaseMutex = function (Skautis $skautis, array $data): array {
-    $selectSQL = <<<SQL
+    $selectSQL = <<<'SQL'
 SELECT 1
 FROM `mutexes`
 WHERE `id` = :id AND `holder` = :holder;
 SQL;
-    $deleteSQL = <<<SQL
+    $deleteSQL = <<<'SQL'
 DELETE FROM `mutexes`
 WHERE `id` = :id AND `holder` = :holder;
 SQL;
@@ -130,7 +131,7 @@ SQL;
     $id = Helper::parseUuid($data['id'], 'resource')->getBytes();
     $userId = $skautis->UserManagement->LoginDetail()->ID_Person;
 
-    $db = new Database();
+    $db = new Database;
     $db->beginTransaction();
 
     $db->prepare($selectSQL);
@@ -145,6 +146,7 @@ SQL;
     $db->execute();
 
     $db->endTransaction();
+
     return ['status' => 200];
 };
 $mutexEndpoint->setDeleteMethod(new Role('editor'), $releaseMutex);

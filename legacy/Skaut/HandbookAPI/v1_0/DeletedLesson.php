@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Skaut\HandbookAPI\v1_0;
 
-@_API_EXEC === 1 or die('Restricted access.');
-
-use Ramsey\Uuid\Uuid;
+@_API_EXEC === 1 or exit('Restricted access.');
 
 class DeletedLesson implements \JsonSerializable
 {

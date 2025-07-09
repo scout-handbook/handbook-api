@@ -2,26 +2,24 @@
 
 declare(strict_types=1);
 
-@_API_EXEC === 1 or die('Restricted access.');
-
-use Ramsey\Uuid\Uuid;
-use Skautis\Skautis;
+@_API_EXEC === 1 or exit('Restricted access.');
 
 use Skaut\HandbookAPI\v1_0\Database;
 use Skaut\HandbookAPI\v1_0\Endpoint;
+use Skaut\HandbookAPI\v1_0\Exception\InvalidArgumentTypeException;
 use Skaut\HandbookAPI\v1_0\Helper;
 use Skaut\HandbookAPI\v1_0\Role;
-use Skaut\HandbookAPI\v1_0\Exception\InvalidArgumentTypeException;
+use Skautis\Skautis;
 
-$lessonHistoryEndpoint = new Endpoint();
+$lessonHistoryEndpoint = new Endpoint;
 
 $listLessonHistory = function (Skautis $skautis, array $data): array {
-    $checkSQL = <<<SQL
+    $checkSQL = <<<'SQL'
 SELECT 1 FROM `lessons`
 WHERE `id` = :id
 LIMIT 1;
 SQL;
-    $selectSQL = <<<SQL
+    $selectSQL = <<<'SQL'
 SELECT `name`, UNIX_TIMESTAMP(`version`) FROM `lesson_history`
 WHERE `id` = :id
 ORDER BY `version` DESC;
@@ -29,7 +27,7 @@ SQL;
 
     $id = Helper::parseUuid($data['parent-id'], 'lesson')->getBytes();
 
-    $db = new Database();
+    $db = new Database;
     $db->prepare($checkSQL);
     $db->bindParam(':id', $id, PDO::PARAM_STR);
     $db->execute();
@@ -46,17 +44,18 @@ SQL;
     while ($db->fetch()) {
         $versions[] = ['name' => $name, 'version' => round($version * 1000)];
     }
+
     return ['status' => 200, 'response' => $versions];
 };
 $lessonHistoryEndpoint->setListMethod(new Role('editor'), $listLessonHistory);
 
 $getLessonHistory = function (Skautis $skautis, array $data): array {
-    $checkSQL = <<<SQL
+    $checkSQL = <<<'SQL'
 SELECT 1 FROM `lessons`
 WHERE `id` = :id
 LIMIT 1;
 SQL;
-    $selectSQL = <<<SQL
+    $selectSQL = <<<'SQL'
 SELECT `body`
 FROM `lesson_history`
 WHERE `id` = :id
@@ -70,7 +69,7 @@ SQL;
     }
     $version = strval($version);
 
-    $db = new Database();
+    $db = new Database;
     $db->prepare($checkSQL);
     $db->bindParam(':id', $id, PDO::PARAM_STR);
     $db->execute();
@@ -83,6 +82,7 @@ SQL;
     $body = '';
     $db->bindColumn('body', $body);
     $db->fetchRequire('lesson');
+
     return ['status' => 200, 'response' => $body];
 };
 $lessonHistoryEndpoint->setGetMethod(new Role('editor'), $getLessonHistory);

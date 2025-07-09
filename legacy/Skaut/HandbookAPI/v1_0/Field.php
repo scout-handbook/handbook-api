@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Skaut\HandbookAPI\v1_0;
 
-@_API_EXEC === 1 or die('Restricted access.');
+@_API_EXEC === 1 or exit('Restricted access.');
 
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
@@ -12,9 +12,13 @@ use Ramsey\Uuid\UuidInterface;
 class Field implements \JsonSerializable
 {
     private $name;
+
     private $description;
+
     private $image;
+
     private $icon;
+
     private $lessons;
 
     public function __construct(string $name, $description, string $image, string $icon)
@@ -38,6 +42,7 @@ class Field implements \JsonSerializable
                 return true;
             }
         }
+
         return false;
     }
 
@@ -53,7 +58,7 @@ class Field implements \JsonSerializable
             'description' => $this->description,
             'image' => $this->image,
             'icon' => $this->icon,
-            'lessons' => $this->lessons
+            'lessons' => $this->lessons,
         ];
     }
 }

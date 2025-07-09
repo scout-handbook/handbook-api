@@ -6,6 +6,7 @@
 	<rule ref="rulesets/codesize.xml"/>
 	<rule ref="rulesets/controversial.xml">
 		<exclude name="Superglobals"/>
+		<exclude name="CamelCaseMethodName"/>
 		<exclude name="CamelCaseVariableName"/>
 	</rule>
 	<rule ref="rulesets/design.xml"/>

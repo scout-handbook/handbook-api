@@ -2,24 +2,22 @@
 
 declare(strict_types=1);
 
-@_API_EXEC === 1 or die('Restricted access.');
-
-use Ramsey\Uuid\Uuid;
-use Skautis\Skautis;
+@_API_EXEC === 1 or exit('Restricted access.');
 
 use Skaut\HandbookAPI\v1_0\Database;
 use Skaut\HandbookAPI\v1_0\Endpoint;
 use Skaut\HandbookAPI\v1_0\Helper;
 use Skaut\HandbookAPI\v1_0\Role;
+use Skautis\Skautis;
 
-$lessonCompetenceEndpoint = new Endpoint();
+$lessonCompetenceEndpoint = new Endpoint;
 
 $updateLessonCompetence = function (Skautis $skautis, array $data): array {
-    $deleteSQL = <<<SQL
+    $deleteSQL = <<<'SQL'
 DELETE FROM `competences_for_lessons`
 WHERE `lesson_id` = :lesson_id;
 SQL;
-    $insertSQL = <<<SQL
+    $insertSQL = <<<'SQL'
 INSERT INTO `competences_for_lessons` (`lesson_id`, `competence_id`)
 VALUES (:lesson_id, :competence_id);
 SQL;
@@ -32,7 +30,7 @@ SQL;
         }
     }
 
-    $db = new Database();
+    $db = new Database;
     $db->beginTransaction();
 
     $db->prepare($deleteSQL);
@@ -43,9 +41,10 @@ SQL;
     foreach ($competences as $competence) {
         $db->bindParam(':lesson_id', $id, PDO::PARAM_STR);
         $db->bindParam(':competence_id', $competence, PDO::PARAM_STR);
-        $db->execute("lesson or competence");
+        $db->execute('lesson or competence');
     }
     $db->endTransaction();
+
     return ['status' => 200];
 };
 $lessonCompetenceEndpoint->setUpdateMethod(new Role('editor'), $updateLessonCompetence);
