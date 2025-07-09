@@ -45,7 +45,7 @@ final class CompetenceEndpointTest extends LegacyEndpointTestCase
                 'message' => 'Authentication failed.',
                 'status' => 403,
                 'type' => 'AuthenticationException',
-            ]
+            ],
         );
     }
 
@@ -59,7 +59,7 @@ final class CompetenceEndpointTest extends LegacyEndpointTestCase
                 'message' => 'POST argument "name" must be provided.',
                 'status' => 400,
                 'type' => 'MissingArgumentException',
-            ]
+            ],
         );
     }
 
@@ -73,7 +73,7 @@ final class CompetenceEndpointTest extends LegacyEndpointTestCase
                 'message' => 'POST argument "number" must be provided.',
                 'status' => 400,
                 'type' => 'MissingArgumentException',
-            ]
+            ],
         );
     }
 
@@ -83,7 +83,7 @@ final class CompetenceEndpointTest extends LegacyEndpointTestCase
             'v1.0/competence',
             ['name' => 'Nová kompetence 2', 'number' => 43, 'description' => 'Popis'],
             [],
-            'administrator'
+            'administrator',
         );
 
         $response->assertStatus(201);
@@ -109,14 +109,14 @@ final class CompetenceEndpointTest extends LegacyEndpointTestCase
             array_filter(
                 $response['response'],
                 fn ($competence) => $competence['number'] === '42',
-            )
+            ),
         );
 
         $response = $this->put(
             'v1.0/competence/'.$competenceId,
             ['description' => 'Nový popis'],
             [],
-            'administrator'
+            'administrator',
         );
 
         $response->assertStatus(200);
@@ -138,7 +138,7 @@ final class CompetenceEndpointTest extends LegacyEndpointTestCase
         $response = $this->put(
             'v1.0/competence/'.$competenceId,
             ['description' => 'Nový popis'],
-            []
+            [],
         );
 
         $response->assertStatus(403);
@@ -147,7 +147,7 @@ final class CompetenceEndpointTest extends LegacyEndpointTestCase
                 'message' => 'Authentication failed.',
                 'status' => 403,
                 'type' => 'AuthenticationException',
-            ]
+            ],
         );
     }
 
@@ -157,7 +157,7 @@ final class CompetenceEndpointTest extends LegacyEndpointTestCase
             'v1.0/competence/missing',
             ['description' => 'Nový popis'],
             [],
-            'administrator'
+            'administrator',
         );
 
         $response->assertStatus(404);
@@ -166,7 +166,7 @@ final class CompetenceEndpointTest extends LegacyEndpointTestCase
                 'message' => 'No such competence has been found.',
                 'status' => 404,
                 'type' => 'NotFoundException',
-            ]
+            ],
         );
     }
 
@@ -179,7 +179,7 @@ final class CompetenceEndpointTest extends LegacyEndpointTestCase
             array_filter(
                 $response['response'],
                 fn ($competence) => $competence['number'] === '42',
-            )
+            ),
         );
 
         $response = $this->delete('v1.0/competence/'.$competenceId, [], [], 'administrator');
@@ -208,7 +208,7 @@ final class CompetenceEndpointTest extends LegacyEndpointTestCase
                 'message' => 'Authentication failed.',
                 'status' => 403,
                 'type' => 'AuthenticationException',
-            ]
+            ],
         );
     }
 
@@ -222,7 +222,7 @@ final class CompetenceEndpointTest extends LegacyEndpointTestCase
                 'message' => 'No such competence has been found.',
                 'status' => 404,
                 'type' => 'NotFoundException',
-            ]
+            ],
         );
     }
 
