@@ -8,7 +8,7 @@ use Skaut\HandbookAPI\v1_0\Database;
 use Tests\LegacyEndpointTestCase;
 
 /** @SuppressWarnings("PHPMD.TooManyPublicMethods") */
-class GroupEndpointTest extends LegacyEndpointTestCase
+final class GroupEndpointTest extends LegacyEndpointTestCase
 {
     public function test_empty_list(): void
     {

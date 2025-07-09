@@ -6,7 +6,7 @@ namespace Tests;
 
 use Illuminate\Testing\TestResponse;
 
-class LegacyEndpointTestCase extends TestCase
+abstract class LegacyEndpointTestCase extends TestCase
 {
     /**
      * @param  \Illuminate\Support\Uri|string  $uri
