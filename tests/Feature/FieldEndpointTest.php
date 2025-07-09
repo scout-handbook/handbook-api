@@ -63,10 +63,10 @@ SQL;
         $response = $this->post(
             'v1.0/field',
             [
-                'name' => 'Testovací oblast',
                 'description' => 'Popis',
-                'image' => '00000000-0000-0000-0000-000000000000',
                 'icon' => '00000000-0000-0000-0000-000000000000',
+                'image' => '00000000-0000-0000-0000-000000000000',
+                'name' => 'Testovací oblast',
             ],
             [],
             'administrator'
@@ -89,9 +89,9 @@ SQL;
         $response = $this->post('v1.0/field', ['name' => 'Nepovolená oblast'], []);
         $response->assertStatus(403);
         $response->assertExactJson([
+            'message' => 'Authentication failed.',
             'status' => 403,
             'type' => 'AuthenticationException',
-            'message' => 'Authentication failed.',
         ]);
     }
 
@@ -100,9 +100,9 @@ SQL;
         $response = $this->post('v1.0/field', [], [], 'administrator');
         $response->assertStatus(400);
         $response->assertExactJson([
+            'message' => 'POST argument "name" must be provided.',
             'status' => 400,
             'type' => 'MissingArgumentException',
-            'message' => 'POST argument "name" must be provided.',
         ]);
     }
 
@@ -116,10 +116,10 @@ SQL;
         $response = $this->put(
             'v1.0/field/'.$fieldId,
             [
-                'name' => 'Změněná oblast',
                 'description' => 'Změněný popis',
-                'image' => '00000000-0000-0000-0000-000000000001',
                 'icon' => '00000000-0000-0000-0000-000000000001',
+                'image' => '00000000-0000-0000-0000-000000000001',
+                'name' => 'Změněná oblast',
             ],
             [],
             'administrator'
@@ -131,10 +131,10 @@ SQL;
         $response = $this->get('v1.0/field', [], 'editor');
         $response->assertJsonFragment(
             [
-                'name' => 'Změněná oblast',
                 'description' => 'Změněný popis',
-                'image' => '00000000-0000-0000-0000-000000000001',
                 'icon' => '00000000-0000-0000-0000-000000000001',
+                'image' => '00000000-0000-0000-0000-000000000001',
+                'name' => 'Změněná oblast',
             ]
         );
     }
@@ -155,9 +155,9 @@ SQL;
 
         $response->assertStatus(400);
         $response->assertExactJson([
+            'message' => 'POST argument "name" must be provided.',
             'status' => 400,
             'type' => 'MissingArgumentException',
-            'message' => 'POST argument "name" must be provided.',
         ]);
     }
 
@@ -172,9 +172,9 @@ SQL;
 
         $response->assertStatus(403);
         $response->assertExactJson([
+            'message' => 'Authentication failed.',
             'status' => 403,
             'type' => 'AuthenticationException',
-            'message' => 'Authentication failed.',
         ]);
     }
 
@@ -189,9 +189,9 @@ SQL;
 
         $response->assertStatus(404);
         $response->assertExactJson([
+            'message' => 'No such field has been found.',
             'status' => 404,
             'type' => 'NotFoundException',
-            'message' => 'No such field has been found.',
         ]);
     }
 
@@ -204,9 +204,9 @@ SQL;
 
         $response->assertStatus(403);
         $response->assertExactJson([
+            'message' => 'Authentication failed.',
             'status' => 403,
             'type' => 'AuthenticationException',
-            'message' => 'Authentication failed.',
         ]);
     }
 
@@ -229,9 +229,9 @@ SQL;
 
         $response->assertStatus(404);
         $response->assertExactJson([
+            'message' => 'No such field has been found.',
             'status' => 404,
             'type' => 'NotFoundException',
-            'message' => 'No such field has been found.',
         ]);
     }
 }

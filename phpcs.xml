@@ -23,7 +23,6 @@
 		<exclude-pattern>tests/Unit/*</exclude-pattern>
 
 		<!-- TODO: Go through these and re-enable them -->
-		<exclude name="SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder" />
 		<exclude name="SlevomatCodingStandard.Classes.ClassStructure.IncorrectGroupOrder" />
 		<exclude name="SlevomatCodingStandard.Classes.RequireAbstractOrFinal.ClassNeitherAbstractNorFinal" />
 		<exclude name="SlevomatCodingStandard.Complexity.Cognitive.ComplexityTooHigh" />

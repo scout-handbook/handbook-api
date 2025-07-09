@@ -85,9 +85,9 @@ SQL;
         $response->assertStatus(403);
         $response->assertExactJson(
             [
+                'message' => 'Authentication failed.',
                 'status' => 403,
                 'type' => 'AuthenticationException',
-                'message' => 'Authentication failed.',
             ]
         );
     }
@@ -99,9 +99,9 @@ SQL;
         $response->assertStatus(400);
         $response->assertExactJson(
             [
+                'message' => 'POST argument "name" must be provided.',
                 'status' => 400,
                 'type' => 'MissingArgumentException',
-                'message' => 'POST argument "name" must be provided.',
             ]
         );
     }
@@ -113,9 +113,9 @@ SQL;
         $response->assertStatus(400);
         $response->assertExactJson(
             [
+                'message' => 'POST argument "number" must be provided.',
                 'status' => 400,
                 'type' => 'MissingArgumentException',
-                'message' => 'POST argument "number" must be provided.',
             ]
         );
     }
@@ -189,9 +189,9 @@ SQL;
         $response->assertStatus(403);
         $response->assertExactJson(
             [
+                'message' => 'Authentication failed.',
                 'status' => 403,
                 'type' => 'AuthenticationException',
-                'message' => 'Authentication failed.',
             ]
         );
     }
@@ -208,9 +208,9 @@ SQL;
         $response->assertStatus(404);
         $response->assertExactJson(
             [
+                'message' => 'No such competence has been found.',
                 'status' => 404,
                 'type' => 'NotFoundException',
-                'message' => 'No such competence has been found.',
             ]
         );
     }
@@ -252,9 +252,9 @@ SQL;
         $response->assertStatus(403);
         $response->assertExactJson(
             [
+                'message' => 'Authentication failed.',
                 'status' => 403,
                 'type' => 'AuthenticationException',
-                'message' => 'Authentication failed.',
             ]
         );
     }
@@ -266,9 +266,9 @@ SQL;
         $response->assertStatus(404);
         $response->assertExactJson(
             [
+                'message' => 'No such competence has been found.',
                 'status' => 404,
                 'type' => 'NotFoundException',
-                'message' => 'No such competence has been found.',
             ]
         );
     }
