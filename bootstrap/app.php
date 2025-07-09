@@ -10,7 +10,7 @@ use Skaut\HandbookAPI\v1_0\Exception\Exception;
 return Application::configure(basePath: dirname(__DIR__))
     ->withProviders()
     ->withRouting(api: __DIR__.'/../routes/api.php', apiPrefix: '', commands: __DIR__.'/../routes/console.php')
-    ->withMiddleware(function (Middleware $middleware): void {
+    ->withMiddleware(static function (Middleware $middleware): void {
         $middleware->use([
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
@@ -18,6 +18,6 @@ return Application::configure(basePath: dirname(__DIR__))
             \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         ]);
     })
-    ->withExceptions(function (Exceptions $exceptions): void {
-        $exceptions->render(fn (Exception $e) => response()->json($e->handle(), $e->handle()['status']));
+    ->withExceptions(static function (Exceptions $exceptions): void {
+        $exceptions->render(static fn (Exception $e) => response()->json($e->handle(), $e->handle()['status']));
     })->create();
