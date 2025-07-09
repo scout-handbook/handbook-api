@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use Illuminate\Testing\TestResponse;
+
 class LegacyEndpointTestCase extends TestCase
 {
     /*
      * @param  \Illuminate\Support\Uri|string  $uri
      * @param  array  $headers
      * @param  string|null $overrideRole
-     * @return \Illuminate\Testing\TestResponse
      */
-    public function get($uri, array $headers = [], $overrideRole = null)
+    public function get($uri, array $headers = [], $overrideRole = null): TestResponse
     {
         global $_TEST_OVERRIDE;
         if ($overrideRole !== null) {
@@ -40,9 +41,8 @@ class LegacyEndpointTestCase extends TestCase
      * @param  array  $data
      * @param  array  $headers
      * @param  string|null $overrideRole
-     * @return \Illuminate\Testing\TestResponse
      */
-    public function post($uri, array $data = [], array $headers = [], $overrideRole = null)
+    public function post($uri, array $data = [], array $headers = [], $overrideRole = null): TestResponse
     {
         global $_TEST_OVERRIDE;
         if ($overrideRole !== null) {
@@ -72,9 +72,8 @@ class LegacyEndpointTestCase extends TestCase
      * @param  array  $data
      * @param  array  $headers
      * @param  string|null $overrideRole
-     * @return \Illuminate\Testing\TestResponse
      */
-    public function put($uri, array $data = [], array $headers = [], $overrideRole = null)
+    public function put($uri, array $data = [], array $headers = [], $overrideRole = null): TestResponse
     {
         global $_TEST_OVERRIDE;
         if ($overrideRole !== null) {
@@ -104,9 +103,8 @@ class LegacyEndpointTestCase extends TestCase
      * @param  array  $data
      * @param  array  $headers
      * @param  string|null $overrideRole
-     * @return \Illuminate\Testing\TestResponse
      */
-    public function delete($uri, array $data = [], array $headers = [], $overrideRole = null)
+    public function delete($uri, array $data = [], array $headers = [], $overrideRole = null): TestResponse
     {
         global $_TEST_OVERRIDE;
         if ($overrideRole !== null) {
