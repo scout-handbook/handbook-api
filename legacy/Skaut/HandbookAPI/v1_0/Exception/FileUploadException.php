@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Skaut\HandbookAPI\v1_0\Exception;
 
-@_API_EXEC === 1 or die('Restricted access.');
+@_API_EXEC === 1 or exit('Restricted access.');
 
 class FileUploadException extends Exception
 {
     protected const TYPE = 'FileUploadException';
+
     protected const STATUS = 500;
 
     public function __construct(int $errorCode)

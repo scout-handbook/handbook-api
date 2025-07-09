@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Skaut\HandbookAPI\v1_0;
 
-@_API_EXEC === 1 or die('Restricted access.');
+@_API_EXEC === 1 or exit('Restricted access.');
 
 class Competence implements \JsonSerializable
 {
     private $number;
+
     private $name;
+
     private $description;
 
     public function __construct(string $number, string $name, string $description)
@@ -29,7 +31,7 @@ class Competence implements \JsonSerializable
         return [
             'number' => $this->number,
             'name' => $this->name,
-            'description' => $this->description
+            'description' => $this->description,
         ];
     }
 }

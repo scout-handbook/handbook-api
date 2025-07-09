@@ -2,24 +2,23 @@
 
 declare(strict_types=1);
 
-@_API_EXEC === 1 or die('Restricted access.');
-
-use Skautis\Skautis;
+@_API_EXEC === 1 or exit('Restricted access.');
 
 use Skaut\HandbookAPI\v1_0\Database;
 use Skaut\HandbookAPI\v1_0\Endpoint;
 use Skaut\HandbookAPI\v1_0\Helper;
 use Skaut\HandbookAPI\v1_0\Role;
+use Skautis\Skautis;
 
-$mutexBeaconEndpoint = new Endpoint();
+$mutexBeaconEndpoint = new Endpoint;
 
 $releaseBeaconMutex = function (Skautis $skautis, array $data): void {
-    $selectSQL = <<<SQL
+    $selectSQL = <<<'SQL'
 SELECT 1
 FROM `mutexes`
 WHERE `id` = :id AND `holder` = :holder;
 SQL;
-    $deleteSQL = <<<SQL
+    $deleteSQL = <<<'SQL'
 DELETE FROM `mutexes`
 WHERE `id` = :id AND `holder` = :holder;
 SQL;
@@ -28,7 +27,7 @@ SQL;
         $id = Helper::parseUuid($data['id'], 'resource')->getBytes();
         $userId = $skautis->UserManagement->LoginDetail()->ID_Person;
 
-        $db = new Database();
+        $db = new Database;
         $db->beginTransaction();
 
         $db->prepare($selectSQL);
@@ -44,8 +43,8 @@ SQL;
 
         $db->endTransaction();
     } catch (Exception $e) {
-        die();
+        exit();
     }
-    die();
+    exit();
 };
 $mutexBeaconEndpoint->setAddMethod(new Role('editor'), $releaseBeaconMutex);

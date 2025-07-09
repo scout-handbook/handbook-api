@@ -7,7 +7,7 @@ use Skaut\HandbookAPI\v1_0\Exception\Exception;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withProviders()
-    ->withRouting(api: __DIR__ . '/../routes/api.php', apiPrefix: '', commands: __DIR__ . '/../routes/console.php')
+    ->withRouting(api: __DIR__.'/../routes/api.php', apiPrefix: '', commands: __DIR__.'/../routes/console.php')
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->use([
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,

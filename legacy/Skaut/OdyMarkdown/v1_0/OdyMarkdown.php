@@ -11,10 +11,11 @@ class OdyMarkdown extends GithubMarkdown
     private static function trimUrl(string $url): string
     {
         $url = trim($url);
-        if (mb_substr($url, mb_strlen($url) - 1) === "/") {
+        if (mb_substr($url, mb_strlen($url) - 1) === '/') {
             $url = mb_substr($url, 0, mb_strlen($url) - 1);
         }
-        $url = mb_ereg_replace("(^https?://)", "", $url);
+        $url = mb_ereg_replace('(^https?://)', '', $url);
+
         return $url;
     }
 
@@ -32,15 +33,16 @@ class OdyMarkdown extends GithubMarkdown
         $trimmedText = self::trimUrl($this->renderAbsy($block['text']));
         $trimmedUrl = self::trimUrl($block['url']);
         if ($trimmedText !== $trimmedUrl) {
-            $text .= ' (' . $block['url'] . ') ';
+            $text .= ' ('.$block['url'].') ';
         }
+
         return $text;
     }
 
     // Image rendering in original quality
     protected function renderImage($block): string
     {
-        require($_SERVER['DOCUMENT_ROOT'] . '/api-config.php');
+        require $_SERVER['DOCUMENT_ROOT'].'/api-config.php';
 
         if (isset($block['refkey'])) {
             if (($ref = $this->lookupReference($block['refkey'])) !== false) {
@@ -50,7 +52,7 @@ class OdyMarkdown extends GithubMarkdown
             }
         }
 
-        if (mb_strpos($block['url'], $CONFIG->apiuri . '/v1.0/image') !== false) {
+        if (mb_strpos($block['url'], $CONFIG->apiuri.'/v1.0/image') !== false) {
             if (mb_strpos($block['url'], 'quality=') !== false) {
                 $block['url'] = str_replace('quality=web', 'quality=original', $block['url']);
                 $block['url'] = str_replace('quality=thumbnail', 'quality=original', $block['url']);
@@ -65,9 +67,10 @@ class OdyMarkdown extends GithubMarkdown
     // Generic functions for command parsing
     private function identifyCommand(string $line, string $command): bool
     {
-        if (strncmp(trim($line), '!' . $command, mb_strlen($command) + 1) === 0) {
+        if (strncmp(trim($line), '!'.$command, mb_strlen($command) + 1) === 0) {
             return true;
         }
+
         return false;
     }
 
@@ -89,9 +92,9 @@ class OdyMarkdown extends GithubMarkdown
                 break;
             }
         }
+
         return [$block, $next];
     }
-
 
     private static function getArgumentString(array $lines, int $current, string $command): array
     {
@@ -107,8 +110,8 @@ class OdyMarkdown extends GithubMarkdown
             } else {
                 $argumentString = mb_substr($line, $start + 1);
                 $linecount = count($lines);
-                for ($i = $current + 1; $i < $linecount; ++$i) {
-                    $stop = mb_strpos($lines[$i], "]");
+                for ($i = $current + 1; $i < $linecount; $i++) {
+                    $stop = mb_strpos($lines[$i], ']');
                     if ($stop !== false) {
                         $argumentString .= mb_substr($lines[$i], 0, $stop);
                         $next = $i;
@@ -120,6 +123,7 @@ class OdyMarkdown extends GithubMarkdown
             }
         }
         $argumentString = mb_ereg_replace(' ', '', strval($argumentString));
+
         return [$argumentString, $next];
     }
 
@@ -142,19 +146,20 @@ class OdyMarkdown extends GithubMarkdown
             if ($block['pocet'] === 'strana') {
                 $pgbr = $block['lastPage'] ? '' : '<pagebreak>';
                 if ($dotted) {
-                    return '<br>' .
-                        '<div class="dottedpage">' .
-                        str_repeat('<br><div class="dottedline">' . str_repeat('.', 256) . '</div>', 32) .
-                        '</div>' .
+                    return '<br>'.
+                        '<div class="dottedpage">'.
+                        str_repeat('<br><div class="dottedline">'.str_repeat('.', 256).'</div>', 32).
+                        '</div>'.
                         $pgbr;
                 }
+
                 return $pgbr;
             } else {
                 $height = intval($block['pocet']);
             }
         }
         if ($dotted) {
-            return str_repeat('<br><div class="dottedline">' . str_repeat('.', 256) . '</div>', $height);
+            return str_repeat('<br><div class="dottedline">'.str_repeat('.', 256).'</div>', $height);
         } else {
             return str_repeat('<br>', $height);
         }

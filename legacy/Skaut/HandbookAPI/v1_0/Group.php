@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Skaut\HandbookAPI\v1_0;
 
-@_API_EXEC === 1 or die('Restricted access.');
-
-use Ramsey\Uuid\Uuid;
+@_API_EXEC === 1 or exit('Restricted access.');
 
 class Group implements \JsonSerializable
 {
     private $name;
+
     private $count;
 
     public function __construct(string $name, int $count)

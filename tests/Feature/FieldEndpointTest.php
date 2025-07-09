@@ -12,7 +12,7 @@ class FieldEndpointTest extends LegacyEndpointTestCase
     {
         parent::setUp();
 
-        $SQL1 = <<<SQL
+        $SQL1 = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `fields` (
   `id` binary(16) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -22,13 +22,13 @@ CREATE TABLE IF NOT EXISTS `fields` (
   PRIMARY KEY (`id`)
 );
 SQL;
-        $SQL2 = <<<SQL
+        $SQL2 = <<<'SQL'
 CREATE TABLE IF NOT EXISTS `lessons_in_fields` (
   `field_id` binary(16) NOT NULL,
   `lesson_id` binary(16) NOT NULL
 );
 SQL;
-        $db = new Database();
+        $db = new Database;
         $db->prepare($SQL1);
         $db->execute();
         $db->prepare($SQL2);
@@ -39,16 +39,16 @@ SQL;
     {
         parent::tearDownAfterClass();
 
-        $SQL1 = "DROP TABLE `fields`;";
-        $SQL2 = "DROP TABLE `lessons_in_fields`;";
-        $db = new Database();
+        $SQL1 = 'DROP TABLE `fields`;';
+        $SQL2 = 'DROP TABLE `lessons_in_fields`;';
+        $db = new Database;
         $db->prepare($SQL1);
         $db->execute();
         $db->prepare($SQL2);
         $db->execute();
     }
 
-    public function testEmptyList(): void
+    public function test_empty_list(): void
     {
         $response = $this->get('v1.0/field');
 
@@ -56,7 +56,7 @@ SQL;
         $response->assertExactJson(['status' => 200, 'response' => []]);
     }
 
-    public function testAddField(): void
+    public function test_add_field(): void
     {
         $response = $this->post(
             'v1.0/field',
@@ -64,7 +64,7 @@ SQL;
                 'name' => 'Testovací oblast',
                 'description' => 'Popis',
                 'image' => '00000000-0000-0000-0000-000000000000',
-                'icon' => '00000000-0000-0000-0000-000000000000'
+                'icon' => '00000000-0000-0000-0000-000000000000',
             ],
             [],
             'administrator'
@@ -74,7 +74,7 @@ SQL;
         $response->assertJson(['status' => 201]);
     }
 
-    public function testListFields(): void
+    public function test_list_fields(): void
     {
         $response = $this->get('v1.0/field');
         $response->assertStatus(200);
@@ -82,29 +82,29 @@ SQL;
         $response->assertJsonFragment(['name' => 'Testovací oblast']);
     }
 
-    public function testAddFieldWithoutAuth(): void
+    public function test_add_field_without_auth(): void
     {
         $response = $this->post('v1.0/field', ['name' => 'Nepovolená oblast'], []);
         $response->assertStatus(403);
         $response->assertExactJson([
             'status' => 403,
             'type' => 'AuthenticationException',
-            'message' => 'Authentication failed.'
+            'message' => 'Authentication failed.',
         ]);
     }
 
-    public function testAddFieldWithoutName(): void
+    public function test_add_field_without_name(): void
     {
         $response = $this->post('v1.0/field', [], [], 'administrator');
         $response->assertStatus(400);
         $response->assertExactJson([
             'status' => 400,
             'type' => 'MissingArgumentException',
-            'message' => 'POST argument "name" must be provided.'
+            'message' => 'POST argument "name" must be provided.',
         ]);
     }
 
-    public function testUpdateField(): void
+    public function test_update_field(): void
     {
         $response = $this->get('v1.0/field', [], 'editor');
         $response->assertStatus(200);
@@ -112,12 +112,12 @@ SQL;
         $fieldId = key($response['response']);
 
         $response = $this->put(
-            'v1.0/field/' . $fieldId,
+            'v1.0/field/'.$fieldId,
             [
                 'name' => 'Změněná oblast',
                 'description' => 'Změněný popis',
                 'image' => '00000000-0000-0000-0000-000000000001',
-                'icon' => '00000000-0000-0000-0000-000000000001'
+                'icon' => '00000000-0000-0000-0000-000000000001',
             ],
             [],
             'administrator'
@@ -132,12 +132,12 @@ SQL;
                 'name' => 'Změněná oblast',
                 'description' => 'Změněný popis',
                 'image' => '00000000-0000-0000-0000-000000000001',
-                'icon' => '00000000-0000-0000-0000-000000000001'
+                'icon' => '00000000-0000-0000-0000-000000000001',
             ]
         );
     }
 
-    public function testUpdateFieldWithoutName(): void
+    public function test_update_field_without_name(): void
     {
         $response = $this->get('v1.0/field', [], 'editor');
         $response->assertStatus(200);
@@ -145,7 +145,7 @@ SQL;
         $fieldId = key($response['response']);
 
         $response = $this->put(
-            'v1.0/field/' . $fieldId,
+            'v1.0/field/'.$fieldId,
             [],
             [],
             'administrator'
@@ -155,28 +155,28 @@ SQL;
         $response->assertExactJson([
             'status' => 400,
             'type' => 'MissingArgumentException',
-            'message' => 'POST argument "name" must be provided.'
+            'message' => 'POST argument "name" must be provided.',
         ]);
     }
 
-    public function testUpdateFieldWithoutAuth(): void
+    public function test_update_field_without_auth(): void
     {
         $response = $this->get('v1.0/field', [], 'editor');
         $response->assertStatus(200);
 
         $fieldId = key($response['response']);
 
-        $response = $this->put('v1.0/field/' . $fieldId, ['name' => 'Neoprávněná změna'], []);
+        $response = $this->put('v1.0/field/'.$fieldId, ['name' => 'Neoprávněná změna'], []);
 
         $response->assertStatus(403);
         $response->assertExactJson([
             'status' => 403,
             'type' => 'AuthenticationException',
-            'message' => 'Authentication failed.'
+            'message' => 'Authentication failed.',
         ]);
     }
 
-    public function testUpdateNonexistentField(): void
+    public function test_update_nonexistent_field(): void
     {
         $response = $this->put(
             'v1.0/field/nonexistent',
@@ -189,31 +189,31 @@ SQL;
         $response->assertExactJson([
             'status' => 404,
             'type' => 'NotFoundException',
-            'message' => 'No such field has been found.'
+            'message' => 'No such field has been found.',
         ]);
     }
 
-    public function testDeleteFieldWithoutAuth(): void
+    public function test_delete_field_without_auth(): void
     {
         $response = $this->get('v1.0/field', [], 'editor');
         $fieldId = key($response['response']);
 
-        $response = $this->delete('v1.0/field/' . $fieldId, [], []);
+        $response = $this->delete('v1.0/field/'.$fieldId, [], []);
 
         $response->assertStatus(403);
         $response->assertExactJson([
             'status' => 403,
             'type' => 'AuthenticationException',
-            'message' => 'Authentication failed.'
+            'message' => 'Authentication failed.',
         ]);
     }
 
-    public function testDeleteField(): void
+    public function test_delete_field(): void
     {
         $response = $this->get('v1.0/field', [], 'editor');
         $fieldId = key($response['response']);
 
-        $response = $this->delete('v1.0/field/' . $fieldId, [], [], 'administrator');
+        $response = $this->delete('v1.0/field/'.$fieldId, [], [], 'administrator');
         $response->assertStatus(200);
         $response->assertExactJson(['status' => 200]);
 
@@ -221,7 +221,7 @@ SQL;
         $response->assertJsonMissing(['name' => 'Změněná oblast']);
     }
 
-    public function testDeleteNonexistentField(): void
+    public function test_delete_nonexistent_field(): void
     {
         $response = $this->delete('v1.0/field/nonexistent', [], [], 'administrator');
 
@@ -229,7 +229,7 @@ SQL;
         $response->assertExactJson([
             'status' => 404,
             'type' => 'NotFoundException',
-            'message' => 'No such field has been found.'
+            'message' => 'No such field has been found.',
         ]);
     }
 }
