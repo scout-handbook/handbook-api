@@ -22,22 +22,12 @@
 		<exclude name="SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder" />
 		<exclude name="SlevomatCodingStandard.Arrays.TrailingArrayComma.MissingTrailingComma" />
 		<exclude name="SlevomatCodingStandard.Attributes.AttributesOrder" />
-		<exclude name="SlevomatCodingStandard.Classes.ClassConstantVisibility.MissingConstantVisibility" />
-		<exclude name="SlevomatCodingStandard.Classes.ClassMemberSpacing.IncorrectCountOfBlankLinesBetweenMembers" />
 		<exclude name="SlevomatCodingStandard.Classes.ClassStructure.IncorrectGroupOrder" />
 		<exclude name="SlevomatCodingStandard.Classes.DisallowLateStaticBindingForConstants.DisallowedLateStaticBindingForConstant" />
-		<exclude name="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces.MultipleEmptyLinesAfterOpeningBrace" />
-		<exclude name="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces.MultipleEmptyLinesBeforeClosingBrace" />
-		<exclude name="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces.NoEmptyLineAfterOpeningBrace" />
-		<exclude name="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces.NoEmptyLineBeforeClosingBrace" />
-		<exclude name="SlevomatCodingStandard.Classes.MethodSpacing.IncorrectLinesCountBetweenMethods" />
 		<exclude name="SlevomatCodingStandard.Classes.ParentCallSpacing.IncorrectLinesCountAfterControlStructure" />
 		<exclude name="SlevomatCodingStandard.Classes.ParentCallSpacing.IncorrectLinesCountBeforeControlStructure" />
 		<exclude name="SlevomatCodingStandard.Classes.RequireAbstractOrFinal.ClassNeitherAbstractNorFinal" />
 		<exclude name="SlevomatCodingStandard.Classes.RequireSelfReference.RequiredSelfReference" />
-		<exclude name="SlevomatCodingStandard.Classes.SuperfluousExceptionNaming.SuperfluousSuffix" />
-		<exclude name="SlevomatCodingStandard.Classes.TraitUseSpacing.IncorrectLinesCountAfterLastUse" />
-		<exclude name="SlevomatCodingStandard.Classes.TraitUseSpacing.IncorrectLinesCountBeforeFirstUse" />
 		<exclude name="SlevomatCodingStandard.Commenting.DisallowCommentAfterCode.DisallowedCommentAfterCode" />
 		<exclude name="SlevomatCodingStandard.Complexity.Cognitive.ComplexityTooHigh" />
 		<exclude name="SlevomatCodingStandard.ControlStructures.AssignmentInCondition.AssignmentInCondition" />
@@ -45,25 +35,18 @@
 		<exclude name="SlevomatCodingStandard.ControlStructures.BlockControlStructureSpacing.IncorrectLinesCountBeforeControlStructure" />
 		<exclude name="SlevomatCodingStandard.ControlStructures.DisallowEmpty.DisallowedEmpty" />
 		<exclude name="SlevomatCodingStandard.ControlStructures.DisallowShortTernaryOperator.DisallowedShortTernaryOperator" />
-		<exclude name="SlevomatCodingStandard.ControlStructures.DisallowYodaComparison.DisallowedYodaComparison" />
 		<exclude name="SlevomatCodingStandard.ControlStructures.EarlyExit.EarlyExitNotUsed" />
 		<exclude name="SlevomatCodingStandard.ControlStructures.EarlyExit.UselessElse" />
 		<exclude name="SlevomatCodingStandard.ControlStructures.JumpStatementsSpacing.IncorrectLinesCountBeforeControlStructure" />
 		<exclude name="SlevomatCodingStandard.ControlStructures.LanguageConstructWithParentheses.UsedWithParentheses" />
-		<exclude name="SlevomatCodingStandard.ControlStructures.NewWithoutParentheses.UselessParentheses" />
-		<exclude name="SlevomatCodingStandard.ControlStructures.NewWithParentheses.MissingParentheses" />
 		<exclude name="SlevomatCodingStandard.ControlStructures.RequireMultiLineTernaryOperator.MultiLineTernaryOperatorNotUsed" />
 		<exclude name="SlevomatCodingStandard.ControlStructures.RequireTernaryOperator.TernaryOperatorNotUsed" />
-		<exclude name="SlevomatCodingStandard.ControlStructures.RequireYodaComparison.RequiredYodaComparison" />
 		<exclude name="SlevomatCodingStandard.ControlStructures.UselessIfConditionWithReturn.UselessIfCondition" />
 		<exclude name="SlevomatCodingStandard.Exceptions.ReferenceThrowableOnly.ReferencedGeneralException" />
 		<exclude name="SlevomatCodingStandard.Exceptions.RequireNonCapturingCatch.NonCapturingCatchRequired" />
-		<exclude name="SlevomatCodingStandard.Files.FunctionLength.FunctionLength" />
 		<exclude name="SlevomatCodingStandard.Files.LineLength.LineTooLong" />
 		<exclude name="SlevomatCodingStandard.Files.TypeNameMatchesFileName.NoMatchBetweenTypeNameAndFileName" />
 		<exclude name="SlevomatCodingStandard.Functions.DisallowNamedArguments.DisallowedNamedArgument" />
-		<exclude name="SlevomatCodingStandard.Functions.DisallowTrailingCommaInClosureUse.DisallowedTrailingComma" />
-		<exclude name="SlevomatCodingStandard.Functions.DisallowTrailingCommaInDeclaration.DisallowedTrailingComma" />
 		<exclude name="SlevomatCodingStandard.Functions.FunctionLength.FunctionLength" />
 		<exclude name="SlevomatCodingStandard.Functions.RequireArrowFunction.RequiredArrowFunction" />
 		<exclude name="SlevomatCodingStandard.Functions.RequireMultiLineCall.RequiredMultiLineCall" />
@@ -72,42 +55,47 @@
 		<exclude name="SlevomatCodingStandard.Functions.StaticClosure.ClosureNotStatic" />
 		<exclude name="SlevomatCodingStandard.Functions.StrictCall.StrictParameterMissing" />
 		<exclude name="SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter" />
-		<exclude name="SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses.IncorrectlyOrderedUses" />
-		<exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedExceptions.NonFullyQualifiedException" />
-		<exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalConstants.NonFullyQualified" />
-		<exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalFunctions.NonFullyQualified" />
-		<exclude name="SlevomatCodingStandard.Namespaces.NamespaceSpacing.IncorrectLinesCountBeforeNamespace" />
 		<exclude name="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly.ReferenceViaFullyQualifiedName" />
 		<exclude name="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly.ReferenceViaFullyQualifiedNameWithoutNamespace" />
-		<exclude name="SlevomatCodingStandard.Namespaces.UnusedUses.UnusedUse" />
-		<exclude name="SlevomatCodingStandard.Namespaces.UseDoesNotStartWithBackslash.UseStartsWithBackslash" />
-		<exclude name="SlevomatCodingStandard.Namespaces.UseFromSameNamespace.UseFromSameNamespace" />
-		<exclude name="SlevomatCodingStandard.Namespaces.UseOnlyWhitelistedNamespaces.NonFullyQualified" />
-		<exclude name="SlevomatCodingStandard.Namespaces.UseSpacing.IncorrectLinesCountBetweenSameTypeOfUse" />
 		<exclude name="SlevomatCodingStandard.Numbers.RequireNumericLiteralSeparator.RequiredNumericLiteralSeparator" />
 		<exclude name="SlevomatCodingStandard.Operators.DisallowEqualOperators.DisallowedEqualOperator" />
 		<exclude name="SlevomatCodingStandard.Operators.DisallowEqualOperators.DisallowedNotEqualOperator" />
-		<exclude name="SlevomatCodingStandard.Operators.DisallowIncrementAndDecrementOperators.DisallowedPostIncrementOperator" />
-		<exclude name="SlevomatCodingStandard.Operators.DisallowIncrementAndDecrementOperators.DisallowedPreIncrementOperator" />
-		<exclude name="SlevomatCodingStandard.Operators.RequireCombinedAssignmentOperator.RequiredCombinedAssigmentOperator" />
 		<exclude name="SlevomatCodingStandard.PHP.DisallowReference.DisallowedPassingByReference" />
-		<exclude name="SlevomatCodingStandard.PHP.RequireNowdoc.RequiredNowdoc" />
 		<exclude name="SlevomatCodingStandard.PHP.UselessParentheses.UselessParentheses" />
 		<exclude name="SlevomatCodingStandard.TypeHints.ClassConstantTypeHint.MissingNativeTypeHint" />
 		<exclude name="SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing" />
-		<exclude name="SlevomatCodingStandard.TypeHints.DeclareStrictTypes.IncorrectStrictTypesFormat" />
-		<exclude name="SlevomatCodingStandard.TypeHints.DeclareStrictTypes.IncorrectWhitespaceAfterDeclare" />
-		<exclude name="SlevomatCodingStandard.TypeHints.DeclareStrictTypes.IncorrectWhitespaceBeforeDeclare" />
 		<exclude name="SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingAnyTypeHint" />
 		<exclude name="SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingTraversableTypeHintSpecification" />
 		<exclude name="SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint" />
 		<exclude name="SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHintSlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint" />
 		<exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingAnyTypeHint" />
 		<exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingTraversableTypeHintSpecification" />
-		<exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHintSpacing.WhitespaceBeforeColon" />
-		<exclude name="SlevomatCodingStandard.TypeHints.UnionTypeHintFormat" />
 		<exclude name="SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable.DisallowedSuperGlobalVariable" />
 		<exclude name="SlevomatCodingStandard.Variables.UnusedVariable.UnusedVariable" />
 		<exclude name="SlevomatCodingStandard.Variables.UselessVariable.UselessVariable" />
+
+		<!-- Deprecated sniffs -->
+		<exclude name="SlevomatCodingStandard.TypeHints.UnionTypeHintFormat" />
+
+		<!-- Conflicts with laravel coding style -->
+		<exclude name="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces.MultipleEmptyLinesAfterOpeningBrace" />
+		<exclude name="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces.MultipleEmptyLinesBeforeClosingBrace" />
+		<exclude name="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces.NoEmptyLineAfterOpeningBrace" />
+		<exclude name="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces.NoEmptyLineBeforeClosingBrace" />
+		<exclude name="SlevomatCodingStandard.Classes.TraitUseSpacing.IncorrectLinesCountAfterLastUse" />
+		<exclude name="SlevomatCodingStandard.Classes.TraitUseSpacing.IncorrectLinesCountBeforeFirstUse" />
+		<exclude name="SlevomatCodingStandard.ControlStructures.NewWithParentheses.MissingParentheses" />
+		<exclude name="SlevomatCodingStandard.TypeHints.DeclareStrictTypes.IncorrectStrictTypesFormat" />
+
+		<!-- Disabled due to style preferences -->
+		<exclude name="SlevomatCodingStandard.Classes.SuperfluousExceptionNaming.SuperfluousSuffix" />
+		<exclude name="SlevomatCodingStandard.ControlStructures.RequireYodaComparison.RequiredYodaComparison" />
+		<exclude name="SlevomatCodingStandard.Functions.DisallowTrailingCommaInClosureUse.DisallowedTrailingComma" />
+		<exclude name="SlevomatCodingStandard.Functions.DisallowTrailingCommaInDeclaration.DisallowedTrailingComma" />
+		<exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedExceptions.NonFullyQualifiedException" />
+		<exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalConstants.NonFullyQualified" />
+		<exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalFunctions.NonFullyQualified" />
+		<exclude name="SlevomatCodingStandard.Namespaces.UseOnlyWhitelistedNamespaces.NonFullyQualified" />
+		<exclude name="SlevomatCodingStandard.Operators.DisallowIncrementAndDecrementOperators.DisallowedPostIncrementOperator" />
 	</rule>
 </ruleset>
