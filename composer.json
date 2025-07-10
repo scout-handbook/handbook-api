@@ -56,10 +56,11 @@
         "phpunit:clean": "rm -f tests/db.sqlite*",
         "phpunit": "vendor/bin/phpunit",
         "lint": [
+            "@pint",
             "@phpcs",
             "@phpmd",
-            "@phpstan",
-            "@pint"
+            "@phan",
+            "@phpstan"
         ],
         "test": [
             "@phpunit:clean",
