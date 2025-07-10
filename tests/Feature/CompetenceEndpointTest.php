@@ -20,7 +20,12 @@ final class CompetenceEndpointTest extends LegacyEndpointTestCase
 
     public function test_add_competence(): void
     {
-        $response = $this->post('v1.0/competence', ['name' => 'Nová kompetence', 'number' => 42], [], 'administrator');
+        $response = $this->post(
+            'v1.0/competence',
+            ['name' => 'Nová kompetence', 'number' => '42'],
+            [],
+            'administrator',
+        );
 
         $response->assertStatus(201);
         $response->assertExactJson(['status' => 201]);
@@ -37,7 +42,7 @@ final class CompetenceEndpointTest extends LegacyEndpointTestCase
 
     public function test_add_competence_without_auth(): void
     {
-        $response = $this->post('v1.0/competence', ['number' => 42], []);
+        $response = $this->post('v1.0/competence', ['number' => '42'], []);
 
         $response->assertStatus(403);
         $response->assertExactJson(
@@ -51,7 +56,7 @@ final class CompetenceEndpointTest extends LegacyEndpointTestCase
 
     public function test_add_competence_without_name(): void
     {
-        $response = $this->post('v1.0/competence', ['number' => 42], [], 'administrator');
+        $response = $this->post('v1.0/competence', ['number' => '42'], [], 'administrator');
 
         $response->assertStatus(400);
         $response->assertExactJson(
@@ -81,7 +86,7 @@ final class CompetenceEndpointTest extends LegacyEndpointTestCase
     {
         $response = $this->post(
             'v1.0/competence',
-            ['name' => 'Nová kompetence 2', 'number' => 43, 'description' => 'Popis'],
+            ['name' => 'Nová kompetence 2', 'number' => '43', 'description' => 'Popis'],
             [],
             'administrator',
         );
