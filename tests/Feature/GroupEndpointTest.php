@@ -1,61 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature;
 
 use Skaut\HandbookAPI\v1_0\Database;
 use Tests\LegacyEndpointTestCase;
 
 /** @SuppressWarnings("PHPMD.TooManyPublicMethods") */
-class GroupEndpointTest extends LegacyEndpointTestCase
+final class GroupEndpointTest extends LegacyEndpointTestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $SQL1 = <<<'SQL'
-CREATE TABLE IF NOT EXISTS `groups` (
-  `id` binary(16) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-);
-SQL;
-        $SQL2 = <<<'SQL'
-CREATE TABLE IF NOT EXISTS `users_in_groups` (
-  `user_id` int UNSIGNED NOT NULL,
-  `group_id` binary(16) NOT NULL
-);
-SQL;
-        $SQL3 = <<<'SQL'
-CREATE TABLE IF NOT EXISTS `groups_for_lessons` (
-  `lesson_id` binary(16) NOT NULL,
-  `group_id` binary(16) NOT NULL
-);
-SQL;
-        $db = new Database;
-        $db->prepare($SQL1);
-        $db->execute();
-        $db->prepare($SQL2);
-        $db->execute();
-        $db->prepare($SQL3);
-        $db->execute();
-    }
-
-    public static function tearDownAfterClass(): void
-    {
-        parent::tearDownAfterClass();
-
-        $SQL1 = 'DROP TABLE `groups`;';
-        $SQL2 = 'DROP TABLE `users_in_groups`;';
-        $SQL3 = 'DROP TABLE `groups_for_lessons`;';
-        $db = new Database;
-        $db->prepare($SQL1);
-        $db->execute();
-        $db->prepare($SQL2);
-        $db->execute();
-        $db->prepare($SQL3);
-        $db->execute();
-    }
-
     public function test_empty_list(): void
     {
         $response = $this->get('v1.0/group', [], 'editor');
@@ -88,10 +42,10 @@ SQL;
         $response->assertStatus(403);
         $response->assertExactJson(
             [
+                'message' => 'Authentication failed.',
                 'status' => 403,
                 'type' => 'AuthenticationException',
-                'message' => 'Authentication failed.',
-            ]
+            ],
         );
     }
 
@@ -102,10 +56,10 @@ SQL;
         $response->assertStatus(403);
         $response->assertExactJson(
             [
+                'message' => 'Authentication failed.',
                 'status' => 403,
                 'type' => 'AuthenticationException',
-                'message' => 'Authentication failed.',
-            ]
+            ],
         );
     }
 
@@ -116,10 +70,10 @@ SQL;
         $response->assertStatus(400);
         $response->assertExactJson(
             [
+                'message' => 'POST argument "name" must be provided.',
                 'status' => 400,
                 'type' => 'MissingArgumentException',
-                'message' => 'POST argument "name" must be provided.',
-            ]
+            ],
         );
     }
 
@@ -134,7 +88,7 @@ SQL;
             'v1.0/group/'.$groupId,
             ['name' => 'Změněná skupina'],
             [],
-            'administrator'
+            'administrator',
         );
 
         $response->assertStatus(200);
@@ -155,16 +109,16 @@ SQL;
             'v1.0/group/'.$groupId,
             [],
             [],
-            'administrator'
+            'administrator',
         );
 
         $response->assertStatus(400);
         $response->assertExactJson(
             [
+                'message' => 'POST argument "name" must be provided.',
                 'status' => 400,
                 'type' => 'MissingArgumentException',
-                'message' => 'POST argument "name" must be provided.',
-            ]
+            ],
         );
     }
 
@@ -180,10 +134,10 @@ SQL;
         $response->assertStatus(403);
         $response->assertExactJson(
             [
+                'message' => 'Authentication failed.',
                 'status' => 403,
                 'type' => 'AuthenticationException',
-                'message' => 'Authentication failed.',
-            ]
+            ],
         );
     }
 
@@ -193,16 +147,16 @@ SQL;
             'v1.0/group/nonexistent',
             ['name' => 'Nová skupina'],
             [],
-            'administrator'
+            'administrator',
         );
 
         $response->assertStatus(404);
         $response->assertExactJson(
             [
+                'message' => 'No such group has been found.',
                 'status' => 404,
                 'type' => 'NotFoundException',
-                'message' => 'No such group has been found.',
-            ]
+            ],
         );
     }
 
@@ -216,10 +170,10 @@ SQL;
         $response->assertStatus(403);
         $response->assertExactJson(
             [
+                'message' => 'Authentication failed.',
                 'status' => 403,
                 'type' => 'AuthenticationException',
-                'message' => 'Authentication failed.',
-            ]
+            ],
         );
     }
 
@@ -243,10 +197,58 @@ SQL;
         $response->assertStatus(404);
         $response->assertExactJson(
             [
+                'message' => 'No such group has been found.',
                 'status' => 404,
                 'type' => 'NotFoundException',
-                'message' => 'No such group has been found.',
-            ]
+            ],
         );
+    }
+
+    public static function tearDownAfterClass(): void
+    {
+        parent::tearDownAfterClass();
+
+        $db = new Database;
+        $db->prepare(<<<'SQL'
+DROP TABLE `groups`;
+SQL);
+        $db->execute();
+        $db->prepare(<<<'SQL'
+DROP TABLE `users_in_groups`;
+SQL);
+        $db->execute();
+        $db->prepare(<<<'SQL'
+DROP TABLE `groups_for_lessons`;
+SQL);
+        $db->execute();
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $db = new Database;
+        $db->prepare(<<<'SQL'
+CREATE TABLE IF NOT EXISTS `groups` (
+  `id` binary(16) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+SQL);
+        $db->execute();
+        $db->prepare(<<<'SQL'
+CREATE TABLE IF NOT EXISTS `users_in_groups` (
+  `user_id` int UNSIGNED NOT NULL,
+  `group_id` binary(16) NOT NULL
+);
+SQL);
+        $db->execute();
+        $db->prepare(<<<'SQL'
+CREATE TABLE IF NOT EXISTS `groups_for_lessons` (
+  `lesson_id` binary(16) NOT NULL,
+  `group_id` binary(16) NOT NULL
+);
+SQL);
+        $db->execute();
     }
 }

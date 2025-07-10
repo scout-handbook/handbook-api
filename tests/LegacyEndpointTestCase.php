@@ -1,26 +1,36 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
-class LegacyEndpointTestCase extends TestCase
+use DateInterval;
+use DateTime;
+use DateTimeZone;
+use Illuminate\Testing\TestResponse;
+
+abstract class LegacyEndpointTestCase extends TestCase
 {
-    /*
+    /**
      * @param  \Illuminate\Support\Uri|string  $uri
-     * @param  array  $headers
-     * @param  string|null $overrideRole
-     * @return \Illuminate\Testing\TestResponse
+     * @param  array<string, string>  $headers
+     * @return TestResponse<\Symfony\Component\HttpFoundation\Response>
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
-    public function get($uri, array $headers = [], $overrideRole = null)
+    public function get($uri, array $headers = [], ?string $overrideRole = null): TestResponse
     {
         global $_TEST_OVERRIDE;
+
         if ($overrideRole !== null) {
             $_TEST_OVERRIDE = $overrideRole;
             $_COOKIE['skautis_token'] = 'TOKEN';
             $_COOKIE['skautis_timeout'] =
-                (new \DateTime('now', new \DateTimeZone('UTC')))
-                    ->add(new \DateInterval('P10M'))
+                (new DateTime('now', new DateTimeZone('UTC')))
+                    ->add(new DateInterval('P10M'))
                     ->format('U');
         }
+
         $_SERVER['REQUEST_METHOD'] = 'GET';
 
         $response = parent::get($uri, $headers);
@@ -33,24 +43,27 @@ class LegacyEndpointTestCase extends TestCase
         return $response;
     }
 
-    /*
+    /**
      * @param  \Illuminate\Support\Uri|string  $uri
-     * @param  array  $data
-     * @param  array  $headers
-     * @param  string|null $overrideRole
-     * @return \Illuminate\Testing\TestResponse
+     * @param  array<string, string>  $data
+     * @param  array<string, string>  $headers
+     * @return TestResponse<\Symfony\Component\HttpFoundation\Response>
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
-    public function post($uri, array $data = [], array $headers = [], $overrideRole = null)
+    public function post($uri, array $data = [], array $headers = [], ?string $overrideRole = null): TestResponse
     {
         global $_TEST_OVERRIDE;
+
         if ($overrideRole !== null) {
             $_TEST_OVERRIDE = $overrideRole;
             $_COOKIE['skautis_token'] = 'TOKEN';
             $_COOKIE['skautis_timeout'] =
-                (new \DateTime('now', new \DateTimeZone('UTC')))
-                    ->add(new \DateInterval('PT10M'))
+                (new DateTime('now', new DateTimeZone('UTC')))
+                    ->add(new DateInterval('PT10M'))
                     ->format('U');
         }
+
         $_SERVER['REQUEST_METHOD'] = 'POST';
         $_POST = $data;
 
@@ -65,24 +78,27 @@ class LegacyEndpointTestCase extends TestCase
         return $response;
     }
 
-    /*
+    /**
      * @param  \Illuminate\Support\Uri|string  $uri
-     * @param  array  $data
-     * @param  array  $headers
-     * @param  string|null $overrideRole
-     * @return \Illuminate\Testing\TestResponse
+     * @param  array<string, string>  $data
+     * @param  array<string, string>  $headers
+     * @return TestResponse<\Symfony\Component\HttpFoundation\Response>
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
-    public function put($uri, array $data = [], array $headers = [], $overrideRole = null)
+    public function put($uri, array $data = [], array $headers = [], ?string $overrideRole = null): TestResponse
     {
         global $_TEST_OVERRIDE;
+
         if ($overrideRole !== null) {
             $_TEST_OVERRIDE = $overrideRole;
             $_COOKIE['skautis_token'] = 'TOKEN';
             $_COOKIE['skautis_timeout'] =
-                (new \DateTime('now', new \DateTimeZone('UTC')))
-                    ->add(new \DateInterval('P10M'))
+                (new DateTime('now', new DateTimeZone('UTC')))
+                    ->add(new DateInterval('P10M'))
                     ->format('U');
         }
+
         $_SERVER['REQUEST_METHOD'] = 'PUT';
         $_POST = $data;
 
@@ -97,24 +113,27 @@ class LegacyEndpointTestCase extends TestCase
         return $response;
     }
 
-    /*
+    /**
      * @param  \Illuminate\Support\Uri|string  $uri
-     * @param  array  $data
-     * @param  array  $headers
-     * @param  string|null $overrideRole
-     * @return \Illuminate\Testing\TestResponse
+     * @param  array<string, string>  $data
+     * @param  array<string, string>  $headers
+     * @return TestResponse<\Symfony\Component\HttpFoundation\Response>
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
-    public function delete($uri, array $data = [], array $headers = [], $overrideRole = null)
+    public function delete($uri, array $data = [], array $headers = [], ?string $overrideRole = null): TestResponse
     {
         global $_TEST_OVERRIDE;
+
         if ($overrideRole !== null) {
             $_TEST_OVERRIDE = $overrideRole;
             $_COOKIE['skautis_token'] = 'TOKEN';
             $_COOKIE['skautis_timeout'] =
-                (new \DateTime('now', new \DateTimeZone('UTC')))
-                    ->add(new \DateInterval('P10M'))
+                (new DateTime('now', new DateTimeZone('UTC')))
+                    ->add(new DateInterval('P10M'))
                     ->format('U');
         }
+
         $_SERVER['REQUEST_METHOD'] = 'DELETE';
         $_POST = $data;
 

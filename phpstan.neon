@@ -1,21 +1,18 @@
 parameters:
-  level: 5
+  level: 8
   paths:
     - .
   fileExtensions:
     - php
     - sample
   excludePaths:
-    - vendor
-    - tests
+    - legacy
     - storage/framework/views
+    - tests/Unit
+    - vendor
   bootstrapFiles:
     - bootstrap.php.lint
   dynamicConstantNames:
     - _API_EXEC
   ignoreErrors:
-    - '#Variable \$CONFIG might not be defined.#'
     - '#Variable \$_API_SECRETS_EXEC might not be defined.#'
-    - '#Variable \$[a-zA-Z]+Endpoint might not be defined.#'
-    - '#Access to an undefined property Skautis\\Skautis::\$[a-zA-Z]+.#'
-    - '#Call to an undefined method Skautis\\Exception::getMessage\(\).#'
