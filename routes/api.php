@@ -16,4 +16,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::any('{path}', LegacyController::class)->where('path', '.*');
+Route::any('{path}', [LegacyController::class, 'call'])->where('path', '.*');
