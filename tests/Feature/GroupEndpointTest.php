@@ -208,15 +208,18 @@ final class GroupEndpointTest extends LegacyEndpointTestCase
     {
         parent::tearDownAfterClass();
 
-        $SQL1 = 'DROP TABLE `groups`;';
-        $SQL2 = 'DROP TABLE `users_in_groups`;';
-        $SQL3 = 'DROP TABLE `groups_for_lessons`;';
         $db = new Database;
-        $db->prepare($SQL1);
+        $db->prepare(<<<'SQL'
+DROP TABLE `groups`;
+SQL);
         $db->execute();
-        $db->prepare($SQL2);
+        $db->prepare(<<<'SQL'
+DROP TABLE `users_in_groups`;
+SQL);
         $db->execute();
-        $db->prepare($SQL3);
+        $db->prepare(<<<'SQL'
+DROP TABLE `groups_for_lessons`;
+SQL);
         $db->execute();
     }
 
@@ -224,31 +227,28 @@ final class GroupEndpointTest extends LegacyEndpointTestCase
     {
         parent::setUp();
 
-        $SQL1 = <<<'SQL'
+        $db = new Database;
+        $db->prepare(<<<'SQL'
 CREATE TABLE IF NOT EXISTS `groups` (
   `id` binary(16) NOT NULL,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 );
-SQL;
-        $SQL2 = <<<'SQL'
+SQL);
+        $db->execute();
+        $db->prepare(<<<'SQL'
 CREATE TABLE IF NOT EXISTS `users_in_groups` (
   `user_id` int UNSIGNED NOT NULL,
   `group_id` binary(16) NOT NULL
 );
-SQL;
-        $SQL3 = <<<'SQL'
+SQL);
+        $db->execute();
+        $db->prepare(<<<'SQL'
 CREATE TABLE IF NOT EXISTS `groups_for_lessons` (
   `lesson_id` binary(16) NOT NULL,
   `group_id` binary(16) NOT NULL
 );
-SQL;
-        $db = new Database;
-        $db->prepare($SQL1);
-        $db->execute();
-        $db->prepare($SQL2);
-        $db->execute();
-        $db->prepare($SQL3);
+SQL);
         $db->execute();
     }
 }
