@@ -235,16 +235,14 @@ final class CompetenceEndpointTest extends LegacyEndpointTestCase
     {
         parent::tearDownAfterClass();
 
-        $SQL1 = <<<'SQL'
-DROP TABLE `competences`;
-SQL;
-        $SQL2 = <<<'SQL'
-DROP TABLE `competences_for_lessons`;
-SQL;
         $db = new Database;
-        $db->prepare($SQL1);
+        $db->prepare(<<<'SQL'
+DROP TABLE `competences`;
+SQL);
         $db->execute();
-        $db->prepare($SQL2);
+        $db->prepare(<<<'SQL'
+DROP TABLE `competences_for_lessons`;
+SQL);
         $db->execute();
     }
 
@@ -252,7 +250,8 @@ SQL;
     {
         parent::setUp();
 
-        $SQL1 = <<<'SQL'
+        $db = new Database;
+        $db->prepare(<<<'SQL'
 CREATE TABLE IF NOT EXISTS `competences` (
   `id` binary(16) NOT NULL,
   `number` varchar(15) NOT NULL,
@@ -260,17 +259,14 @@ CREATE TABLE IF NOT EXISTS `competences` (
   `description` text NOT NULL,
   PRIMARY KEY (`id`)
 );
-SQL;
-        $SQL2 = <<<'SQL'
+SQL);
+        $db->execute();
+        $db->prepare(<<<'SQL'
 CREATE TABLE IF NOT EXISTS `competences_for_lessons` (
   `lesson_id` binary(16) NOT NULL,
   `competence_id` binary(16) NOT NULL
 );
-SQL;
-        $db = new Database;
-        $db->prepare($SQL1);
-        $db->execute();
-        $db->prepare($SQL2);
+SQL);
         $db->execute();
     }
 }

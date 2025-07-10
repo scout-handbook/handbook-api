@@ -199,12 +199,14 @@ final class FieldEndpointTest extends LegacyEndpointTestCase
     {
         parent::tearDownAfterClass();
 
-        $SQL1 = 'DROP TABLE `fields`;';
-        $SQL2 = 'DROP TABLE `lessons_in_fields`;';
         $db = new Database;
-        $db->prepare($SQL1);
+        $db->prepare(<<<'SQL'
+DROP TABLE `fields`;
+SQL);
         $db->execute();
-        $db->prepare($SQL2);
+        $db->prepare(<<<'SQL'
+DROP TABLE `lessons_in_fields`;
+SQL);
         $db->execute();
     }
 
@@ -212,7 +214,8 @@ final class FieldEndpointTest extends LegacyEndpointTestCase
     {
         parent::setUp();
 
-        $SQL1 = <<<'SQL'
+        $db = new Database;
+        $db->prepare(<<<'SQL'
 CREATE TABLE IF NOT EXISTS `fields` (
   `id` binary(16) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -221,17 +224,14 @@ CREATE TABLE IF NOT EXISTS `fields` (
   `icon` binary(16) NOT NULL,
   PRIMARY KEY (`id`)
 );
-SQL;
-        $SQL2 = <<<'SQL'
+SQL);
+        $db->execute();
+        $db->prepare(<<<'SQL'
 CREATE TABLE IF NOT EXISTS `lessons_in_fields` (
   `field_id` binary(16) NOT NULL,
   `lesson_id` binary(16) NOT NULL
 );
-SQL;
-        $db = new Database;
-        $db->prepare($SQL1);
-        $db->execute();
-        $db->prepare($SQL2);
+SQL);
         $db->execute();
     }
 }
