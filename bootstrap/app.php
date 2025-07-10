@@ -9,6 +9,7 @@ use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
 use Illuminate\Foundation\Http\Middleware\TrimStrings;
 use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
+use Illuminate\Http\JsonResponse;
 use Skaut\HandbookAPI\v1_0\Exception\Exception;
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -23,5 +24,5 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(static function (Exceptions $exceptions): void {
-        $exceptions->render(static fn (Exception $e) => response()->json($e->handle(), $e->handle()['status']));
+        $exceptions->render(static fn (Exception $e) => new JsonResponse($e->handle(), $e->handle()['status']));
     })->create();
