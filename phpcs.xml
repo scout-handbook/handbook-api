@@ -23,9 +23,6 @@
 		<exclude-pattern>tests/api-config.php</exclude-pattern>
 		<exclude-pattern>tests/Unit/*</exclude-pattern>
 
-		<!-- TODO: Go through these and re-enable them -->
-		<exclude name="SlevomatCodingStandard.Complexity.Cognitive.ComplexityTooHigh" />
-
 		<!-- Deprecated sniffs -->
 		<exclude name="SlevomatCodingStandard.TypeHints.UnionTypeHintFormat" />
 
@@ -57,5 +54,11 @@
 		<exclude name="SlevomatCodingStandard.Namespaces.UseOnlyWhitelistedNamespaces.NonFullyQualified" />
 		<exclude name="SlevomatCodingStandard.Operators.DisallowIncrementAndDecrementOperators.DisallowedPostIncrementOperator" />
 		<exclude name="SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable.DisallowedSuperGlobalVariable" />
+	</rule>
+
+	<rule ref="SlevomatCodingStandard.Complexity.Cognitive">
+		<properties>
+			<property name="maxComplexity" value="10"/>
+		</properties>
 	</rule>
 </ruleset>
