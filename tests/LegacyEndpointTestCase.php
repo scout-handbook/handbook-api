@@ -14,6 +14,7 @@ abstract class LegacyEndpointTestCase extends TestCase
     /**
      * @param  \Illuminate\Support\Uri|string  $uri
      * @param  array<string, string>  $headers
+     * @return TestResponse<\Symfony\Component\HttpFoundation\Response>
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
@@ -46,6 +47,7 @@ abstract class LegacyEndpointTestCase extends TestCase
      * @param  \Illuminate\Support\Uri|string  $uri
      * @param  array<string, string>  $data
      * @param  array<string, string>  $headers
+     * @return TestResponse<\Symfony\Component\HttpFoundation\Response>
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
@@ -80,6 +82,7 @@ abstract class LegacyEndpointTestCase extends TestCase
      * @param  \Illuminate\Support\Uri|string  $uri
      * @param  array<string, string>  $data
      * @param  array<string, string>  $headers
+     * @return TestResponse<\Symfony\Component\HttpFoundation\Response>
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
@@ -114,6 +117,7 @@ abstract class LegacyEndpointTestCase extends TestCase
      * @param  \Illuminate\Support\Uri|string  $uri
      * @param  array<string, string>  $data
      * @param  array<string, string>  $headers
+     * @return TestResponse<\Symfony\Component\HttpFoundation\Response>
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
