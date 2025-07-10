@@ -44,6 +44,6 @@ final class LegacyController extends Controller
         require __DIR__.'/../../../legacy/'.$url_base.'.php';
         $output = ob_get_clean();
 
-        return new Response($output, http_response_code());
+        return new Response($output, (int) http_response_code());
     }
 }
