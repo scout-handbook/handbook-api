@@ -13,6 +13,8 @@ use Ramsey\Uuid\Uuid;
  * @property string $number
  * @property string $name
  * @property string $description
+ *
+ * @method static void create(array{number: string, name: string, description: string} $values)
  */
 final class Competence extends Model
 {
@@ -31,6 +33,17 @@ final class Competence extends Model
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      */
     protected $table = 'competences';
+
+    /**
+     * @var array<int, string>
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     */
+    protected $fillable = [
+        'number',
+        'name',
+        'description',
+    ];
 
     public function newUniqueId(): string
     {
