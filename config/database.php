@@ -23,7 +23,7 @@ return [
     'connections' => [
         'mysql' => [
             'charset' => 'utf8mb4',
-            'collation' => 'utf8mb4_unicode_ci',
+            'collation' => 'utf8mb4_czech_ci',
             'database' => env('DB_DATABASE'),
             'driver' => 'mysql',
             'engine' => null,
