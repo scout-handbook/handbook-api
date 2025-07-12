@@ -39,7 +39,10 @@ return [
             'unix_socket' => env('DB_SOCKET', ''),
             'username' => env('DB_USERNAME'),
         ],
-
+        'sqlite' => [
+            'database' => env('DB_DATABASE') === ':memory:' ? ':memory:' : database_path(env('DB_DATABASE', 'database.sqlite')),
+            'driver' => 'sqlite',
+        ],
     ],
 
     /*
@@ -53,7 +56,7 @@ return [
     |
     */
 
-    'default' => 'mysql',
+    'default' => env('DB_DRIVER', 'mysql'),
 
     /*
     |--------------------------------------------------------------------------
