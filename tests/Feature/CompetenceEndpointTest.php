@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Skaut\HandbookAPI\v1_0\Database;
 use Tests\LegacyEndpointTestCase;
 
 /** @SuppressWarnings("PHPMD.TooManyPublicMethods") */
 final class CompetenceEndpointTest extends LegacyEndpointTestCase
 {
+    use RefreshDatabase;
+
     public function test_empty_list(): void
     {
         $response = $this->get('v1.0/competence');
