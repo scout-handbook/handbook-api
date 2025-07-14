@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Skaut\HandbookAPI\v1_0;
 
-@_API_EXEC === 1 or exit('Restricted access.');
-
 use Skaut\HandbookAPI\v1_0\Exception\ConnectionException;
 use Skaut\HandbookAPI\v1_0\Exception\ExecutionException;
 use Skaut\HandbookAPI\v1_0\Exception\NotFoundException;
