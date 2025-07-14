@@ -14,6 +14,12 @@ parameters:
     - vendor
   bootstrapFiles:
     - bootstrap.php.lint
+  stubFiles:
+    - stubs/Skautis/Exception.php
+    - stubs/Skautis/HelperTrait.php
+    - stubs/Skautis/Skautis.php
+    - stubs/Skautis/User.php
+    - stubs/Skautis/UserManagement.php
   dynamicConstantNames:
     - _API_EXEC
   ignoreErrors:

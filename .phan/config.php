@@ -12,11 +12,13 @@ return array(
 	'exclude_analysis_directory_list'           => [
 		'legacy/',
 		'storage/framework/views/',
+		'stubs/',
 		'tests/api-config.php',
 		'tests/api-secrets.php',
 		'tests/Unit/',
 		'vendor/',
 	],
+	'exclude_file_regex'                        => '@vendor/skautis/@',
 	'minimum_target_php_version'                => '8.3',
 	'plugins'                                   => [
 		'AlwaysReturnPlugin',
