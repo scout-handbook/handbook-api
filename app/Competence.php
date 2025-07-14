@@ -8,14 +8,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Ramsey\Uuid\Uuid;
 
-/**
- * @property string $id
- * @property string $number
- * @property string $name
- * @property string $description
- *
- * @method static void create(array{number: string, name: string, description: string} $values)
- */
+/** @property string $id */
 final class Competence extends Model
 {
     use HasUuids;
@@ -35,7 +28,7 @@ final class Competence extends Model
     protected $table = 'competences';
 
     /**
-     * @var array<int, string>
+     * @var list<string>
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      */

@@ -40,7 +40,9 @@ return [
             'username' => env('DB_USERNAME'),
         ],
         'sqlite' => [
-            'database' => env('DB_DATABASE') === ':memory:' ? ':memory:' : database_path(env('DB_DATABASE', 'database.sqlite')),
+            'database' => env('DB_DATABASE') === ':memory:'
+                ? ':memory:'
+                : database_path((string) env('DB_DATABASE', 'database.sqlite')),
             'driver' => 'sqlite',
         ],
     ],
