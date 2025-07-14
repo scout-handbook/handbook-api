@@ -60,6 +60,23 @@
 		<exclude name="SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable.DisallowedSuperGlobalVariable" />
 	</rule>
 
+	<!-- Disabled for stubs -->
+	<rule ref="SlevomatCodingStandard.Classes.RequireAbstractOrFinal.ClassNeitherAbstractNorFinal">
+		<exclude-pattern>stubs/*</exclude-pattern>
+	</rule>
+	<rule ref="SlevomatCodingStandard.Classes.SuperfluousTraitNaming.SuperfluousSuffix">
+		<exclude-pattern>stubs/*</exclude-pattern>
+	</rule>
+	<rule ref="SlevomatCodingStandard.Functions.DisallowEmptyFunction.EmptyFunction">
+		<exclude-pattern>stubs/*</exclude-pattern>
+	</rule>
+	<rule ref="SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter">
+		<exclude-pattern>stubs/*</exclude-pattern>
+	</rule>
+	<rule ref="SlevomatCodingStandard.TypeHints">
+		<exclude-pattern>stubs/*</exclude-pattern>
+	</rule>
+
 	<rule ref="SlevomatCodingStandard.Complexity.Cognitive">
 		<properties>
 			<property name="maxComplexity" value="10"/>
