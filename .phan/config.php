@@ -44,6 +44,7 @@ return array(
 	'strict_return_checking'                    => true,
 	'suppress_issue_types'                      => [
 		'PhanTypeInvalidCallableArraySize',
+		'PhanUnextractableAnnotationSuffix',
 	],
 	'target_php_version'                        => '8.3',
 	'unused_variable_detection'                 => true,

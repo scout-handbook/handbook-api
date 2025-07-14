@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Skaut\HandbookAPI\v1_0\Database;
 use Tests\TestCase;
 
 /** @SuppressWarnings("PHPMD.TooManyPublicMethods") */
