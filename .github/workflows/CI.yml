@@ -45,7 +45,7 @@ jobs:
           composer test
 
       - name: "Upload coverage results"
-        uses: codecov/codecov-action@v5.5.0
+        uses: codecov/codecov-action@v5.5.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
