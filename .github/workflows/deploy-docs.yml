@@ -48,7 +48,7 @@ jobs:
           sed -i -e "/url: \"https:\/\/petstore\.swagger\.io\/v2\/swagger\.json\",/c \\${URLS}" docs-dist/swagger-initializer.js
 
       - name: "Upload artifact"
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: "docs-dist"
           path: docs-dist
