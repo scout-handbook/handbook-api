@@ -1,5 +1,6 @@
+---
 name: "CI"
-on:
+"on":
   push:
     branches: "*"
   pull_request:
@@ -16,7 +17,7 @@ jobs:
         ports:
           - 3306:3306
         env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     steps:
       - name: "Checkout"
         uses: actions/checkout@v7
@@ -31,7 +32,9 @@ jobs:
         uses: actions/cache@v6
         with:
           path: "~/.composer/cache"
-          key: composer-dependencies-${{ runner.os }}-${{ env.cache-version }}-${{ hashFiles('composer.json') }}
+          key: >-
+            composer-dependencies-${{ runner.os }}-${{ env.cache-version }}-${{
+            hashFiles('composer.json') }}
           restore-keys: |
             composer-dependencies-${{ runner.os }}-${{ env.cache-version }}-${{ hashFiles('composer.json') }}
             composer-dependencies-${{ runner.os }}-${{ env.cache-version }}-
@@ -67,7 +70,9 @@ jobs:
         uses: actions/cache@v6
         with:
           path: "~/.composer/cache"
-          key: composer-dependencies-${{ runner.os }}-${{ env.cache-version }}-${{ hashFiles('composer.json') }}
+          key: >-
+            composer-dependencies-${{ runner.os }}-${{ env.cache-version }}-${{
+            hashFiles('composer.json') }}
           restore-keys: |
             composer-dependencies-${{ runner.os }}-${{ env.cache-version }}-${{ hashFiles('composer.json') }}
             composer-dependencies-${{ runner.os }}-${{ env.cache-version }}-

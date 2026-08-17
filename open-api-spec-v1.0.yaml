@@ -1,3 +1,4 @@
+---
 openapi: 3.1.0
 info:
   title: Handbook API
@@ -1050,7 +1051,8 @@ paths:
         - competence
       responses:
         '200':
-          description: A list of all competences. The response keys are competence uuids.
+          description: >-
+            A list of all competences. The response keys are competence uuids.
           content:
             application/json:
               schema:
@@ -1314,7 +1316,11 @@ paths:
               description: Setting the auth cookies
               schema:
                 type: string
-                examples: ['skautis_timeout=1234567890; skautis_token=1eb2adec-b262-491c-8f1b-0fc722dd7b2c; Path=/; Secure; HttpOnly']
+                examples:
+                  - >-
+                    skautis_timeout=1234567890;
+                    skautis_token=1eb2adec-b262-491c-8f1b-0fc722dd7b2c;
+                    Path=/; Secure; HttpOnly
   /refresh:
     get:
       summary: Refresh the current session
@@ -2013,7 +2019,8 @@ paths:
             type: integer
             default: 1
           required: false
-          description: Which page (paged by `per-page` entries) should be returned
+          description: >-
+            Which page (paged by `per-page` entries) should be returned
         - in: query
           name: role
           schema:
@@ -2074,7 +2081,8 @@ paths:
                               items:
                                 type: string
                                 format: uuid
-                                examples: ['1eb2adec-b262-491c-8f1b-0fc722dd7b2c']
+                                examples:
+                                  - '1eb2adec-b262-491c-8f1b-0fc722dd7b2c'
                           required:
                             - id
                             - name
