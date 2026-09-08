@@ -2,10 +2,18 @@
 name: "Deploy docs"
 "on":
   push:
-    branches:
-      - master
+    branches: "master"
+  workflow_dispatch:
+
 permissions:
-  contents: write
+  contents: read
+  id-token: write
+  pages: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 env:
   cache-version: 1
 
@@ -16,6 +24,9 @@ jobs:
     steps:
       - name: "Checkout"
         uses: actions/checkout@v7
+
+      - name: "Configure Pages"
+        uses: actions/configure-pages@v5
 
       - name: "Cache NPM dependencies"
         uses: actions/cache@v6
@@ -51,29 +62,18 @@ jobs:
           sed -i -e "/url: \"https:\/\/petstore\.swagger\.io\/v2\/swagger\.json\",/c \\${URLS}" docs-dist/swagger-initializer.js
 
       - name: "Upload artifact"
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: "docs-dist"
           path: docs-dist
 
   deploy:
     name: "Deploy API docs"
-    runs-on: ubuntu-latest
     needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: "github-pages"
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: "Checkout"
-        uses: actions/checkout@v7
-
-      - name: "Download artifact"
-        uses: actions/download-artifact@v8
-        with:
-          name: "docs-dist"
-          path: docs-dist
-
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4.9.0
-        with:
-          branch: gh-pages
-          folder: docs-dist
-          clean: true
-          single-commit: true
+      - name: "Deploy to GitHub Pages"
+        id: "deployment"
+        uses: actions/deploy-pages@v4
