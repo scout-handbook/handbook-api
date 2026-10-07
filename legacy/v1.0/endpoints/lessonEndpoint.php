@@ -113,7 +113,7 @@ INSERT INTO `lessons` (`id`, `name`, `body`)
 VALUES (:id, :name, :body);
 SQL;
 
-    if (! isset($data['name'])) {
+    if (! isset($data['name']) or trim($data['name']) === '') {
         throw new MissingArgumentException(MissingArgumentException::POST, 'name');
     }
     $name = $data['name'];
@@ -153,6 +153,10 @@ SET `name` = :name, `version` = CURRENT_TIMESTAMP(3), `body` = :body
 WHERE `id` = :id
 LIMIT 1;
 SQL;
+
+    if (isset($data['name']) and trim($data['name']) === '') {
+        throw new MissingArgumentException(MissingArgumentException::POST, 'name');
+    }
 
     global $mutexEndpoint;
     try {
