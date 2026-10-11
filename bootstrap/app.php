@@ -14,7 +14,7 @@ use Skaut\HandbookAPI\v1_0\Exception\Exception;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withProviders()
-    ->withRouting(api: __DIR__.'/../routes/api.php', apiPrefix: '', commands: __DIR__.'/../routes/console.php')
+    ->withRouting(api: __DIR__.'/../routes/api.php', apiPrefix: '')
     ->withMiddleware(static function (Middleware $middleware): void {
         $middleware->use([
             AddQueuedCookiesToResponse::class,
