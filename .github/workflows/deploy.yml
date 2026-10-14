@@ -32,10 +32,10 @@ jobs:
       - name: "Copy deployed files"
         run: |
           mkdir dist
-          cp -r setup dist/
-          cp -r Skaut dist/
+          cp -r legacy/setup dist/
+          cp -r legacy/Skaut dist/
           cp -r vendor dist/
-          cp -r v*.* dist/
+          cp -r legacy/v*.* dist/
 
       - name: "Upload artifact"
         uses: actions/upload-artifact@v7
