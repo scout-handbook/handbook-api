@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-const _API_EXEC = 1;
+if (! defined('_API_EXEC')) {
+    define('_API_EXEC', 1);
+}
 
 require_once $_SERVER['DOCUMENT_ROOT'].'/api-config.php';
 // require_once($CONFIG->basepath . '/vendor/autoload.php');
