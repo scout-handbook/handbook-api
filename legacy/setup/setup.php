@@ -9,7 +9,6 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/api-config.php';
 echo 'Please edit this file and comment out line 8.';
 exit(); // Comment out this line by putting // at its beginning. Do not delete this line.
 
-/** @phpstan-ignore-next-line */
 $_API_SECRETS_EXEC = 1;
 $SECRETS = require $_SERVER['DOCUMENT_ROOT'].'/api-secrets.php';
 

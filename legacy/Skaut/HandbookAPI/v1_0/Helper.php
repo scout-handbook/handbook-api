@@ -90,7 +90,6 @@ class Helper // Helper functions
     public static function checkLessonGroup(UuidInterface $lessonId, bool $overrideGroup = false): bool
     {
         require $_SERVER['DOCUMENT_ROOT'].'/api-config.php';
-        // @phpstan-ignore-next-line
         require $CONFIG->basepath.'/v1.0/endpoints/accountEndpoint.php';
 
         $groupSQL = <<<'SQL'
@@ -98,7 +97,6 @@ SELECT `group_id` FROM `groups_for_lessons`
 WHERE `lesson_id` = :lesson_id;
 SQL;
 
-        // @phpstan-ignore-next-line
         $loginState = $accountEndpoint->call('GET', new Role('guest'), ['no-avatar' => 'true']);
 
         if ($loginState['status'] == '200') {
