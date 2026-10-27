@@ -54,7 +54,7 @@ paths:
             A list of all fields, their lessons and their competences. The
             response keys are lesson uuids.
           content:
-            aplication/json:
+            application/json:
               schema:
                 type: object
                 properties:
@@ -122,7 +122,7 @@ paths:
         '201':
           description: Added successfully
           content:
-            aplication/json:
+            application/json:
               schema:
                 type: object
                 properties:
@@ -852,7 +852,7 @@ paths:
             A list of all deleted lessons, with their most recent names. The
             response keys are lesson uuids.
           content:
-            aplication/json:
+            application/json:
               schema:
                 type: object
                 properties:
