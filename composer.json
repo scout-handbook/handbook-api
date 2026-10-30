@@ -28,7 +28,7 @@
         "laravel/pint": "^1.23",
         "mockery/mockery": "^1.4.4",
         "phpcompatibility/php-compatibility": "^9.0",
-        "phpmd/phpmd": "^2.6",
+        "phpmd/phpmd": "^3.0",
         "phpstan/phpstan": "^2.0.2",
         "phpunit/phpunit": "^11.0",
         "slevomat/coding-standard": "^8.8",
