@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c67049a5f13bd051fc79c300caaf1155",
+    "content-hash": "f2f8d240dde34ebfebd6187667252a8f",
     "packages": [
         {
             "name": "brick/math",
@@ -3592,35 +3592,42 @@
         },
         {
             "name": "skautis/skautis",
-            "version": "v2.3.0",
+            "version": "3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/skaut/Skautis.git",
-                "reference": "a676c628c8f6bd074eb0650b47688b9fd1dce905"
+                "reference": "4ec9ca3a28c91041d3c90c9c94cb431f0ea7e6ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/skaut/Skautis/zipball/a676c628c8f6bd074eb0650b47688b9fd1dce905",
-                "reference": "a676c628c8f6bd074eb0650b47688b9fd1dce905",
+                "url": "https://api.github.com/repos/skaut/Skautis/zipball/4ec9ca3a28c91041d3c90c9c94cb431f0ea7e6ea",
+                "reference": "4ec9ca3a28c91041d3c90c9c94cb431f0ea7e6ea",
                 "shasum": ""
             },
             "require": {
                 "ext-soap": "*",
-                "php": ">=5.6"
+                "php": "^8.4",
+                "psr/event-dispatcher": "^1.0",
+                "psr/simple-cache": "^1.0 || ^2.0 || ^3.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.15",
-                "mockery/mockery": "^1.2",
-                "phpunit/phpunit": "^5.7"
+                "friendsofphp/php-cs-fixer": "^3.75",
+                "mockery/mockery": "^1.6",
+                "php-parallel-lint/php-parallel-lint": "^1.4",
+                "phpstan/extension-installer": "^1.4",
+                "phpstan/phpstan": "^2.1",
+                "phpstan/phpstan-mockery": "^2.0",
+                "phpstan/phpstan-phpunit": "^2.0",
+                "phpunit/phpunit": "^12.0"
             },
             "suggest": {
-                "skautis/nette": "Integrace Skautis do Nette",
-                "skautis/skautis-bundle": "Integrace Skautis do Symfony"
+                "crell/tukio": "Samostatná implementace PSR-14 EventDispatcher",
+                "skautis/nette": "Integrace Skautis do Nette"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Skautis\\": "src/"
+                    "Skaut\\Skautis\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3635,6 +3642,10 @@
                 {
                     "name": "Jindřich Pilař",
                     "homepage": "https://github.com/JindrichPilar"
+                },
+                {
+                    "name": "Jiří Dorazil",
+                    "homepage": "https://github.com/juradee"
                 }
             ],
             "description": "Library for API calls to SkautIS",
@@ -3651,7 +3662,7 @@
                 "source": "https://github.com/skaut/Skautis",
                 "wiki": "http://is.skaut.cz/napoveda/"
             },
-            "time": "2023-04-02T19:19:57+00:00"
+            "time": "2026-10-07T12:04:29+00:00"
         },
         {
             "name": "symfony/clock",
