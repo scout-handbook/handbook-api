@@ -13,7 +13,7 @@ use Skaut\HandbookAPI\v1_0\Exception\RefusedException;
 use Skaut\HandbookAPI\v1_0\Group;
 use Skaut\HandbookAPI\v1_0\Helper;
 use Skaut\HandbookAPI\v1_0\Role;
-use Skautis\Skautis;
+use Skaut\Skautis\Skautis;
 
 $groupEndpoint = new Endpoint;
 

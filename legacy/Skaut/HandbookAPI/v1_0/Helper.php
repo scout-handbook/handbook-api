@@ -13,8 +13,8 @@ use Skaut\HandbookAPI\v1_0\Exception\AuthenticationException;
 use Skaut\HandbookAPI\v1_0\Exception\NotFoundException;
 use Skaut\HandbookAPI\v1_0\Exception\RoleException;
 use Skaut\HandbookAPI\v1_0\Exception\SkautISException;
-use Skautis\Exception;
-use Skautis\Skautis;
+use Skaut\Skautis\Exception;
+use Skaut\Skautis\Skautis;
 
 @_API_EXEC === 1 or exit('Restricted access.');
 
@@ -40,7 +40,7 @@ class Helper // Helper functions
         $_API_SECRETS_EXEC = 1;
         $SECRETS = require $_SERVER['DOCUMENT_ROOT'].'/api-secrets.php';
         $skautis = Skautis::getInstance($SECRETS->skautis_app_id, $SECRETS->skautis_test_mode);
-        if (isset($_COOKIE['skautis_token']) and isset($_COOKIE['skautis_timeout'])) {
+        if (isset($_COOKIE['skautis_token']) and $_COOKIE['skautis_token'] !== '' and isset($_COOKIE['skautis_timeout'])) {
             $dateLogout = \DateTime::createFromFormat('U', $_COOKIE['skautis_timeout']);
             if (! $dateLogout) {
                 $dateLogout = (new \DateTime('now', new \DateTimeZone('UTC')))->add(new \DateInterval('PT10M'));
@@ -48,8 +48,6 @@ class Helper // Helper functions
             $dateLogout = $dateLogout->setTimezone(new \DateTimeZone('Europe/Prague'))->format('j. n. Y H:i:s');
             $reconstructedPost = [
                 'skautIS_Token' => $_COOKIE['skautis_token'],
-                'skautIS_IDRole' => '',
-                'skautIS_IDUnit' => '',
                 'skautIS_DateLogout' => $dateLogout,
             ];
             $skautis->setLoginData($reconstructedPost);

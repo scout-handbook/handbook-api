@@ -16,7 +16,7 @@ use Skaut\HandbookAPI\v1_0\Endpoint;
 use Skaut\HandbookAPI\v1_0\Helper;
 use Skaut\HandbookAPI\v1_0\Role;
 use Skaut\OdyMarkdown\v1_0\OdyMarkdown;
-use Skautis\Skautis;
+use Skaut\Skautis\Skautis;
 
 require_once $CONFIG->basepath.'/v1.0/endpoints/competenceEndpoint.php';
 require_once $CONFIG->basepath.'/v1.0/endpoints/fieldEndpoint.php';

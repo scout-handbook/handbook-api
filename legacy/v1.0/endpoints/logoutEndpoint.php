@@ -6,7 +6,7 @@ declare(strict_types=1);
 
 use Skaut\HandbookAPI\v1_0\Endpoint;
 use Skaut\HandbookAPI\v1_0\Role;
-use Skautis\Skautis;
+use Skaut\Skautis\Skautis;
 
 $logoutEndpoint = new Endpoint;
 
@@ -20,7 +20,7 @@ $logoutUser = function (Skautis $skautis, array $data) use ($CONFIG): void {
 
     // Called by a user, set up and redirect to SkautIS
     if (isset($_SERVER['HTTP_REFERER']) and ! $startsWith($_SERVER['HTTP_REFERER'], $ISprefix)) {
-        if (isset($_COOKIE['skautis_token'])) {
+        if (isset($_COOKIE['skautis_token']) and $_COOKIE['skautis_token'] !== '') {
             if (isset($data['return-uri']) and $data['return-uri'] != '') {
                 setcookie('return-uri', $data['return-uri'], time() + 30, '/', $CONFIG->cookieuri, true, true);
                 $_COOKIE['return-uri'] = $data['return-uri'];
@@ -31,8 +31,6 @@ $logoutUser = function (Skautis $skautis, array $data) use ($CONFIG): void {
                 ->format('j. n. Y H:i:s');
             $reconstructedPost = [
                 'skautIS_Token' => $_COOKIE['skautis_token'],
-                'skautIS_IDRole' => '',
-                'skautIS_IDUnit' => '',
                 'skautIS_DateLogout' => $dateLogout,
             ];
             $skautis->setLoginData($reconstructedPost);

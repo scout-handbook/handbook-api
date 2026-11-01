@@ -9,7 +9,7 @@ use Skaut\HandbookAPI\v1_0\Database;
 use Skaut\HandbookAPI\v1_0\Endpoint;
 use Skaut\HandbookAPI\v1_0\Helper;
 use Skaut\HandbookAPI\v1_0\Role;
-use Skautis\Skautis;
+use Skaut\Skautis\Skautis;
 
 $lessonGroupEndpoint = new Endpoint;
 

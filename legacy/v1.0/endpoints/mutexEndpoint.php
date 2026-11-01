@@ -10,7 +10,7 @@ use Skaut\HandbookAPI\v1_0\Exception\InvalidArgumentTypeException;
 use Skaut\HandbookAPI\v1_0\Exception\LockedException;
 use Skaut\HandbookAPI\v1_0\Helper;
 use Skaut\HandbookAPI\v1_0\Role;
-use Skautis\Skautis;
+use Skaut\Skautis\Skautis;
 
 global $mutexEndpoint;
 $mutexEndpoint = new Endpoint;

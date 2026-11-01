@@ -10,14 +10,14 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 use Skaut\HandbookAPI\v1_0\Exception\SkautISException;
-use Skautis\StaticClassException;
+use Skaut\Skautis\InvalidArgumentException;
 
 #[CoversClass(SkautISException::class)]
 class SkautISExceptionTest extends TestCase
 {
     public function test_ctor(): SkautISException
     {
-        $e = new SkautISException(new StaticClassException('Emessage'));
+        $e = new SkautISException(new InvalidArgumentException('Emessage'));
         $this->assertInstanceOf('\Skaut\HandbookAPI\v1_0\Exception\SkautISException', $e);
 
         return $e;

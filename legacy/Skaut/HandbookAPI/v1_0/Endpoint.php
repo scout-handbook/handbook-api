@@ -8,7 +8,7 @@ namespace Skaut\HandbookAPI\v1_0;
 
 use Skaut\HandbookAPI\v1_0\Exception\MissingArgumentException;
 use Skaut\HandbookAPI\v1_0\Exception\NotImplementedException;
-use Skautis\Skautis;
+use Skaut\Skautis\Skautis;
 
 class Endpoint
 {

@@ -12,7 +12,7 @@ use Skaut\HandbookAPI\v1_0\Exception\MissingArgumentException;
 use Skaut\HandbookAPI\v1_0\Exception\NotFoundException;
 use Skaut\HandbookAPI\v1_0\Helper;
 use Skaut\HandbookAPI\v1_0\Role;
-use Skautis\Skautis;
+use Skaut\Skautis\Skautis;
 
 $competenceEndpoint = new Endpoint;
 

@@ -8,8 +8,8 @@ use Skaut\HandbookAPI\v1_0\Endpoint;
 use Skaut\HandbookAPI\v1_0\Exception\InvalidArgumentTypeException;
 use Skaut\HandbookAPI\v1_0\Exception\SkautISAuthorizationException;
 use Skaut\HandbookAPI\v1_0\Role;
-use Skautis\Exception;
-use Skautis\Skautis;
+use Skaut\Skautis\Exception;
+use Skaut\Skautis\Skautis;
 
 $eventParticipantEndpoint = new Endpoint;
 

@@ -10,7 +10,7 @@ require_once $CONFIG->basepath.'/v1.0/endpoints/accountEndpoint.php';
 
 use Skaut\HandbookAPI\v1_0\Endpoint;
 use Skaut\HandbookAPI\v1_0\Role;
-use Skautis\Skautis;
+use Skaut\Skautis\Skautis;
 
 $loginEndpoint = new Endpoint;
 

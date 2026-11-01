@@ -17,7 +17,7 @@ use Skaut\HandbookAPI\v1_0\Exception\NotFoundException;
 use Skaut\HandbookAPI\v1_0\Helper;
 use Skaut\HandbookAPI\v1_0\Role;
 use Skaut\HandbookAPI\v1_0\User;
-use Skautis\Skautis;
+use Skaut\Skautis\Skautis;
 
 global $userEndpoint;
 $userEndpoint = new Endpoint;
