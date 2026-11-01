@@ -23,7 +23,7 @@ CI runs on PHP 8.4.
 
 ## Architecture
 
-The code is a thin Laravel 12 shell around an older plain-PHP API. Nearly all logic lives in `legacy/`.
+The code is a thin Laravel 13 shell around an older plain-PHP API. Nearly all logic lives in `legacy/`.
 
 **Request flow:**
 1. `routes/api.php` sends every path to `App\Http\Controllers\LegacyController::call`. The API prefix is empty (see `bootstrap/app.php`).
