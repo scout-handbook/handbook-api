@@ -7,14 +7,16 @@ namespace Tests;
 use DateInterval;
 use DateTime;
 use DateTimeZone;
+use Illuminate\Support\Uri;
 use Illuminate\Testing\TestResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 abstract class LegacyEndpointTestCase extends TestCase
 {
     /**
-     * @param  \Illuminate\Support\Uri|string  $uri
+     * @param  Uri|string  $uri
      * @param  array<string, string>  $headers
-     * @return TestResponse<\Symfony\Component\HttpFoundation\Response>
+     * @return TestResponse<Response>
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
@@ -44,10 +46,10 @@ abstract class LegacyEndpointTestCase extends TestCase
     }
 
     /**
-     * @param  \Illuminate\Support\Uri|string  $uri
+     * @param  Uri|string  $uri
      * @param  array<string, string>  $data
      * @param  array<string, string>  $headers
-     * @return TestResponse<\Symfony\Component\HttpFoundation\Response>
+     * @return TestResponse<Response>
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
@@ -79,10 +81,10 @@ abstract class LegacyEndpointTestCase extends TestCase
     }
 
     /**
-     * @param  \Illuminate\Support\Uri|string  $uri
+     * @param  Uri|string  $uri
      * @param  array<string, string>  $data
      * @param  array<string, string>  $headers
-     * @return TestResponse<\Symfony\Component\HttpFoundation\Response>
+     * @return TestResponse<Response>
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
@@ -114,10 +116,10 @@ abstract class LegacyEndpointTestCase extends TestCase
     }
 
     /**
-     * @param  \Illuminate\Support\Uri|string  $uri
+     * @param  Uri|string  $uri
      * @param  array<string, string>  $data
      * @param  array<string, string>  $headers
-     * @return TestResponse<\Symfony\Component\HttpFoundation\Response>
+     * @return TestResponse<Response>
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */

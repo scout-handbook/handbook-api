@@ -7,6 +7,7 @@ declare(strict_types=1);
 use Ramsey\Uuid\Uuid;
 use Skaut\HandbookAPI\v1_0\Database;
 use Skaut\HandbookAPI\v1_0\Endpoint;
+use Skaut\HandbookAPI\v1_0\Exception\Exception;
 use Skaut\HandbookAPI\v1_0\Exception\FileUploadException;
 use Skaut\HandbookAPI\v1_0\Exception\InvalidArgumentTypeException;
 use Skaut\HandbookAPI\v1_0\Exception\MissingArgumentException;
@@ -129,7 +130,7 @@ SQL;
     $uuid = Uuid::uuid4();
     $tmp = $CONFIG->imagepath.'/tmp/'.$uuid->toString().'.'.$extension;
     if (! move_uploaded_file($_FILES['image']['tmp_name'], $tmp)) {
-        throw new \Skaut\HandbookAPI\v1_0\Exception\Exception('File upload failed.');
+        throw new Exception('File upload failed.');
     }
 
     $db = new Database;

@@ -26,8 +26,8 @@ $logoutUser = function (Skautis $skautis, array $data) use ($CONFIG): void {
                 $_COOKIE['return-uri'] = $data['return-uri'];
             }
 
-            $dateLogout = (new \DateTime('now', new \DateTimeZone('Europe/Prague')))
-                ->add(new \DateInterval('PT60S'))
+            $dateLogout = (new DateTime('now', new DateTimeZone('Europe/Prague')))
+                ->add(new DateInterval('PT60S'))
                 ->format('j. n. Y H:i:s');
             $reconstructedPost = [
                 'skautIS_Token' => $_COOKIE['skautis_token'],
