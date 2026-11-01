@@ -20,7 +20,7 @@ $logoutUser = function (Skautis $skautis, array $data) use ($CONFIG): void {
 
     // Called by a user, set up and redirect to SkautIS
     if (isset($_SERVER['HTTP_REFERER']) and ! $startsWith($_SERVER['HTTP_REFERER'], $ISprefix)) {
-        if (isset($_COOKIE['skautis_token'])) {
+        if (isset($_COOKIE['skautis_token']) and $_COOKIE['skautis_token'] !== '') {
             if (isset($data['return-uri']) and $data['return-uri'] != '') {
                 setcookie('return-uri', $data['return-uri'], time() + 30, '/', $CONFIG->cookieuri, true, true);
                 $_COOKIE['return-uri'] = $data['return-uri'];

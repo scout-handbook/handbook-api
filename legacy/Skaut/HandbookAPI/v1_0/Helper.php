@@ -40,7 +40,7 @@ class Helper // Helper functions
         $_API_SECRETS_EXEC = 1;
         $SECRETS = require $_SERVER['DOCUMENT_ROOT'].'/api-secrets.php';
         $skautis = Skautis::getInstance($SECRETS->skautis_app_id, $SECRETS->skautis_test_mode);
-        if (isset($_COOKIE['skautis_token']) and isset($_COOKIE['skautis_timeout'])) {
+        if (isset($_COOKIE['skautis_token']) and $_COOKIE['skautis_token'] !== '' and isset($_COOKIE['skautis_timeout'])) {
             $dateLogout = \DateTime::createFromFormat('U', $_COOKIE['skautis_timeout']);
             if (! $dateLogout) {
                 $dateLogout = (new \DateTime('now', new \DateTimeZone('UTC')))->add(new \DateInterval('PT10M'));
