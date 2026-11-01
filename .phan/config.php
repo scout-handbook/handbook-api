@@ -3,8 +3,6 @@
 declare(strict_types=1);
 
 return array(
-	// Covered by PHPCS.
-	'backward_compatibility_checks'             => false,
 	'constant_variable_detection'               => true,
 	'directory_list'                            => [
 		'.',
