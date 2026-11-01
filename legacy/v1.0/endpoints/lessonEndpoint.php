@@ -23,7 +23,7 @@ use Skaut\HandbookAPI\v1_0\Exception\RoleException;
 use Skaut\HandbookAPI\v1_0\Helper;
 use Skaut\HandbookAPI\v1_0\Lesson;
 use Skaut\HandbookAPI\v1_0\Role;
-use Skautis\Skautis;
+use Skaut\Skautis\Skautis;
 
 $lessonEndpoint = new Endpoint;
 $lessonEndpoint->addSubEndpoint('competence', $lessonCompetenceEndpoint);

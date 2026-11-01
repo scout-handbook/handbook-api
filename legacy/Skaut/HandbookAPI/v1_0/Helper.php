@@ -13,8 +13,8 @@ use Skaut\HandbookAPI\v1_0\Exception\AuthenticationException;
 use Skaut\HandbookAPI\v1_0\Exception\NotFoundException;
 use Skaut\HandbookAPI\v1_0\Exception\RoleException;
 use Skaut\HandbookAPI\v1_0\Exception\SkautISException;
-use Skautis\Exception;
-use Skautis\Skautis;
+use Skaut\Skautis\Exception;
+use Skaut\Skautis\Skautis;
 
 @_API_EXEC === 1 or exit('Restricted access.');
 

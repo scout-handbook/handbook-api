@@ -12,7 +12,7 @@ class SkautISException extends Exception
 
     protected const STATUS = 403;
 
-    public function __construct(\Skautis\Exception $e)
+    public function __construct(\Skaut\Skautis\Exception $e)
     {
         parent::__construct('SkautIS error: '.$e->getMessage());
     }

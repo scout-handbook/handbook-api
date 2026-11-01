@@ -10,7 +10,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 use Skaut\HandbookAPI\v1_0\Exception\SkautISException;
-use Skautis\StaticClassException;
+use Skaut\Skautis\InvalidArgumentException;
 
 #[CoversClass(SkautISException::class)]
 class SkautISExceptionTest extends TestCase

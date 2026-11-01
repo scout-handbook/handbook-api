@@ -6,7 +6,7 @@ declare(strict_types=1);
 
 use Skaut\HandbookAPI\v1_0\Endpoint;
 use Skaut\HandbookAPI\v1_0\Role;
-use Skautis\Skautis;
+use Skaut\Skautis\Skautis;
 
 $refreshEndpoint = new Endpoint;
 
