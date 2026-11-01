@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Skaut\HandbookAPI\v1_0;
 
+use PHPMD\Attribute\SuppressWarnings;
+use PHPMD\Rule\Design\CouplingBetweenObjects;
 use Ramsey\Uuid\Exception\InvalidUuidStringException;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
@@ -15,7 +17,7 @@ use Skautis\Skautis;
 
 @_API_EXEC === 1 or exit('Restricted access.');
 
-/** @SuppressWarnings("PHPMD.CouplingBetweenObjects") */
+#[SuppressWarnings(CouplingBetweenObjects::class)]
 class Helper // Helper functions
 {
     public static function parseUuid(string $id, string $resourceName): UuidInterface
@@ -132,7 +134,6 @@ SQL;
         return false;
     }
 
-    /** @SuppressWarnings("PHPMD.ExcessiveMethodLength") */
     public static function urlEscape(string $str): string
     {
         $lookupTable = [

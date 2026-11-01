@@ -6,15 +6,17 @@ namespace Skaut\HandbookAPI\v1_0;
 
 @_API_EXEC === 1 or exit('Restricted access.');
 
+use PHPMD\Attribute\SuppressWarnings;
+use PHPMD\Rule\Controversial\CamelCaseParameterName;
+use PHPMD\Rule\Controversial\CamelCasePropertyName;
+use PHPMD\Rule\Design\TooManyPublicMethods;
 use Skaut\HandbookAPI\v1_0\Exception\ConnectionException;
 use Skaut\HandbookAPI\v1_0\Exception\ExecutionException;
 use Skaut\HandbookAPI\v1_0\Exception\NotFoundException;
 use Skaut\HandbookAPI\v1_0\Exception\QueryException;
 
-/**
- * @SuppressWarnings("PHPMD.TooManyPublicMethods")
- * @SuppressWarnings("PHPMD.CamelCasePropertyName")
- */
+#[SuppressWarnings(TooManyPublicMethods::class)]
+#[SuppressWarnings(CamelCasePropertyName::class)]
 class Database
 {
     private static $db;
@@ -40,7 +42,7 @@ class Database
         self::$instanceCount += 1;
     }
 
-    /** @SuppressWarnings("PHPMD.CamelCaseParameterName") */
+    #[SuppressWarnings(CamelCaseParameterName::class)]
     public function prepare(string $SQL): void
     {
         $this->SQL = $SQL;

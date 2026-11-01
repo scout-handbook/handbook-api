@@ -7,7 +7,6 @@ namespace Tests\Feature;
 use Skaut\HandbookAPI\v1_0\Database;
 use Tests\LegacyEndpointTestCase;
 
-/** @SuppressWarnings("PHPMD.TooManyPublicMethods") */
 final class CompetenceEndpointTest extends LegacyEndpointTestCase
 {
     public function test_empty_list(): void
@@ -198,7 +197,7 @@ final class CompetenceEndpointTest extends LegacyEndpointTestCase
         $response->assertJsonMissing(['number' => '42', 'name' => 'Nová kompetence', 'description' => '']);
     }
 
-    public function test_delete_competence_without_authentication(): void
+    public function test_delete_competence_without_auth(): void
     {
         $response = $this->get('v1.0/competence', []);
 
