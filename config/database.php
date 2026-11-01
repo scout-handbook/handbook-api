@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Pdo\Mysql;
+
 return [
 
     /*
@@ -29,7 +31,7 @@ return [
             'engine' => null,
             'host' => env('DB_HOST', 'localhost'),
             'options' => extension_loaded('pdo_mysql') ? array_filter([
-                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+                Mysql::ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
             'password' => env('DB_PASSWORD', ''),
             'port' => env('DB_PORT', '3306'),
