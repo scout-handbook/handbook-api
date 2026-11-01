@@ -1,0 +1,23 @@
+# PHPMD configuration, see https://phpmd.org/documentation/creating-a-ruleset.html
+paths:
+  - "./"
+exclude-pattern:
+  - "vendor/*"
+rules:
+  - ref: rulesets/codesize.xml
+  - ref: rulesets/controversial.xml
+    exclude:
+      - Superglobals
+      - CamelCaseMethodName
+      - CamelCaseVariableName
+      - CamelCaseNamespace
+  - ref: rulesets/controversial.xml/CamelCaseNamespace
+    properties:
+      exceptions: v1_0
+  - ref: rulesets/design.xml
+  - ref: rulesets/naming.xml
+    exclude:
+      - ShortVariable
+  - ref: rulesets/unusedcode.xml
+    exclude:
+      - UnusedLocalVariable

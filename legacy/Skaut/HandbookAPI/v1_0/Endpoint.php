@@ -120,7 +120,6 @@ class Endpoint
         return [];
     }
 
-    /** @SuppressWarnings("PHPMD.CyclomaticComplexity") */
     private function callFunctionHelper(string $method, array $data): callable
     {
         switch ($method) {

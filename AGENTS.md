@@ -49,4 +49,4 @@ The code is a thin Laravel 12 shell around an older plain-PHP API. Nearly all lo
 ## Lint configuration quirks
 
 - PHPStan runs at level 8 but excludes `legacy/` and `tests/Unit`. It also scans `*.sample` files and uses `bootstrap.php.lint`.
-- phpcs (`phpcs.xml`) uses the Slevomat standard plus PHPCompatibility. phpmd uses `phpmd.xml`, and phan uses `.phan/config.php`. Suppressions in the code use `@SuppressWarnings("PHPMD....")`, `@phpcsSuppress` and `// phpcs:ignore`.
+- phpcs (`phpcs.xml`) uses the Slevomat standard plus PHPCompatibility. phpmd uses `phpmd.yml`, and phan uses `.phan/config.php`. Suppressions in the code use PHPMD attributes (`#[SuppressWarnings(RuleClass::class)]`), `@phpcsSuppress` and `// phpcs:ignore`.
