@@ -17,7 +17,7 @@ class SkautISExceptionTest extends TestCase
 {
     public function test_ctor(): SkautISException
     {
-        $e = new SkautISException(new StaticClassException('Emessage'));
+        $e = new SkautISException(new InvalidArgumentException('Emessage'));
         $this->assertInstanceOf('\Skaut\HandbookAPI\v1_0\Exception\SkautISException', $e);
 
         return $e;
