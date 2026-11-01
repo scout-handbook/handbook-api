@@ -22,7 +22,7 @@
         "mpdf/mpdf": "^8.0",
         "mpdf/qrcode": "^1.2",
         "ramsey/uuid": "^4.1",
-        "skautis/skautis": "^2.1"
+        "skautis/skautis": "^3.1"
     },
     "require-dev": {
         "laravel/pint": "^1.23",
