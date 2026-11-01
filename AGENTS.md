@@ -19,7 +19,7 @@ composer lint                 # runs pint --test, phpcs, phpmd, phan, phpstan (C
 vendor/bin/pint               # auto-fix formatting (Laravel preset)
 ```
 
-CI runs on PHP 8.3.
+CI runs on PHP 8.4.
 
 ## Architecture
 
