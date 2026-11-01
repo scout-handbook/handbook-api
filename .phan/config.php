@@ -15,7 +15,7 @@ return array(
 		'tests/Unit/',
 		'vendor/',
 	],
-	'minimum_target_php_version'                => '8.3',
+	'minimum_target_php_version'                => '8.4',
 	'plugins'                                   => [
 		'AlwaysReturnPlugin',
 		'DollarDollarPlugin',
@@ -43,7 +43,7 @@ return array(
 	'suppress_issue_types'                      => [
 		'PhanTypeInvalidCallableArraySize',
 	],
-	'target_php_version'                        => '8.3',
+	'target_php_version'                        => '8.4',
 	'unused_variable_detection'                 => true,
 	'warn_about_redundant_use_namespaced_class' => true,
 	'warn_about_undocumented_throw_statements'  => true,
