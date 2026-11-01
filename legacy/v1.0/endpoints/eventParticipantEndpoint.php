@@ -8,6 +8,7 @@ use Skaut\HandbookAPI\v1_0\Endpoint;
 use Skaut\HandbookAPI\v1_0\Exception\InvalidArgumentTypeException;
 use Skaut\HandbookAPI\v1_0\Exception\SkautISAuthorizationException;
 use Skaut\HandbookAPI\v1_0\Role;
+use Skautis\Exception;
 use Skautis\Skautis;
 
 $eventParticipantEndpoint = new Endpoint;
@@ -40,7 +41,7 @@ $listEventParticipants = function (Skautis $skautis, array $data): array {
         $ISparticipants = $skautis->Events->ParticipantEducationAll([
             'ID_EventEducation' => $id,
             'IsActive' => true]);
-    } catch (\Skautis\Exception $e) {
+    } catch (Exception $e) {
         if (
             mb_ereg(
                 'Nemáte oprávnění k akci EV_ParticipantEducation_ALL_EventEducation nad záznamem ID=', // phpcs:ignore Generic.Files.LineLength.TooLong
