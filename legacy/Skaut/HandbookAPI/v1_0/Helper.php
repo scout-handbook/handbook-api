@@ -48,8 +48,6 @@ class Helper // Helper functions
             $dateLogout = $dateLogout->setTimezone(new \DateTimeZone('Europe/Prague'))->format('j. n. Y H:i:s');
             $reconstructedPost = [
                 'skautIS_Token' => $_COOKIE['skautis_token'],
-                'skautIS_IDRole' => '',
-                'skautIS_IDUnit' => '',
                 'skautIS_DateLogout' => $dateLogout,
             ];
             $skautis->setLoginData($reconstructedPost);

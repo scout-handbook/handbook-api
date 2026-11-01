@@ -31,8 +31,6 @@ $logoutUser = function (Skautis $skautis, array $data) use ($CONFIG): void {
                 ->format('j. n. Y H:i:s');
             $reconstructedPost = [
                 'skautIS_Token' => $_COOKIE['skautis_token'],
-                'skautIS_IDRole' => '',
-                'skautIS_IDUnit' => '',
                 'skautIS_DateLogout' => $dateLogout,
             ];
             $skautis->setLoginData($reconstructedPost);
